@@ -1,30 +1,57 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Test from './views/Test.vue'
-import Home from './views/Home.vue'
-
+import DefaultLayout from './layouts/DefaultLayout'
+import Dashboard from './views/Dashboard'
+// users components
+import Users from './views/users/Index'
+import CreateUser from './views/users/CreateUser'
+import EditUser from './views/users/EditUser'
 
 Vue.use(Router)
 
 const vueRouter = new Router({
-  mode: 'history',
-  base: '/admin',
-  routes: [
-    {
-      path: '/dashboard',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test
-    },
-    // {
-    //   path: '*',
-    //   component: Page404
-    // }
-  ]
+    mode: 'history',
+    base: '/admin',
+//   base: process.env.BASE_URL,
+    linkExactActiveClass: 'active',
+    routes: [
+        {
+            path: '/',
+            name: 'default-layout',
+            component: DefaultLayout,
+            children: [
+                {
+                    path: '/dashboard',
+                    name: 'home',
+                    component: Dashboard
+                },
+                {
+                    path: 'users',
+                    name: 'users',
+                    component: Users
+                },
+                {
+                    path: 'user/create',
+                    name: 'create-user',
+                    component: CreateUser
+                },
+                {
+                    path: 'user/:id/edit',
+                    name: 'edit-user',
+                    component: EditUser
+                },
+                // {
+                //     path: '/test',
+                //     name: 'test',
+                //     component: Test
+                // },
+            ]
+        },
+        {
+            path: '*',
+            redirect: { name: 'home' }
+        }
+    ]
 })
 
 export default vueRouter

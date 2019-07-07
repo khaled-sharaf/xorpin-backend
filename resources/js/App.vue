@@ -1,11 +1,5 @@
 <template>
-  <div dir="ltr" class="my-wrapper-app">
-    <transition
-      name="custom-classes-transition"
-      enter-active-class="animated slideInLeft"
-      leave-active-class="animated slideOutRight"
-    >
-    </transition>
+  <div class="my-wrapper-app">
       <router-view class="general-router-view"></router-view>
   </div>
 </template>
