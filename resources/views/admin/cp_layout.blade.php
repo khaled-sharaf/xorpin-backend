@@ -31,6 +31,8 @@
     <!-- /.content -->
 
   <!-- Main Footer -->
+
+
   <footer class="main-footer">
     <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">{{ config('app.name') }}</a>.</strong>
     All rights reserved.
@@ -41,6 +43,8 @@
 <script>
     // set auth user in object global in all file js
     window.user = @json(auth()->user());
+    window.csrf_token = '{{csrf_token()}}';
+    window.url = '{{url("/")}}';
 </script>
 
 <!-- REQUIRED SCRIPTS -->

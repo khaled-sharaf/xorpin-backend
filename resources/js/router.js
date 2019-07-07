@@ -9,10 +9,18 @@ import EditUser from './views/users/EditUser'
 
 Vue.use(Router)
 
+var pathRoute = ''
+
+if (process.env.NODE_ENV === 'production') {
+    pathRoute = '/admin'
+} else {
+    pathRoute = '/Belal/xorpin-backend/public/admin'
+}
+
 const vueRouter = new Router({
     mode: 'history',
-    base: '/admin',
-//   base: process.env.BASE_URL,
+    base: pathRoute,
+    // base: process.env.BASE_URL,
     linkExactActiveClass: 'active',
     routes: [
         {

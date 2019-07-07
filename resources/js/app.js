@@ -1,4 +1,5 @@
-const domain = 'http://localhost:8000'
+// const domain = 'http://localhost:8000'
+const domain = window.url
 
 require('./bootstrap');
 

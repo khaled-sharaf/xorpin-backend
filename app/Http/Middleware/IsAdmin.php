@@ -15,9 +15,11 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user() &&  (auth()->user()->rule === 1 || auth()->user()->rule === 2)) {
+        if (auth()->user() && auth()->user()->active === 1 && (auth()->user()->rule === 1 || auth()->user()->rule === 2)) {
             return $next($request);
+        } else if (auth()->user()->rule === 0 || !auth()->user()) {
+            return abort(404);
         }
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

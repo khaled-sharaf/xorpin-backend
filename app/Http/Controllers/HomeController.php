@@ -27,10 +27,10 @@ class HomeController extends Controller
             if (auth()->user()->active === 0) {
                 return view('home', ['message' => 'حسابك ليس مفعل، برجاء الرجوع إلى مدير الموقع ثم التسجيل مرة أخرى.']);
             } else {
-                redirect(env('CP_PREFIX') . '/dashboard');
+                return redirect(env('CP_PREFIX') . '/dashboard');
             }
         } else {
-            auth()->logout();
+            return abort(404);
         }
     }
 }

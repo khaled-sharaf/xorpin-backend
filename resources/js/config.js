@@ -1,4 +1,4 @@
-export const domain = 'http://localhost:8000'
+// export const domain = 'http://localhost:8000'
 // export const loginUrl = domain + 'oauth/token'
 // export const userUrl = domain + 'api/user'
 // export const nodeServer = 'http://localhost:8888'

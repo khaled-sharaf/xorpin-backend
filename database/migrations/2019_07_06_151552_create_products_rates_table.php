@@ -13,7 +13,7 @@ class CreateUsersRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_rates', function (Blueprint $table) {
+        Schema::create('products_rates', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('rate');
             $table->unsignedInteger('user_id');

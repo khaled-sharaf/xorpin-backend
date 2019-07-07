@@ -1799,7 +1799,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'navbar',
   data: function data() {
-    return {};
+    return {
+      csrf_token: window.csrf_token
+    };
   },
   mounted: function mounted() {}
 });
@@ -59813,7 +59815,25 @@ var render = function() {
         _vm._v(" "),
         _vm._m(1),
         _vm._v(" "),
-        _vm._m(2)
+        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                staticStyle: { display: "none" },
+                attrs: { id: "logout-form", action: "/logout", method: "POST" }
+              },
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf_token }
+                })
+              ]
+            )
+          ])
+        ])
       ]
     )
   ])
@@ -59863,34 +59883,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            attrs: {
-              onclick:
-                "event.preventDefault(); document.getElementById('logout-form').submit();",
-              href: "/logout"
-            }
-          },
-          [
-            _vm._v("\n                Logout "),
-            _c("i", { staticClass: "fas fa-power-off" })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            staticStyle: { display: "none" },
-            attrs: { id: "logout-form", action: "/logout", method: "POST" }
-          },
-          [_vm._v("\n                    @csrf\n                ")]
-        )
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          onclick:
+            "event.preventDefault(); document.getElementById('logout-form').submit();",
+          href: "/logout"
+        }
+      },
+      [
+        _vm._v("\n                Logout "),
+        _c("i", { staticClass: "fas fa-power-off" })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -75911,7 +75918,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/lib/index.js");
 /* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker__WEBPACK_IMPORTED_MODULE_11__);
-var domain = 'http://localhost:8000';
+// const domain = 'http://localhost:8000'
+var domain = window.url;
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -79160,10 +79168,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var pathRoute = '';
+
+if (false) {} else {
+  pathRoute = '/Belal/xorpin-backend/public/admin';
+}
+
 var vueRouter = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  base: '/admin',
-  //   base: process.env.BASE_URL,
+  base: pathRoute,
+  // base: process.env.BASE_URL,
   linkExactActiveClass: 'active',
   routes: [{
     path: '/',
@@ -79560,8 +79574,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\mywork\A.work_projects\works\Belal\xorpin-backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\mywork\A.work_projects\works\Belal\xorpin-backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\Belal\xorpin-backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Belal\xorpin-backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
