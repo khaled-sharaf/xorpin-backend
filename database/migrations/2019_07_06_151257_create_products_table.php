@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('company_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

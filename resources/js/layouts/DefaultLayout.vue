@@ -17,8 +17,13 @@
         <div class="content-wrapper">
 
             <!-- Main content -->
-            <router-view/>
+            <!-- :exclude="['company-profile']" -->
+            <!-- :include="['create-user', 'create-company']" -->
+            <keep-alive :include="['create-user', 'create-company']">
+                <router-view/>
+            </keep-alive>
             <!-- /.content -->
+            <vue-progress-bar/>
 
         </div>
         <!-- /.content-wrapper -->

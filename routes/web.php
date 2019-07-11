@@ -20,11 +20,11 @@ Route::get('/', function () {
     // $pro = Pro::find(3)->with('rates')->get();
     // $pro = Company::with(['products', 'rates'])->get();
     // $pro = ProductType::with('products')->get();
-    $pro = ProductDetails::with(['products', 'productType'])->get();
+    // $pro = ProductDetails::with(['products', 'productType'])->get();
 
 
     // dd($pro);
-    dd($pro->toArray());
+    // dd($pro->toArray());
 
 
     return view('welcome');

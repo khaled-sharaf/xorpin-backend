@@ -3,9 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use App\Scopes\CountUserOfCompany;
 
 class Company extends Model
 {
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
+    protected $fillable = [
+        'name', 'logo', 'description', 'email', 'phone', 'website', 'address', 'longitude', 'latitude', 'face_link', 'tw_link', 'display', 'active', 'count_rates', 'user_id'
+    ];
 
 
     public function users()
@@ -21,5 +32,13 @@ class Company extends Model
     public function rates()
     {
         return $this->hasMany('App\CompanyRate', 'company_id');
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new CountUserOfCompany);
     }
 }

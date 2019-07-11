@@ -36784,6 +36784,8 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
+
+__webpack_require__(/*! ./custom-jquery-include.js */ "./resources/js/custom-jquery-include.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -36819,6 +36821,37 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/custom-jquery-include.js":
+/*!***********************************************!*\
+  !*** ./resources/js/custom-jquery-include.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  // show more data in tr list -- in datatable (filterd columns)
+  $(document).on("click", ".btn-show-more-row", function () {
+    var trData = $(this).parents("tr").next("tr");
+    trData.toggle();
+
+    if (!$(this).hasClass("active")) {
+      $(this).addClass("active");
+      $(this).find("i").removeClass("fa-plus").addClass("fa-minus");
+    } else {
+      $(this).removeClass("active");
+      $(this).find("i").removeClass("fa-minus").addClass("fa-plus");
+    }
+  });
+  /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
+  // add class open menu to menu when after reload page if has item contains class active
+
+  var linkActive = $('#nav-sidebar-global .nav-item a.nav-link.active'),
+      parentTagMenu = linkActive.parents('.nav-item.has-treeview');
+  parentTagMenu.addClass('menu-open');
+});
 
 /***/ }),
 

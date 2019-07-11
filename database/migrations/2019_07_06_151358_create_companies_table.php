@@ -17,7 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('logo');
-            $table->mediumText('description');
+            $table->string('description');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('website')->nullable();
@@ -28,7 +28,9 @@ class CreateCompaniesTable extends Migration
             $table->string('tw_link')->nullable();
             $table->boolean('display')->default(1);
             $table->boolean('active')->default(1);
+            $table->integer('count_rates')->nullable();
             $table->unsignedInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

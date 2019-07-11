@@ -1,0 +1,102 @@
+
+
+.field-required {
+    display: inline-block;
+    margin-left: 3px;
+    &:after {
+        content: '*';
+        font-size: 16px;
+        color: red;
+        display: inline-block;
+    }
+}
+
+// avatar and logo
+
+.user-avatar {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  display: inline-block;
+  img {
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+  }
+  &:hover {
+    .remove-avatar {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+  }
+  .remove-avatar {
+        display: block;
+        position: absolute;
+        top: -2px;
+        right: -1px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 18px;
+        background-color: #be2929;
+        color: #FFF;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+}
+
+
+// textarea-form
+
+.textarea-form {
+    max-height: 300px;
+    min-height: 150px;
+}
+
+// style map
+.myMap {
+    position: relative;
+    margin: 10px auto;
+    padding: 3px;
+    background-color: #444;
+    border-radius: 5px;
+    #map {
+        width: 100%;
+        height: 400px;
+    }
+    .info-map {
+        font-size: 14px;
+        color: #3498db;
+        padding: 5px;
+    }
+    #floating-panel {
+        width: 300px;
+        background-color: #FFF;
+        padding: 8px;
+        border-radius: 6px;
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        margin-left: -150px;
+        z-index: 60;
+        direction: rtl;
+        #address {
+            width: 100%;
+        }
+        .error-location {
+            display: none;
+            width: 100%;
+            color: red;
+            font-size: 12px;
+            padding-top: 3px;
+        }
+    }
+}

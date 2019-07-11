@@ -1,5 +1,4 @@
 // const domain = 'http://localhost:8000'
-const domain = window.url
 
 require('./bootstrap');
 
@@ -12,7 +11,10 @@ import router from './router'
 
 import './plugins/select2/select2.min.css'
 import './plugins/select2/select2.min.js'
+import './plugins/progressBar.js'
 import './components.js'
+import './filters.js'
+import './directives.js'
 
 /**************************************************************************************/
 
@@ -20,16 +22,22 @@ Vue.config.productionTip = false
 
 /**************************************************************************************/
 
+
+// global properties
+
 import Gate from './Gate'
-Vue.prototype.$domain = domain
-Vue.prototype.$gate = new Gate(window.user)
+Vue.prototype.$domain = window.url
+Vue.prototype.$domain_admin = window.url + '/' + window.cp_prefix
+Vue.prototype.$gate = new Gate(window.auth)
+
 
 /**************************************************************************************/
 
 // axios -- for request ajax
 import axios from 'axios'
 window.axios = axios
-// axios.defaults.baseURL = apiDomain
+axios.defaults.baseURL = window.url + '/' + window.cp_prefix
+
 /**************************************************************************************/
 
 import moment from "moment";
@@ -47,37 +55,6 @@ Vue.component(AlertSuccess.name, AlertSuccess);
 
 /**************************************************************************************/
 
-import VueProgressBar from "vue-progressbar";
-Vue.use(VueProgressBar, {
-    color: "#2ecc71",
-    failedColor: "#e3342f",
-    height: "4px"
-});
-
-const calculatePercentage = (loaded, total) => (Math.floor(loaded * 1.0) / total)
-const setupUpdateProgress = ($progress) => {
-    axios.defaults.onDownloadProgress = e => {
-        const percentage = calculatePercentage(e.loaded, e.total)
-        // NProgress.set(percentage)
-        $progress.set(percentage)
-    }
-}
-const setupStopProgress = ($progress) => {
-    axios.interceptors.response.use(response => {
-        $progress.finish();
-        // $progress.done(true); // NProgress
-        return response
-    })
-}
-export function loadReq($progress) {
-    // $progress.configure(config) // NProgress
-    $progress.start()
-    setupUpdateProgress($progress)
-    setupStopProgress($progress)
-}
-window.loadReq = loadReq;
-
-/**************************************************************************************/
 
 
 import Swal from "sweetalert2";

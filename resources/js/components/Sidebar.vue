@@ -17,16 +17,16 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                <img :src="$domain + '/adminlte/dist/img/user2-160x160.jpg'" class="img-circle elevation-2" alt="User Image">
+                <img :src="$domain + '/' + $gate.authData().photo" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <a href="#" class="d-block">{{ auth.name }}</a>
+                <a href="#" class="d-block">{{ $gate.authData().name }}</a>
                 </div>
             </div>
 
             <!-- Sidebar Menu-->
              <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" id="nav-sidebar-global" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
 
@@ -51,6 +51,8 @@
                         </router-link>
                     </li> -->
 
+
+                    <!-- =============================== Users ================================== -->
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -76,6 +78,33 @@
                         </ul>
                     </li>
 
+
+                    <!-- =============================== Companies ================================== -->
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Companies
+                            <i class="fas fa-angle-left right"></i>
+                            <!-- <span class="badge badge-info right">130</span> -->
+                        </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link :to="{name: 'companies'}" class="nav-link">
+                                    <i class="far fa-eye nav-icon"></i>
+                                    <p>Show all companies</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{name: 'create-company'}" class="nav-link">
+                                    <i class="fas fa-plus nav-icon"></i>
+                                    <p>Create new company</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
 
             </nav>
@@ -95,7 +124,6 @@ export default {
     name: 'sidebar',
     data() {
         return {
-            auth: window.user
         }
     },
     mounted() {

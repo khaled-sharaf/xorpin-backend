@@ -7,6 +7,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import './components/datatables';
+@import './components/forms';
+@import './main';
 
 .navbar-laravel {
   background-color: #fff;

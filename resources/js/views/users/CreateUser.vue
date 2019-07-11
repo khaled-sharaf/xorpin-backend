@@ -6,22 +6,42 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-            <div class="col-sm-12">
-                <h1 class="m-0 text-dark">Create new user</h1>
-            </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-        </div>
+        <header-page title="Create user"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
 
-                <div class="row">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- card-header -->
+                            <div class="card-header">
+                                <router-link class="btn btn-primary" :to="{name: 'users'}">Show all users</router-link>
+                            </div>
+                            <!-- ./card-header -->
 
-                    <form-user type="create"></form-user>
+
+                            <!-- form -->
+                            <form @submit.prevent="createUser()">
+                                <!-- card-body -->
+                                <div class="card-body">
+                                    <form-user typeForm="create" :form="form"></form-user>
+                                </div>
+                                <!-- ./card-body -->
+
+
+                                <!-- card-footer -->
+                                <div class="card-footer">
+                                    <button
+                                        type="submit"
+                                        :disabled="form.busy"
+                                        class="btn btn-primary float-right"
+                                    >Create</button>
+                                </div> <!-- ./card-footer -->
+
+                            </form><!-- form -->
+                        </div>
+                    </div><!-- /.col-12 -->
 
                 </div><!-- /.row -->
             </div><!--/. container-fluid -->
@@ -32,12 +52,48 @@
 
 <script>
 import FormUser from './FormUser'
+import HeaderPage from './../../components/HeaderPage'
 export default {
+    name: 'create-user',
     components: {
+        HeaderPage,
         FormUser
     },
-    mounted() {
-        document.title = 'Create new user'
+    data() {
+      return {
+        urlCreateUser: '/user/store',
+        form: new Form({
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+          phone: "",
+          address: "",
+          photo: "",
+          company_id: "",
+          rule: 0,
+          active: 1,
+        }),
+      }
+    },
+    methods: {
+        createUser() {
+            loadReq(this.$Progress);
+            this.form.post(this.urlCreateUser).then(response => {
+                if (response.status === 200) {
+                    setTimeout(() => {
+                        Toast.fire({
+                            type: "success",
+                            title: response.data.message
+                        });
+                    }, 700);
+                    this.form.reset();
+                }
+            }).catch(response => {
+                Swal.fire("Failed!", "The user has not been created.", "error");
+                this.$Progress.fail();
+            });
+        },
     }
 }
 </script>

@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('lang', 10)->default('ar');
             $table->unsignedInteger('company_id');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

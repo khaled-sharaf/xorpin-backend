@@ -8,10 +8,14 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
+                    <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <router-link to="/users" class="nav-link">Create new product</router-link>
+                    <!-- <router-link :to="{name: 'create-product'}" class="nav-link">Create new product</router-link> -->
                 </li>
             </ul>
 
