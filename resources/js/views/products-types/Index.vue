@@ -6,13 +6,13 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all companies"></header-page>
+        <header-page title="View all products types"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
             <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
-                <div class="dataTable" id="companies">
+                <div class="dataTable" id="pro-types">
                     <div class="row mt-3">
                         <div class="col-12">
                             <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
@@ -76,12 +76,6 @@
                     </div> <!-- /.row -->
                 </div> <!-- /.dataTable -->
             </div><!--/. container-fluid -->
-
-            <!-- modal location company -->
-
-            <modal-location></modal-location>
-
-            <!-- ./modal location company -->
         </section>
     </div>
 </template>
@@ -93,7 +87,6 @@ import TableWrapper from "./../../components/dataTables/TableWrapper"
 import TableHeaderFilters from "./TableHeaderFilters"
 import TableContent from "./TableContent"
 import Pagination from "./../../components/dataTables/Pagination"
-import ModalLocation from "./ModalLocation"
 
 export default {
   components: {
@@ -101,8 +94,7 @@ export default {
     tableHeaderFilters: TableHeaderFilters,
     tableWrapper: TableWrapper,
     pagination: Pagination,
-    tableContent: TableContent,
-    modalLocation: ModalLocation
+    tableContent: TableContent
   },
   data() {
     let self = this;
@@ -112,18 +104,7 @@ export default {
       { label: "#", name: "index" },
       { label: "ID", name: "id" },
       { label: "Name", name: "name" },
-      { label: "Email", name: "email" },
-      { label: "Mobile", name: "phone" },
-      { label: "Address", name: "address" },
-      { label: "Website", name: "website" },
-      { label: "Description", name: "description" },
-      { label: "Logo", name: "logo" },
-      { label: "Rates", name: "count_rates" },
-      { label: "Location", name: "location" },
-      { label: "Facebook", name: "face_link" },
-      { label: "Twitter", name: "tw_link" },
       { label: "Display", name: "display" },
-      { label: "Active", name: "active" },
       { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
     ];
@@ -131,9 +112,9 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      urlGetDataTable: '/companies',
-      urlDeleteRow: '/company/destroy',
-      urlRestoreRow: '/company/restore',
+      urlGetDataTable: '/pro-types',
+      urlDeleteRow: '/pro-type/destroy',
+      urlRestoreRow: '/pro-type/restore',
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -155,7 +136,6 @@ export default {
         search: "",
         column: 0,
         display: "",
-        active: "",
         trashed: 1,
         from_date: "",
         to_date: "",
@@ -164,22 +144,11 @@ export default {
             "index",
             "id",
             "name",
-            "email",
-            "phone",
-            "addresss",
-            "website",
-            "description",
-            "logo",
-            "count_rates",
-            "location",
-            "face_link",
-            "tw_link",
             "display",
-            "active",
             "created_at",
             "actions"
           ],
-          columnsExcept: ['show_plus', 'index', 'actions', 'location', 'logo'],
+          columnsExcept: ['show_plus', 'index'],
           viewTable: ["bordered", 'hover']
         },
         dir: ""
@@ -187,17 +156,16 @@ export default {
       // viewFilterColumns
       viewColumnsResponsive: {
         default: {
-        //   show: "all",// or ['id', 'index']
-          show: ['name', 'phone', 'address', 'logo', 'count_rates', '', 'actions']
+          show: "all",// or ['id', 'index']
         },
-        1200: {
-          show: ['name', 'phone', 'logo', 'count_rates', 'actions']
-        },
-        1000: {
-          show: ['name', 'logo', 'count_rates', 'actions']
-        },
+        // 1200: {
+        //   show: ['name', 'phone', 'logo', 'count_rates', 'actions']
+        // },
+        // 1000: {
+        //   show: ['name', 'logo', 'count_rates', 'actions']
+        // },
         800: {
-          show: ['name', 'logo', 'actions']
+          show: ['name', 'dispaly', 'actions']
         },
         600: {
           show: ["name", "actions"]
@@ -429,24 +397,12 @@ export default {
           );
         });
         $(".tr-table-data").hide();
-        $("#companies.dataTable .btn-show-more-row")
+        $("#pro-types.dataTable .btn-show-more-row")
           .removeClass("active")
           .find("i")
           .removeClass("fa-minus")
           .addClass("fa-plus");
       }, 200);
-    },
-    showMap(lat, long) {
-        if (lat != null && long != null) {
-            var my_map_modal = $('#my_map_modal');
-            my_map_modal.attr('data-lat', lat).attr('data-long', long);
-            var scriptMap = document.createElement('script');
-            document.body.appendChild(scriptMap);
-            scriptMap.id = 'myScriptMap';
-            scriptMap.setAttribute('async', true);
-            scriptMap.setAttribute('defer', true);
-            scriptMap.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyADsFcbM6g-A_nUwh41pFn9EgDdlRC6lGY&language=ar&region=EG&callback=initMap');
-        }
     },
     eventBtnsClick() {
       let self = this;
@@ -478,26 +434,11 @@ export default {
           self.restoreRow(id);
         }
       );
-
-      // show location in google map
-        $(document).on("click", "#show_map_location", function(e) {
-            e.preventDefault();
-            let lat = $(this).attr('data-lat'),
-                long = $(this).attr('data-long'),
-                title = $(this).attr('data-location-title');
-            if ( (typeof lat != 'undefined' && lat != '' && lat != null) &&
-                (typeof long != 'undefined' && long != '' && long != null) ) {
-                $('#locationTitle').html('Location: ' + title);
-                $('#myScriptMap').remove();
-                self.showMap(lat, long);
-                $('#modal_location_company').modal('show');
-            }
-        });
     },
     destroyRow(id) {
       Swal.fire({
         title: "Delete",
-        text: "Are you sure you want to delete this company?",
+        text: "Are you sure you want to delete this products type?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
@@ -510,12 +451,12 @@ export default {
             .post(this.urlDeleteRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Deleted!", "The company has been deleted.", "success");
+                Swal.fire("Deleted!", "The products type has been deleted.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The company has not been deleted.", "error");
+              Swal.fire("Failed!", "The products type has not been deleted.", "error");
               this.$Progress.fail();
             });
         }
@@ -525,7 +466,7 @@ export default {
     forceDeleteRow(id) {
       Swal.fire({
         title: "Force Delete",
-        text: "Are you sure you want to remove this company?",
+        text: "Are you sure you want to remove this products type?",
         type: "error",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
@@ -538,12 +479,12 @@ export default {
             .post(this.urlDeleteRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Removed!", "The company has been removed.", "success");
+                Swal.fire("Removed!", "The products type has been removed.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The company has not been removed.", "error");
+              Swal.fire("Failed!", "The products type has not been removed.", "error");
               this.$Progress.fail();
             });
         }
@@ -552,7 +493,7 @@ export default {
     restoreRow(id) {
       Swal.fire({
         title: "Restore",
-        text: "Are you sure you want to restore this company?",
+        text: "Are you sure you want to restore this products type?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#6cb2eb",
@@ -565,12 +506,12 @@ export default {
             .post(this.urlRestoreRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Restored!", "The company has been restored.", "success");
+                Swal.fire("Restored!", "The products type has been restored.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The company has not been restored.", "error");
+              Swal.fire("Failed!", "The products type has not been restored.", "error");
               this.$Progress.fail();
             });
         }

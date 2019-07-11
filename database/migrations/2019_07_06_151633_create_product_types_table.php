@@ -18,6 +18,7 @@ class CreateProductTypesTable extends Migration
             $table->string('name');
             $table->boolean('display')->default(1);
             $table->unsignedInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

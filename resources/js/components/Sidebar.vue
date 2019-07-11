@@ -86,7 +86,6 @@
                         <p>
                             Companies
                             <i class="fas fa-angle-left right"></i>
-                            <!-- <span class="badge badge-info right">130</span> -->
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -100,6 +99,32 @@
                                 <router-link :to="{name: 'create-company'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
                                     <p>Create new company</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                     <!-- =============================== Product types ================================== -->
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-layer-group"></i>
+                        <p>
+                            Products types
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link :to="{name: 'pro-types'}" class="nav-link">
+                                    <i class="far fa-eye nav-icon"></i>
+                                    <p>Show all products types</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{name: 'create-pro-type'}" class="nav-link">
+                                    <i class="fas fa-plus nav-icon"></i>
+                                    <p>Create new products type</p>
                                 </router-link>
                             </li>
                         </ul>

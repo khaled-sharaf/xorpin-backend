@@ -51,12 +51,23 @@ class UserController extends Controller
             $query->whereDate('created_at', '<=', $to_date);
         }
         if ($searchValue) {
-            $query->where(function($query) use ($searchValue) {
-                $query->where('name', 'like', '%' . $searchValue . '%')
-                ->orWhere('email', 'like', '%' . $searchValue . '%')
-                ->orWhere('phone', 'like', '%' . $searchValue . '%')
-                ->orWhere('address', 'like', '%' . $searchValue . '%');
-            });
+            if (strpos($searchValue,  ':') != false) {
+                $columnSearch = explode(':', $searchValue)[0];
+                $valueColumn = explode(':', $searchValue)[1];
+                if ($columnSearch != 'id') {
+                    $query->where($columnSearch, 'like', '%' . $valueColumn . '%');
+                } else {
+                    $query->where($columnSearch, $valueColumn);
+                }
+            } else {
+                $query->where(function($query) use ($searchValue) {
+                    $query->where('name', 'like', '%' . $searchValue . '%')
+                    ->orWhere('id', $searchValue)
+                    ->orWhere('email', 'like', '%' . $searchValue . '%')
+                    ->orWhere('phone', 'like', '%' . $searchValue . '%')
+                    ->orWhere('address', 'like', '%' . $searchValue . '%');
+                });
+            }
         }
         $users = $query->paginate($length);
         return response(['data' => $users, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);

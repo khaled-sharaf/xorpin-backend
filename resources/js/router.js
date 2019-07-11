@@ -16,6 +16,10 @@ import CreateCompany from './views/companies/CreateCompany'
 import EditCompany from './views/companies/EditCompany'
 import CompanyProfile from './views/companies/CompanyProfile'
 
+// products types components
+import ProductsTypes from './views/products-types/Index'
+import CreateProductsType from './views/products-types/CreateProductsType'
+import EditProductsType from './views/products-types/EditProductsType'
 
 
 Vue.use(Router)
@@ -107,6 +111,34 @@ const vueRouter = new Router({
                     name: 'company-profile',
                     component: CompanyProfile,
                     props: true,
+                },
+
+
+                ////////////////// products  types routes ///////////////////
+                {
+                    path: 'products-types',
+                    name: 'pro-types',
+                    component: ProductsTypes,
+                    meta: {
+                        title: 'View all products types'
+                    }
+                },
+                {
+                    path: 'products-type/create',
+                    name: 'create-pro-type',
+                    component: CreateProductsType,
+                    meta: {
+                        title: 'Create new products type'
+                    }
+                },
+                {
+                    path: 'products-type/:id/edit',
+                    name: 'edit-pro-type',
+                    component: EditProductsType,
+                    props: true,
+                    meta: {
+                        title: 'Edit products type'
+                    }
                 },
 
             ]
