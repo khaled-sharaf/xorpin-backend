@@ -1,3 +1,5 @@
+import router from './router'
+
 $(function () {
 
 
@@ -22,7 +24,21 @@ $(function () {
             .addClass("fa-plus");
         }
       });
+    /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 
+    $(document).on("click", ".link-router-in-table", function(e) {
+        e.preventDefault();
+        let $this = $(this),
+            routerName = $this.attr('data-name'),
+            routerParams = $this.attr('data-params');
+
+        if (routerName != null && routerParams != null) {
+            routerParams = JSON.parse(routerParams);
+            router.push({name: routerName, params: routerParams});
+        } else {
+            console.error('Error router link => data-name is required, data-params is required in link attributes');
+        }
+    });
 
     /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 

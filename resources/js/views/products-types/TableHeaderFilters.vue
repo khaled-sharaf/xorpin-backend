@@ -201,6 +201,8 @@ export default {
     "tableData",
     "perPage"
   ],
+    methods: {
+    }
 }
 </script>
 

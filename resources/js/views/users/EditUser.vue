@@ -83,12 +83,9 @@ export default {
             loadReq(this.$Progress);
             this.form.post(this.urlUpdateUser).then(response => {
                 if (response.status === 200) {
-                    setTimeout(() => {
-                        Toast.fire({
-                            type: "success",
-                            title: response.data.message
-                        });
-                    }, 700);
+                    ToastReq.fire({
+                        text: response.data.message
+                    });
                 }
             }).catch(response => {
                 Swal.fire("Failed!", "The user has not been created.", "error");

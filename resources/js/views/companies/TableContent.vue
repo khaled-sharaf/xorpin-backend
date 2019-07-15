@@ -61,7 +61,6 @@
 
             <td v-show="tableData.filter.columns.indexOf('count_rates') != -1" class="count_rates">
                 <rates-stars :rates-count="company.count_rates"></rates-stars>
-                <!-- <rates-stars :rates-count="company.count_rates" :user-count="company.count_users_rate"></rates-stars> -->
             </td>
 
 
@@ -69,7 +68,7 @@
             >
                 <button
                     v-if="company.longitude != null && company.latitude != null"
-                    class="btn btn-outline-secondary"
+                    class="btn btn-outline-secondary btn-sm"
                     id="show_map_location"
                     :data-long="company.longitude"
                     :data-lat="company.latitude"
@@ -111,15 +110,19 @@
                 <relative-date :date="company.created_at"></relative-date>
             </td>
 
+
             <td v-show="tableData.filter.columns.indexOf('actions') != -1"
                 class="actions"
                 >
-                <!-- show company profile  -->
+                <!-- show company profile -->
                 <router-link
                     v-show="company.deleted_at == null"
                     :to="{name: 'company-profile', params: {company: company, id: company.id}}"
                     :href="$domain_admin + '/company/profile/' + company.id"
-                    class="btn btn-info btn-show-profile btn-table-actions btn-sm"
+                    class="btn btn-info btn-show-profile btn-table-actions btn-sm link-router-in-table"
+                    data-name="company-profile"
+                    :data-params='"{\"company\":" + JSON.stringify(company) + ", \"id\":" + company.id + "}"'
+
                 >
                     <i class="fas fa-eye"></i>
                 </router-link>
@@ -129,7 +132,9 @@
                     v-show="company.deleted_at == null"
                     :to="{name: 'edit-company', params: {company: company, id: company.id}}"
                     :href="$domain_admin + '/company/' + company.id + '/edit'"
-                    class="btn btn-success btn-edit-row btn-table-actions btn-sm"
+                    class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
+                    data-name="edit-company"
+                    :data-params='"{\"company\":" + JSON.stringify(company) + ", \"id\":" + company.id + "}"'
                 >
                     <i class="fa fa-edit"></i>
                 </router-link>

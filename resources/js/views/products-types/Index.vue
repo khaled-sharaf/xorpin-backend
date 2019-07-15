@@ -236,6 +236,7 @@ export default {
           let data = response.data,
             self = this;
           if (this.tableData.draw == data.draw) {
+            console.log(this.tableData.draw, data.draw)
             if (response.status === 200) {
               this.dataTable = data.data.data;
               this.configPagination(data.data);

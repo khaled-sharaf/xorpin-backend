@@ -51,9 +51,9 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('rule') != -1" class="rule">
-                <span class="badge bg-success" v-if="user.rule == 1">Admin</span>
-                <span class="badge" style="background-color: #ee6414;" v-if="user.rule == 2">User company</span>
-                <span class="badge bg-primary" v-if="user.rule == 0">User</span>
+                <span class="badge badge-success" v-if="user.rule == 1">Admin</span>
+                <span class="badge badge-danger" v-if="user.rule == 2">User company</span>
+                <span class="badge badge-primary" v-if="user.rule == 0">User</span>
             </td>
 
 
@@ -71,8 +71,18 @@
                 <relative-date :date="user.created_at"></relative-date>
             </td>
 
-            <td v-show="tableData.filter.columns.indexOf('company') != -1" class="company"
-            ><router-link :href="$domain_admin + '/company/profile/' + user.company_id" v-if="user.company !== null" :to="{name: 'company-profile', params: {id: user.company_id}}">{{user.company.name}}</router-link></td>
+            <td v-show="tableData.filter.columns.indexOf('company') != -1" class="company">
+                <router-link
+                    v-if="user.company !== null"
+                    :href="$domain_admin + '/company/profile/' + user.company_id"
+                    :to="{name: 'company-profile', params: {id: user.company_id, company: user.company}}"
+                    class="link-router-in-table"
+                    data-name="company-profile"
+                    :data-params='"{\"company\":" + JSON.stringify(user.company) + ", \"id\":" + user.company_id + "}"'
+                >
+                    {{user.company.name}}
+                </router-link>
+            </td>
 
 
             <td v-show="tableData.filter.columns.indexOf('actions') != -1"
@@ -83,7 +93,9 @@
                     v-show="user.deleted_at == null"
                     :to="{name: 'edit-user', params: {user: user, id: user.id}}"
                     :href="$domain_admin + '/user/' + user.id + '/edit'"
-                    class="btn btn-success btn-edit-row btn-table-actions btn-sm"
+                    class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
+                    data-name="edit-user"
+                    :data-params='"{\"user\":" + JSON.stringify(user) + ", \"id\":" + user.id + "}"'
                 >
                     <i class="fa fa-edit"></i>
                 </router-link>

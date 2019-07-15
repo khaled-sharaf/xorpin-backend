@@ -9,12 +9,21 @@ import CreateUser from './views/users/CreateUser'
 import EditUser from './views/users/EditUser'
 
 
-
 // companies components
 import Companies from './views/companies/Index'
 import CreateCompany from './views/companies/CreateCompany'
 import EditCompany from './views/companies/EditCompany'
 import CompanyProfile from './views/companies/CompanyProfile'
+
+
+
+// products components
+import Products from './views/products/Index'
+import CreateProduct from './views/products/CreateProduct'
+import EditProduct from './views/products/EditProduct'
+// import ProductProfile from './views/products/ProductProfile'
+
+
 
 // products types components
 import ProductsTypes from './views/products-types/Index'
@@ -112,6 +121,43 @@ const vueRouter = new Router({
                     component: CompanyProfile,
                     props: true,
                 },
+
+
+
+                ////////////////// products routes ///////////////////
+                {
+                    path: 'products',
+                    name: 'products',
+                    component: Products,
+                    meta: {
+                        title: 'View all products'
+                    }
+                },
+                {
+                    path: 'product/create',
+                    name: 'create-product',
+                    component: CreateProduct,
+                    meta: {
+                        title: 'Create new product'
+                    }
+                },
+                {
+                    path: 'product/:id/edit',
+                    name: 'edit-product',
+                    component: EditProduct,
+                    props: true,
+                    meta: {
+                        title: 'Edit product'
+                    }
+                },
+                {
+                    path: 'product/profile/:id',
+                    name: 'product-profile',
+                    component: CompanyProfile,
+                    props: true,
+                },
+
+
 
 
                 ////////////////// products  types routes ///////////////////

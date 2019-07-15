@@ -13,12 +13,12 @@ class CreateProductDetailsRelTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_details_rel', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('details_id');
-            $table->timestamps();
-        });
+        // Schema::create('product_details_rel', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('product_id');
+        //     $table->unsignedInteger('details_id');
+        //     $table->timestamps();
+        // });
     }
 
     /**

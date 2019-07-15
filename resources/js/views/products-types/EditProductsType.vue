@@ -78,9 +78,8 @@ export default {
             this.form.post(this.urlUpdateProType).then(response => {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
-                    Toast.fire({
-                        type: "success",
-                        title: response.data.message
+                    ToastReq.fire({
+                        text: response.data.message
                     });
                 }
             }).catch(response => {

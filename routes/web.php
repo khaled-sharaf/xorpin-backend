@@ -26,6 +26,10 @@ Route::get('/', function () {
     // dd($pro);
     // dd($pro->toArray());
 
+    // \Image::make('C:\xampp\htdocs\Belal\xorpin-backend\public\images\camera.png')
+    //         ->resize(100, 100)
+    //         ->save('C:\xampp\htdocs\Belal\xorpin-backend\public\images\camera1.png');
+
 
     return view('welcome');
 });

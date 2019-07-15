@@ -17,6 +17,8 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  {!! Html::style('admin/knockout/knockout-file-bindings.css') !!}
+
   {!! Html::style('admin/css/app.css') !!}
 
   <style>
@@ -53,9 +55,11 @@
 </div>
 <!-- ./wrapper -->
 
+
 <script>
     // set auth user in object global in all file js
     window.auth = @json(auth()->user());
+    window.authCompany = @json(\App\Company::find(auth()->user()->company_id));
     window.csrf_token = '{{csrf_token()}}';
     window.url = '{{url("/")}}';
     window.cp_prefix = '{{ env("CP_PREFIX") }}';
@@ -138,6 +142,36 @@
     }
 </script>
 
+{{-- {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js') !!}
+{!! Html::script('admin/knockout/knockout-min.js') !!}
+{!! Html::script('admin/knockout/knockout-file-bindings.js') !!} --}}
+
+<script>
+    // handel drop image in create product and edit product
+    // $(function(){
+    //     var viewModel = {};
+    //     viewModel.fileData = ko.observable({
+    //         dataURL: ko.observable(),
+    //         // base64String: ko.observable(),
+    //     });
+    //     viewModel.multiFileData = ko.observable({
+    //         dataURLArray: ko.observableArray(),
+    //     });
+    //     viewModel.onClear = function(fileData) {
+    //         if(confirm('Are you sure?')) {
+    //             fileData.clear && fileData.clear();
+    //         }
+    //     };
+    //     viewModel.debug = function(){
+    //         window.viewModel = viewModel;
+    //         console.log(ko.toJSON(viewModel));
+    //         debugger;
+    //     };
+    //     ko.applyBindings(viewModel);
+    // });
+
+</script>
+
 <!-- REQUIRED SCRIPTS -->
 
 {!! Html::script('admin/js/app.js') !!}
@@ -148,6 +182,7 @@
 {!! Html::script('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') !!}
 <!-- AdminLTE App -->
 {!! Html::script('adminlte/dist/js/adminlte.js') !!}
+
 
 
 

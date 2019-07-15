@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page v-if="this.$route.name != 'company-profile'" class="content-header" title="View all users"></header-page>
+        <header-page v-if="this.$route.name != 'company-profile'" title="View all users"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>

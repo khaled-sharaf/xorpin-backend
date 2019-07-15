@@ -3,15 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scopes\RelationProducts;
 
 class Product extends Model
 {
-    protected $fillable = [
+    use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
+
+    protected $fillable = [
+        'name', 'photo', 'gallery', 'price', 'discount', 'percent', 'new_price', 'description', 'manufacture_company', 'product_count', 'execute', 'display', 'type_id', 'user_id', 'company_id'
     ];
 
     public function details() {
-        return $this->belongsToMany('App\ProductDetails', 'product_details_rel', 'product_id', 'details_id');
+        return $this->hasMany('App\ProductDetails', 'product_id');
     }
 
     public function comments()
@@ -39,4 +46,11 @@ class Product extends Model
         return $this->hasMany('App\ProductRate', 'product_id');
     }
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new RelationProducts);
+    }
 }

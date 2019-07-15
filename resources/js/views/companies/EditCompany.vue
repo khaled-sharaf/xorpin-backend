@@ -21,7 +21,7 @@
                                     <router-link
                                         :to="{name: 'company-profile', params: {company: companyEdit, id: companyEdit.id}}"
                                         :href="$domain_admin + '/company/profile/' + companyEdit.id"
-                                        class="btn btn-primary"
+                                        class="btn btn-primary btn-sm"
                                         :class="{ disabled: form.busy }"
                                     >
                                         Go to profile
@@ -100,15 +100,12 @@ export default {
                 console.log();
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
-                    setTimeout(() => {
-                        Toast.fire({
-                            type: "success",
-                            title: response.data.message
-                        });
-                    }, 700);
+                    ToastReq.fire({
+                        text: response.data.message
+                    });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The company has not been created.", "error");
+                Swal.fire("Failed!", "The company has not been updated.", "error");
                 this.$Progress.fail();
             });
         },

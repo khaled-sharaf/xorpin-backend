@@ -9,8 +9,10 @@ import App from './App.vue'
 import router from './router'
 
 
+// select 2
 import './plugins/select2/select2.min.css'
 import './plugins/select2/select2.min.js'
+
 import './plugins/progressBar.js'
 import './components.js'
 import './filters.js'
@@ -27,6 +29,8 @@ Vue.config.productionTip = false
 
 import Gate from './Gate'
 Vue.prototype.$domain = window.url
+Vue.prototype.$auth = window.auth
+Vue.prototype.$authCompany = window.authCompany
 Vue.prototype.$domain_admin = window.url + '/' + window.cp_prefix
 Vue.prototype.$gate = new Gate(window.auth)
 
@@ -60,13 +64,13 @@ Vue.component(AlertSuccess.name, AlertSuccess);
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
-const Toast = Swal.mixin({
-    toast: true,
+const ToastReq = Swal.mixin({
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000
+    timer: 1500,
+    type: "success",
 });
-window.Toast = Toast;
+window.ToastReq = ToastReq;
 
 /**************************************************************************************/
 import DatePicker from 'vue2-datepicker';

@@ -2,7 +2,7 @@
 
     #location_map_company {
         width: 100%;
-        height: 500px;
+        height: 400px;
     }
 
 </style>

@@ -7,25 +7,26 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            font-size: 13px;
             .box {
                 padding: 0 10px;
                 margin-bottom: 15px;
                 &.column_active {
-                    flex-basis: 180px;
-                    max-width: 180px;
+                    flex-basis: 150px;
+                    max-width: 150px;
                 }
                 &.column_rule {
                     flex-basis: 300px;
                     max-width: 300px;
                     .body {
                         .icon {
-                            font-size: 14px !important;
+                            // font-size: 14px !important;
                             font-weight: bold;
                             &.admin {
                                 color: #38c172;
                             }
                             &.company {
-                                color: #ee6414
+                                color: #e3342f;
                             }
                             &.user {
                                 color: #3498db;
@@ -51,14 +52,14 @@
                 .filter {
                     background-color: #EEE;
                     border: 1px solid #DDD;
-                    border-radius: 6px;
+                    border-radius: 5px;
                     .header {
                         text-align: center;
                         background-color: #FFF;
                         padding: 6px 5px;
                         border-bottom: 1px solid #DDD;
-                        border-top-left-radius: 6px;
-                        border-top-right-radius: 6px;
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
                     }
                     .body {
                         display: flex;
@@ -69,8 +70,14 @@
                             flex-basis: 33.33333%;
                             cursor: pointer;
                             text-align: center;
-                            padding: 5px;
-                            font-size: 16px;
+                            padding: 3px;
+                            font-size: 12px;
+                            &:first-child {
+                                border-bottom-left-radius: 5px;
+                            }
+                            &:last-child {
+                                border-bottom-right-radius: 5px;
+                            }
                             &.active {
                                 background-color: #111;
                                 &.off {
@@ -87,6 +94,15 @@
                                 color: #666;
                             }
                             cursor: pointer;
+                        }
+
+                        .wrapper-select-item {
+                            padding: 3px;
+                            flex-basis: 100%;
+                            width: 100%;
+                            // select {
+
+                            // }
                         }
                     }
                 }
@@ -204,7 +220,7 @@
             .icon-warning,
             .icon-success {
                 display: block;
-                font-size: 23px;
+                font-size: 20px;
                 text-align: center;
             }
         }
@@ -214,9 +230,63 @@
         cursor: pointer;
     }
     .table {
+        font-size: 13px;
+        text-align: center;
         tr td {
+            vertical-align: middle;
             .btn-table-actions {
                 margin: 1px 0;
+                padding: 0.2rem 0.4rem;
+                font-size: 0.7rem;
+            }
+            &.price {
+                position: relative;
+                overflow: hidden;
+                font-size: 12px;
+                .wrapper-price {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    padding: 12px;
+                    .show-price {
+                        &.old-price {
+                            display: block;
+                            font-weight: bold;
+                            text-decoration: line-through;
+                            color: #888;
+                            margin-bottom: 3px;
+                        }
+                    }
+                    .show-price.default-price,
+                    .new-price {
+                        display: inline-block;
+                        background-color: #2c3e50;
+                        color: #FFF;
+                        padding: 1px 3px;
+                        border-radius: 3px;
+                        font-weight: bold;
+                        text-align: center;
+                        font-size: 11px;
+                    }
+                    .discount {
+                        background-color: #d8433d;
+                        color: #FFF;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        width: 60px;
+                        height: 60px;
+                        -webkit-transform: rotate(39deg) translate(0%, -74%);
+                        transform: rotate(42deg) translate(0%, -73%);
+                        line-height: 102px;
+                        text-align: center;
+                    }
+                }
             }
         }
         .th-show-plus,
@@ -230,11 +300,63 @@
             font-size: 11px;
         }
         .tr-table-data {
+            text-align: left;
             ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
                 li {
+                    position: relative;
+
+                    // style show price
+
+                    .wrapper-price {
+                        display: flex;
+                        flex-direction: row;
+                        position: relative;
+                        padding: 20px;
+                        max-width: 200px;
+                        overflow: hidden;
+                        background-color: #DDD;
+                        margin: 15px;
+                        border-radius: 3px;
+                        .show-price {
+                            &.old-price {
+                                display: block;
+                                font-weight: bold;
+                                text-decoration: line-through;
+                                color: #888;
+                                margin-bottom: 3px;
+                                line-height: 1.7;
+                                margin-right: 20px;
+                            }
+                        }
+                        .show-price.default-price,
+                        .new-price {
+                            display: inline-block;
+                            background-color: #2c3e50;
+                            color: #FFF;
+                            padding: 1px 7px;
+                            border-radius: 3px;
+                            font-weight: bold;
+                            text-align: center;
+                            font-size: 11px;
+                            line-height: 2;
+                        }
+                        .discount {
+                            background-color: #d8433d;
+                            color: #FFF;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 60px;
+                            height: 60px;
+                            -webkit-transform: rotate(42deg) translate(0%, -73%);
+                            transform: rotate(42deg) translate(0%, -73%);
+                            line-height: 102px;
+                            text-align: center;
+                        }
+                    }
                     .avatar-table {
                         max-width: 150px;
                         display: inline-block;

@@ -15,12 +15,7 @@ class CompanyController extends Controller
     public function companies_id()
     {
         $companies = Company::orderBy('id', 'desc')->get();
-        $companies_id = [];
-
-        foreach ($companies as $company) {
-            $companies_id[] = ['id' => $company->id, 'name' => $company->name];
-        }
-        return response($companies_id, 200);
+        return response($companies, 200);
     }
 
 

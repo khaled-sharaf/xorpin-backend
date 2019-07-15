@@ -30,6 +30,16 @@ Route::post('/company/restore', 'CompanyController@restoreCompany');
 Route::post('/companies-id', 'CompanyController@companies_id');
 
 
+/////////////////// products routes //////////////////////////////
+Route::post('/products', 'ProductController@index');
+Route::post('/product/store', 'ProductController@store');
+Route::post('/product/update', 'ProductController@update');
+Route::post('/product/profile', 'ProductController@show');
+Route::post('/product/destroy', 'ProductController@destroy');
+Route::post('/product/restore', 'ProductController@restoreProduct');
+
+
+
 //////////////////////// users routes //////////////////////////////
 Route::post('/pro-types', 'ProductTypeController@index');
 Route::post('/pro-type/store', 'ProductTypeController@store');
@@ -37,6 +47,8 @@ Route::post('/pro-type/update', 'ProductTypeController@update');
 Route::post('/pro-type/edit', 'ProductTypeController@edit');
 Route::post('/pro-type/destroy', 'ProductTypeController@destroy');
 Route::post('/pro-type/restore', 'ProductTypeController@restoreType');
+
+Route::post('/pro-types-data', 'ProductTypeController@allTypesUseInSelectBox');
 
 
 

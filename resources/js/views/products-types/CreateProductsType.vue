@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary" :to="{name: 'pro-types'}">Show all products types</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'pro-types'}">Show all products types</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -76,9 +76,8 @@ export default {
                 if (response.status === 200) {
                     // reset form
                     this.form.reset();
-                    Toast.fire({
-                        type: "success",
-                        title: response.data.message
+                    ToastReq.fire({
+                        text: response.data.message
                     });
                 }
             }).catch(response => {

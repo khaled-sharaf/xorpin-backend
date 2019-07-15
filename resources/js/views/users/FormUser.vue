@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- rule -->
-                <div class="form-group">
+                <div class="form-group" v-if="(typeForm === 'edit' && form.id !== 1) || typeForm === 'create'">
                     <label>Rule <span class="field-required"></span></label>
                     <select
                     v-model="form.rule"
@@ -102,7 +102,7 @@
                 </div>
 
                 <!-- company -->
-                <div class="form-group" v-if="selectCompany">
+                <div class="form-group" v-if="selectCompany && ((typeForm === 'edit' && form.id !== 1) || typeForm === 'create')">
                     <label>Company <span class="field-required"></span></label>
                     <select
                     v-model="form.company_id"
@@ -119,7 +119,7 @@
                 </div>
 
                 <!-- active -->
-                <div class="form-group">
+                <div class="form-group" v-if="(typeForm === 'edit' && form.id !== 1) || typeForm === 'create'">
                     <label>Active <span class="field-required"></span></label>
                     <select
                     v-model="form.active"

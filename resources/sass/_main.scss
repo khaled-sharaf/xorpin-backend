@@ -1,4 +1,24 @@
+// style main sidebar
 
+.main-sidebar {
+    font-size: 13px;
+    #nav-sidebar-global {
+        &.nav-sidebar {
+            > .nav-item {
+                margin-bottom: 5px;
+            }
+            .nav-link {
+                padding: {
+                    top: 0.4rem;
+                    bottom: 0.4rem;
+                }
+                p > .right {
+                    top: 11px;
+                }
+            }
+        }
+    }
+}
 
 // style rates stars in datatable
 .wrapper-rates-stars {
@@ -19,14 +39,17 @@
     position: relative;
     top: 5px;
     left: 20px;
+    font-size: 18px;
+    margin: 0 !important;
 }
 .btns-route-wrapper {
     display: inline-block;
     .back-route {
         padding: {
-            left: 15px;
-            right: 15px;
+            left: 10px;
+            right: 10px;
         }
+        font-size: 10px;
         margin: 0 5px;
     }
 }

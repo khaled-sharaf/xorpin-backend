@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary" :to="{name: 'companies'}">Show all companies</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'companies'}">Show all companies</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -85,21 +85,19 @@ export default {
             this.form.longitude = window.parseFloat($('#company_longitude').val())
             loadReq(this.$Progress);
             this.form.post(this.urlCreateCompany).then(response => {
-                console.log(response.data);
                 if (response.status === 200) {
                     // reset form
                     this.form.reset();
                     $('#remove-location-company').click()
-                    Toast.fire({
-                        type: "success",
-                        title: response.data.message
+                    ToastReq.fire({
+                        text: response.data.message
                     });
                     setTimeout(() => {
                         this.$router.push({name: 'company-profile', params: {id: response.data.data.id, company: response.data.data}})
                         setTimeout(() => {
                             $('html, body, .wrapper, .content-wrapper').scrollTop(0);
                         });
-                    }, 1000);
+                    }, 2000);
                 }
             }).catch(response => {
                 Swal.fire("Failed!", "The company has not been created.", "error");

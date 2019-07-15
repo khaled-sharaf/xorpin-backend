@@ -19,14 +19,15 @@ class CreateProductsTable extends Migration
             $table->string('photo');
             $table->text('gallery')->nullable();
             $table->integer('price');
-            $table->string('discount', 20)->nullable();
-            $table->integer('old_price')->nullable();
+            $table->integer('discount')->nullable();
+            $table->boolean('percent')->default(1);
             $table->integer('new_price')->nullable();
             $table->mediumText('description');
             $table->string('manufacture_company');
             $table->integer('product_count');
             $table->boolean('execute')->default(0);
             $table->boolean('display')->default(1);
+            $table->integer('count_rates')->default(0);
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('company_id');

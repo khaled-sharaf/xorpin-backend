@@ -114,4 +114,10 @@ class ProductTypeController extends Controller
         $type_deleted->restore();
         return response(['status' => true], 200);
     }
+
+
+    public function allTypesUseInSelectBox() {
+        $types = Type::orderBy('id', 'desc')->get();
+        return response(['types' => $types], 200);
+    }
 }

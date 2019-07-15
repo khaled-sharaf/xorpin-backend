@@ -18,8 +18,8 @@ class CreateProductDetailsTable extends Migration
             $table->string('name');
             $table->text('value');
             $table->boolean('display')->default(1);
+            $table->unsignedInteger('product_id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('product_type_id');
             $table->timestamps();
         });
     }

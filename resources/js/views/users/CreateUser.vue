@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary" :to="{name: 'users'}">Show all users</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'users'}">Show all users</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -81,13 +81,10 @@ export default {
             loadReq(this.$Progress);
             this.form.post(this.urlCreateUser).then(response => {
                 if (response.status === 200) {
-                    setTimeout(() => {
-                        Toast.fire({
-                            type: "success",
-                            title: response.data.message
-                        });
-                    }, 700);
                     this.form.reset();
+                    ToastReq.fire({
+                        text: response.data.message
+                    });
                 }
             }).catch(response => {
                 Swal.fire("Failed!", "The user has not been created.", "error");
