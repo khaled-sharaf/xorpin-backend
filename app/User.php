@@ -31,7 +31,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Product', 'user_id');
     }
 
-    public function companies() {
+    public function winners() {
+        return $this->hasMany('App\Winner', 'user_id');
+    }
+
+    public function companies() { // companies added by user
         return $this->hasMany('App\Company', 'user_id');
     }
 

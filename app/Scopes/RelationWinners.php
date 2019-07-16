@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class RelationProducts implements Scope
+class RelationWinners implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->with(['details', 'user', 'company', 'type'])
-                ->withCount(['winners', 'comments']);
+        $builder->with(['user', 'product']);
     }
 }

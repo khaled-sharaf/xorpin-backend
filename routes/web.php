@@ -8,7 +8,7 @@ use App\Product as pro;
 use App\User;
 use App\Company;
 use App\ProductType;
-use App\ProductDetails;
+use App\Winner;
 
 Auth::routes();
 
@@ -21,10 +21,11 @@ Route::get('/', function () {
     // $pro = Company::with(['products', 'rates'])->get();
     // $pro = ProductType::with('products')->get();
     // $pro = ProductDetails::with(['products', 'productType'])->get();
+    $pro = Winner::get();
 
 
     // dd($pro);
-    // dd($pro->toArray());
+    dd($pro->toArray());
 
     // \Image::make('C:\xampp\htdocs\Belal\xorpin-backend\public\images\camera.png')
     //         ->resize(100, 100)

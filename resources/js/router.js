@@ -21,7 +21,7 @@ import CompanyProfile from './views/companies/CompanyProfile'
 import Products from './views/products/Index'
 import CreateProduct from './views/products/CreateProduct'
 import EditProduct from './views/products/EditProduct'
-// import ProductProfile from './views/products/ProductProfile'
+import ProductProfile from './views/products/ProductProfile'
 
 
 
@@ -153,7 +153,7 @@ const vueRouter = new Router({
                 {
                     path: 'product/profile/:id',
                     name: 'product-profile',
-                    component: CompanyProfile,
+                    component: ProductProfile,
                     props: true,
                 },
 

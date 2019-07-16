@@ -321,8 +321,8 @@
     data() {
       return {
         executeArr: [
-          { text: "No", value: 0 },
-          { text: "Yes", value: 1 }
+          { text: "Available", value: 0 },
+          { text: "Unavailable", value: 1 }
         ],
         displayArr: [
           { text: "Visible product", value: 1 },

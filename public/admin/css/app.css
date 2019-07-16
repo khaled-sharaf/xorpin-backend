@@ -12036,6 +12036,32 @@ a.text-dark:focus {
   margin: 0 5px;
 }
 
+.proudct-profile-wrapper .product-image {
+  width: auto;
+  max-height: 230px;
+  margin-bottom: 10px !important;
+}
+
+.proudct-profile-wrapper .actions-product-profile {
+  margin-bottom: 20px;
+}
+
+.proudct-profile-wrapper .table-show-details {
+  text-align: center;
+}
+
+.proudct-profile-wrapper .table-show-details td {
+  word-break: break-word !important;
+}
+
+.proudct-profile-wrapper .table-show-details .th-display {
+  width: 75px;
+}
+
+.proudct-profile-wrapper .table-show-details .td-display {
+  font-size: 16px;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

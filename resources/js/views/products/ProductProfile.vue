@@ -13,10 +13,10 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Company profile"></header-page>
+        <header-page title="Product profile"></header-page>
         <!-- /.content-header -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid proudct-profile-wrapper">
                 <div class="row mt-3">
                     <div :class="maximizeTable == true ? 'col-sidebar col-12' : 'col-md-12 col-xl-4'">
 
@@ -24,44 +24,115 @@
                         <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                :src="$domain + '/' + companyProfile.logo"
-                                alt="User profile picture">
+                            <img class="profile-user-img product-image"
+                                :src="$domain + '/' + productProfile.photo"
+                                alt="Product profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">{{ companyProfile.name }}</h3>
 
-                            <p class="text-muted text-center">{{ companyProfile.description }}</p>
+                            <h3 class="profile-username">{{ productProfile.name }}</h3>
+                            <hr>
+                            <!-- delete product -->
+                            <div class="actions-product-profile">
+                                <a
+                                    :href="$domain_admin + '/product/destroy'"
+                                    class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
+                                    @click.prevent="destroyRow(productProfile.id)"
+                                >Delete product
+                                    <i class="fa fa-trash"></i>
+                                </a>
 
+                                <!-- edit product -->
+                                <router-link
+                                    :to="{name: 'edit-product', params: {product: productProfile, id: productProfile.id}}"
+                                    :href="$domain_admin + '/product/' + productProfile.id + '/edit'"
+                                    class="btn btn-success btn-edit-row btn-table-actions btn-sm mt-1"
+                                >Edit product
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+
+                            </div>
+
+                            <!-- show product details in table product -->
                             <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Products Count</b> <a class="float-right">{{ companyProfile.products_count == null ? 0 : companyProfile.products_count }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Users Count</b> <a class="float-right">{{ companyProfile.users_count == null ? 0 : companyProfile.users_count }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Rates</b> <a class="float-right"> <rates-stars :rates-count="companyProfile.count_rates"></rates-stars> </a>
-                            </li>
+                                <!-- product rates -->
+                                <li class="list-group-item">
+                                    <b>Rates</b> <a class="float-right"> <rates-stars :rates-count="productProfile.count_rates"></rates-stars> </a>
+                                </li>
+
+                                <!-- product type -->
+                                <li class="list-group-item">
+                                    <b>Type</b> <a class="float-right">{{ productProfile.type.name }}</a>
+                                </li>
+
+                                <!-- price -->
+                                <li class="list-group-item">
+                                    <b>Price</b> <a class="float-right">{{ productProfile.price }}</a>
+                                </li>
+
+                                <!-- discount -->
+                                <li class="list-group-item">
+                                    <b>Discount</b> <a class="float-right">{{ productProfile.discount !== null ? productProfile.discount + (productProfile.percent == 1 ? '%' : '') : '0' }}</a>
+                                </li>
+
+                                <!-- new price -->
+                                <li class="list-group-item" v-if="productProfile.new_price !== null">
+                                    <b>New price</b> <a class="float-right">{{ productProfile.new_price }}</a>
+                                </li>
+
+                                <!-- product counts -->
+                                <li class="list-group-item">
+                                    <b>Counts</b> <a class="float-right">{{ productProfile.product_count }}</a>
+                                </li>
+
+                                <!-- manufacture_company -->
+                                <li class="list-group-item">
+                                    <b>Manufacture company</b> <a class="float-right">{{ productProfile.manufacture_company }}</a>
+                                </li>
+
+                                <!-- description -->
+                                <li class="list-group-item">
+                                    <b>Description</b> <a class="float-right">{{ productProfile.description }}</a>
+                                </li>
+
+                                <!-- run out -->
+                                <li class="list-group-item">
+                                    <b>Run out</b> <a class="float-right">{{productProfile.execute == 1 ? 'Unavailable' : 'Available' }}</a>
+                                </li>
+
+                                <!-- display product -->
+                                <li class="list-group-item">
+                                    <b>Display product</b> <a class="float-right">{{ productProfile.display == 1 ? 'Visible' : 'Hidden' }}</a>
+                                </li>
+
+                                <!-- Last modified -->
+                                <li class="list-group-item">
+                                    <b>Last modified</b> <a class="float-right">
+                                        <relative-date :date="productProfile.updated_at"></relative-date>
+                                    </a>
+                                </li>
+
+                                <!-- Created at -->
+                                <li class="list-group-item">
+                                    <b>Created at</b> <a class="float-right">
+                                        <relative-date :date="productProfile.created_at"></relative-date>
+                                    </a>
+                                </li>
+
+
+                                <!-- company -->
+                                <li class="list-group-item" v-if="$gate.isAdmin()">
+                                    <b>Company</b> <a class="float-right">
+                                        <router-link
+                                            :href="$domain_admin + '/company/profile/' + productProfile.company_id"
+                                            :to="{name: 'company-profile', params: {id: productProfile.company_id, company: productProfile.company}}"
+                                        >
+                                            {{ productProfile.company.name }}
+                                        </router-link>
+                                    </a>
+                                </li>
+
                             </ul>
-
-                            <!-- delete company -->
-                            <a
-                                :href="$domain_admin + '/company/destroy'"
-                                class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
-                                @click.prevent="destroyRow(companyProfile.id)"
-                            >Delete company
-                                <i class="fa fa-trash"></i>
-                            </a>
-
-                            <!-- edit company -->
-                            <router-link
-                                :to="{name: 'edit-company', params: {company: companyProfile, id: companyProfile.id}}"
-                                :href="$domain_admin + '/company/' + companyProfile.id + '/edit'"
-                                class="btn btn-success btn-edit-row btn-table-actions btn-sm mt-1"
-                            >Edit company
-                                <i class="fa fa-edit"></i>
-                            </router-link>
 
                         </div>
                         <!-- /.card-body -->
@@ -71,107 +142,36 @@
                         <!-- About Me Box -->
                         <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="m-0 card-title">Info company</h3>
+                            <h3 class="m-0 card-title">Product details</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <!-- email -->
-                            <strong>Email</strong>
 
-                            <p class="text-muted">
-                                <a :href="'mailto:' + companyProfile.email">{{companyProfile.email}}</a>
-                            </p>
+                            <!-- show product details in table product_details -->
 
-                            <hr>
-
-
-                            <!-- mobile -->
-                            <strong>Mobile</strong>
-
-                            <p class="text-muted">
-                                {{companyProfile.phone}}
-                            </p>
-
-                            <hr>
-
-                            <!-- Address -->
-                            <strong>Address</strong>
-
-                            <p class="text-muted">
-                                {{companyProfile.address}}
-                            </p>
-
-                            <hr>
-
-                            <!-- Website -->
-                            <strong>Website</strong>
-
-                            <p class="text-muted">
-                                <a target="_blank" :href="companyProfile.website">{{companyProfile.website}}</a>
-                            </p>
-
-                            <hr>
-
-                            <!-- Location -->
-                            <strong>Location map</strong>
-
-                            <p class="text-muted">
-                                <button
-                                    v-if="companyProfile.longitude != null && companyProfile.latitude != null"
-                                    class="btn btn-outline-secondary btn-sm"
-                                    id="show_map_location"
-                                    :data-long="companyProfile.longitude"
-                                    :data-lat="companyProfile.latitude"
-                                    :data-location-title="companyProfile.name"
-                                >Show map</button>
-                            </p>
-
-                            <hr>
-
-                            <!-- face link -->
-                            <strong>Facabook</strong>
-
-                            <p class="text-muted">
-                                <a target="_blank" :href="companyProfile.face_link">{{companyProfile.face_link}}</a>
-                            </p>
-
-                            <hr>
-
-                            <!-- tw link -->
-                            <strong>Twitter</strong>
-
-                            <p class="text-muted">
-                                <a target="_blank" :href="companyProfile.tw_link">{{companyProfile.tw_link}}</a>
-                            </p>
-
-                            <hr>
-
-                            <!-- Address -->
-                            <strong>Display products</strong>
-
-                            <p class="text-muted">
-                                {{companyProfile.display == 1 ? 'Visible' : 'Hidden'}}
-                            </p>
-
-                            <hr>
-
-                            <!-- active -->
-                            <strong>Activation</strong>
-
-                            <p class="text-muted">
-                                {{companyProfile.active == 1 ? 'Active' : 'Disactive'}}
-                            </p>
-
-                            <hr>
-
-                            <!-- create at -->
-                            <strong>Created at</strong>
-
-                            <p class="text-muted">
-                                <relative-date :date="companyProfile.created_at"></relative-date>
-                            </p>
-
-                            <hr>
+                            <table class="table table-striped table-bordered table-show-details">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                        <th class="th-display">Display</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="det in productProfile.details" :key="det.id">
+                                        <td>{{ det.name }}</td>
+                                        <td>{{ det.value }}</td>
+                                        <td class="td-display">
+                                            <span class="icon-success" v-if="det.display === 1">
+                                                <i class="far fa-check-circle"></i>
+                                            </span>
+                                            <span class="icon-danger" v-else>
+                                                <i class="far fa-times-circle"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
 
                         </div>
@@ -184,24 +184,24 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item"><a class="nav-link " href="#products" data-toggle="tab">Products</a></li>
-                                <li class="nav-item"><a class="nav-link active" href="#users" data-toggle="tab">Users</a></li>
+                                <li class="nav-item"><a class="nav-link " href="#comments" data-toggle="tab">Comments</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#winners" data-toggle="tab">Winners</a></li>
 
                             </ul>
                             <button class="btn btn-outline-secondary maximize-table float-right" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                            <div class="tab-pane" id="products">
-                               Products
+                            <div class="tab-pane" id="comments">
+                               Comments
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane active" id="users">
-                                <users-comp v-if="companyProfile.users_count != null && companyProfile.users_count != 0"></users-comp>
+                            <div class="tab-pane active" id="winners">
+                                <winners v-if="productProfile.winners_count != null && productProfile.winners_count != 0"></winners>
 
                                 <div v-else class="alert alert-info alert-dismissible">
-                                    <h5><i class="icon fas fa-info"></i> No users!</h5>
-                                    This company does'nt have users.
+                                    <h5><i class="icon fas fa-info"></i> No winners!</h5>
+                                    This product does'nt have winners.
                                 </div>
 
                             </div>
@@ -217,86 +217,55 @@
                     <!-- /.row -->
             </div><!--/. container-fluid -->
         </section>
-
-        <modal-location></modal-location>
     </div>
 </template>
 
 
 <script>
-import UsersComp from './../users/Index'
-import ModalLocation from './ModalLocation'
+import Winners from './../users/Index'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     components: {
         HeaderPage,
-        UsersComp,
-        ModalLocation
+        Winners
     },
-    name: 'company-profile',
+    name: 'product-profile',
     data() {
       return {
-          urlCompanyProfile: '/company/profile',
-          urlDeleteRow: '/company/destroy',
+          urlProductProfile: '/product/profile',
+          urlDeleteRow: '/product/destroy',
           maximizeTable: false,
-          companyProfile: {
+          productProfile: {
             id: 0,
             name: "",
-            active: 1,
-            address: "",
-            count_rates: 0,
-            created_at: "",
+            price: "",
+            discount: "",
+            percent: 1,
+            product_count: "",
+            manufacture_product: "",
             description: "",
             display: 1,
-            email: "",
-            face_link: "",
-            latitude: "",
-            longitude: "",
-            logo: "images/user-avatar/default-avatar.png",
-            phone: "",
-            products_count: 0,
-            tw_link: "",
-            updated_at: null,
-            user_id: 1,
-            users_count: 0,
-            website: "",
+            execute: 0,
+            type_id: "",
+            type: [],
+            company: [],
+            product_id: "",
+            photo: "",
+            gallery: "",
+            details: [
+                {name: '', value: '', display: true}
+            ],
           }
       }
     },
     methods: {
-        showMap(lat, long) {
-            if (lat != null && long != null) {
-                var my_map_modal = $('#my_map_modal');
-                my_map_modal.attr('data-lat', lat).attr('data-long', long);
-                var scriptMap = document.createElement('script');
-                document.body.appendChild(scriptMap);
-                scriptMap.id = 'myScriptMap';
-                scriptMap.setAttribute('async', true);
-                scriptMap.setAttribute('defer', true);
-                scriptMap.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyADsFcbM6g-A_nUwh41pFn9EgDdlRC6lGY&language=ar&region=EG&callback=initMap');
-            }
-        },
         eventBtnsClick() {
             let self = this;
-        // show location in google map
-            $(document).on("click", "#show_map_location", function(e) {
-                e.preventDefault();
-                let lat = $(this).attr('data-lat'),
-                    long = $(this).attr('data-long'),
-                    title = $(this).attr('data-location-title');
-                if ( (typeof lat != 'undefined' && lat != '' && lat != null) &&
-                    (typeof long != 'undefined' && long != '' && long != null) ) {
-                    $('#locationTitle').html('Location: ' + title);
-                    $('#myScriptMap').remove();
-                    self.showMap(lat, long);
-                    $('#modal_location_company').modal('show');
-                }
-            });
         },
         destroyRow(id) {
             Swal.fire({
                 title: "Delete",
-                text: "Are you sure you want to delete this company?",
+                text: "Are you sure you want to delete this product?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#e74c3c",
@@ -307,16 +276,16 @@ export default {
                     loadReq(this.$Progress);
                     axios.post(this.urlDeleteRow, {id: id}).then(response => {
                         if (response.status === 200) {
-                            Swal.fire("Deleted!", "The company has been deleted.", "success");
-                            this.$router.push({name: 'companies'});
+                            Swal.fire("Deleted!", "The product has been deleted.", "success");
+                            this.$router.push({name: 'products'});
                         }
                     }).catch(error => {
-                        Swal.fire("Failed!", "The company has not been deleted.", "error");
+                        Swal.fire("Failed!", "The product has not been deleted.", "error");
                         this.$Progress.fail();
                     });
                 }
             });
-            },
+        },
     },
 
     mounted() {
@@ -325,16 +294,39 @@ export default {
 
     beforeRouteEnter(to, from, next) {
         next(vm => {
-                if (to.params.company) {
-                    vm.companyProfile = to.params.company
+                if (to.params.product) {
+                    let product = to.params.product
+                    if (typeof product.gallery != 'object') {
+                        if (product.gallery !== null && product.gallery != '') {
+                            let gallery = product.gallery.split(',')
+                            let galleryArr = []
+                            gallery.forEach(image => {
+                                galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
+                            })
+                            product.gallery = galleryArr
+                        } else {
+                            product.gallery = []
+                        }
+                    }
+                    vm.productProfile = product
                 } else {
-                    axios.post(vm.urlCompanyProfile, {id: to.params.id}).then(response => {
+                    axios.post(vm.urlProductProfile, {id: to.params.id}).then(response => {
                         if (response.status === 200) {
-                            const company = response.data.company
-                            if (company != null) {
-                                vm.companyProfile = company
+                            let product = response.data.product
+                            if (product != null) {
+                                if (product.gallery !== null && product.gallery != '') {
+                                    let gallery = product.gallery.split(',')
+                                    let galleryArr = []
+                                    gallery.forEach(image => {
+                                        galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
+                                    })
+                                    product.gallery = galleryArr
+                                } else {
+                                    product.gallery = []
+                                }
+                                vm.productProfile = product
                             } else {
-                                vm.$router.push({name: 'companies'})
+                                vm.$router.push({name: 'products'})
                             }
                         }
                     })

@@ -69,6 +69,15 @@ class UserController extends Controller
                 });
             }
         }
+        if ($request->has('winners')) {
+            if ($request->has('winners_product_id')) {
+                $query->whereHas('winners', function ($q) use ($request) {
+                    $q->where('product_id', $request->winners_product_id);
+                });
+            } else {
+                $query->has('winners');
+            }
+        }
         $users = $query->paginate($length);
         return response(['data' => $users, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
     }

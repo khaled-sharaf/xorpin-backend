@@ -6,13 +6,13 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page v-if="this.$route.name == 'users'" title="View all users"></header-page>
+        <header-page title="View all products types"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
             <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
-                <div class="dataTable" id="users">
+                <div class="dataTable" id="pro-types">
                     <div class="row mt-3">
                         <div class="col-12">
                             <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
@@ -81,13 +81,12 @@
 </template>
 
 
-
 <script>
 import HeaderPage from './../../components/HeaderPage'
-import TableWrapper from "./../../components/dataTables/TableWrapper";
-import TableHeaderFilters from "./TableHeaderFilters";
-import TableContent from "./TableContent";
-import Pagination from "./../../components/dataTables/Pagination";
+import TableWrapper from "./../../components/dataTables/TableWrapper"
+import TableHeaderFilters from "./TableHeaderFilters"
+import TableContent from "./TableContent"
+import Pagination from "./../../components/dataTables/Pagination"
 
 export default {
   components: {
@@ -105,23 +104,17 @@ export default {
       { label: "#", name: "index" },
       { label: "ID", name: "id" },
       { label: "Name", name: "name" },
-      { label: "Email", name: "email" },
-      { label: "Mobile", name: "phone" },
-      { label: "Address", name: "address" },
-      { label: "Avatar", name: "photo" },
-      { label: "Rule", name: "rule" },
-      { label: "Active", name: "active" },
-      { label: "Registered", name: "created_at" },
-      { label: "Company", name: "company" },
+      { label: "Display", name: "display" },
+      { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
     ];
     columns.forEach(column => {
       sortOrders[column.name] = -1;
     });
     return {
-      urlGetDataTable: '/users',
-      urlDeleteRow: '/user/destroy',
-      urlRestoreRow: '/user/restore',
+      urlGetDataTable: '/pro-types',
+      urlDeleteRow: '/pro-type/destroy',
+      urlRestoreRow: '/pro-type/restore',
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -138,34 +131,24 @@ export default {
         "sm"
       ],
       tableData: {
-        companyId: null,
         draw: 0,
         length: 10,
         search: "",
         column: 0,
-        rule: "",
-        active: "",
+        display: "",
         trashed: 1,
         from_date: "",
         to_date: "",
         filter: {
-            // columns of filter sorting [in select menu]
           columns: [
             "index",
             "id",
             "name",
-            "email",
-            "phone",
-            "addresss",
-            "photo",
-            "rule",
-            "active",
+            "display",
             "created_at",
-            "company",
             "actions"
           ],
-          // columns excepted sorting
-          columnsExcept: ["index", "actions", "show_plus", 'company', 'photo'],
+          columnsExcept: ['show_plus', 'index'],
           viewTable: ["bordered", 'hover']
         },
         dir: ""
@@ -173,18 +156,16 @@ export default {
       // viewFilterColumns
       viewColumnsResponsive: {
         default: {
-        //   show: "all",// or ['id', 'index']
-        //   hide: ['index', 'photo', 'rule', 'active']
-          hide: ['index', 'rule', 'active']
+          show: "all",// or ['id', 'index']
         },
-        1200: {
-          hide: ['index', 'created_at', 'photo', 'rule', 'active']
-        },
-        1000: {
-          show: ['id', "name", "email", "phone", "address", 'actions']
-        },
+        // 1200: {
+        //   show: ['name', 'phone', 'logo', 'count_rates', 'actions']
+        // },
+        // 1000: {
+        //   show: ['name', 'logo', 'count_rates', 'actions']
+        // },
         800: {
-          show: ["name", "email", 'phone', "actions"]
+          show: ['name', 'dispaly', 'actions']
         },
         600: {
           show: ["name", "actions"]
@@ -255,6 +236,7 @@ export default {
           let data = response.data,
             self = this;
           if (this.tableData.draw == data.draw) {
+            console.log(this.tableData.draw, data.draw)
             if (response.status === 200) {
               this.dataTable = data.data.data;
               this.configPagination(data.data);
@@ -416,7 +398,7 @@ export default {
           );
         });
         $(".tr-table-data").hide();
-        $("#users.dataTable .btn-show-more-row")
+        $("#pro-types.dataTable .btn-show-more-row")
           .removeClass("active")
           .find("i")
           .removeClass("fa-minus")
@@ -426,24 +408,21 @@ export default {
     eventBtnsClick() {
       let self = this;
       // delete row from columns excepted
-      $(document).on(
-        "click",
-        ".table tbody .tr-table-data td .btn-delete-row",
-        function(e) {
-          e.preventDefault();
-          let id = $(this)
+      $(document).on("click", ".table tbody .tr-table-data td .btn-delete-row", function(e) {
+        e.preventDefault();
+        let id = $(this)
             .parents(".tr-table-data")
             .prev("tr")
             .attr("data-id");
-            if ($(this).hasClass('force-delete')) {
-                self.forceDeleteRow(id);
-            } else {
-                self.destroyRow(id);
-            }
+        if ($(this).hasClass('force-delete')) {
+            self.forceDeleteRow(id);
+        } else {
+            self.destroyRow(id);
+        }
         }
       );
 
-        // function => restore row [this btn in table data hide]
+    // function => restore row [this btn in table data hide]
       $(document).on(
         "click",
         ".table tbody .tr-table-data td .btn-restore-row",
@@ -460,7 +439,7 @@ export default {
     destroyRow(id) {
       Swal.fire({
         title: "Delete",
-        text: "Are you sure you want to delete this user?",
+        text: "Are you sure you want to delete this products type?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
@@ -473,21 +452,22 @@ export default {
             .post(this.urlDeleteRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Deleted!", "The user has been deleted.", "success");
+                Swal.fire("Deleted!", "The products type has been deleted.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The user has not been deleted.", "error");
+              Swal.fire("Failed!", "The products type has not been deleted.", "error");
               this.$Progress.fail();
             });
         }
       });
     },
+
     forceDeleteRow(id) {
       Swal.fire({
         title: "Force Delete",
-        text: "Are you sure you want to remove this user?",
+        text: "Are you sure you want to remove this products type?",
         type: "error",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
@@ -500,12 +480,12 @@ export default {
             .post(this.urlDeleteRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Removed!", "The user has been removed.", "success");
+                Swal.fire("Removed!", "The products type has been removed.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The user has not been removed.", "error");
+              Swal.fire("Failed!", "The products type has not been removed.", "error");
               this.$Progress.fail();
             });
         }
@@ -514,7 +494,7 @@ export default {
     restoreRow(id) {
       Swal.fire({
         title: "Restore",
-        text: "Are you sure you want to restore this user?",
+        text: "Are you sure you want to restore this products type?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#6cb2eb",
@@ -527,67 +507,32 @@ export default {
             .post(this.urlRestoreRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Restored!", "The user has been restored.", "success");
+                Swal.fire("Restored!", "The products type has been restored.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The user has not been restored.", "error");
+              Swal.fire("Failed!", "The products type has not been restored.", "error");
               this.$Progress.fail();
             });
         }
       });
     },
-    addCompanyIdToRequest() {
-        const companyId = this.$route.params.id;
-        if (companyId != null) {
-            this.tableData.companyId = companyId
-        }
-        this.viewColumnsResponsive.default.hide = ['index', 'id', 'created_at', 'company', 'rule', 'actions']
-    },
-    addProductIdToRequest() {
-        const product_id = this.$route.params.id;
-        if (product_id != null) {
-            this.tableData.winners = true
-            this.tableData.winners_product_id = product_id
-        }
-        this.viewColumnsResponsive.default.hide = ['index', 'id', 'created_at', 'company', 'rule', 'actions']
-    }
+
   },
     beforeRouteEnter(to, from, next) {
-        if (to.name == 'users') {
-            next(vm => {
-                vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
-                vm.sortBy(vm.sortKey);
-                vm.eventBtnsClick();
-                vm.viewFilterColumns();
-                window.onresize = () => {
-                    vm.viewFilterColumns();
-                };
-            })
-        }
-    },
-    mounted() {
-        if (this.$route.name == 'company-profile') {
-            this.addCompanyIdToRequest() // add company id to table data for get users of company by company id for to use in company profile
-        }
-        if (this.$route.name == 'product-profile') {
-            this.addProductIdToRequest()
-        }
-        if (this.$route.name != 'users') {
-            this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
-            this.sortBy(this.sortKey);
-            this.eventBtnsClick();
-            this.viewFilterColumns();
+        next(vm => {
+            vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
+            vm.sortBy(vm.sortKey);
+            vm.eventBtnsClick();
+            vm.viewFilterColumns();
             window.onresize = () => {
-                this.viewFilterColumns();
+                vm.viewFilterColumns();
             };
-        }
+        })
     },
-
 };
 </script>
-
 <style scoped lang="scss">
 
 </style>

@@ -53,3 +53,32 @@
         margin: 0 5px;
     }
 }
+
+
+// product profile
+
+.proudct-profile-wrapper {
+    .product-image {
+        width: auto;
+        max-height: 230px;
+        margin-bottom: 10px !important;
+    }
+
+    .actions-product-profile {
+        margin-bottom: 20px;
+    }
+
+    .table-show-details {
+        text-align: center;
+
+        td {
+            word-break: break-word !important;
+        }
+        .th-display {
+            width: 75px;
+        }
+        .td-display {
+            font-size: 16px;
+        }
+    }
+}

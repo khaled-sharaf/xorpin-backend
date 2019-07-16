@@ -26,6 +26,11 @@ class Product extends Model
         return $this->hasMany('App\Comment', 'product_id');
     }
 
+    public function winners()
+    {
+        return $this->hasMany('App\Winner', 'product_id');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');

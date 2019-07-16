@@ -131,15 +131,17 @@ export default {
         next(vm => {
             if (to.params.product) {
                 let product = to.params.product
-                if (product.gallery !== null && product.gallery != '') {
-                    let gallery = product.gallery.split(',')
-                    let galleryArr = []
-                    gallery.forEach(image => {
-                        galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
-                    })
-                    product.gallery = galleryArr
-                } else {
-                    product.gallery = []
+                if (typeof product.gallery != 'object') {
+                    if (product.gallery !== null && product.gallery != '') {
+                        let gallery = product.gallery.split(',')
+                        let galleryArr = []
+                        gallery.forEach(image => {
+                            galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
+                        })
+                        product.gallery = galleryArr
+                    } else {
+                        product.gallery = []
+                    }
                 }
                 if (!product.details.length) {
                     product.details.push({name: '', value: '', display: true})
