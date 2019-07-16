@@ -57,6 +57,14 @@ Route::post('/winner/destroy', 'WinnerController@destroy');
 
 
 
+//////////////////////// comments routes //////////////////////////////
+Route::post('/comments', 'CommentController@index');
+Route::post('/comment/update', 'CommentController@update');
+Route::post('/comment/edit', 'CommentController@edit');
+Route::post('/comment/destroy', 'CommentController@destroy');
+
+
+
 
 
 

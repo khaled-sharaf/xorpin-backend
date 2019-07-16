@@ -189,20 +189,26 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item"><a class="nav-link " href="#comments" data-toggle="tab">Comments</a></li>
-                                <li class="nav-item"><a class="nav-link active" href="#winners" data-toggle="tab">Winners</a></li>
+                                <li class="nav-item"><a @click="showWinnerTable = false" class="nav-link active" href="#comments" data-toggle="tab">Comments</a></li>
+                                <li class="nav-item"><a @click="showWinnerTable = true" class="nav-link" href="#winners" data-toggle="tab">Winners</a></li>
 
                             </ul>
                             <button class="btn btn-outline-secondary maximize-table float-right" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                            <div class="tab-pane" id="comments">
-                               Comments
+                            <div class="tab-pane active" id="comments">
+                               <comments v-if="(productProfile.comments_count != null && productProfile.comments_count != 0) && showWinnerTable === false"></comments>
+
+                                <div v-else class="alert alert-info alert-dismissible">
+                                    <h5><i class="icon fas fa-info"></i> No comments!</h5>
+                                    This product does'nt have comments.
+                                </div>
+
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane active" id="winners">
-                                <winners v-if="productProfile.winners_count != null && productProfile.winners_count != 0"></winners>
+                            <div class="tab-pane" id="winners">
+                                <winners v-if="(productProfile.winners_count != null && productProfile.winners_count != 0) && showWinnerTable === true"></winners>
 
                                 <div v-else class="alert alert-info alert-dismissible">
                                     <h5><i class="icon fas fa-info"></i> No winners!</h5>
@@ -228,10 +234,12 @@
 
 <script>
 import Winners from './../users/Index'
+import Comments from './../comments/Index'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     components: {
         HeaderPage,
+        Comments,
         Winners
     },
     name: 'product-profile',
@@ -240,6 +248,7 @@ export default {
           urlProductProfile: '/product/profile',
           urlDeleteRow: '/product/destroy',
           maximizeTable: false,
+          showWinnerTable: false,
           productProfile: {
             id: 0,
             name: "",

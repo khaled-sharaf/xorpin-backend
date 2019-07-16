@@ -43,7 +43,6 @@ class ProductController extends Controller
             $query->where('company_id', $request->companyId);
         }
 
-        // handel users trashed and not trashed
         if ($trashed == 0) {
             $query->onlyTrashed();
         } else if ($trashed == 2) {

@@ -1,5 +1,7 @@
 <template>
-  <table class="table dataTable" :class="' table-' + viewtableclasses.join(' table-')">
+<div>
+
+  <table class="table dataTable" :class="' table-' + viewtableclasses.join(' table-')" v-if="dataTable.length > 0">
     <thead class="thead-light">
       <tr>
         <th class="actions th-show-plus" v-html="columns[0].label"></th>
@@ -32,11 +34,17 @@
       </tr>
     </tfoot>
   </table>
+  <div v-else class="alert alert-danger alert-dismissible">
+        <h5><i class="icon fas fa-info"></i> Empty table!</h5>
+        No data in this table.
+    </div>
+</div>
 </template>
 
 <script>
 export default {
   props: [
+    "dataTable",
     "columns",
     "viewtableclasses",
     "columnsView",

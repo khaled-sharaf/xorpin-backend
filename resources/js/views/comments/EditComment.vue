@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit winner"></header-page>
+        <header-page title="Edit Comment"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -17,17 +17,17 @@
                             <!-- card-header -->
                             <div class="card-header">
                                 <h3 class="m-0 mb-2 text-dark">
-                                    <h3 class="m-0 mb-2 text-dark">Winner: <span style="color: #3498db"> {{ winnerEdit.user.name }}</span></h3>
+                                    <h3 class="m-0 mb-2 text-dark">User commented: <span style="color: #3498db"> {{ commentEdit.user.name }}</span></h3>
                                 </h3>
                             </div>
                             <!-- ./card-header -->
 
 
                             <!-- form -->
-                            <form @submit.prevent="editWinner()">
+                            <form @submit.prevent="editComment()">
                                 <!-- card-body -->
                                 <div class="card-body">
-                                    <form-winner typeForm="edit" :form="form"></form-winner>
+                                    <form-comment typeForm="edit" :form="form"></form-comment>
                                 </div>
                                 <!-- ./card-body -->
 
@@ -53,29 +53,33 @@
 
 
 <script>
-import FormWinner from './FormWinner'
+import FormComment from './FormComment'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     components: {
         HeaderPage,
-        FormWinner
+        FormComment
     },
     data() {
       return {
-        urlEditWinner: '/winner/edit',
-        urlUpdateWinner: '/winner/update',
+        urlEditComment: '/comment/edit',
+        urlUpdateComment: '/comment/update',
         form: new Form({
-          id: 0,
-          user_id: "",
-          product_id: "",
+            id: 0,
+            text_comment: "",
+            positive_product: "",
+            negative_product: "",
+            display: 1,
+            user_id: "",
+            product_id: "",
         }),
-        winnerEdit: {}
+        commentEdit: {}
       }
     },
     methods: {
-        editWinner() {
+        editComment() {
             loadReq(this.$Progress);
-            this.form.post(this.urlUpdateWinner).then(response => {
+            this.form.post(this.urlUpdateComment).then(response => {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({
@@ -83,28 +87,27 @@ export default {
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The winner has not been created.", "error");
+                Swal.fire("Failed!", "The comment has not been created.", "error");
                 this.$Progress.fail();
             });
         },
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            if (to.params.winner) {
-                vm.winnerEdit = to.params.winner
+            if (to.params.comment) {
+                vm.commentEdit = to.params.comment
                 vm.form.reset()
-                vm.form.fill(vm.winnerEdit)
+                vm.form.fill(vm.commentEdit)
             } else {
-                axios.post(vm.urlEditWinner, {id: to.params.id}).then(response => {
+                axios.post(vm.urlEditComment, {id: to.params.id}).then(response => {
                     if (response.status === 200) {
-                        const winner = response.data.winner
-                        if (winner != null) {
-                            vm.winnerEdit = winner
-
+                        const comment = response.data.comment
+                        if (comment != null) {
+                            vm.commentEdit = comment
                             vm.form.reset()
-                            vm.form.fill(vm.winnerEdit)
+                            vm.form.fill(vm.commentEdit)
                         } else {
-                            vm.$router.push({name: 'winners'})
+                            vm.$router.push({name: 'comments'})
                         }
                     }
                 })

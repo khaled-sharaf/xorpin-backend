@@ -6,13 +6,13 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all winners"></header-page>
+        <header-page  v-if="$route.name == 'comments'" title="View all comments"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
             <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
-                <div class="dataTable" id="winners">
+                <div class="dataTable" id="comments">
                     <div class="row mt-3">
                         <div class="col-12">
                             <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
@@ -102,8 +102,12 @@ export default {
       { label: "<i class='fa fa-plus'></i>", name: "show_plus" },
       { label: "#", name: "index" },
       { label: "ID", name: "id" },
+      { label: "Comment", name: "text_comment" },
+      { label: "Positive product", name: "positive_product" },
+      { label: "Negative product", name: "negative_product" },
       { label: "Username", name: "user_id" },
       { label: "Product name", name: "product_id" },
+      { label: "Display", name: "display" },
       { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
     ];
@@ -111,8 +115,8 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      urlGetDataTable: '/winners',
-      urlDeleteRow: '/winner/destroy',
+      urlGetDataTable: '/comments',
+      urlDeleteRow: '/comment/destroy',
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -141,6 +145,10 @@ export default {
           columns: [
             "index",
             "id",
+            "text_comment",
+            "positive_product",
+            "negative_product",
+            "display",
             "user_id",
             "product_id",
             "created_at",
@@ -154,22 +162,23 @@ export default {
       // viewFilterColumns
       viewColumnsResponsive: {
         default: {
-          show: "all",// or ['id', 'index']
+        //   show: "all",// or ['id', 'index']
+          hide: ['index']
         },
         // 1200: {
         //   show: ['name', 'phone', 'logo', 'count_rates', 'actions']
         // },
-        // 1000: {
-        //   show: ['name', 'logo', 'count_rates', 'actions']
-        // },
+        1000: {
+          show: ['text_comment', 'user_id', 'product_id', 'created_at', 'actions']
+        },
         800: {
-          show: ['user_id', 'product_id', 'actions']
+          show: ['text_comment', 'user_id', 'product_id', 'created_at']
         },
         600: {
-          show: ["user_id", "product_id"]
+          show: ["text_comment", "user_id"]
         },
         400: {
-          show: ["user_id"]
+          show: ["text_comment"]
         }
       },
       pagination: {
@@ -395,7 +404,7 @@ export default {
           );
         });
         $(".tr-table-data").hide();
-        $("#winners.dataTable .btn-show-more-row")
+        $("#comments.dataTable .btn-show-more-row")
           .removeClass("active")
           .find("i")
           .removeClass("fa-minus")
@@ -422,7 +431,7 @@ export default {
     destroyRow(id) {
       Swal.fire({
         title: "Delete",
-        text: "Are you sure you want to delete this winner?",
+        text: "Are you sure you want to delete this comment?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
@@ -435,28 +444,51 @@ export default {
             .post(this.urlDeleteRow, {id: id})
             .then(response => {
               if (response.status === 200) {
-                Swal.fire("Deleted!", "The winner has been deleted.", "success");
+                Swal.fire("Deleted!", "The comment has been deleted.", "success");
                 this.getData();
               }
             })
             .catch(error => {
-              Swal.fire("Failed!", "The winner has not been deleted.", "error");
+              Swal.fire("Failed!", "The comment has not been deleted.", "error");
               this.$Progress.fail();
             });
         }
       });
     },
+    addProductIdToRequest() {
+        const productId = this.$route.params.id;
+        if (productId != null) {
+            this.tableData.productId = productId
+        }
+        this.viewColumnsResponsive.default.hide = ['index', 'id', 'display', 'actions', 'product_id', 'created_at']
+    },
   },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
-            vm.sortBy(vm.sortKey);
-            vm.eventBtnsClick();
-            vm.viewFilterColumns();
-            window.onresize = () => {
+            if (this.$route.name == 'comments') {
+                vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
+                vm.sortBy(vm.sortKey);
+                vm.eventBtnsClick();
                 vm.viewFilterColumns();
-            };
+                window.onresize = () => {
+                    vm.viewFilterColumns();
+                };
+            }
         })
+    },
+    mounted() {
+        if (this.$route.name == 'product-profile') {
+            this.addProductIdToRequest()
+        }
+        if (this.$route.name != 'comments') {
+            this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
+            this.sortBy(this.sortKey);
+            this.eventBtnsClick();
+            this.viewFilterColumns();
+            window.onresize = () => {
+                this.viewFilterColumns();
+            };
+        }
     },
 };
 </script>

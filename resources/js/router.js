@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import DefaultLayout from './layouts/DefaultLayout'
 import Dashboard from './views/Dashboard'
 
+
 // users components
 import Users from './views/users/Index'
 import CreateUser from './views/users/CreateUser'
@@ -16,7 +17,6 @@ import EditCompany from './views/companies/EditCompany'
 import CompanyProfile from './views/companies/CompanyProfile'
 
 
-
 // products components
 import Products from './views/products/Index'
 import CreateProduct from './views/products/CreateProduct'
@@ -24,16 +24,21 @@ import EditProduct from './views/products/EditProduct'
 import ProductProfile from './views/products/ProductProfile'
 
 
-
 // products types components
 import ProductsTypes from './views/products-types/Index'
 import CreateProductsType from './views/products-types/CreateProductsType'
 import EditProductsType from './views/products-types/EditProductsType'
 
-// products types components
+
+// winners components
 import Winners from './views/winners/Index'
 import CreateWinner from './views/winners/CreateWinner'
 import EditWinner from './views/winners/EditWinner'
+
+
+// comments components
+import Comments from './views/comments/Index'
+import EditComment from './views/comments/EditComment'
 
 
 Vue.use(Router)
@@ -217,6 +222,26 @@ const vueRouter = new Router({
                     props: true,
                     meta: {
                         title: 'Edit winner'
+                    }
+                },
+
+
+                ////////////////// comments routes ///////////////////
+                {
+                    path: 'comments',
+                    name: 'comments',
+                    component: Comments,
+                    meta: {
+                        title: 'View all comments'
+                    }
+                },
+                {
+                    path: 'comment/:id/edit',
+                    name: 'edit-comment',
+                    component: EditComment,
+                    props: true,
+                    meta: {
+                        title: 'Edit comment'
                     }
                 },
 

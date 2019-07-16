@@ -12037,6 +12037,7 @@ a.text-dark:focus {
 }
 
 .proudct-profile-wrapper .product-image {
+  max-width: 100%;
   width: auto;
   max-height: 230px;
   margin-bottom: 10px !important;

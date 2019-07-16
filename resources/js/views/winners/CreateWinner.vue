@@ -80,7 +80,7 @@ export default {
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The products type has not been created.", "error");
+                Swal.fire("Failed!", "The winner has not been created.", "error");
                 this.$Progress.fail();
             });
         },

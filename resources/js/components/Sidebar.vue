@@ -156,6 +156,7 @@
                         </ul>
                     </li>
 
+
                     <!-- =============================== winners ================================== -->
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -176,6 +177,26 @@
                                 <router-link :to="{name: 'create-winner'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
                                     <p>Create new winner</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <!-- =============================== comments ================================== -->
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>
+                            Comments
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link :to="{name: 'comments'}" class="nav-link">
+                                    <i class="far fa-eye nav-icon"></i>
+                                    <p>Show all comments</p>
                                 </router-link>
                             </li>
                         </ul>

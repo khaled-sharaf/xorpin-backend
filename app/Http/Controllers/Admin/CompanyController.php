@@ -34,7 +34,11 @@ class CompanyController extends Controller
         // $query = Company::select('*')->orderBy($columns[$column], $dir)->withCount(['rates as count_users_rate']);
         $query = Company::select('*')->orderBy($columns[$column], $dir);
 
-        // handel users trashed and not trashed
+
+        if ($request->companyId != null) {
+            $query->where('company_id', $request->companyId);
+        }
+
         if ($trashed == 0) {
             $query->onlyTrashed();
         } else if ($trashed == 2) {

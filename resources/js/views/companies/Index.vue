@@ -37,6 +37,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table-wrapper
+                                                    :dataTable="dataTable"
                                                     :columns="columns"
                                                     :columnsView="tableData.filter.columns"
                                                     :columnsExcepted="tableData.filter.columnsExcept"
@@ -46,11 +47,11 @@
                                                     @sort="sortBy"
                                                 >
                                                     <table-content
-                                                    :dataTable="dataTable"
-                                                    :tableData="tableData"
-                                                    @destroyRow="destroyRow"
-                                                    @restoreRow="restoreRow"
-                                                    @forceDeleteRow="forceDeleteRow"
+                                                        :dataTable="dataTable"
+                                                        :tableData="tableData"
+                                                        @destroyRow="destroyRow"
+                                                        @restoreRow="restoreRow"
+                                                        @forceDeleteRow="forceDeleteRow"
                                                     ></table-content>
 
                                                 </table-wrapper>
@@ -62,11 +63,11 @@
                                     <div class="card-footer">
                                         <div class="row-pagination">
                                             <pagination
-                                            :pagination="pagination"
-                                            :totalLink="Math.ceil(pagination.total / tableData.length)"
-                                            @prev="getData(pagination.prevPageUrl)"
-                                            @next="getData(pagination.nextPageUrl)"
-                                            @gotopage="gotopage"
+                                                :pagination="pagination"
+                                                :totalLink="Math.ceil(pagination.total / tableData.length)"
+                                                @prev="getData(pagination.prevPageUrl)"
+                                                @next="getData(pagination.nextPageUrl)"
+                                                @gotopage="gotopage"
                                             ></pagination>
                                         </div>
                                     </div> <!-- /.card-footer -->
