@@ -72,7 +72,6 @@ export default {
         createProductType() {
             loadReq(this.$Progress);
             this.form.post(this.urlCreateProType).then(response => {
-                console.log(response.data);
                 if (response.status === 200) {
                     // reset form
                     this.form.reset();

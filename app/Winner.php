@@ -9,7 +9,7 @@ use App\Scopes\RelationWinners;
 class Winner extends Model
 {
     protected $fillable = [
-        // 'name', 'email', 'password', 'phone', 'address', 'photo', 'active', 'rule', 'lang', 'company_id'
+        'user_id', 'product_id',
     ];
 
 

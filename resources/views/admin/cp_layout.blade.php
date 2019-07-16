@@ -142,36 +142,6 @@
     }
 </script>
 
-{{-- {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js') !!}
-{!! Html::script('admin/knockout/knockout-min.js') !!}
-{!! Html::script('admin/knockout/knockout-file-bindings.js') !!} --}}
-
-<script>
-    // handel drop image in create product and edit product
-    // $(function(){
-    //     var viewModel = {};
-    //     viewModel.fileData = ko.observable({
-    //         dataURL: ko.observable(),
-    //         // base64String: ko.observable(),
-    //     });
-    //     viewModel.multiFileData = ko.observable({
-    //         dataURLArray: ko.observableArray(),
-    //     });
-    //     viewModel.onClear = function(fileData) {
-    //         if(confirm('Are you sure?')) {
-    //             fileData.clear && fileData.clear();
-    //         }
-    //     };
-    //     viewModel.debug = function(){
-    //         window.viewModel = viewModel;
-    //         console.log(ko.toJSON(viewModel));
-    //         debugger;
-    //     };
-    //     ko.applyBindings(viewModel);
-    // });
-
-</script>
-
 <!-- REQUIRED SCRIPTS -->
 
 {!! Html::script('admin/js/app.js') !!}

@@ -97,7 +97,6 @@ export default {
             this.form.longitude = window.parseFloat($('#company_longitude').val())
             loadReq(this.$Progress);
             this.form.post(this.urlUpdateCompany).then(response => {
-                console.log();
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({

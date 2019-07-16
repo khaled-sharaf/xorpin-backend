@@ -184,20 +184,25 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item"><a class="nav-link " href="#products" data-toggle="tab">Products</a></li>
-                                <li class="nav-item"><a class="nav-link active" href="#users" data-toggle="tab">Users</a></li>
+                                <li class="nav-item"><a @click="showUserTable = false" class="nav-link active" href="#products" data-toggle="tab">Products</a></li>
+                                <li class="nav-item"><a @click="showUserTable = true" class="nav-link" href="#users" data-toggle="tab">Users</a></li>
 
                             </ul>
                             <button class="btn btn-outline-secondary maximize-table float-right" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                            <div class="tab-pane" id="products">
-                               Products
+                            <div class="tab-pane active" id="products">
+                               <products v-if="(companyProfile.products_count != null && companyProfile.products_count != 0) && showUserTable === false"></products>
+
+                                <div v-else class="alert alert-info alert-dismissible">
+                                    <h5><i class="icon fas fa-info"></i> No products!</h5>
+                                    This company does'nt have products.
+                                </div>
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane active" id="users">
-                                <users-comp v-if="companyProfile.users_count != null && companyProfile.users_count != 0"></users-comp>
+                            <div class="tab-pane" id="users">
+                                <users-comp v-if="(companyProfile.users_count != null && companyProfile.users_count != 0) && showUserTable === true"></users-comp>
 
                                 <div v-else class="alert alert-info alert-dismissible">
                                     <h5><i class="icon fas fa-info"></i> No users!</h5>
@@ -225,12 +230,14 @@
 
 <script>
 import UsersComp from './../users/Index'
+import products from './../products/Index'
 import ModalLocation from './ModalLocation'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     components: {
         HeaderPage,
         UsersComp,
+        products,
         ModalLocation
     },
     name: 'company-profile',
@@ -239,6 +246,7 @@ export default {
           urlCompanyProfile: '/company/profile',
           urlDeleteRow: '/company/destroy',
           maximizeTable: false,
+          showUserTable: false,
           companyProfile: {
             id: 0,
             name: "",

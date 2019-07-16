@@ -7,97 +7,35 @@
 <template>
     <div>
         <div class="dataTables_filters">
-            <div class="box column_active">
-                <div class="filter filter_one">
-                    <div class="header">Trashed</div>
-                    <div class="body">
-                        <span
-                            class="icon icon-success"
-                            :class="tableData.trashed == '1' ? 'active' : ''"
-                            @click="tableData.trashed = '1'; $emit('getData');"
-                        >
-                            <i class="fas fa-building"></i>
-                        </span>
-                        <span
-                            class="icon icon-danger"
-                            :class="tableData.trashed == '0' ? 'active' : ''"
-                            @click="tableData.trashed = '0'; $emit('getData');"
-                        >
-                            <i class="fas fa-trash"></i>
-                        </span>
-                        <span
-                            class="icon off"
-                            :class="tableData.trashed == '2' ? 'active' : ''"
-                            @click="tableData.trashed = '2'; $emit('getData');"
-                        >
-                            <i class="fas fa-power-off"></i>
-                        </span>
-                    </div>
-                </div>
-                <!-- ./filter-one-->
-            </div>
-            <!-- ./box-->
-
-            <div class="box column_active">
-            <div class="filter filter_one">
-                <div class="header">Display Products</div>
-                <div class="body">
-                <span
-                    class="icon icon-success"
-                    :class="tableData.display == '1' ? 'active' : ''"
-                    @click="tableData.display = '1'; $emit('getData');"
-                >
-                    <i class="fas fa-eye"></i>
-                </span>
-                <span
-                    class="icon icon-danger"
-                    :class="tableData.display == '0' ? 'active' : ''"
-                    @click="tableData.display = '0'; $emit('getData');"
-                >
-                    <i class="fas fa-eye-slash"></i>
-                </span>
-                <span
-                    class="icon off"
-                    :class="tableData.display == '' ? 'active' : ''"
-                    @click="tableData.display = ''; $emit('getData');"
-                >
-                    <i class="fas fa-power-off"></i>
-                </span>
-                </div>
-            </div>
-            <!-- ./filter-one-->
-            </div>
-
-
 
 
             <div class="box column_date_between">
-            <div class="filter filter_date">
-                <div class="header">Created Between</div>
-                <div class="body">
-                <span class="input-date from">
-                    <date-picker
-                    v-model="tableData.from_date"
-                    type="datetime"
-                    lang="en"
-                    format="YYYY-MM-DD hh:mm:ss"
-                    placeholder="Form"
-                    confirm
-                    ></date-picker>
-                </span>
-                <span class="input-date to">
-                    <date-picker
-                    v-model="tableData.to_date"
-                    type="datetime"
-                    lang="en"
-                    format="YYYY-MM-DD hh:mm:ss"
-                    placeholder="To"
-                    confirm
-                    ></date-picker>
-                </span>
+                <div class="filter filter_date">
+                    <div class="header">Created Between</div>
+                    <div class="body">
+                    <span class="input-date from">
+                        <date-picker
+                        v-model="tableData.from_date"
+                        type="datetime"
+                        lang="en"
+                        format="YYYY-MM-DD hh:mm:ss"
+                        placeholder="Form"
+                        confirm
+                        ></date-picker>
+                    </span>
+                    <span class="input-date to">
+                        <date-picker
+                        v-model="tableData.to_date"
+                        type="datetime"
+                        lang="en"
+                        format="YYYY-MM-DD hh:mm:ss"
+                        placeholder="To"
+                        confirm
+                        ></date-picker>
+                    </span>
+                    </div>
                 </div>
-            </div>
-            <!-- ./filter-one-->
+                <!-- ./filter-one-->
             </div>
             <!-- ./box-->
         </div>
@@ -176,7 +114,7 @@
             </label>
             </div>
             <div class="dataTables_buttons">
-            <router-link :to="{name: 'create-pro-type'}" tag="button"
+            <router-link :to="{name: 'create-winner'}" tag="button"
                 type="button"
                 class="btn btn-outline-secondary"
             >
@@ -201,8 +139,6 @@ export default {
     "tableData",
     "perPage"
   ],
-    methods: {
-    }
 }
 </script>
 

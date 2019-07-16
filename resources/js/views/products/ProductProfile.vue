@@ -149,7 +149,7 @@
 
                             <!-- show product details in table product_details -->
 
-                            <table class="table table-striped table-bordered table-show-details">
+                            <table class="table table-striped table-bordered table-show-details" v-if="productProfile.details.length > 0">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -172,6 +172,11 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <div v-else class="alert alert-info alert-dismissible">
+                                <h5><i class="icon fas fa-info"></i> No products details!</h5>
+                                This product does'nt have details.
+                            </div>
 
 
                         </div>

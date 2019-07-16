@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
-use App\ProductDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Image;
 
 class ProductController extends Controller
 {
+
+    public function products_id()
+    {
+        $products = Product::orderBy('id', 'desc')->get();
+        return response($products, 200);
+    }
+
     public function index(Request $request)
     {
         $columns = ['index', 'id', 'name', 'photo', 'price', 'description', 'manufacture_company', 'count_rates', 'product_count', 'execute', 'display', 'type_id', 'user_id', 'company_id', 'updated_at', 'created_at'];
@@ -31,6 +37,10 @@ class ProductController extends Controller
             }
         } else {
             $query->orderBy($columns[$column], $dir);
+        }
+
+        if ($request->companyId != null) {
+            $query->where('company_id', $request->companyId);
         }
 
         // handel users trashed and not trashed

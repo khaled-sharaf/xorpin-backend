@@ -13,6 +13,13 @@ class UserController extends Controller
     private $patternPassword = "/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,16}$/";
     private $defaultAvatar = "images/user-avatar/default-avatar.png";
 
+
+    public function users_id()
+    {
+        $users = User::orderBy('id', 'desc')->get();
+        return response($users, 200);
+    }
+
     public function index(Request $request)
     {
         $columns = ['index', 'id', 'name', 'email', 'phone', 'address', 'photo', 'rule', 'active', 'created_at'];

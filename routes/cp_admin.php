@@ -2,12 +2,6 @@
 
 // here all routes control panel
 
-
-// // dashboard
-// Route::get('/dashboard', function () {
-//     return view('admin.layouts.adminLte');
-// })->name('admin.dashboard');
-
 Route::get('{path?}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');
 
 //////////////////////// users routes //////////////////////////////
@@ -17,6 +11,7 @@ Route::post('/user/update', 'UserController@update');
 Route::post('/user/edit', 'UserController@edit');
 Route::post('/user/destroy', 'UserController@destroy');
 Route::post('/user/restore', 'UserController@restoreUser');
+Route::post('/users-id', 'UserController@users_id');
 
 
 
@@ -37,10 +32,10 @@ Route::post('/product/update', 'ProductController@update');
 Route::post('/product/profile', 'ProductController@show');
 Route::post('/product/destroy', 'ProductController@destroy');
 Route::post('/product/restore', 'ProductController@restoreProduct');
+Route::post('/products-id', 'ProductController@products_id');
 
 
-
-//////////////////////// users routes //////////////////////////////
+//////////////////////// products types routes //////////////////////////////
 Route::post('/pro-types', 'ProductTypeController@index');
 Route::post('/pro-type/store', 'ProductTypeController@store');
 Route::post('/pro-type/update', 'ProductTypeController@update');
@@ -49,6 +44,17 @@ Route::post('/pro-type/destroy', 'ProductTypeController@destroy');
 Route::post('/pro-type/restore', 'ProductTypeController@restoreType');
 
 Route::post('/pro-types-data', 'ProductTypeController@allTypesUseInSelectBox');
+
+
+
+
+//////////////////////// winners routes //////////////////////////////
+Route::post('/winners', 'WinnerController@index');
+Route::post('/winner/store', 'WinnerController@store');
+Route::post('/winner/update', 'WinnerController@update');
+Route::post('/winner/edit', 'WinnerController@edit');
+Route::post('/winner/destroy', 'WinnerController@destroy');
+
 
 
 

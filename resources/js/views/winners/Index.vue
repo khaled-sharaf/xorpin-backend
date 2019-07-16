@@ -49,8 +49,6 @@
                                                     :dataTable="dataTable"
                                                     :tableData="tableData"
                                                     @destroyRow="destroyRow"
-                                                    @restoreRow="restoreRow"
-                                                    @forceDeleteRow="forceDeleteRow"
                                                     ></table-content>
 
                                                 </table-wrapper>
@@ -103,8 +101,8 @@ export default {
       { label: "<i class='fa fa-plus'></i>", name: "show_plus" },
       { label: "#", name: "index" },
       { label: "ID", name: "id" },
-      { label: "Name", name: "name" },
-      { label: "Display", name: "display" },
+      { label: "Username", name: "user_id" },
+      { label: "Product name", name: "product_id" },
       { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
     ];
@@ -112,9 +110,8 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      urlGetDataTable: '/pro-types',
-      urlDeleteRow: '/pro-type/destroy',
-      urlRestoreRow: '/pro-type/restore',
+      urlGetDataTable: '/winners',
+      urlDeleteRow: '/winner/destroy',
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -143,8 +140,8 @@ export default {
           columns: [
             "index",
             "id",
-            "name",
-            "display",
+            "user_id",
+            "product_id",
             "created_at",
             "actions"
           ],
@@ -165,13 +162,13 @@ export default {
         //   show: ['name', 'logo', 'count_rates', 'actions']
         // },
         800: {
-          show: ['name', 'dispaly', 'actions']
+          show: ['user_id', 'product_id', 'actions']
         },
         600: {
-          show: ["name", "actions"]
+          show: ["user_id", "product_id"]
         },
         400: {
-          show: ["name"]
+          show: ["user_id"]
         }
       },
       pagination: {
@@ -236,7 +233,6 @@ export default {
           let data = response.data,
             self = this;
           if (this.tableData.draw == data.draw) {
-            console.log(this.tableData.draw, data.draw)
             if (response.status === 200) {
               this.dataTable = data.data.data;
               this.configPagination(data.data);
@@ -421,20 +417,6 @@ export default {
         }
         }
       );
-
-    // function => restore row [this btn in table data hide]
-      $(document).on(
-        "click",
-        ".table tbody .tr-table-data td .btn-restore-row",
-        function(e) {
-          e.preventDefault();
-          let id = $(this)
-            .parents(".tr-table-data")
-            .prev("tr")
-            .attr("data-id");
-          self.restoreRow(id);
-        }
-      );
     },
     destroyRow(id) {
       Swal.fire({
@@ -463,62 +445,6 @@ export default {
         }
       });
     },
-
-    forceDeleteRow(id) {
-      Swal.fire({
-        title: "Force Delete",
-        text: "Are you sure you want to remove this products type?",
-        type: "error",
-        showCancelButton: true,
-        confirmButtonColor: "#e74c3c",
-        cancelButtonColor: "#6d6d6d",
-        confirmButtonText: "Yes, remove it!"
-      }).then(result => {
-        if (result.value) {
-          loadReq(this.$Progress);
-          axios
-            .post(this.urlDeleteRow, {id: id})
-            .then(response => {
-              if (response.status === 200) {
-                Swal.fire("Removed!", "The products type has been removed.", "success");
-                this.getData();
-              }
-            })
-            .catch(error => {
-              Swal.fire("Failed!", "The products type has not been removed.", "error");
-              this.$Progress.fail();
-            });
-        }
-      });
-    },
-    restoreRow(id) {
-      Swal.fire({
-        title: "Restore",
-        text: "Are you sure you want to restore this products type?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#6cb2eb",
-        cancelButtonColor: "#6d6d6d",
-        confirmButtonText: "Yes, restore it!"
-      }).then(result => {
-        if (result.value) {
-          loadReq(this.$Progress);
-          axios
-            .post(this.urlRestoreRow, {id: id})
-            .then(response => {
-              if (response.status === 200) {
-                Swal.fire("Restored!", "The products type has been restored.", "success");
-                this.getData();
-              }
-            })
-            .catch(error => {
-              Swal.fire("Failed!", "The products type has not been restored.", "error");
-              this.$Progress.fail();
-            });
-        }
-      });
-    },
-
   },
     beforeRouteEnter(to, from, next) {
         next(vm => {

@@ -30,6 +30,11 @@ import ProductsTypes from './views/products-types/Index'
 import CreateProductsType from './views/products-types/CreateProductsType'
 import EditProductsType from './views/products-types/EditProductsType'
 
+// products types components
+import Winners from './views/winners/Index'
+import CreateWinner from './views/winners/CreateWinner'
+import EditWinner from './views/winners/EditWinner'
+
 
 Vue.use(Router)
 
@@ -184,6 +189,34 @@ const vueRouter = new Router({
                     props: true,
                     meta: {
                         title: 'Edit products type'
+                    }
+                },
+
+
+                ////////////////// winners routes ///////////////////
+                {
+                    path: 'winners',
+                    name: 'winners',
+                    component: Winners,
+                    meta: {
+                        title: 'View all winners'
+                    }
+                },
+                {
+                    path: 'winner/create',
+                    name: 'create-winner',
+                    component: CreateWinner,
+                    meta: {
+                        title: 'Create new winner'
+                    }
+                },
+                {
+                    path: 'winner/:id/edit',
+                    name: 'edit-winner',
+                    component: EditWinner,
+                    props: true,
+                    meta: {
+                        title: 'Edit winner'
                     }
                 },
 

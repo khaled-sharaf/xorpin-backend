@@ -16,16 +16,16 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary btn-sm" :to="{name: 'pro-types'}">Show all products types</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'winners'}">Show all winners</router-link>
                             </div>
                             <!-- ./card-header -->
 
 
                             <!-- form -->
-                            <form @submit.prevent="createProductType()">
+                            <form @submit.prevent="createWinner()">
                                 <!-- card-body -->
                                 <div class="card-body">
-                                    <form-products-type typeForm="create" :form="form"></form-products-type>
+                                    <form-winner typeForm="create" :form="form"></form-winner>
                                 </div>
                                 <!-- ./card-body -->
 
@@ -51,17 +51,17 @@
 
 
 <script>
-import FormProductsType from './FormProductsType'
+import FormWinner from './FormWinner'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     name: 'create-pro-type',
     components: {
-        FormProductsType,
+        FormWinner,
         HeaderPage
     },
     data() {
       return {
-        urlCreateProType: '/pro-type/store',
+        urlCreateWinner: '/winner/store',
         form: new Form({
           name: "",
           display: 1
@@ -69,10 +69,9 @@ export default {
       }
     },
     methods: {
-        createProductType() {
+        createWinner() {
             loadReq(this.$Progress);
-            this.form.post(this.urlCreateProType).then(response => {
-                console.log(response.data);
+            this.form.post(this.urlCreateWinner).then(response => {
                 if (response.status === 200) {
                     // reset form
                     this.form.reset();

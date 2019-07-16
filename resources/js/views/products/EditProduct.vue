@@ -112,6 +112,9 @@ export default {
                     } else {
                         product.gallery = []
                     }
+                    if (!product.details.length) {
+                        product.details.push({name: '', value: '', display: true})
+                    }
                     this.productEdit = product
                     this.productEdit.deletedGallery = []
                     this.productEdit.deletedDetails = []

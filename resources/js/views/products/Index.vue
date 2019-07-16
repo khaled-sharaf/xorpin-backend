@@ -259,7 +259,6 @@ export default {
       axios
         .post(url, this.tableData)
         .then(response => {
-        console.log(response.data)
           let data = response.data,
             self = this;
           if (this.tableData.draw == data.draw) {
@@ -544,18 +543,41 @@ export default {
         }
       });
     },
+    addCompanyIdToRequest() {
+        const companyId = this.$route.params.id;
+        if (companyId != null) {
+            this.tableData.companyId = companyId
+        }
+        this.viewColumnsResponsive.default.show = ['name', 'type', 'photo', 'price', 'product_count', 'count_rates']
+    },
 
   },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
-            vm.sortBy(vm.sortKey);
-            vm.eventBtnsClick();
-            vm.viewFilterColumns();
-            window.onresize = () => {
+            if (vm.$route.name == 'products') {
+                vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
+                vm.sortBy(vm.sortKey);
+                vm.eventBtnsClick();
                 vm.viewFilterColumns();
-            };
+                window.onresize = () => {
+                    vm.viewFilterColumns();
+                };
+            }
         })
+    },
+    mounted() {
+        if (this.$route.name == 'company-profile') {
+            this.addCompanyIdToRequest() // add company id to table data for get users of company by company id for to use in company profile
+        }
+        if (this.$route.name != 'products') {
+            this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
+            this.sortBy(this.sortKey);
+            this.eventBtnsClick();
+            this.viewFilterColumns();
+            window.onresize = () => {
+                this.viewFilterColumns();
+            };
+        }
     },
 };
 </script>

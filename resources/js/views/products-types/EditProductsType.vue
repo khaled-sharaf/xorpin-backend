@@ -83,7 +83,7 @@ export default {
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The company has not been created.", "error");
+                Swal.fire("Failed!", "The product type has not been created.", "error");
                 this.$Progress.fail();
             });
         },

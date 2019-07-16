@@ -55,7 +55,9 @@
                     v-show="proTtype.deleted_at == null"
                     :to="{name: 'edit-pro-type', params: {proTtype: proTtype, id: proTtype.id}}"
                     :href="$domain_admin + '/products-type/' + proTtype.id + '/edit'"
-                    class="btn btn-success btn-edit-row btn-table-actions btn-sm"
+                    class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
+                    data-name="edit-pro-type"
+                    :data-params='"{\"proTtype\":" + JSON.stringify(proTtype) + ", \"id\":" + proTtype.id + "}"'
                 >
                     <i class="fa fa-edit"></i>
                 </router-link>

@@ -255,9 +255,11 @@
             </label>
             </div>
             <div class="dataTables_buttons">
-                <router-link :to="{name: 'create-product'}" tag="button"
+                <router-link
+                    :to="{name: 'create-product'}" tag="button"
                     type="button"
                     class="btn btn-outline-secondary"
+                    v-if="this.$route.name == 'products'"
                 >
                     Create
                     <i class="fa fa-plus fa-fw"></i>

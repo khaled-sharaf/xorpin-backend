@@ -17,7 +17,7 @@
                             <!-- card-header -->
                             <div class="card-header">
                                 <h3 class="m-0 mb-2 text-dark">
-                                    <h3 class="m-0 mb-2 text-dark">Product type: <span style="color: #3498db"> {{ proTypeEdit.name }}</span></h3>
+                                    <h3 class="m-0 mb-2 text-dark">Winner: <span style="color: #3498db"> {{ winnerEdit.user.name }}</span></h3>
                                 </h3>
                             </div>
                             <!-- ./card-header -->
@@ -27,7 +27,7 @@
                             <form @submit.prevent="editProductType()">
                                 <!-- card-body -->
                                 <div class="card-body">
-                                    <form-products-type typeForm="edit" :form="form"></form-products-type>
+                                    <form-winner typeForm="edit" :form="form"></form-winner>
                                 </div>
                                 <!-- ./card-body -->
 
@@ -53,29 +53,29 @@
 
 
 <script>
-import FormProductsType from './FormProductsType'
+import FormWinner from './FormWinner'
 import HeaderPage from './../../components/HeaderPage'
 export default {
     components: {
         HeaderPage,
-        FormProductsType
+        FormWinner
     },
     data() {
       return {
-        urlEditProType: '/pro-type/edit',
-        urlUpdateProType: '/pro-type/update',
+        urlEditWinner: '/winner/edit',
+        urlUpdateWinner: '/winner/update',
         form: new Form({
           id: 0,
-          name: "",
-          display: 1,
+          user_id: "",
+          product_id: "",
         }),
-        proTypeEdit: {}
+        winnerEdit: {}
       }
     },
     methods: {
         editProductType() {
             loadReq(this.$Progress);
-            this.form.post(this.urlUpdateProType).then(response => {
+            this.form.post(this.urlUpdateWinner).then(response => {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({
@@ -83,28 +83,28 @@ export default {
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The company has not been created.", "error");
+                Swal.fire("Failed!", "The winner has not been created.", "error");
                 this.$Progress.fail();
             });
         },
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            if (to.params.proType) {
-                vm.proTypeEdit = to.params.proType
+            if (to.params.winner) {
+                vm.winnerEdit = to.params.winner
                 vm.form.reset()
-                vm.form.fill(vm.proTypeEdit)
+                vm.form.fill(vm.winnerEdit)
             } else {
-                axios.post(vm.urlEditProType, {id: to.params.id}).then(response => {
+                axios.post(vm.urlEditWinner, {id: to.params.id}).then(response => {
                     if (response.status === 200) {
-                        const proType = response.data.proType
-                        if (proType != null) {
-                            vm.proTypeEdit = proType
+                        const winner = response.data.winner
+                        if (winner != null) {
+                            vm.winnerEdit = winner
 
                             vm.form.reset()
-                            vm.form.fill(vm.proTypeEdit)
+                            vm.form.fill(vm.winnerEdit)
                         } else {
-                            vm.$router.push({name: 'pro-types'})
+                            vm.$router.push({name: 'winners'})
                         }
                     }
                 })
