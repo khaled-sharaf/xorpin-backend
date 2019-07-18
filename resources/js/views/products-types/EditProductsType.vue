@@ -87,6 +87,21 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getProductsTypeEdit(route) {
+            axios.post(this.urlEditProType, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const proType = response.data.proType
+                    if (proType != null) {
+                        this.proTypeEdit = proType
+
+                        this.form.reset()
+                        this.form.fill(this.proTypeEdit)
+                    } else {
+                        this.$router.push({name: 'pro-types'})
+                    }
+                }
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
@@ -95,19 +110,7 @@ export default {
                 vm.form.reset()
                 vm.form.fill(vm.proTypeEdit)
             } else {
-                axios.post(vm.urlEditProType, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const proType = response.data.proType
-                        if (proType != null) {
-                            vm.proTypeEdit = proType
-
-                            vm.form.reset()
-                            vm.form.fill(vm.proTypeEdit)
-                        } else {
-                            vm.$router.push({name: 'pro-types'})
-                        }
-                    }
-                })
+                vm.getProductsTypeEdit(to)
             }
         })
     }

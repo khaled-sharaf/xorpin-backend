@@ -9,13 +9,10 @@
         <header-page v-if="this.$route.name == 'users'" title="View all users"></header-page>
         <!-- /.content-header -->
         <section class="content">
-            <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
-            <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
                 <div class="dataTable" id="users">
                     <div class="row mt-3">
                         <div class="col-12">
-                            <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
                             <div class="dataTables_wrapper">
                                 <div class="card">
 
@@ -37,6 +34,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table-wrapper
+                                                    :successResponse="successResponse"
                                                     :dataTable="dataTable"
                                                     :columns="columns"
                                                     :columnsView="tableData.filter.columns"
@@ -123,6 +121,7 @@ export default {
       urlGetDataTable: '/users',
       urlDeleteRow: '/user/destroy',
       urlRestoreRow: '/user/restore',
+      successResponse: false,
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -249,6 +248,7 @@ export default {
     },
     getData(url = this.urlGetDataTable) {
       loadReq(this.$Progress);
+      this.successResponse = false
       this.tableData.draw++;
       axios
         .post(url, this.tableData)
@@ -257,16 +257,20 @@ export default {
             self = this;
           if (this.tableData.draw == data.draw) {
             if (response.status === 200) {
-              this.dataTable = data.data.data;
-              this.configPagination(data.data);
-              setTimeout(function() {
-                self.updateRowDataWhenGet();
-              }, 200);
+                this.dataTable = data.data.data;
+                this.successResponse = true
+                this.configPagination(data.data);
+                setTimeout(function() {
+                    self.updateRowDataWhenGet();
+                }, 200);
             }
           }
         })
         .catch(errors => {
-          this.$Progress.fail();
+            setTimeout(() => {
+                this.getData()
+            }, 1000)
+            this.$Progress.fail()
         });
     },
     configPagination(data) {
@@ -556,8 +560,8 @@ export default {
     }
   },
     beforeRouteEnter(to, from, next) {
-        if (to.name == 'users') {
-            next(vm => {
+        next(vm => {
+            if (to.name == 'users') {
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
                 vm.eventBtnsClick();
@@ -565,8 +569,8 @@ export default {
                 window.onresize = () => {
                     vm.viewFilterColumns();
                 };
-            })
-        }
+            }
+        })
     },
     mounted() {
         if (this.$route.name == 'company-profile') {

@@ -7,7 +7,7 @@
 <template>
     <div>
         <div class="dataTables_filters">
-            <div class="box column_active">
+            <div class="box column_active" v-if="$gate.isAdmin()">
                 <div class="filter filter_one">
                     <div class="header">Trashed</div>
                     <div class="body">
@@ -176,7 +176,10 @@
             </label>
             </div>
             <div class="dataTables_buttons">
-            <router-link :to="{name: 'create-pro-type'}" tag="button"
+            <router-link
+                v-if="$gate.isAdmin()"
+                :to="{name: 'create-pro-type'}"
+                tag="button"
                 type="button"
                 class="btn btn-outline-secondary"
             >

@@ -87,6 +87,26 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getWinnerEdit(route) {
+            axios.post(this.urlEditWinner, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const winner = response.data.winner
+                    if (winner != null) {
+                        this.winnerEdit = winner
+
+                        this.form.reset()
+                        this.form.fill(this.winnerEdit)
+                    } else {
+                        this.$router.push({name: 'winners'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getWinnerEdit(this.$route)
+                }, 1000)
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
@@ -95,19 +115,7 @@ export default {
                 vm.form.reset()
                 vm.form.fill(vm.winnerEdit)
             } else {
-                axios.post(vm.urlEditWinner, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const winner = response.data.winner
-                        if (winner != null) {
-                            vm.winnerEdit = winner
-
-                            vm.form.reset()
-                            vm.form.fill(vm.winnerEdit)
-                        } else {
-                            vm.$router.push({name: 'winners'})
-                        }
-                    }
-                })
+                vm.getWinnerEdit(to)
             }
         })
     }

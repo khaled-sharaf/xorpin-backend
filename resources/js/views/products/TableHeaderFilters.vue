@@ -7,7 +7,7 @@
 <template>
     <div>
         <div class="dataTables_filters">
-            <div class="box column_active">
+            <div class="box column_active" v-if="$gate.isAdmin()">
                 <div class="filter filter_one">
                     <div class="header">Trashed</div>
                     <div class="body">
@@ -277,29 +277,12 @@
 <script>
 export default {
     props: [
+    "proTypes",
     "columns",
     "viewTableClasses",
     "tableData",
     "perPage",
-  ],
-  data() {
-      return {
-          urlGetProductsTypes: '/pro-types-data',
-          proTypes: []
-      }
-  },
-  methods: {
-      getProductsTypes() {
-          axios.post(this.urlGetProductsTypes).then(response => {
-              if (response.status === 200) {
-                  this.proTypes = response.data.types
-              }
-          })
-      }
-  },
-  mounted() {
-      this.getProductsTypes()
-  },
+  ]
 }
 </script>
 

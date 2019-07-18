@@ -4,10 +4,24 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+Vue.config.productionTip = false
+
+// global properties
+
+Vue.prototype.$domain = window.url
+Vue.prototype.$auth = window.auth
+Vue.prototype.$authCompany = window.authCompany
+Vue.prototype.$domain_admin = window.url + '/' + window.cp_prefix
+import Gate from './Gate'
+Vue.prototype.$gate = new Gate()
+
+/**************************************************************************************/
+
 
 import App from './App.vue'
 import router from './router'
 
+/**************************************************************************************/
 
 // select 2
 import './plugins/select2/select2.min.css'
@@ -20,22 +34,6 @@ import './directives.js'
 
 /**************************************************************************************/
 
-Vue.config.productionTip = false
-
-/**************************************************************************************/
-
-
-// global properties
-
-import Gate from './Gate'
-Vue.prototype.$domain = window.url
-Vue.prototype.$auth = window.auth
-Vue.prototype.$authCompany = window.authCompany
-Vue.prototype.$domain_admin = window.url + '/' + window.cp_prefix
-Vue.prototype.$gate = new Gate(window.auth)
-
-
-/**************************************************************************************/
 
 // axios -- for request ajax
 import axios from 'axios'

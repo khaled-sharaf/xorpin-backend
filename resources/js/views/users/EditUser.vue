@@ -92,26 +92,40 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getUserEdit(route) {
+            axios.post(this.urlEditUser, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const user = response.data.user
+                    if (user != null) {
+                        this.userEdit = user
+                        this.form.reset()
+                        this.form.fill(this.userEdit)
+                    } else {
+                        this.$router.push({name: 'users'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getUserEdit(this.$route)
+                }, 1000)
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            if (to.params.user) {
-                vm.userEdit = to.params.user
-                vm.form.reset()
-                vm.form.fill(vm.userEdit)
+            if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authData().id) {
+                setTimeout(() => {
+                    next({name: 'home'})
+                }, 100)
             } else {
-                axios.post(vm.urlEditUser, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const user = response.data.user
-                        if (user != null) {
-                            vm.userEdit = user
-                            vm.form.reset()
-                            vm.form.fill(vm.userEdit)
-                        } else {
-                            vm.$router.push({name: 'users'})
-                        }
-                    }
-                })
+                if (to.params.user) {
+                    vm.userEdit = to.params.user
+                    vm.form.reset()
+                    vm.form.fill(vm.userEdit)
+                } else {
+                    vm.getUserEdit(to)
+                }
             }
         })
     }

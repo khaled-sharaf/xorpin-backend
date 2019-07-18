@@ -4,7 +4,7 @@
 
 <template>
     <div class="navbar-layout">
-        <nav class="main-header navbar navbar-expand navbar-dark navbar-info">
+        <nav class="main-header navbar navbar-expand navbar-dark" :class="{'navbar-info': $gate.isAdmin(), 'navbar-success': $gate.isAdminCompany()}">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -14,13 +14,13 @@
                     <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link to="/users" class="nav-link">Create new product</router-link>
+                    <router-link :to="{name: 'create-product'}" class="nav-link">Create new product</router-link>
                     <!-- <router-link :to="{name: 'create-product'}" class="nav-link">Create new product</router-link> -->
                 </li>
             </ul>
 
             <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
+            <!-- <form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -29,7 +29,7 @@
                     </button>
                 </div>
                 </div>
-            </form>
+            </!-->
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">

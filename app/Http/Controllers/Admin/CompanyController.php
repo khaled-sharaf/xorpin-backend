@@ -90,11 +90,11 @@ class CompanyController extends Controller
     {
         $this->validate(request(), [
             'name' => 'required|string|between:2,180',
-            'description' => 'required|string|between:10,190',
+            'description' => 'required|string|between:5,190',
             'email' => 'nullable|email|max:180|unique:companies',
             'phone' => 'nullable|unique:companies|regex:' . $this->patternPhone,
             'website' => 'nullable|string|url|max:190',
-            'address' => 'nullable|string|between:10,180',
+            'address' => 'nullable|string|between:5,180',
             'latitude' => 'nullable|numeric|required_with:longitude',
             'longitude' => 'nullable|numeric|required_with:latitude',
             'face_link' => 'nullable|string|url|max:190',
@@ -135,11 +135,11 @@ class CompanyController extends Controller
         $company = Company::find($id);
         $this->validate(request(), [
             'name' => 'required|string|between:2,180',
-            'description' => 'required|string|between:10,190',
+            'description' => 'required|string|between:5,190',
             'email' => 'nullable|email|max:180|unique:companies,email,'. $id,
             'phone' => 'nullable|regex:' . $this->patternPhone . '|unique:companies,phone,' . $id,
             'website' => 'nullable|string|url|max:190',
-            'address' => 'nullable|string|between:10,180',
+            'address' => 'nullable|string|between:5,180',
             'latitude' => 'nullable|numeric|required_with:longitude',
             'longitude' => 'nullable|numeric|required_with:latitude',
             'face_link' => 'nullable|string|url|max:190',

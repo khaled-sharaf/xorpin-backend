@@ -35,6 +35,7 @@
                     :to="{name: 'edit-user', params: {id: winner.user_id, user: winner.user}}"
                     data-name="edit-user"
                     :data-params='"{\"user\":" + JSON.stringify(winner.user) + ", \"id\":" + winner.user_id + "}"'
+                    :class="{disabled: $gate.isAdminCompany()}"
                 >
                     {{winner.user.name | capitalize }}
                 </router-link>
@@ -63,6 +64,7 @@
 
                 <!-- btn edit row -->
                 <router-link
+                    v-if="$gate.isAdmin()"
                     :to="{name: 'edit-winner', params: {winner: winner, id: winner.id}}"
                     :href="$domain_admin + '/winner/' + winner.id + '/edit'"
                     class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
@@ -75,7 +77,8 @@
 
                 <!-- btn delete row -->
                 <a
-                    :href="$domain_admin + '/products-type/destroy'"
+                    v-if="$gate.isAdmin()"
+                    :href="$domain_admin + '/winner/destroy'"
                     class="btn btn-danger btn-delete-row btn-table-actions btn-sm"
                     @click.prevent="$emit('destroyRow', winner.id)"
                 >

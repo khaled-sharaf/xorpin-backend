@@ -47,14 +47,19 @@ class CommentController extends Controller
               ->orWhere('positive_product', 'like', '%' . $searchValue . '%')
               ->orWhere('negative_product', 'like', '%' . $searchValue . '%');
         }
-        $winners = $query->paginate($length);
-        return response(['data' => $winners, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+
+        $query->whereHas('product', function($q) {
+            $q->where('company_id', auth()->user()->company_id);
+        });
+
+        $comments = $query->paginate($length);
+        return response(['data' => $comments, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
     }
 
 
     public function edit(Request $request)
     {
-        $comment = Comment::find($request->id);
+        $comment = Comment::with(['user', 'product'])->find($request->id);
         return response(['comment' => $comment], 200);
     }
 

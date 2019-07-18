@@ -52,6 +52,7 @@
 
                 <!-- btn edit row -->
                 <router-link
+                    v-if="$gate.isAdmin()"
                     v-show="proTtype.deleted_at == null"
                     :to="{name: 'edit-pro-type', params: {proTtype: proTtype, id: proTtype.id}}"
                     :href="$domain_admin + '/products-type/' + proTtype.id + '/edit'"
@@ -65,6 +66,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="proTtype.deleted_at == null"
                     :href="$domain_admin + '/products-type/destroy'"
                     class="btn btn-danger btn-delete-row btn-table-actions btn-sm"
@@ -77,6 +79,7 @@
 
                 <!-- btn restore row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="proTtype.deleted_at != null"
                     :href="$domain_admin + '/products-type/restore'"
                     class="btn btn-info btn-restore-row btn-table-actions btn-sm"
@@ -88,6 +91,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="proTtype.deleted_at != null"
                     :href="$domain_admin + '/products-type/force-delete'"
                     class="btn btn-danger btn-delete-row force-delete btn-table-actions btn-sm"

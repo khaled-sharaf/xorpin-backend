@@ -98,6 +98,7 @@
                     :to="{name: 'edit-user', params: {user: product.user, id: product.user_id}}"
                     data-name="edit-user"
                     :data-params='"{\"user\":" + JSON.stringify(product.user) + ", \"id\":" + product.user_id + "}"'
+                    :class="{disabled: $gate.isAdminCompany()}"
                 >
                     {{product.user.name}}
                 </router-link>
@@ -105,8 +106,7 @@
             </td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('company') != -1" class="company"
-            >
+            <td v-show="tableData.filter.columns.indexOf('company') != -1" class="company">
                 <router-link
                     class="link-router-in-table"
                     v-if="product.company !== null"
@@ -114,6 +114,7 @@
                     :to="{name: 'company-profile', params: {id: product.company_id, company: product.company}}"
                     data-name="company-profile"
                     :data-params='"{\"company\":" + JSON.stringify(product.company) + ", \"id\":" + product.company_id + "}"'
+                    :class="{disabled: $gate.isAdminCompany()}"
                 >
                     {{product.company.name}}
                 </router-link>
@@ -174,6 +175,7 @@
 
                 <!-- btn restore row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="product.deleted_at != null"
                     :href="$domain_admin + '/product/restore'"
                     class="btn btn-info btn-restore-row btn-table-actions btn-sm"
@@ -185,6 +187,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="product.deleted_at != null"
                     :href="$domain_admin + '/product/force-delete'"
                     class="btn btn-danger btn-delete-row force-delete btn-table-actions btn-sm"

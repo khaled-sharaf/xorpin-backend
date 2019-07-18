@@ -20,18 +20,6 @@
     }
 }
 
-// style rates stars in datatable
-.wrapper-rates-stars {
-    display: inline-block;
-    .star {
-        display: inline-block;
-        font-size: 16px;
-        margin-right: -4px;
-        margin: 0 1px;
-        color: #f39c12;
-    }
-}
-
 
 // pages header
 .title-page {
@@ -82,4 +70,10 @@
             font-size: 16px;
         }
     }
+}
+
+.disabled, [disabled="disabled"] {
+    pointer-events: none;
+    color: #212529;
+    cursor: auto;
 }

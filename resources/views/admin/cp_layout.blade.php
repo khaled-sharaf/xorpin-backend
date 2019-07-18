@@ -17,8 +17,6 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  {!! Html::style('admin/knockout/knockout-file-bindings.css') !!}
-
   {!! Html::style('admin/css/app.css') !!}
 
   <style>
@@ -59,7 +57,7 @@
 <script>
     // set auth user in object global in all file js
     window.auth = @json(auth()->user());
-    window.authCompany = @json(\App\Company::find(auth()->user()->company_id));
+    window.authCompany = @json(auth()->user()->company);
     window.csrf_token = '{{csrf_token()}}';
     window.url = '{{url("/")}}';
     window.cp_prefix = '{{ env("CP_PREFIX") }}';

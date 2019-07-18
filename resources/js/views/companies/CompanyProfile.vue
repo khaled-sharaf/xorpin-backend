@@ -47,6 +47,7 @@
 
                             <!-- delete company -->
                             <a
+                                v-if="$gate.isAdmin()"
                                 :href="$domain_admin + '/company/destroy'"
                                 class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
                                 @click.prevent="destroyRow(companyProfile.id)"
@@ -156,13 +157,16 @@
                             <hr>
 
                             <!-- active -->
-                            <strong>Activation</strong>
+                            <div v-if="$gate.isAdmin()">
 
-                            <p class="text-muted">
-                                {{companyProfile.active == 1 ? 'Active' : 'Disactive'}}
-                            </p>
+                                <strong>Activation</strong>
 
-                            <hr>
+                                <p class="text-muted">
+                                    {{companyProfile.active == 1 ? 'Active' : 'Disactive'}}
+                                </p>
+
+                                <hr>
+                            </div>
 
                             <!-- create at -->
                             <strong>Created at</strong>
@@ -170,10 +174,6 @@
                             <p class="text-muted">
                                 <relative-date :date="companyProfile.created_at"></relative-date>
                             </p>
-
-                            <hr>
-
-
                         </div>
                         <!-- /.card-body -->
                         </div>
@@ -184,15 +184,15 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item"><a @click="showUserTable = false" class="nav-link active" href="#products" data-toggle="tab">Products</a></li>
-                                <li class="nav-item"><a @click="showUserTable = true" class="nav-link" href="#users" data-toggle="tab">Users</a></li>
+                                <li class="nav-item" v-if="$gate.isAdmin()"><a @click="showUserTable = false" class="nav-link active" href="#products" data-toggle="tab">Products</a></li>
+                                <li class="nav-item"><a @click="showUserTable = true" class="nav-link" :class="{active: $gate.isAdminCompany()}" href="#users" data-toggle="tab">Users</a></li>
 
                             </ul>
                             <button class="btn btn-outline-secondary maximize-table float-right" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                            <div class="tab-pane active" id="products">
+                            <div class="tab-pane active" id="products" v-if="$gate.isAdmin()">
                                <products v-if="(companyProfile.products_count != null && companyProfile.products_count != 0) && showUserTable === false"></products>
 
                                 <div v-else class="alert alert-info alert-dismissible">
@@ -201,7 +201,7 @@
                                 </div>
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane" id="users">
+                            <div class="tab-pane" :class="{active: $gate.isAdminCompany()}" id="users">
                                 <users-comp v-if="(companyProfile.users_count != null && companyProfile.users_count != 0) && showUserTable === true"></users-comp>
 
                                 <div v-else class="alert alert-info alert-dismissible">
@@ -260,7 +260,7 @@ export default {
             face_link: "",
             latitude: "",
             longitude: "",
-            logo: "images/user-avatar/default-avatar.png",
+            logo: "images/companies-logo/company-default-avatar.jpg",
             phone: "",
             products_count: 0,
             tw_link: "",
@@ -324,29 +324,46 @@ export default {
                     });
                 }
             });
-            },
+        },
+        getCompanyProfile(route) {
+            axios.post(this.urlCompanyProfile, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const company = response.data.company
+                    if (company != null) {
+                        this.companyProfile = company
+                    } else {
+                        this.$router.push({name: 'companies'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCompanyProfile(this.$route)
+                }, 1000)
+            })
+        }
     },
 
     mounted() {
         this.eventBtnsClick()
+        if (this.$gate.isAdminCompany()) {
+            this.showUserTable = true
+        }
     },
 
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authCompanyData().id) {
+                setTimeout(() => {
+                    next({name: 'home'})
+                }, 100)
+            } else {
                 if (to.params.company) {
                     vm.companyProfile = to.params.company
                 } else {
-                    axios.post(vm.urlCompanyProfile, {id: to.params.id}).then(response => {
-                        if (response.status === 200) {
-                            const company = response.data.company
-                            if (company != null) {
-                                vm.companyProfile = company
-                            } else {
-                                vm.$router.push({name: 'companies'})
-                            }
-                        }
-                    })
+                    vm.getCompanyProfile(to)
                 }
+            }
         })
     }
 }

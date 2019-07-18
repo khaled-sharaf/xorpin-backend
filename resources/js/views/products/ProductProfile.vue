@@ -124,11 +124,13 @@
                                 <li class="list-group-item" v-if="$gate.isAdmin()">
                                     <b>Company</b> <a class="float-right">
                                         <router-link
+                                            v-if="typeof productProfile.company == 'object' && productProfile.company != null && productProfile.company.length > 0"
                                             :href="$domain_admin + '/company/profile/' + productProfile.company_id"
                                             :to="{name: 'company-profile', params: {id: productProfile.company_id, company: productProfile.company}}"
                                         >
                                             {{ productProfile.company.name }}
                                         </router-link>
+                                        <span class="badge badge-danger" v-else>Company is deleted - id:{{productProfile.company_id}}</span>
                                     </a>
                                 </li>
 
@@ -300,17 +302,11 @@ export default {
                 }
             });
         },
-    },
-
-    mounted() {
-        this.eventBtnsClick()
-    },
-
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-                if (to.params.product) {
-                    let product = to.params.product
-                    if (typeof product.gallery != 'object') {
+        getProductProfile(route) {
+            axios.post(this.urlProductProfile, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    let product = response.data.product
+                    if (product != null) {
                         if (product.gallery !== null && product.gallery != '') {
                             let gallery = product.gallery.split(',')
                             let galleryArr = []
@@ -321,30 +317,44 @@ export default {
                         } else {
                             product.gallery = []
                         }
+                        this.productProfile = product
+                    } else {
+                        this.$router.push({name: 'products'})
                     }
-                    vm.productProfile = product
-                } else {
-                    axios.post(vm.urlProductProfile, {id: to.params.id}).then(response => {
-                        if (response.status === 200) {
-                            let product = response.data.product
-                            if (product != null) {
-                                if (product.gallery !== null && product.gallery != '') {
-                                    let gallery = product.gallery.split(',')
-                                    let galleryArr = []
-                                    gallery.forEach(image => {
-                                        galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
-                                    })
-                                    product.gallery = galleryArr
-                                } else {
-                                    product.gallery = []
-                                }
-                                vm.productProfile = product
-                            } else {
-                                vm.$router.push({name: 'products'})
-                            }
-                        }
-                    })
                 }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getProductProfile(this.$route)
+                }, 1000)
+            });
+        }
+    },
+
+    mounted() {
+        this.eventBtnsClick()
+    },
+
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.product) {
+                let product = to.params.product
+                if (typeof product.gallery != 'object') {
+                    if (product.gallery !== null && product.gallery != '') {
+                        let gallery = product.gallery.split(',')
+                        let galleryArr = []
+                        gallery.forEach(image => {
+                            galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
+                        })
+                        product.gallery = galleryArr
+                    } else {
+                        product.gallery = []
+                    }
+                }
+                vm.productProfile = product
+            } else {
+                vm.getProductProfile(to)
+            }
         })
     }
 }

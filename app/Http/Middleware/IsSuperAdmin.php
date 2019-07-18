@@ -11,6 +11,6 @@ class IsSuperAdmin
         if (auth()->user()->rule == 1) {
             return $next($request);
         }
-        return redirect(env('CP_PREFIX') . '/' . 'dashboard');
+        return response(['message' => 'Forbidden! You don\'t have permission to access this method.'], 403);
     }
 }

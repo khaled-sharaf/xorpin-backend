@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- rule -->
-                <div class="form-group" v-if="(typeForm === 'edit' && form.id !== 1) || typeForm === 'create'">
+                <div class="form-group" v-if="((typeForm === 'edit' && form.id !== 1) || typeForm === 'create') && $gate.isAdmin()">
                     <label>Rule <span class="field-required"></span></label>
                     <select
                     v-model="form.rule"
@@ -102,7 +102,7 @@
                 </div>
 
                 <!-- company -->
-                <div class="form-group" v-if="selectCompany && ((typeForm === 'edit' && form.id !== 1) || typeForm === 'create')">
+                <div class="form-group" v-if="(selectCompany && ((typeForm === 'edit' && form.id !== 1) || typeForm === 'create')) && $gate.isAdmin()">
                     <label>Company <span class="field-required"></span></label>
                     <select
                     v-model="form.company_id"
@@ -119,7 +119,7 @@
                 </div>
 
                 <!-- active -->
-                <div class="form-group" v-if="(typeForm === 'edit' && form.id !== 1) || typeForm === 'create'">
+                <div class="form-group" v-if="((typeForm === 'edit' && form.id !== 1) || typeForm === 'create') && $gate.isAdmin()">
                     <label>Active <span class="field-required"></span></label>
                     <select
                     v-model="form.active"
@@ -219,6 +219,11 @@
                 if (response.status === 200) {
                     this.companies = data;
                 }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCompanies(this.urlGetAllCompanies)
+                }, 1000)
             });
         },
     },
@@ -242,7 +247,9 @@
         }
     },
     mounted() {
-        this.getCompanies();
+        if (this.$gate.isAdmin()) {
+            this.getCompanies();
+        }
         if (this.typeForm == 'create') {
             this.form.photo = this.oldUserAvatar;
         } else {

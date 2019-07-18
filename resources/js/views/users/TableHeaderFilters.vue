@@ -7,7 +7,7 @@
 <template>
     <div>
         <div class="dataTables_filters">
-            <div class="box column_active" v-if="this.$route.name != 'product-profile'">
+            <div class="box column_active" v-if="this.$route.name != 'product-profile' && $gate.isAdmin()">
                 <div class="filter filter_one">
                     <div class="header">Trashed</div>
                     <div class="body">

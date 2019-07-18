@@ -54,7 +54,7 @@
 import FormWinner from './FormWinner'
 import HeaderPage from './../../components/HeaderPage'
 export default {
-    name: 'create-pro-type',
+    name: 'create-winner',
     components: {
         FormWinner,
         HeaderPage

@@ -61,7 +61,7 @@ class ProductTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|string|between:3,50',
+            'name' => 'required|string|between:2,50',
             'display' => 'required|in:0,1'
         ]);
         $request->merge(['user_id' => auth()->id()]);
@@ -83,7 +83,7 @@ class ProductTypeController extends Controller
         $id = $request->id;
         $type = Type::find($id);
         $this->validate(request(), [
-            'name' => 'required|string|between:3,50',
+            'name' => 'required|string|between:2,50',
             'display' => 'in:0,1'
         ]);
         $type->update($request->all());

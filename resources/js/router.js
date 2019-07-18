@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Gate from './Gate'
+const gate = new Gate()
+
+// default layout and dashboard
 import DefaultLayout from './layouts/DefaultLayout'
 import Dashboard from './views/Dashboard'
 
@@ -41,6 +45,12 @@ import Comments from './views/comments/Index'
 import EditComment from './views/comments/EditComment'
 
 
+// settings components
+import Settings from './views/settings/Index'
+import CreateSetting from './views/settings/CreateSetting'
+import EditSetting from './views/settings/EditSetting'
+
+
 Vue.use(Router)
 
 var pathRoute = ''
@@ -67,6 +77,7 @@ const vueRouter = new Router({
                     name: 'home',
                     component: Dashboard,
                     meta: {
+                        authCompany: true,
                         title: 'Dashboard'
                     }
                 },
@@ -77,7 +88,7 @@ const vueRouter = new Router({
                     name: 'users',
                     component: Users,
                     meta: {
-                        title: 'View all users'
+                        title: 'Users'
                     }
                 },
                 {
@@ -94,6 +105,7 @@ const vueRouter = new Router({
                     component: EditUser,
                     props: true,
                     meta: {
+                        authCompany: true,
                         title: 'Edit user'
                     }
                 },
@@ -105,7 +117,7 @@ const vueRouter = new Router({
                     name: 'companies',
                     component: Companies,
                     meta: {
-                        title: 'View all companies'
+                        title: 'Companies'
                     }
                 },
                 {
@@ -122,6 +134,7 @@ const vueRouter = new Router({
                     component: EditCompany,
                     props: true,
                     meta: {
+                        authCompany: true,
                         title: 'Edit company'
                     }
                 },
@@ -130,6 +143,10 @@ const vueRouter = new Router({
                     name: 'company-profile',
                     component: CompanyProfile,
                     props: true,
+                    meta: {
+                        authCompany: true,
+                        title: 'Company profile'
+                    }
                 },
 
 
@@ -140,7 +157,8 @@ const vueRouter = new Router({
                     name: 'products',
                     component: Products,
                     meta: {
-                        title: 'View all products'
+                        authCompany: true,
+                        title: 'Products'
                     }
                 },
                 {
@@ -148,6 +166,7 @@ const vueRouter = new Router({
                     name: 'create-product',
                     component: CreateProduct,
                     meta: {
+                        authCompany: true,
                         title: 'Create new product'
                     }
                 },
@@ -157,6 +176,7 @@ const vueRouter = new Router({
                     component: EditProduct,
                     props: true,
                     meta: {
+                        authCompany: true,
                         title: 'Edit product'
                     }
                 },
@@ -165,6 +185,10 @@ const vueRouter = new Router({
                     name: 'product-profile',
                     component: ProductProfile,
                     props: true,
+                    meta: {
+                        authCompany: true,
+                        title: 'Product profile'
+                    }
                 },
 
 
@@ -176,7 +200,8 @@ const vueRouter = new Router({
                     name: 'pro-types',
                     component: ProductsTypes,
                     meta: {
-                        title: 'View all products types'
+                        authCompany: true,
+                        title: 'Products types'
                     }
                 },
                 {
@@ -204,7 +229,8 @@ const vueRouter = new Router({
                     name: 'winners',
                     component: Winners,
                     meta: {
-                        title: 'View all winners'
+                        authCompany: true,
+                        title: 'Winners'
                     }
                 },
                 {
@@ -232,7 +258,7 @@ const vueRouter = new Router({
                     name: 'comments',
                     component: Comments,
                     meta: {
-                        title: 'View all comments'
+                        title: 'Comments'
                     }
                 },
                 {
@@ -242,6 +268,36 @@ const vueRouter = new Router({
                     props: true,
                     meta: {
                         title: 'Edit comment'
+                    }
+                },
+
+
+
+
+                ////////////////// settings routes ///////////////////
+                {
+                    path: 'settings',
+                    name: 'settings',
+                    component: Settings,
+                    meta: {
+                        title: 'Settings'
+                    }
+                },
+                {
+                    path: 'setting/create',
+                    name: 'create-setting',
+                    component: CreateSetting,
+                    meta: {
+                        title: 'Create new setting'
+                    }
+                },
+                {
+                    path: 'setting/:id/edit',
+                    name: 'edit-setting',
+                    component: EditSetting,
+                    props: true,
+                    meta: {
+                        title: 'Edit setting'
                     }
                 },
 
@@ -260,6 +316,13 @@ vueRouter.beforeEach((to, from, next) => {
   // If a route with a title was found, set the document (page) title to that value.
   if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
+  if (!to.meta.authCompany) {
+      if (gate.isAdminCompany()) {
+          setTimeout(() => {
+            next({name: 'home'})
+          }, 100)
+      }
+  }
   next();
 });
 

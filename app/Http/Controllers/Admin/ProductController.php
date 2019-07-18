@@ -39,9 +39,14 @@ class ProductController extends Controller
             $query->orderBy($columns[$column], $dir);
         }
 
-        if ($request->companyId != null) {
-            $query->where('company_id', $request->companyId);
+        if (auth()->user()->rule == 2) {
+            $query->where('company_id', auth()->user()->company_id);
+        } else {
+            if ($request->companyId != null) {
+                $query->where('company_id', $request->companyId);
+            }
         }
+
 
         if ($trashed == 0) {
             $query->onlyTrashed();
@@ -104,16 +109,19 @@ class ProductController extends Controller
             'percent' => 'nullable|boolean',
             'product_count' => 'required|integer',
             'manufacture_company' => 'required|string|between:2,180',
-            'description' => 'required|string|between:10,5000',
+            'description' => 'required|string|between:5,5000',
             'display' => 'required|in:0,1',
             'execute' => 'required|in:0,1',
             'type_id' => 'required',
-            'company_id' => 'required',
+            'company_id' => auth()->user()->rule == 1 ? 'required' : 'nullable',
             'photo' => 'required|string',
             'gallery' => 'nullable|array',
             'details' => 'nullable|array'
         ]);
         $data = $request->except('details');
+        if (auth()->user()->rule == 2) {
+            $data['company_id'] = auth()->user()->company_id;
+        }
 
         /****************************************************************************/
         // handel price and discount
@@ -173,18 +181,22 @@ class ProductController extends Controller
         // add to DB
 
         $data['user_id'] = auth()->id();
-        $createdProduct = Product::create($data);
+        $product = Product::create($data);
         if (count($details) > 0) {
-            $createdProduct->details()->createMany($details);
+            $product->details()->createMany($details);
         }
+        $createdProduct = Product::find($product->id);
         return response(['message' => 'Product has been created.', 'data' => $createdProduct], 200);
     }
 
     public function show(Request $request)
     {
-        $product = Product::find($request->id);
-        $porductArr = $product->toArray();
-        return response(['product' => $porductArr], 200);
+        if (auth()->user()->rule == 2) {
+            $product = Product::where('id', $request->id)->where('company_id', auth()->user()->company_id)->first();
+        } else {
+            $product = Product::find($request->id);
+        }
+        return response(['product' => $product], 200);
     }
 
 
@@ -197,11 +209,11 @@ class ProductController extends Controller
             'percent' => 'nullable|boolean',
             'product_count' => 'required|integer',
             'manufacture_company' => 'required|string|between:2,180',
-            'description' => 'required|string|between:10,5000',
+            'description' => 'required|string|between:5,5000',
             'display' => 'required|in:0,1',
             'execute' => 'required|in:0,1',
             'type_id' => 'required',
-            'company_id' => 'required',
+            'company_id' => auth()->user()->rule == 1 ? 'required' : 'nullable',
             'photo' => 'required|string',
             'gallery' => 'nullable|array',
             'details' => 'nullable|array'
@@ -209,7 +221,11 @@ class ProductController extends Controller
 
         $id = $request->id;
         $product = Product::find($id);
-        $data = $request->except(['details', 'deletedGallery', 'deletedDetails']);
+        $keys_except = ['details', 'deletedGallery', 'deletedDetails'];
+        if (auth()->user()->rule == 2) {
+            $keys_except[] = 'company_id';
+        }
+        $data = $request->except($keys_except);
 
         /****************************************************************************/
         // handel price and discount

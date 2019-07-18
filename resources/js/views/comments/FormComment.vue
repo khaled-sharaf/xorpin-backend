@@ -119,20 +119,30 @@
       }
     },
     methods: {
-        getUsers(url = this.urlGetAllUsers) {
-            axios.post(url).then(response => {
+        getUsers() {
+            axios.post(this.urlGetAllUsers).then(response => {
                 let data = response.data;
                 if (response.status === 200) {
                     this.users = data;
                 }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getUsers()
+                }, 1000)
             });
         },
-        getProducts(url = this.urlGetAllProducts) {
-            axios.post(url).then(response => {
+        getProducts() {
+            axios.post(this.urlGetAllProducts).then(response => {
                 let data = response.data;
                 if (response.status === 200) {
                     this.products = data;
                 }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getProducts()
+                }, 1000)
             });
         },
     },

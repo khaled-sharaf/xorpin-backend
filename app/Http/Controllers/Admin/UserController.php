@@ -32,7 +32,7 @@ class UserController extends Controller
         $trashed = $request->trashed;
         $from_date = $request->from_date;
         $to_date = $request->to_date;
-        $query = User::select('*')->orderBy($columns[$column], $dir)->with('company');
+        $query = User::select('*')->orderBy($columns[$column], $dir);
 
         // handel users trashed and not trashed
         if ($trashed == 0) {
@@ -132,7 +132,11 @@ class UserController extends Controller
 
     public function edit(Request $request)
     {
-        $user = User::find($request->id);
+        if (auth()->user()->rule == 2) {
+            $user = User::where('id', $request->id)->where('company_id', auth()->user()->company_id)->first();
+        } else {
+            $user = User::find($request->id);
+        }
         return response(['user' => $user], 200);
     }
 

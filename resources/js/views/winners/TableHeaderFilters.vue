@@ -114,7 +114,10 @@
             </label>
             </div>
             <div class="dataTables_buttons">
-            <router-link :to="{name: 'create-winner'}" tag="button"
+            <router-link
+                v-if="$gate.isAdmin()"
+                :to="{name: 'create-winner'}"
+                tag="button"
                 type="button"
                 class="btn btn-outline-secondary"
             >

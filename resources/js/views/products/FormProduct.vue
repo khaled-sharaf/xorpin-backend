@@ -339,7 +339,7 @@
     },
     methods: {
         getIndex(array, key, value) {
-        return array.findIndex(i => i[key] == value);
+            return array.findIndex(i => i[key] == value);
         },
         encodeFileAsURL(files) {
             let self = this;
@@ -410,6 +410,13 @@
                   this.proTypes = response.data.types
               }
           })
+          .catch(errors => {
+                if (errors.response.status === 405) {
+                    setTimeout(() => {
+                        this.getProductsTypes()
+                    }, 1000)
+                }
+            })
       },
       getCompanies(url = this.urlGetAllCompanies) {
         axios.post(url).then(response => {
@@ -417,6 +424,11 @@
             if (response.status === 200) {
                 this.companies = data;
             }
+        })
+        .catch(errors => {
+            setTimeout(() => {
+                this.getCompanies(this.urlGetAllCompanies)
+            }, 1000)
         });
       },
       showFiles(files, input) {
@@ -510,10 +522,10 @@
             }, 500)
         }
         this.getProductsTypes()
-        this.getCompanies()
-
         this.handelDropImages()
-
+        if (this.$gate.isAdmin()) {
+            this.getCompanies()
+        }
     }
   }
 </script>

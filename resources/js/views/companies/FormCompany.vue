@@ -177,7 +177,7 @@
                 </div>
 
                 <!-- active -->
-                <div class="form-group">
+                <div class="form-group" v-if="$gate.isAdmin()">
                     <label>Company active <span class="field-required"></span></label>
                     <select
                     v-model="form.active"

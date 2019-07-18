@@ -214,6 +214,27 @@
     }
     .card-body {
         padding: 15px;
+        position: relative;
+        min-height: 100px;
+        .wrapper-loading {
+            z-index: 20;
+            background-color: rgba(#000, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 85px;
+            .loading {
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
         tr td {
             .icon-danger,
             .icon-info,
@@ -243,6 +264,7 @@
                 position: relative;
                 overflow: hidden;
                 font-size: 12px;
+                min-width: 80px;
                 .wrapper-price {
                     width: 100%;
                     height: 100%;
@@ -451,4 +473,42 @@
 
 .page-link:not(:disabled):not(.disabled) {
     cursor: pointer;
+}
+
+
+
+// style rates stars in datatable
+.wrapper-stars-rating {
+    display: inline-block;
+    .stars-rating {
+        // &, > i , > i .svg-rating-stars {
+        //     width: 90px;
+        //     height: 18px;
+        // }
+        &, > i  {
+            height: 22px;
+            direction: ltr;
+        }
+        display: block;
+        transform: scaleX(-1);
+        position: relative;
+        width: 110px;
+        > i {
+            display: block;
+            height: inherit;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-size: 110px 22px;
+            background-repeat: no-repeat;
+            &.regular {
+                z-index: 2;
+            }
+            &.solid {
+                overflow: hidden;
+                z-index: 3;
+            }
+        }
+    }
 }

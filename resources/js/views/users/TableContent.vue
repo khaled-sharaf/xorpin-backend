@@ -44,8 +44,7 @@
             >{{user.address}}</td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('photo') != -1"
-                class="photo" style="text-align:center;">
+            <td v-show="tableData.filter.columns.indexOf('photo') != -1" class="photo">
                 <img class="avatar-table" :src="$domain + '/' + user.photo">
             </td>
 
@@ -91,6 +90,7 @@
                 <!-- btn edit row -->
                 <router-link
                     v-show="user.deleted_at == null"
+                    v-if="($gate.isAdminCompany() && $gate.authData().id == user.id) || $gate.isAdmin()"
                     :to="{name: 'edit-user', params: {user: user, id: user.id}}"
                     :href="$domain_admin + '/user/' + user.id + '/edit'"
                     class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
@@ -103,6 +103,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="user.deleted_at == null && user.id != 1"
                     :href="$domain_admin + '/user/destroy'"
                     class="btn btn-danger btn-delete-row btn-table-actions btn-sm"
@@ -115,6 +116,7 @@
 
                 <!-- btn restore row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="user.deleted_at != null && user.id != 1"
                     :href="$domain_admin + '/user/restore'"
                     class="btn btn-info btn-restore-row btn-table-actions btn-sm"
@@ -126,6 +128,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     v-show="user.deleted_at != null && user.id != 1"
                     :href="$domain_admin + '/user/force-delete'"
                     class="btn btn-danger btn-delete-row force-delete btn-table-actions btn-sm"

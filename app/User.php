@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Scopes\RelationUsers;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -41,5 +43,13 @@ class User extends Authenticatable
 
     public function company() {
         return $this->belongsTo('App\Company', 'company_id');
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new RelationUsers);
     }
 }

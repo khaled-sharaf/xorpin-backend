@@ -108,42 +108,56 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getCompanyEdit(route) {
+            axios.post(this.urlEditCompany, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const company = response.data.company
+                    if (company != null) {
+                        this.companyEdit = company
+
+                        this.form.reset()
+                        $('#remove-location-company').click()
+
+                        this.form.fill(this.companyEdit)
+                        if (this.form.latitude != null && this.form.longitude != null) {
+                            $('.myMap #address').val('')
+                        }
+                        $('#company_latitude').val(this.form.latitude)
+                        $('#company_longitude').val(this.form.longitude)
+                    } else {
+                        this.$router.push({name: 'companies'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCompanyEdit(this.$route)
+                }, 1000)
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            if (to.params.company) {
-                vm.companyEdit = to.params.company
-
-                vm.form.reset()
-                $('#remove-location-company').click()
-
-                vm.form.fill(vm.companyEdit)
-                if (vm.form.latitude != null && vm.form.longitude != null) {
-                    $('.myMap #address').val('')
-                }
-                $('#company_latitude').val(vm.form.latitude)
-                $('#company_longitude').val(vm.form.longitude)
+            if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authCompanyData().id) {
+                setTimeout(() => {
+                    next({name: 'home'})
+                }, 100)
             } else {
-                axios.post(vm.urlEditCompany, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const company = response.data.company
-                        if (company != null) {
-                            vm.companyEdit = company
+                if (to.params.company) {
+                    vm.companyEdit = to.params.company
 
-                            vm.form.reset()
-                            $('#remove-location-company').click()
+                    vm.form.reset()
+                    $('#remove-location-company').click()
 
-                            vm.form.fill(vm.companyEdit)
-                            if (vm.form.latitude != null && vm.form.longitude != null) {
-                                $('.myMap #address').val('')
-                            }
-                            $('#company_latitude').val(vm.form.latitude)
-                            $('#company_longitude').val(vm.form.longitude)
-                        } else {
-                            vm.$router.push({name: 'companies'})
-                        }
+                    vm.form.fill(vm.companyEdit)
+                    if (vm.form.latitude != null && vm.form.longitude != null) {
+                        $('.myMap #address').val('')
                     }
-                })
+                    $('#company_latitude').val(vm.form.latitude)
+                    $('#company_longitude').val(vm.form.longitude)
+                } else {
+                    vm.getCompanyEdit(to)
+                }
             }
         })
     }

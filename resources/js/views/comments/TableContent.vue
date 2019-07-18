@@ -49,6 +49,7 @@
                     :to="{name: 'edit-user', params: {id: comment.user_id, user: comment.user}}"
                     data-name="edit-user"
                     :data-params='"{\"user\":" + JSON.stringify(comment.user) + ", \"id\":" + comment.user_id + "}"'
+                    :class="{disabled: $gate.isAdminCompany()}"
                 >
                     {{comment.user.name | capitalize }}
                 </router-link>
@@ -61,6 +62,7 @@
                     :to="{name: 'product-profile', params: {id: comment.product_id, product: comment.product}}"
                     data-name="product-profile"
                     :data-params='"{\"product\":" + JSON.stringify(comment.product) + ", \"id\":" + comment.product_id + "}"'
+                    :class="{disabled: $gate.isAdminCompany()}"
                 >
                     {{comment.product.name}}
                 </router-link>
@@ -86,6 +88,7 @@
 
                 <!-- btn edit row -->
                 <router-link
+                    v-if="$gate.isAdmin()"
                     :to="{name: 'edit-comment', params: {comment: comment, id: comment.id}}"
                     :href="$domain_admin + '/comment/' + comment.id + '/edit'"
                     class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"
@@ -98,6 +101,7 @@
 
                 <!-- btn delete row -->
                 <a
+                    v-if="$gate.isAdmin()"
                     :href="$domain_admin + '/products-type/destroy'"
                     class="btn btn-danger btn-delete-row btn-table-actions btn-sm"
                     @click.prevent="$emit('destroyRow', comment.id)"

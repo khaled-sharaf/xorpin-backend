@@ -47,25 +47,29 @@ Vue.component("relative-date", {
 Vue.component("rates-stars", {
     props: {
         'rates-count': Number
-        // 'user-count': Number
     },
-    template: `<div class="wrapper-rates-stars" v-html="countStarRate"></div>`,
+    template: `<div class="wrapper-stars-rating">
+        <i class="stars-rating">
+            <i class="regular" :style="{backgroundImage: 'url(' + $domain + '/admin/images/5-stars-regular.png)'}"></i>
+            <i class="solid" :style="{width: ratesCount + '%', backgroundImage: 'url(' + $domain + '/admin/images/5-stars-solid.png)'}"></i>
+        </i>
+    </div>`, //  v-html="countStarRate"
     data() {
         return {
-            countStarDefault: 5
+            // countStarDefault: 5,
         }
     },
     computed: {
-        countStarRate() {
-            let htmlStars = '';
-            for(let i = 0; i < this.ratesCount; i++) {
-                htmlStars += `<span class="star"><i class="fas fa-star"></i></span>`;
-            }
-            for(let x = 0; x < (this.countStarDefault - this.ratesCount); x++) {
-                htmlStars += `<span class="star"><i class="far fa-star"></i></span>`;
-            }
-            return htmlStars;
-        }
+        // countStarRate() {
+        //     let htmlStars = '';
+        //     for(let i = 0; i < this.ratesCount; i++) {
+        //         htmlStars += `<span class="star"><i class="fas fa-star"></i></span>`;
+        //     }
+        //     for(let x = 0; x < (this.countStarDefault - this.ratesCount); x++) {
+        //         htmlStars += `<span class="star"><i class="far fa-star"></i></span>`;
+        //     }
+        //     return htmlStars;
+        // }
     }
 
 })

@@ -9,13 +9,10 @@
         <header-page v-if="$route.name == 'products'" title="View all products"></header-page>
         <!-- /.content-header -->
         <section class="content">
-            <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
-            <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
                 <div class="dataTable" id="products">
                     <div class="row mt-3">
                         <div class="col-12">
-                            <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
                             <div class="dataTables_wrapper">
                                 <div class="card">
 
@@ -24,6 +21,7 @@
 
                                         <table-header-filters
                                             @getData="getData"
+                                            :proTypes="proTypes"
                                             :columns="columns"
                                             :viewTableClasses="viewTableClasses"
                                             :tableData="tableData"
@@ -37,6 +35,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table-wrapper
+                                                    :successResponse="successResponse"
                                                     :dataTable="dataTable"
                                                     :columns="columns"
                                                     :columnsView="tableData.filter.columns"
@@ -127,6 +126,9 @@ export default {
       urlGetDataTable: '/products',
       urlDeleteRow: '/product/destroy',
       urlRestoreRow: '/product/restore',
+      urlGetProductsTypes: '/pro-types-data',
+      proTypes: [],
+      successResponse: false,
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -232,7 +234,7 @@ export default {
           .find("td")
           .html(self.viewDataExcepted(id));
       });
-    },
+    }
   },
   computed: {
     columnsExcept() {
@@ -256,24 +258,28 @@ export default {
     },
     getData(url = this.urlGetDataTable) {
       loadReq(this.$Progress);
+      this.successResponse = false
       this.tableData.draw++;
       axios
         .post(url, this.tableData)
         .then(response => {
-          let data = response.data,
-            self = this;
+          let data = response.data
           if (this.tableData.draw == data.draw) {
             if (response.status === 200) {
-              this.dataTable = data.data.data;
-              this.configPagination(data.data);
-              setTimeout(function() {
-                self.updateRowDataWhenGet();
-              }, 200);
+              this.dataTable = data.data.data
+              this.successResponse = true
+              this.configPagination(data.data)
+              setTimeout(() => {
+                this.updateRowDataWhenGet()
+              }, 200)
             }
           }
         })
         .catch(errors => {
-          this.$Progress.fail();
+            setTimeout(() => {
+                this.getData()
+            }, 1000)
+            this.$Progress.fail()
         });
     },
     configPagination(data) {
@@ -544,6 +550,18 @@ export default {
         }
       });
     },
+    getProductsTypes() {
+        axios.post(this.urlGetProductsTypes).then(response => {
+            if (response.status === 200) {
+                this.proTypes = response.data.types
+            }
+        })
+        .catch(errors => {
+            setTimeout(() => {
+                this.getProductsTypes()
+            }, 1000)
+        });
+    },
     addCompanyIdToRequest() {
         const companyId = this.$route.params.id;
         if (companyId != null) {
@@ -556,6 +574,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             if (vm.$route.name == 'products') {
+                vm.getProductsTypes()
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
                 vm.eventBtnsClick();
@@ -571,6 +590,7 @@ export default {
             this.addCompanyIdToRequest() // add company id to table data for get users of company by company id for to use in company profile
         }
         if (this.$route.name != 'products') {
+            this.getProductsTypes()
             this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
             this.sortBy(this.sortKey);
             this.eventBtnsClick();

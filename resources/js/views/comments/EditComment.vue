@@ -91,6 +91,25 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getCommentEdit(route) {
+            axios.post(this.urlEditComment, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const comment = response.data.comment
+                    if (comment != null) {
+                        this.commentEdit = comment
+                        this.form.reset()
+                        this.form.fill(this.commentEdit)
+                    } else {
+                        this.$router.push({name: 'comments'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCommentEdit(this.$route)
+                }, 1000)
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
@@ -99,18 +118,7 @@ export default {
                 vm.form.reset()
                 vm.form.fill(vm.commentEdit)
             } else {
-                axios.post(vm.urlEditComment, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const comment = response.data.comment
-                        if (comment != null) {
-                            vm.commentEdit = comment
-                            vm.form.reset()
-                            vm.form.fill(vm.commentEdit)
-                        } else {
-                            vm.$router.push({name: 'comments'})
-                        }
-                    }
-                })
+                vm.getCommentEdit(to)
             }
         })
     }

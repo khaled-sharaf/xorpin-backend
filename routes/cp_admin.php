@@ -4,25 +4,37 @@
 
 Route::get('{path?}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');
 
+Route::post('/get-row-counts-in-form-models', 'HomeController@getCounts');
+
+
+
 //////////////////////// users routes //////////////////////////////
 Route::post('/users', 'UserController@index');
-Route::post('/user/store', 'UserController@store');
 Route::post('/user/update', 'UserController@update');
 Route::post('/user/edit', 'UserController@edit');
-Route::post('/user/destroy', 'UserController@destroy');
-Route::post('/user/restore', 'UserController@restoreUser');
-Route::post('/users-id', 'UserController@users_id');
+
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/user/store', 'UserController@store');
+    Route::post('/user/destroy', 'UserController@destroy');
+    Route::post('/user/restore', 'UserController@restoreUser');
+    Route::post('/users-id', 'UserController@users_id');
+});
 
 
 
 /////////////////// companies routes //////////////////////////////
-Route::post('/companies', 'CompanyController@index');
-Route::post('/company/store', 'CompanyController@store');
-Route::post('/company/update', 'CompanyController@update');
 Route::post('/company/profile', 'CompanyController@show');
-Route::post('/company/destroy', 'CompanyController@destroy');
-Route::post('/company/restore', 'CompanyController@restoreCompany');
-Route::post('/companies-id', 'CompanyController@companies_id');
+Route::post('/company/update', 'CompanyController@update');
+
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/companies', 'CompanyController@index');
+    Route::post('/company/store', 'CompanyController@store');
+    Route::post('/company/destroy', 'CompanyController@destroy');
+    Route::post('/company/restore', 'CompanyController@restoreCompany');
+    Route::post('/companies-id', 'CompanyController@companies_id');
+});
+
+
 
 
 /////////////////// products routes //////////////////////////////
@@ -37,35 +49,47 @@ Route::post('/products-id', 'ProductController@products_id');
 
 //////////////////////// products types routes //////////////////////////////
 Route::post('/pro-types', 'ProductTypeController@index');
-Route::post('/pro-type/store', 'ProductTypeController@store');
-Route::post('/pro-type/update', 'ProductTypeController@update');
-Route::post('/pro-type/edit', 'ProductTypeController@edit');
-Route::post('/pro-type/destroy', 'ProductTypeController@destroy');
-Route::post('/pro-type/restore', 'ProductTypeController@restoreType');
-
 Route::post('/pro-types-data', 'ProductTypeController@allTypesUseInSelectBox');
+
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/pro-type/store', 'ProductTypeController@store');
+    Route::post('/pro-type/update', 'ProductTypeController@update');
+    Route::post('/pro-type/edit', 'ProductTypeController@edit');
+    Route::post('/pro-type/destroy', 'ProductTypeController@destroy');
+    Route::post('/pro-type/restore', 'ProductTypeController@restoreType');
+});
 
 
 
 
 //////////////////////// winners routes //////////////////////////////
 Route::post('/winners', 'WinnerController@index');
-Route::post('/winner/store', 'WinnerController@store');
-Route::post('/winner/update', 'WinnerController@update');
-Route::post('/winner/edit', 'WinnerController@edit');
-Route::post('/winner/destroy', 'WinnerController@destroy');
+
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/winner/store', 'WinnerController@store');
+    Route::post('/winner/update', 'WinnerController@update');
+    Route::post('/winner/edit', 'WinnerController@edit');
+    Route::post('/winner/destroy', 'WinnerController@destroy');
+});
 
 
 
 //////////////////////// comments routes //////////////////////////////
 Route::post('/comments', 'CommentController@index');
-Route::post('/comment/update', 'CommentController@update');
-Route::post('/comment/edit', 'CommentController@edit');
-Route::post('/comment/destroy', 'CommentController@destroy');
+
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/comment/update', 'CommentController@update');
+    Route::post('/comment/edit', 'CommentController@edit');
+    Route::post('/comment/destroy', 'CommentController@destroy');
+});
 
 
 
-
-
-
-// Route::view('/users', 'admin.user.index')->name('test');
+//////////////////////// settings routes //////////////////////////////
+Route::group(['middleware' => ['isSuperAdmin']], function () {
+    Route::post('/settings', 'SettingController@index');
+    Route::post('/setting/store', 'SettingController@store');
+    Route::post('/setting/update', 'SettingController@update');
+    Route::post('/setting/edit', 'SettingController@edit');
+    Route::post('/setting/destroy', 'SettingController@destroy');
+});

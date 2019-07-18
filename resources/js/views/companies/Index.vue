@@ -9,13 +9,10 @@
         <header-page title="View all companies"></header-page>
         <!-- /.content-header -->
         <section class="content">
-            <!-- <router-link :to="{name: 'create-user'}">Create User</router-link>
-            <router-link :to="{name: 'edit-user', params: {id: '1'}}">Edit User 1</router-link> -->
             <div class="container-fluid">
                 <div class="dataTable" id="companies">
                     <div class="row mt-3">
                         <div class="col-12">
-                            <!-- <alert-success v-if="form.successful" :form="form" :message="messageSuccessfulCreateUser"></alert-success> -->
                             <div class="dataTables_wrapper">
                                 <div class="card">
 
@@ -37,6 +34,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table-wrapper
+                                                    :successResponse="successResponse"
                                                     :dataTable="dataTable"
                                                     :columns="columns"
                                                     :columnsView="tableData.filter.columns"
@@ -135,6 +133,7 @@ export default {
       urlGetDataTable: '/companies',
       urlDeleteRow: '/company/destroy',
       urlRestoreRow: '/company/restore',
+      successResponse: false,
       dataTable: [],
       columns: columns,
       sortKey: "id",
@@ -262,6 +261,7 @@ export default {
     },
     getData(url = this.urlGetDataTable) {
       loadReq(this.$Progress);
+      this.successResponse = false
       this.tableData.draw++;
       axios
         .post(url, this.tableData)
@@ -271,6 +271,7 @@ export default {
           if (this.tableData.draw == data.draw) {
             if (response.status === 200) {
               this.dataTable = data.data.data;
+              this.successResponse = true
               this.configPagination(data.data);
               setTimeout(function() {
                 self.updateRowDataWhenGet();
@@ -279,7 +280,10 @@ export default {
           }
         })
         .catch(errors => {
-          this.$Progress.fail();
+            setTimeout(() => {
+                this.getData()
+            }, 1000)
+            this.$Progress.fail()
         });
     },
     configPagination(data) {

@@ -129,6 +129,40 @@ export default {
                 this.$Progress.fail();
             });
         },
+        getProductEdit(route) {
+            axios.post(this.urlEditProduct, {id: route.params.id}).then(response => {
+                if (response.status === 200) {
+                    const product = response.data.product
+                    if (product != null) {
+                        if (product.gallery !== null && product.gallery != '') {
+                            let gallery = product.gallery.split(',')
+                            let galleryArr = []
+                            gallery.forEach(image => {
+                                galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
+                            })
+                            product.gallery = galleryArr
+                        } else {
+                            product.gallery = []
+                        }
+                        if (!product.details.length) {
+                            product.details.push({name: '', value: '', display: true})
+                        }
+                        this.productEdit = product
+                        this.productEdit.deletedGallery = []
+                        this.productEdit.deletedDetails = []
+                        this.form.reset()
+                        this.form.fill(this.productEdit)
+                    } else {
+                        this.$router.push({name: 'products'})
+                    }
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getProductEdit(this.$route)
+                }, 1000)
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
@@ -155,33 +189,7 @@ export default {
                 vm.form.reset()
                 vm.form.fill(vm.productEdit)
             } else {
-                axios.post(vm.urlEditProduct, {id: to.params.id}).then(response => {
-                    if (response.status === 200) {
-                        const product = response.data.product
-                        if (product != null) {
-                            if (product.gallery !== null && product.gallery != '') {
-                                let gallery = product.gallery.split(',')
-                                let galleryArr = []
-                                gallery.forEach(image => {
-                                    galleryArr.push({id:  Math.floor(Math.random() * 10000), url: image})
-                                })
-                                product.gallery = galleryArr
-                            } else {
-                                product.gallery = []
-                            }
-                            if (!product.details.length) {
-                                product.details.push({name: '', value: '', display: true})
-                            }
-                            vm.productEdit = product
-                            vm.productEdit.deletedGallery = []
-                            vm.productEdit.deletedDetails = []
-                            vm.form.reset()
-                            vm.form.fill(vm.productEdit)
-                        } else {
-                            vm.$router.push({name: 'products'})
-                        }
-                    }
-                })
+                vm.getProductEdit(to)
             }
         })
     }

@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_count');
             $table->boolean('execute')->default(0);
             $table->boolean('display')->default(1);
-            $table->integer('count_rates')->default(0);
+            $table->tinyInteger('count_rates')->default(0);
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('company_id');
