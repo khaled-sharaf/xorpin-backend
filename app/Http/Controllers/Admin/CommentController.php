@@ -48,9 +48,11 @@ class CommentController extends Controller
               ->orWhere('negative_product', 'like', '%' . $searchValue . '%');
         }
 
-        $query->whereHas('product', function($q) {
-            $q->where('company_id', auth()->user()->company_id);
-        });
+        if (auth()->user()->rule == 2) {
+            $query->whereHas('product', function($q) {
+                $q->where('company_id', auth()->user()->company_id);
+            });
+        }
 
         $comments = $query->paginate($length);
         return response(['data' => $comments, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);

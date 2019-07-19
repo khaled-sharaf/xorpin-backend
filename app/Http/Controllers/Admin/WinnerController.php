@@ -37,9 +37,11 @@ class WinnerController extends Controller
                 });
             });
         }
-        $query->whereHas('product', function($q) {
-            $q->where('company_id', auth()->user()->company_id);
-        });
+        if (auth()->user()->rule == 2) {
+            $query->whereHas('product', function($q) {
+                $q->where('company_id', auth()->user()->company_id);
+            });
+        }
 
         $winners = $query->paginate($length);
         return response(['data' => $winners, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);

@@ -3493,6 +3493,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dataTable', 'tableData']
 });
@@ -9204,6 +9212,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dataTable', 'tableData']
 });
@@ -13017,6 +13035,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -72935,35 +72961,46 @@ var render = function() {
               staticClass: "user_id"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "link-router-in-table",
-                  class: { disabled: _vm.$gate.isAdminCompany() },
-                  attrs: {
-                    href:
-                      _vm.$domain_admin + "/user/" + comment.user_id + "/edit",
-                    to: {
-                      name: "edit-user",
-                      params: { id: comment.user_id, user: comment.user }
+              comment.user == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                User is deleted -- id:" +
+                        _vm._s(comment.user_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c(
+                    "router-link",
+                    {
+                      staticClass: "link-router-in-table",
+                      class: { disabled: _vm.$gate.isAdminCompany() },
+                      attrs: {
+                        href:
+                          _vm.$domain_admin +
+                          "/user/" +
+                          comment.user_id +
+                          "/edit",
+                        to: {
+                          name: "edit-user",
+                          params: { id: comment.user_id, user: comment.user }
+                        },
+                        "data-name": "edit-user",
+                        "data-params":
+                          '{"user":' +
+                          JSON.stringify(comment.user) +
+                          ', "id":' +
+                          comment.user_id +
+                          "}"
+                      }
                     },
-                    "data-name": "edit-user",
-                    "data-params":
-                      '{"user":' +
-                      JSON.stringify(comment.user) +
-                      ', "id":' +
-                      comment.user_id +
-                      "}"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm._f("capitalize")(comment.user.name)) +
-                      "\n            "
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm._f("capitalize")(comment.user.name)) +
+                          "\n            "
+                      )
+                    ]
                   )
-                ]
-              )
             ],
             1
           ),
@@ -72984,40 +73021,48 @@ var render = function() {
               staticClass: "product_id"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "link-router-in-table",
-                  class: { disabled: _vm.$gate.isAdminCompany() },
-                  attrs: {
-                    href:
-                      _vm.$domain_admin +
-                      "/product/profile/" +
-                      comment.product_id,
-                    to: {
-                      name: "product-profile",
-                      params: {
-                        id: comment.product_id,
-                        product: comment.product
+              comment.product == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                Product is deleted -- id:" +
+                        _vm._s(comment.product_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c(
+                    "router-link",
+                    {
+                      staticClass: "link-router-in-table",
+                      class: { disabled: _vm.$gate.isAdminCompany() },
+                      attrs: {
+                        href:
+                          _vm.$domain_admin +
+                          "/product/profile/" +
+                          comment.product_id,
+                        to: {
+                          name: "product-profile",
+                          params: {
+                            id: comment.product_id,
+                            product: comment.product
+                          }
+                        },
+                        "data-name": "product-profile",
+                        "data-params":
+                          '{"product":' +
+                          JSON.stringify(comment.product) +
+                          ', "id":' +
+                          comment.product_id +
+                          "}"
                       }
                     },
-                    "data-name": "product-profile",
-                    "data-params":
-                      '{"product":' +
-                      JSON.stringify(comment.product) +
-                      ', "id":' +
-                      comment.product_id +
-                      "}"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(comment.product.name) +
-                      "\n            "
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(comment.product.name) +
+                          "\n            "
+                      )
+                    ]
                   )
-                ]
-              )
             ],
             1
           ),
@@ -79697,7 +79742,23 @@ var render = function() {
               ],
               staticClass: "type"
             },
-            [_vm._v(_vm._s(product.type.name))]
+            [
+              product.type == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                Type is deleted -- id:" +
+                        _vm._s(product.type_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c("span", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(product.type.name) +
+                        "\n            "
+                    )
+                  ])
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -79714,35 +79775,46 @@ var render = function() {
               staticClass: "user"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "link-router-in-table",
-                  class: { disabled: _vm.$gate.isAdminCompany() },
-                  attrs: {
-                    href:
-                      _vm.$domain_admin + "/user/" + product.user_id + "/edit",
-                    to: {
-                      name: "edit-user",
-                      params: { user: product.user, id: product.user_id }
+              product.user == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                User is deleted -- id:" +
+                        _vm._s(product.user_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c(
+                    "router-link",
+                    {
+                      staticClass: "link-router-in-table",
+                      class: { disabled: _vm.$gate.isAdminCompany() },
+                      attrs: {
+                        href:
+                          _vm.$domain_admin +
+                          "/user/" +
+                          product.user_id +
+                          "/edit",
+                        to: {
+                          name: "edit-user",
+                          params: { user: product.user, id: product.user_id }
+                        },
+                        "data-name": "edit-user",
+                        "data-params":
+                          '{"user":' +
+                          JSON.stringify(product.user) +
+                          ', "id":' +
+                          product.user_id +
+                          "}"
+                      }
                     },
-                    "data-name": "edit-user",
-                    "data-params":
-                      '{"user":' +
-                      JSON.stringify(product.user) +
-                      ', "id":' +
-                      product.user_id +
-                      "}"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(product.user.name) +
-                      "\n            "
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(product.user.name) +
+                          "\n            "
+                      )
+                    ]
                   )
-                ]
-              )
             ],
             1
           ),
@@ -79797,8 +79869,10 @@ var render = function() {
                       )
                     ]
                   )
-                : _c("span", { staticStyle: { color: "#888" } }, [
-                    _vm._v("Company is deleted")
+                : _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "Company is deleted -- id:" + _vm._s(product.company_id)
+                    )
                   ])
             ],
             1
@@ -84205,35 +84279,46 @@ var render = function() {
               staticClass: "user_id"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "link-router-in-table",
-                  class: { disabled: _vm.$gate.isAdminCompany() },
-                  attrs: {
-                    href:
-                      _vm.$domain_admin + "/user/" + winner.user_id + "/edit",
-                    to: {
-                      name: "edit-user",
-                      params: { id: winner.user_id, user: winner.user }
+              winner.user == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                User is deleted -- id:" +
+                        _vm._s(winner.user_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c(
+                    "router-link",
+                    {
+                      staticClass: "link-router-in-table",
+                      class: { disabled: _vm.$gate.isAdminCompany() },
+                      attrs: {
+                        href:
+                          _vm.$domain_admin +
+                          "/user/" +
+                          winner.user_id +
+                          "/edit",
+                        to: {
+                          name: "edit-user",
+                          params: { id: winner.user_id, user: winner.user }
+                        },
+                        "data-name": "edit-user",
+                        "data-params":
+                          '{"user":' +
+                          JSON.stringify(winner.user) +
+                          ', "id":' +
+                          winner.user_id +
+                          "}"
+                      }
                     },
-                    "data-name": "edit-user",
-                    "data-params":
-                      '{"user":' +
-                      JSON.stringify(winner.user) +
-                      ', "id":' +
-                      winner.user_id +
-                      "}"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm._f("capitalize")(winner.user.name)) +
-                      "\n            "
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm._f("capitalize")(winner.user.name)) +
+                          "\n            "
+                      )
+                    ]
                   )
-                ]
-              )
             ],
             1
           ),
@@ -84254,36 +84339,47 @@ var render = function() {
               staticClass: "product_id"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "link-router-in-table",
-                  attrs: {
-                    href:
-                      _vm.$domain_admin +
-                      "/product/profile/" +
-                      winner.product_id,
-                    to: {
-                      name: "product-profile",
-                      params: { id: winner.product_id, product: winner.product }
+              winner.product == null
+                ? _c("span", { staticClass: "badge badge-danger" }, [
+                    _vm._v(
+                      "\n                Product is deleted -- id:" +
+                        _vm._s(winner.product_id) +
+                        "\n            "
+                    )
+                  ])
+                : _c(
+                    "router-link",
+                    {
+                      staticClass: "link-router-in-table",
+                      attrs: {
+                        href:
+                          _vm.$domain_admin +
+                          "/product/profile/" +
+                          winner.product_id,
+                        to: {
+                          name: "product-profile",
+                          params: {
+                            id: winner.product_id,
+                            product: winner.product
+                          }
+                        },
+                        "data-name": "product-profile",
+                        "data-params":
+                          '{"product":' +
+                          JSON.stringify(winner.product) +
+                          ', "id":' +
+                          winner.product_id +
+                          "}"
+                      }
                     },
-                    "data-name": "product-profile",
-                    "data-params":
-                      '{"product":' +
-                      JSON.stringify(winner.product) +
-                      ', "id":' +
-                      winner.product_id +
-                      "}"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(winner.product.name) +
-                      "\n            "
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(winner.product.name) +
+                          "\n            "
+                      )
+                    ]
                   )
-                ]
-              )
             ],
             1
           ),

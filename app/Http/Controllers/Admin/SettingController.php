@@ -98,6 +98,11 @@ class SettingController extends Controller
     {
         $id = $request->id;
         $setting = Setting::find($id);
+        if (strpos($setting->value, 'images/settings/') === 0) {
+            if (file_exists(public_path($setting->value))) {
+                unlink(public_path($setting->value));
+            }
+        }
         $setting->delete();
         return response(['status' => true], 200);
     }

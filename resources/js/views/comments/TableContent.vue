@@ -43,7 +43,11 @@
             </td>
 
             <td v-show="tableData.filter.columns.indexOf('user_id') != -1" class="user_id">
+                <span class="badge badge-danger" v-if="comment.user == null">
+                    User is deleted -- id:{{comment.user_id}}
+                </span>
                 <router-link
+                    v-else
                     class="link-router-in-table"
                     :href="$domain_admin + '/user/' + comment.user_id + '/edit'"
                     :to="{name: 'edit-user', params: {id: comment.user_id, user: comment.user}}"
@@ -56,7 +60,11 @@
             </td>
 
             <td v-show="tableData.filter.columns.indexOf('product_id') != -1" class="product_id">
+                <span class="badge badge-danger" v-if="comment.product == null">
+                    Product is deleted -- id:{{comment.product_id}}
+                </span>
                 <router-link
+                    v-else
                     class="link-router-in-table"
                     :href="$domain_admin + '/product/profile/' + comment.product_id"
                     :to="{name: 'product-profile', params: {id: comment.product_id, product: comment.product}}"

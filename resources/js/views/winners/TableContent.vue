@@ -29,7 +29,11 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('user_id') != -1" class="user_id">
+                <span class="badge badge-danger" v-if="winner.user == null">
+                    User is deleted -- id:{{winner.user_id}}
+                </span>
                 <router-link
+                    v-else
                     class="link-router-in-table"
                     :href="$domain_admin + '/user/' + winner.user_id + '/edit'"
                     :to="{name: 'edit-user', params: {id: winner.user_id, user: winner.user}}"
@@ -42,7 +46,11 @@
             </td>
 
             <td v-show="tableData.filter.columns.indexOf('product_id') != -1" class="product_id">
+                <span class="badge badge-danger" v-if="winner.product == null">
+                    Product is deleted -- id:{{winner.product_id}}
+                </span>
                 <router-link
+                    v-else
                     class="link-router-in-table"
                     :href="$domain_admin + '/product/profile/' + winner.product_id"
                     :to="{name: 'product-profile', params: {id: winner.product_id, product: winner.product}}"

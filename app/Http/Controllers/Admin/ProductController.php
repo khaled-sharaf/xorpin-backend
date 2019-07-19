@@ -112,8 +112,8 @@ class ProductController extends Controller
             'description' => 'required|string|between:5,5000',
             'display' => 'required|in:0,1',
             'execute' => 'required|in:0,1',
-            'type_id' => 'required',
-            'company_id' => auth()->user()->rule == 1 ? 'required' : 'nullable',
+            'type_id' => 'required|exists:product_types,id',
+            'company_id' => (auth()->user()->rule == 1 ? 'required' : 'nullable') . '|exists:companies,id',
             'photo' => 'required|string',
             'gallery' => 'nullable|array',
             'details' => 'nullable|array'
@@ -212,8 +212,8 @@ class ProductController extends Controller
             'description' => 'required|string|between:5,5000',
             'display' => 'required|in:0,1',
             'execute' => 'required|in:0,1',
-            'type_id' => 'required',
-            'company_id' => auth()->user()->rule == 1 ? 'required' : 'nullable',
+            'type_id' => 'required|exists:product_types,id',
+            'company_id' => (auth()->user()->rule == 1 ? 'required' : 'nullable') . '|exists:companies,id',
             'photo' => 'required|string',
             'gallery' => 'nullable|array',
             'details' => 'nullable|array'

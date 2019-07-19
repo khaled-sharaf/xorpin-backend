@@ -86,13 +86,23 @@
             </td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('type') != -1" class="type"
-            >{{product.type.name}}</td>
+            <td v-show="tableData.filter.columns.indexOf('type') != -1" class="type">
+                <span class="badge badge-danger" v-if="product.type == null">
+                    Type is deleted -- id:{{product.type_id}}
+                </span>
+                <span v-else>
+                    {{ product.type.name }}
+                </span>
+            </td>
 
 
             <td v-show="tableData.filter.columns.indexOf('user') != -1" class="user"
             >
+                <span class="badge badge-danger" v-if="product.user == null">
+                    User is deleted -- id:{{product.user_id}}
+                </span>
                 <router-link
+                    v-else
                     class="link-router-in-table"
                     :href="$domain_admin + '/user/' + product.user_id + '/edit'"
                     :to="{name: 'edit-user', params: {user: product.user, id: product.user_id}}"
@@ -118,7 +128,7 @@
                 >
                     {{product.company.name}}
                 </router-link>
-                <span v-else style="color:#888">Company is deleted</span>
+                <span v-else class="badge badge-danger">Company is deleted -- id:{{product.company_id}}</span>
             </td>
 
 
