@@ -1,0 +1,116 @@
+{
+    "global": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "logout": "Logout",
+        "create": "Create",
+        "edit": "Edit",
+        "update": "update",
+        "save": "Save",
+
+        "delete": "Delete",
+        "deleted": "Deleted",
+        "force_delete": "Force delete",
+        "remove": "Remove",
+        "removed": "Removed",
+        "restore": "Restore",
+        "restored": "Restored",
+        "failed": "Failed",
+
+        "yes_delete_it": "Yes, delete it",
+        "yes_remove_it": "Yes, remove it",
+        "yes_restore_it": "Yes, restore it",
+
+        "read": "Read",
+        "read_more": "Read more",
+        "more_info": "More info",
+        "show": "Show",
+        "view": "View",
+        "display": "Display",
+
+        "from": "From",
+        "to": "To"
+    },
+    "sidebar": {
+        "company_profile": "Company profile",
+        "product_profile": "Product profile",
+
+        "users": "Users",
+        "all_users": "all users",
+        "new_user": "new user",
+        "edit_user": "Edit user",
+
+        "companies": "Companies",
+        "all_companies": "all companies",
+        "new_company": "new company",
+        "edit_company": "Edit company",
+
+        "products": "Products",
+        "all_products": "all products",
+        "new_product": "new product",
+        "edit_product": "Edit product",
+
+        "products_types": "Products types",
+        "all_products_types": "all products types",
+        "new_products_type": "new products type",
+        "edit_products_type": "Edit products type",
+
+        "winners": "Winners",
+        "all_winners": "all winners",
+        "new_winner": "new winner",
+        "edit_winner": "Edit winner",
+
+        "comments": "Comments",
+        "all_comments": "all comments",
+        "new_comment": "new comment",
+        "edit_comment": "Edit comment",
+
+        "settings": "Settings",
+        "all_settings": "all settings",
+        "new_setting": "new setting",
+        "edit_setting": "Edit setting"
+
+    },
+    "datatable": {
+        "showing": "Showing",
+        "entries": "entries",
+        "from": "from",
+        "to": "to",
+        "of": "of",
+        "next": "Next",
+        "prev": "Prev",
+        "empty_table": "Empty table",
+        "no_data_msg": "No data in this table.",
+
+        "trashed": "Trashed",
+        "activation": "Activation",
+        "display": "Displayed",
+        "rules": "Rules",
+        "sold_out": "Sold out",
+        "discount": "Discount",
+        "products_type": "Products type",
+        "created_between": "Created between",
+        "search": "Search"
+    },
+    "users_table": {
+
+    },
+    "companies_table": {
+
+    },
+    "products_table": {
+
+    },
+    "products_types_table": {
+
+    },
+    "winners_table": {
+
+    },
+    "comments_table": {
+
+    },
+    "settings_table": {
+
+    }
+}

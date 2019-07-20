@@ -5,11 +5,11 @@
 
 <template>
     <div>
-        <header-page title="Dashboard"></header-page>
+        <header-page :title="$t('global.dashboard')"></header-page>
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
+                <div class="row mt-3">
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -23,7 +23,7 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <router-link :to="{name: 'users'}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
+                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <i class="fas fa-building"></i>
                         </div>
                         <router-link :to="{name: 'companies'}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
+                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             <i class="fas fa-box-open"></i>
                         </div>
                         <router-link :to="{name: 'products'}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
+                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <router-link :to="{name: 'winners'}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
+                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                             <i class="fas fa-comments"></i>
                         </div>
                         <router-link :to="{name: 'comments'}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
+                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -150,6 +150,11 @@
         },
         mounted() {
             this.getCountsAllModels()
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                to.meta.title = vm.$t('global.dashboard')
+            })
         }
     }
 </script>

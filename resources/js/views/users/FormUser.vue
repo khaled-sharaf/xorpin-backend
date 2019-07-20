@@ -139,6 +139,7 @@
                     <label>User Avatar</label>
                     <div class="custom-file">
                     <input
+                        :lang="$i18n.locale"
                         type="file"
                         class="custom-file-input"
                         id="user_image"

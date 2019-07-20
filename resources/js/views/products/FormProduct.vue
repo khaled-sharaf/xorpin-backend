@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <div class="form-row align-items-center">
                         <div class="col-md-10">
-                            <label>Discount</label>
+                            <label class="label-dir">Discount</label>
                             <input
                                 v-model="form.discount"
                                 type="number"

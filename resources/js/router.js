@@ -77,8 +77,7 @@ const vueRouter = new Router({
                     name: 'home',
                     component: Dashboard,
                     meta: {
-                        authCompany: true,
-                        title: 'Dashboard'
+                        authCompany: true
                     }
                 },
 
@@ -86,18 +85,12 @@ const vueRouter = new Router({
                 {
                     path: 'users',
                     name: 'users',
-                    component: Users,
-                    meta: {
-                        title: 'Users'
-                    }
+                    component: Users
                 },
                 {
                     path: 'user/create',
                     name: 'create-user',
-                    component: CreateUser,
-                    meta: {
-                        title: 'Create new user'
-                    }
+                    component: CreateUser
                 },
                 {
                     path: 'user/:id/edit',
@@ -105,8 +98,7 @@ const vueRouter = new Router({
                     component: EditUser,
                     props: true,
                     meta: {
-                        authCompany: true,
-                        title: 'Edit user'
+                        authCompany: true
                     }
                 },
 
@@ -115,18 +107,12 @@ const vueRouter = new Router({
                 {
                     path: 'companies',
                     name: 'companies',
-                    component: Companies,
-                    meta: {
-                        title: 'Companies'
-                    }
+                    component: Companies
                 },
                 {
                     path: 'company/create',
                     name: 'create-company',
-                    component: CreateCompany,
-                    meta: {
-                        title: 'Create new company'
-                    }
+                    component: CreateCompany
                 },
                 {
                     path: 'company/:id/edit',
@@ -134,8 +120,7 @@ const vueRouter = new Router({
                     component: EditCompany,
                     props: true,
                     meta: {
-                        authCompany: true,
-                        title: 'Edit company'
+                        authCompany: true
                     }
                 },
                 {
@@ -144,8 +129,7 @@ const vueRouter = new Router({
                     component: CompanyProfile,
                     props: true,
                     meta: {
-                        authCompany: true,
-                        title: 'Company profile'
+                        authCompany: true
                     }
                 },
 
@@ -157,8 +141,7 @@ const vueRouter = new Router({
                     name: 'products',
                     component: Products,
                     meta: {
-                        authCompany: true,
-                        title: 'Products'
+                        authCompany: true
                     }
                 },
                 {
@@ -166,8 +149,7 @@ const vueRouter = new Router({
                     name: 'create-product',
                     component: CreateProduct,
                     meta: {
-                        authCompany: true,
-                        title: 'Create new product'
+                        authCompany: true
                     }
                 },
                 {
@@ -176,8 +158,7 @@ const vueRouter = new Router({
                     component: EditProduct,
                     props: true,
                     meta: {
-                        authCompany: true,
-                        title: 'Edit product'
+                        authCompany: true
                     }
                 },
                 {
@@ -186,8 +167,7 @@ const vueRouter = new Router({
                     component: ProductProfile,
                     props: true,
                     meta: {
-                        authCompany: true,
-                        title: 'Product profile'
+                        authCompany: true
                     }
                 },
 
@@ -200,26 +180,19 @@ const vueRouter = new Router({
                     name: 'pro-types',
                     component: ProductsTypes,
                     meta: {
-                        authCompany: true,
-                        title: 'Products types'
+                        authCompany: true
                     }
                 },
                 {
                     path: 'products-type/create',
                     name: 'create-pro-type',
-                    component: CreateProductsType,
-                    meta: {
-                        title: 'Create new products type'
-                    }
+                    component: CreateProductsType
                 },
                 {
                     path: 'products-type/:id/edit',
                     name: 'edit-pro-type',
                     component: EditProductsType,
-                    props: true,
-                    meta: {
-                        title: 'Edit products type'
-                    }
+                    props: true
                 },
 
 
@@ -229,26 +202,19 @@ const vueRouter = new Router({
                     name: 'winners',
                     component: Winners,
                     meta: {
-                        authCompany: true,
-                        title: 'Winners'
+                        authCompany: true
                     }
                 },
                 {
                     path: 'winner/create',
                     name: 'create-winner',
-                    component: CreateWinner,
-                    meta: {
-                        title: 'Create new winner'
-                    }
+                    component: CreateWinner
                 },
                 {
                     path: 'winner/:id/edit',
                     name: 'edit-winner',
                     component: EditWinner,
-                    props: true,
-                    meta: {
-                        title: 'Edit winner'
-                    }
+                    props: true
                 },
 
 
@@ -256,19 +222,13 @@ const vueRouter = new Router({
                 {
                     path: 'comments',
                     name: 'comments',
-                    component: Comments,
-                    meta: {
-                        title: 'Comments'
-                    }
+                    component: Comments
                 },
                 {
                     path: 'comment/:id/edit',
                     name: 'edit-comment',
                     component: EditComment,
-                    props: true,
-                    meta: {
-                        title: 'Edit comment'
-                    }
+                    props: true
                 },
 
 
@@ -278,27 +238,18 @@ const vueRouter = new Router({
                 {
                     path: 'settings',
                     name: 'settings',
-                    component: Settings,
-                    meta: {
-                        title: 'Settings'
-                    }
+                    component: Settings
                 },
                 {
                     path: 'setting/create',
                     name: 'create-setting',
-                    component: CreateSetting,
-                    meta: {
-                        title: 'Create new setting'
-                    }
+                    component: CreateSetting
                 },
                 {
                     path: 'setting/:id/edit',
                     name: 'edit-setting',
                     component: EditSetting,
-                    props: true,
-                    meta: {
-                        title: 'Edit setting'
-                    }
+                    props: true
                 },
 
             ]
@@ -311,10 +262,11 @@ const vueRouter = new Router({
 })
 
 vueRouter.beforeEach((to, from, next) => {
-  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
-
-  // If a route with a title was found, set the document (page) title to that value.
-  if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+    setTimeout(() => {
+        const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+        // If a route with a title was found, set the document (page) title to that value.
+        if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+    })
 
   if (!to.meta.authCompany) {
       if (gate.isAdminCompany()) {

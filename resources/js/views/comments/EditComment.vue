@@ -113,6 +113,7 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            to.meta.title = vm.$t('sidebar.edit_comment')
             if (to.params.comment) {
                 vm.commentEdit = to.params.comment
                 vm.form.reset()

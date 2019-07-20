@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 Vue.prototype.$domain = window.url
 Vue.prototype.$auth = window.auth
 Vue.prototype.$authCompany = window.authCompany
+Vue.prototype.$settings = window.settings
 Vue.prototype.$domain_admin = window.url + '/' + window.cp_prefix
 import Gate from './Gate'
 Vue.prototype.$gate = new Gate()
@@ -18,10 +19,15 @@ Vue.prototype.$gate = new Gate()
 /**************************************************************************************/
 
 
+import i18n from './plugins/i18n' // localization
 import App from './App.vue'
 import router from './router'
 
 /**************************************************************************************/
+
+// adminlte v3
+
+
 
 // select 2
 import './plugins/select2/select2.min.css'
@@ -77,7 +83,9 @@ Vue.component(DatePicker.name, DatePicker);
 /**************************************************************************************/
 
 
-new Vue({
+const app = new Vue({
+  i18n,
   router,
   render: h => h(App)
 }).$mount('#app')
+

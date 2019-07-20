@@ -1,4 +1,5 @@
 <template>
+  <!-- <div class="my-wrapper-app" :dir="$i18n.locale == 'ar' ? 'rtl' : 'ltr'"> -->
   <div class="my-wrapper-app">
       <router-view class="general-router-view"></router-view>
   </div>
@@ -11,7 +12,6 @@
 </style>
 
 <script>
-
 export default {
   name: 'App',
   components: {
@@ -19,6 +19,8 @@ export default {
   },
   data: () => ({
 
-  })
+  }),
+  mounted() {
+  },
 }
 </script>

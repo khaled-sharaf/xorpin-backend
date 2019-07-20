@@ -10,9 +10,19 @@ class Setting extends Model
         'slug', 'name', 'value', 'type', 'user_id'
     ];
 
-
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    static public function getSettingKeys() {
+        $result = [];
+
+        $settings = self::get();
+
+        foreach ($settings as $setting) {
+            $result[$setting->name] = $setting->value;
+        }
+        return $result;
     }
 }

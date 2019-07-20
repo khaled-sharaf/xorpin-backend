@@ -7,9 +7,9 @@
         <aside class="main-sidebar elevation-4" :class="{'sidebar-dark-info': $gate.isAdmin(), 'sidebar-dark-success': $gate.isAdminCompany()}">
             <!-- Brand Logo -->
             <router-link :to="{name: 'home'}" class="brand-link">
-                <img :src="$domain + '/adminlte/dist/img/AdminLTELogo.png'" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                <img :src="$domain + '/' + $settings.logo" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">CP - xorpin</span>
+                <span class="brand-text font-weight-light">{{ $settings.site_name }}</span>
             </router-link>
 
             <!-- Sidebar -->
@@ -37,7 +37,7 @@
                         <router-link :to="{name: 'home'}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            {{$t('global.dashboard')}}
                             <!-- <span class="right badge badge-danger">New</span> -->
                         </p>
                         </router-link>
@@ -50,7 +50,7 @@
                         <router-link :to="{name: 'company-profile', params: {id: $gate.authCompanyData().id}}" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
-                            Company profile
+                            {{$t('global.company_profile')}}
                         </p>
                         </router-link>
                     </li>
@@ -61,8 +61,8 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Users
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.users') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                             <!-- <span class="badge badge-info right">130</span> -->
                         </p>
                         </a>
@@ -70,13 +70,13 @@
                             <li class="nav-item">
                                 <router-link :to="{name: 'users'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all users</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_users') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link :to="{name: 'create-user'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new user</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_user') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -88,21 +88,21 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
-                            Companies
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.companies') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'companies'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all companies</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_companies') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link :to="{name: 'create-company'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new company</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_company') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -114,21 +114,21 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
-                            Products
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.products') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'products'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all products</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_products') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link :to="{name: 'create-product'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new product</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_product') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -140,21 +140,21 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-layer-group"></i>
                         <p>
-                            Products types
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.products_types') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'pro-types'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all products types</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_products_types') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item" v-if="$gate.isAdmin()">
                                 <router-link :to="{name: 'create-pro-type'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new products type</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_products_type') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -166,21 +166,21 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
-                            Winners
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.winners') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'winners'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all winners</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_winners') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item" v-if="$gate.isAdmin()">
                                 <router-link :to="{name: 'create-winner'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new winner</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_winner') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -192,15 +192,15 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-comments"></i>
                         <p>
-                            Comments
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.comments') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'comments'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all comments</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_comments') }} </p>
                                 </router-link>
                             </li>
                         </ul>
@@ -212,21 +212,21 @@
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
-                            Settings
-                            <i class="fas fa-angle-left right"></i>
+                            {{ $t('sidebar.settings') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
                         </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link :to="{name: 'settings'}" class="nav-link">
                                     <i class="far fa-eye nav-icon"></i>
-                                    <p>Show all settings</p>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_settings') }} </p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link :to="{name: 'create-setting'}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
-                                    <p>Create new setting</p>
+                                    <p> {{ $t('global.create') + ' ' + $t('sidebar.new_setting') }} </p>
                                 </router-link>
                             </li>
                         </ul>

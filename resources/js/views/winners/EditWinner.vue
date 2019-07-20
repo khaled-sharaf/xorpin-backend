@@ -110,6 +110,7 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            to.meta.title = vm.$t('sidebar.edit_winner')
             if (to.params.winner) {
                 vm.winnerEdit = to.params.winner
                 vm.form.reset()

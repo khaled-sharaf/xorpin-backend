@@ -13,11 +13,14 @@
   <!-- overlayScrollbars -->
   {!! Html::style('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') !!}
   <!-- Theme style -->
-  {!! Html::style('adminlte/dist/css/adminlte.min.css') !!}
+  {!! Html::style('adminlte/dist/css/adminlte.css', ['id' => 'style-adminlte']) !!}
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   {!! Html::style('admin/css/app.css') !!}
+
+
+  {!! Html::style('admin/css/main-rtl.css', ['id' => 'style-my-main']) !!}
 
   <style>
       .dataTables_wrapper .sorting {
@@ -58,6 +61,7 @@
     // set auth user in object global in all file js
     window.auth = @json(auth()->user());
     window.authCompany = @json(auth()->user()->company);
+    window.settings = @json(\App\Setting::getSettingKeys());
     window.csrf_token = '{{csrf_token()}}';
     window.url = '{{url("/")}}';
     window.cp_prefix = '{{ env("CP_PREFIX") }}';
@@ -150,6 +154,7 @@
 {!! Html::script('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') !!}
 <!-- AdminLTE App -->
 {!! Html::script('adminlte/dist/js/adminlte.js') !!}
+
 
 
 

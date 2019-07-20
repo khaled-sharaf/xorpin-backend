@@ -337,6 +337,7 @@ export default {
 
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            to.meta.title = vm.$t('sidebar.product_profile')
             if (to.params.product) {
                 let product = to.params.product
                 if (typeof product.gallery != 'object') {

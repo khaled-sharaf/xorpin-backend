@@ -104,6 +104,11 @@ export default {
                 this.$Progress.fail();
             });
         },
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            to.meta.title = vm.$t('global.create') + ' ' + vm.$t('sidebar.new_company')
+        })
     }
 }
 </script>

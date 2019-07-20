@@ -11156,10 +11156,6 @@ a.text-dark:focus {
   text-align: center;
 }
 
-.dataTables_wrapper .card-header .dataTables_filters .box.column_date_between .body .input-date.from {
-  border-right: 1px solid #DDD;
-}
-
 .dataTables_wrapper .card-header .dataTables_filters .box .filter {
   background-color: #EEE;
   border: 1px solid #DDD;
@@ -12070,6 +12066,12 @@ a.text-dark:focus {
   border-radius: 4px;
 }
 
+.langs-btns-group {
+  position: relative;
+  top: 5px;
+  right: 10px;
+}
+
 .main-sidebar {
   font-size: 13px;
 }
@@ -12085,6 +12087,10 @@ a.text-dark:focus {
 
 .main-sidebar #nav-sidebar-global.nav-sidebar .nav-link p > .right {
   top: 11px;
+}
+
+.main-sidebar .user-panel .info {
+  padding-top: 10px !important;
 }
 
 .title-page {
@@ -12139,6 +12145,10 @@ a.text-dark:focus {
   pointer-events: none;
   color: #212529;
   cursor: auto;
+}
+
+#sidebar-overlay {
+  background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .navbar-laravel {

@@ -1,5 +1,6 @@
 {
     "/admin/js/app.js": "/admin/js/app.js",
     "/admin/css/app.css": "/admin/css/app.css",
+    "/admin/css/main-rtl.css": "/admin/css/main-rtl.css",
     "/js/app-laravel.js": "/js/app-laravel.js"
 }

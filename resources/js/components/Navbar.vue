@@ -11,11 +11,10 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
+                    <router-link :to="{name: 'home'}" class="nav-link">{{ $t('global.home') }}</router-link>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link :to="{name: 'create-product'}" class="nav-link">Create new product</router-link>
-                    <!-- <router-link :to="{name: 'create-product'}" class="nav-link">Create new product</router-link> -->
+                    <router-link :to="{name: 'create-product'}" class="nav-link">{{ $t('global.create') + ' ' + $t('sidebar.new_product') }}</router-link>
                 </li>
             </ul>
 
@@ -32,13 +31,20 @@
             </!-->
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto nav-links-right">
                 <li class="nav-item">
-                    <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  href="/logout">
-                    Logout <i class="fas fa-power-off"></i>
+                    <div class="btn-group langs-btns-group" role="group">
+                        <button type="button" class="btn btn-sm btn-dark" @click="setLocale('en')" :class="$i18n.locale == 'en' ? 'disabled' : ''">EN</button>
+                        <button type="button" class="btn btn-sm btn-dark" @click="setLocale('ar')" :class="$i18n.locale == 'ar' ? 'disabled' : ''">AR</button>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  :href="$domain + '/logout'">
+                        {{ $t('global.logout') }}
+                        <i class="fas fa-power-off"></i>
                     </a>
 
-                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                    <form id="logout-form" :action="$domain + '/logout'" method="POST" style="display: none;">
                         <input type="hidden" name="_token" :value="csrf_token">
                     </form>
                 </li>
@@ -56,8 +62,27 @@ export default {
             csrf_token: window.csrf_token
         }
     },
-    mounted() {
+    methods: {
+        setLocale(locale) {
+            const msgs = require(`./../lang/${locale}.json`)
+            this.$i18n.setLocaleMessage(locale, msgs)
+            this.$i18n.locale = locale
+            let myMainRtlCss = locale == 'ar' ? '/admin/css/main-rtl.css' : '/admin/css/main.css'
+            let styleMyMain = document.getElementById('style-my-main')
+            styleMyMain.setAttribute('href', this.$domain + myMainRtlCss)
+            localStorage.setItem('locale', locale)
 
-    }
+            // let dirFileCssAdminlte = locale == 'ar' ? '/adminlte/dist/css/adminlte.rtl.css' : '/adminlte/dist/css/adminlte.css'
+            // let styleAdminlte = document.getElementById('style-adminlte')
+            // styleAdminlte.setAttribute('href', this.$domain + dirFileCssAdminlte)
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('locale') != null) {
+            this.setLocale(localStorage.getItem('locale'))
+        } else {
+            localStorage.setItem('locale', this.$i18n.locale)
+        }
+    },
 }
 </script>

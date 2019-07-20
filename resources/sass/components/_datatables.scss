@@ -40,12 +40,6 @@
                         .input-date {
                             display: block;
                             text-align: center;
-                            &.from {
-                                border-right: 1px solid #DDD;
-                            }
-                            // &.to {
-
-                            // }
                         }
                     }
                 }
@@ -100,9 +94,6 @@
                             padding: 3px;
                             flex-basis: 100%;
                             width: 100%;
-                            // select {
-
-                            // }
                         }
                     }
                 }

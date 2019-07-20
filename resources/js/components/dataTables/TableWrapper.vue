@@ -39,8 +39,8 @@
         </tfoot>
     </table>
   <div v-if="!dataTable.length && successResponse === true" class="alert alert-danger alert-dismissible">
-        <h5><i class="icon fas fa-info"></i> Empty table!</h5>
-        No data in this table.
+        <h5><i class="icon fas fa-info"></i> {{ $t('datatable.empty_table') }}!</h5>
+        {{ $t('datatable.no_data_msg') }}
     </div>
 </div>
 </template>

@@ -138,6 +138,7 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            to.meta.title = vm.$t('sidebar.edit_company')
             if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authCompanyData().id) {
                 setTimeout(() => {
                     next({name: 'home'})

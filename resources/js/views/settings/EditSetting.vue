@@ -111,6 +111,7 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            to.meta.title = vm.$t('sidebar.edit_setting')
             if (to.params.setting) {
                 vm.settingEdit = to.params.setting
                 vm.form.reset()

@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info">
-        Showing
-        <span class="from">{{pagination.from}}</span> to
-        <span class="to">{{pagination.to}}</span> of
-        <span class="total">{{pagination.total}}</span> entries
+        {{ $t('datatable.showing') }}
+        <span class="from">{{pagination.from}}</span> {{ $t('datatable.to') }}
+        <span class="to">{{pagination.to}}</span> {{ $t('datatable.of') }}
+        <span class="total">{{pagination.total}}</span> {{ $t('datatable.entries') }}
       </div>
     </div>
     <div class="col-sm-12 col-md-7">
@@ -17,8 +17,8 @@
               @click="$emit('prev');"
               tabindex="0"
               class="page-link"
-            >Prev</a>
-            <a v-else :disabled="true" class="disabled page-link" tabindex="0">Prev</a>
+            >{{ $t('datatable.prev') }}</a>
+            <a v-else :disabled="true" class="disabled page-link" tabindex="0">{{ $t('datatable.prev') }}</a>
           </li>
           <!-- first page link -->
           <li
@@ -95,8 +95,8 @@
               @click="$emit('next');"
               tabindex="0"
               class="page-link"
-            >Next</a>
-            <a v-else :disabled="true" class="disabled page-link" tabindex="0">Next</a>
+            >{{ $t('datatable.next') }}</a>
+            <a v-else :disabled="true" class="disabled page-link" tabindex="0">{{ $t('datatable.next') }}</a>
           </li>
         </ul>
       </div>
