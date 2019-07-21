@@ -1,3 +1,10 @@
+#sidebar-overlay {
+    background-color: rgba(black, 0.7) !important;
+}
+.badge {
+    font-size: 80% !important;
+}
+
 // style main sidebar
 
 .langs-btns-group {
@@ -81,13 +88,15 @@
     }
 }
 
+// company profile
+.btn.maximize-table {
+    float: right;
+}
+
+// global
 .disabled, [disabled="disabled"] {
     pointer-events: none;
     color: #212529;
     cursor: auto;
 }
 
-
-#sidebar-overlay {
-    background-color: rgba(black, 0.7) !important;
-}

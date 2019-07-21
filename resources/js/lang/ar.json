@@ -1,20 +1,44 @@
 {
     "global": {
-        "home": "Home",
-        "dashboard": "Dashboard",
-        "logout": "Logout",
-        "create": "Create",
-        "edit": "Edit",
-        "update": "update",
-        "save": "Save",
-        "delete": "Delete",
-        "remove": "Remove",
-        "read": "Read",
-        "read_more": "Read more",
-        "more_info": "More info",
-        "show": "Show",
-        "view": "View",
-        "display": "Display"
+        "home": "الرئيسية",
+        "dashboard": "الرئيسية",
+        "user": "مستخدم",
+        "company": "شركة",
+        "product": "منتج",
+        "products_type": "نوع منتجات",
+        "type": "نوع",
+        "comment": "تعليق",
+        "winner": "فائز",
+        "setting": "إعداد",
+
+        "logout": "تسجيل الخروج",
+        "create": "إنشاء",
+        "edit": "تعديل",
+        "update": "تحديث",
+        "save": "حفظ",
+        "read": "اقرأ",
+        "read_more": "اقرأ المزيد",
+        "more_info": "معرفة المزيد",
+        "show": "عرض",
+        "view": "عرض",
+        "display": "إظهار",
+        "from": "من",
+        "to": "إلى",
+
+        "delete": "حذف",
+        "deleted": "تم الحذف",
+        "force_delete": "إزالة نهائيا",
+        "remove": "إزالة",
+        "removed": "تمت الإزالة",
+        "restore": "استرجاع",
+        "restored": "تم الإسترجاع",
+        "failed": "فشل",
+        "cancel": "إلغاء",
+
+        "yes_delete_it": "تأكيد الحذف",
+        "yes_remove_it": "تأكيد الإزالة",
+        "yes_restore_it": "تأكيد الإسترجاع"
+
     },
     "sidebar": {
         "company_profile": "Company profile",
@@ -54,7 +78,6 @@
         "all_settings": "all settings",
         "new_setting": "new setting",
         "edit_setting": "Edit setting"
-
     },
     "datatable": {
         "showing": "إظهار",
@@ -64,12 +87,63 @@
         "of": "من",
         "next": "التالى",
         "prev": "السابق",
-        "search": "بحث",
         "empty_table": "جدول فارغ",
-        "no_data_msg": "لا يوجد بيانات فى  هذا الجدول."
+        "no_data_msg": "لا يوجد بيانات فى  هذا الجدول.",
+
+        "trashed": "Trashed",
+        "activation": "Activation",
+        "display": "Displayed",
+        "rules": "Rules",
+        "sold_out": "Sold out",
+        "discount": "Discount",
+        "products_type": "Products type",
+        "created_between": "Created between",
+        "search": "بحث"
     },
     "users_table": {
+        "id": "المعرف",
+        "name": "الإسم",
+        "email": "البريد الإلكترونى",
+        "phone": "الموبايل",
+        "address": "العنوان",
+        "photo": "الصورة",
+        "rule": "الصلاحيات",
+        "active": "التفعيل",
+        "created_at": "تاريخ الإنشاء",
+        "company": "الشركة",
+        "actions": "الإجراءات",
 
+        "rules": {
+            "user": "مستخدم عادى",
+            "admin": "مدير",
+            "company": "مدير شركة"
+        },
+        "rules_filter": {
+            "user": "مستخدم",
+            "admin": "مدير",
+            "company": "شركة"
+        },
+
+        "delete_msg": "هل أنت متأكد من حذف هذا المستخدم ؟",
+        "delete_success_msg": "The user has been deleted.",
+        "delete_failed_msg": "The user has not been deleted.",
+
+        "force_delete_msg": "Are you sure you want to remove this user?",
+        "force_delete_success_msg": "The user has been removed.",
+        "force_delete_failed_msg": "The user has not been removed.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا المستخدم ؟",
+        "restore_success_msg": "The user has been restored.",
+        "restore_failed_msg": "The user has not been restored.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء مستخدم جديد.",
+            "failed_msg": "لم يتم إنشاء المستخدم الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث المستخدم.",
+            "failed_msg": "لم يتم تحديث هذا المستخدم."
+        }
     },
     "companies_table": {
 

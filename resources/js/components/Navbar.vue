@@ -71,10 +71,6 @@ export default {
             let styleMyMain = document.getElementById('style-my-main')
             styleMyMain.setAttribute('href', this.$domain + myMainRtlCss)
             localStorage.setItem('locale', locale)
-
-            // let dirFileCssAdminlte = locale == 'ar' ? '/adminlte/dist/css/adminlte.rtl.css' : '/adminlte/dist/css/adminlte.css'
-            // let styleAdminlte = document.getElementById('style-adminlte')
-            // styleAdminlte.setAttribute('href', this.$domain + dirFileCssAdminlte)
         }
     },
     mounted() {

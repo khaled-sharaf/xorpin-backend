@@ -3,52 +3,50 @@ import Vue from 'vue'
 
 Vue.directive('selectcolumn', {
     inserted(el, binding, vnode) {
-    $(el)
-        .select2({
-        closeOnSelect: false,
-        dropdownAutoWidth: true
+    $(el).select2({
+            closeOnSelect: false,
+            dropdownAutoWidth: true
         })
         .on("select2:select", () => {
-        vnode.context.tableData.filter.columns = $(el).val();
-        // vnode.context.$emit('getData');
+            vnode.context.tableData.filter.columns = $(el).val();
+            // vnode.context.$emit('getData');
         })
         .on("select2:unselect", () => {
-        vnode.context.tableData.filter.columns = $(el).val();
+            vnode.context.tableData.filter.columns = $(el).val();
         })
         .bind(this);
     },
     update(el) {
-    $(el).trigger("change");
+        $(el).trigger("change");
     }
 })
 
 Vue.directive('selectviewtableclass', {
     inserted(el, binding, vnode) {
-    $(el)
-        .select2({
-        closeOnSelect: false,
-        dropdownAutoWidth: true
+        $(el).select2({
+            closeOnSelect: false,
+            dropdownAutoWidth: true
         })
         .on("select2:select", () => {
-        vnode.context.tableData.filter.viewTable = $(el).val();
-        // vnode.context.$emit('getData');
+            vnode.context.tableData.filter.viewTable = $(el).val();
+            // vnode.context.$emit('getData');
         })
         .on("select2:unselect", () => {
-        vnode.context.tableData.filter.viewTable = $(el).val();
+            vnode.context.tableData.filter.viewTable = $(el).val();
         })
         .bind(this);
     },
     update(el) {
-    $(el).trigger("change");
+        $(el).trigger("change");
     }
 })
 
 Vue.directive('selectcolumnopen', {
     inserted(el) {
-    $(el).click(function() {
-        $(el)
-        .find("> select")
-        .select2("open");
-    });
+        $(el).click(function() {
+            $(el)
+            .find("> select")
+            .select2("open");
+        });
     }
 })

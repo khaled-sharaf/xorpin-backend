@@ -34,6 +34,10 @@ body {
   right: auto;
 }
 
+.dataTables_wrapper .table .tr-table-data {
+  text-align: right;
+}
+
 .dataTables_wrapper .card-header .dataTables_filters .box .filter .body .icon:first-child {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 0;
@@ -42,6 +46,11 @@ body {
 .dataTables_wrapper .card-header .dataTables_filters .box .filter .body .icon:last-child {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 0;
+}
+
+.small-box .icon > i {
+  left: 15px;
+  right: auto;
 }
 
 .layout-fixed .main-sidebar {
@@ -146,5 +155,13 @@ body {
 
 .brand-image {
   float: right !important;
+}
+
+.btn.maximize-table {
+  float: left;
+}
+
+.box-profile .list-group-item a {
+  float: left !important;
 }
 

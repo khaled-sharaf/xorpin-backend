@@ -37,10 +37,30 @@ export default {
                 prevPageUrl: "",
                 from: "",
                 to: ""
-            }
+            },
+
+
+            delete_title: this.$t('global.delete'),
+            deleted_title: this.$t('global.deleted'),
+            delete_it_title: this.$t('global.yes_delete_it'),
+
+            force_delete_title: this.$t('global.force_delete'),
+            removed_title: this.$t('global.removed'),
+            remove_it_title: this.$t('global.yes_remove_it'),
+
+            restore_title: this.$t('global.restore'),
+            restored_title: this.$t('global.restored'),
+            restore_it_title: this.$t('global.yes_restore_it'),
+
+            failed_title: this.$t('global.failed'),
+            cancel_title: this.$t('global.cancel'),
+
         }
     },
     watch: {
+        "$i18n.locale"(val) {
+            this.setLocaleMessages()
+        },
         "tableData.from_date"(val) {
             this.getData();
         },
@@ -218,12 +238,7 @@ export default {
                     for (let colNative in this.columns) {
                     if (this.columns[colNative].name == colName) {
                         let colLabel = this.columns[colNative].label;
-                        list += `<li> <span class="label">${colLabel}</span> ${$(
-                        ".table tbody tr[data-id='" +
-                            id +
-                            "'] td." +
-                            this.columnsExcept[columnName]
-                        ).html()} </li>`;
+                        list += `<li> <span class="label"> ${colLabel}</span> ${$( ".table tbody tr[data-id='" + id + "'] td." + this.columnsExcept[columnName]).html()} </li>`;
                     }
                     }
                 }
@@ -276,27 +291,26 @@ export default {
 
         destroyRow(id) {
             Swal.fire({
-                title: this.$t('global.delete'),
+                title: this.delete_title,
                 text: this.delete_msg,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#e74c3c",
                 cancelButtonColor: "#6d6d6d",
-                confirmButtonText: this.$t('global.yes_delete_it') + "!"
+                confirmButtonText: this.delete_it_title + "!",
+                cancelButtonText: this.cancel_title
             }).then(result => {
                 if (result.value) {
-                loadReq(this.$Progress);
-                axios
-                    .post(this.urlDeleteRow, {id: id})
-                    .then(response => {
-                    if (response.status === 200) {
-                        Swal.fire(this.$t('global.deleted') + "!", this.delete_success_msg, "success");
-                        this.getData();
-                    }
+                    loadReq(this.$Progress);
+                    axios.post(this.urlDeleteRow, {id: id}).then(response => {
+                        if (response.status === 200) {
+                            Swal.fire(this.deleted_title + "!", this.delete_success_msg, "success");
+                            this.getData();
+                        }
                     })
                     .catch(error => {
-                    Swal.fire(this.$t('global.failed') + "!", this.delete_failed_msg, "error");
-                    this.$Progress.fail();
+                        Swal.fire(this.failed_title + "!", this.delete_failed_msg, "error");
+                        this.$Progress.fail();
                     });
                 }
             });
@@ -304,57 +318,119 @@ export default {
 
         forceDeleteRow(id) {
             Swal.fire({
-                title: this.$t('global.force_delete'),
+                title: this.force_delete_title,
                 text: this.force_delete_msg,
                 type: "error",
                 showCancelButton: true,
                 confirmButtonColor: "#e74c3c",
                 cancelButtonColor: "#6d6d6d",
-                confirmButtonText: this.$t('global.yes_remove_it') + "!"
+                confirmButtonText: this.remove_it_title + "!",
+                cancelButtonText: this.cancel_title
             }).then(result => {
                 if (result.value) {
-                loadReq(this.$Progress);
-                axios
-                    .post(this.urlDeleteRow, {id: id})
-                    .then(response => {
-                    if (response.status === 200) {
-                        Swal.fire(this.$t('global.removed') + "!", this.force_delete_success_msg, "success");
-                        this.getData();
-                    }
+                    loadReq(this.$Progress);
+                    axios.post(this.urlDeleteRow, {id: id}).then(response => {
+                        if (response.status === 200) {
+                            Swal.fire(this.removed_title + "!", this.force_delete_success_msg, "success");
+                            this.getData();
+                        }
                     })
                     .catch(error => {
-                    Swal.fire(this.$t('global.failed') + "!", this.force_delete_failed_msg, "error");
-                    this.$Progress.fail();
+                        Swal.fire(this.failed_title + "!", this.force_delete_failed_msg, "error");
+                        this.$Progress.fail();
                     });
                 }
             });
         },
         restoreRow(id) {
             Swal.fire({
-                title: this.$t('global.restore'),
+                title: this.restore_title,
                 text: this.restore_msg,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#6cb2eb",
                 cancelButtonColor: "#6d6d6d",
-                confirmButtonText: this.$t('global.yes_restore_it') + "!"
+                confirmButtonText: this.restore_it_title + "!",
+                cancelButtonText: this.cancel_title
             }).then(result => {
                 if (result.value) {
-                loadReq(this.$Progress);
-                axios
-                    .post(this.urlRestoreRow, {id: id})
-                    .then(response => {
-                    if (response.status === 200) {
-                        Swal.fire(this.$t('global.restored') + "!", this.restore_success_msg, "success");
-                        this.getData();
-                    }
+                    loadReq(this.$Progress);
+                    axios.post(this.urlRestoreRow, {id: id}).then(response => {
+                        if (response.status === 200) {
+                            Swal.fire(this.restored_title + "!", this.restore_success_msg, "success");
+                            this.getData();
+                        }
                     })
                     .catch(error => {
-                    Swal.fire(this.$t('global.failed') + "!", this.restore_failed_msg, "error");
-                    this.$Progress.fail();
+                        Swal.fire(this.failed_title + "!", this.restore_failed_msg, "error");
+                        this.$Progress.fail();
                     });
                 }
             });
+        },
+
+
+        setLocaleMessages() {
+
+            /************ Index table **************/
+            // locale message form each table
+            if (this.delete_msg) {
+                this.delete_msg = this.$t(this.idPage + '_table.delete_msg')
+            }
+            if (this.delete_success_msg) {
+                this.delete_success_msg = this.$t(this.idPage + '_table.delete_success_msg')
+            }
+            if (this.delete_failed_msg) {
+                this.delete_failed_msg = this.$t(this.idPage + '_table.delete_failed_msg')
+            }
+            if (this.force_delete_msg) {
+                this.force_delete_msg = this.$t(this.idPage + '_table.force_delete_msg')
+            }
+            if (this.force_delete_success_msg) {
+                this.force_delete_success_msg = this.$t(this.idPage + '_table.force_delete_success_msg')
+            }
+            if (this.force_delete_failed_msg) {
+                this.force_delete_failed_msg = this.$t(this.idPage + '_table.force_delete_failed_msg')
+            }
+            if (this.restore_msg) {
+                this.restore_msg = this.$t(this.idPage + '_table.restore_msg')
+            }
+            if (this.restore_success_msg) {
+                this.restore_success_msg = this.$t(this.idPage + '_table.restore_success_msg')
+            }
+            if (this.restore_failed_msg) {
+                this.restore_failed_msg = this.$t(this.idPage + '_table.restore_failed_msg')
+            }
+
+            // global message in all table
+
+            this.delete_title =         this.$t('global.delete')
+            this.deleted_title =        this.$t('global.deleted')
+            this.delete_it_title =      this.$t('global.yes_delete_it')
+
+            this.force_delete_title =   this.$t('global.force_delete')
+            this.removed_title =        this.$t('global.removed')
+            this.remove_it_title =      this.$t('global.yes_remove_it')
+
+            this.restore_title =        this.$t('global.restore')
+            this.restored_title =       this.$t('global.restored')
+            this.restore_it_title =     this.$t('global.yes_restore_it')
+
+            this.failed_title =         this.$t('global.failed')
+            this.cancel_title =         this.$t('global.cancel')
+
+            /*********************************************************************/
+
+            let newColumnsAfterChangeLang = []
+            this.columns.forEach((item) => {
+                if (item.name != 'show_plus' && item.name != 'index') {
+                    item.label = this.$t('users_table.' + item.name)
+                }
+                newColumnsAfterChangeLang.push(item)
+            })
+            this.columns = newColumnsAfterChangeLang
+
+            this.updateRowDataWhenGet()
         },
 
     }

@@ -12066,6 +12066,14 @@ a.text-dark:focus {
   border-radius: 4px;
 }
 
+#sidebar-overlay {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.badge {
+  font-size: 80% !important;
+}
+
 .langs-btns-group {
   position: relative;
   top: 5px;
@@ -12140,15 +12148,15 @@ a.text-dark:focus {
   font-size: 16px;
 }
 
+.btn.maximize-table {
+  float: right;
+}
+
 .disabled,
 [disabled=disabled] {
   pointer-events: none;
   color: #212529;
   cursor: auto;
-}
-
-#sidebar-overlay {
-  background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .navbar-laravel {

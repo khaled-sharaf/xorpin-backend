@@ -50,9 +50,9 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('rule') != -1" class="rule">
-                <span class="badge badge-success" v-if="user.rule == 1">Admin</span>
-                <span class="badge badge-danger" v-if="user.rule == 2">User company</span>
-                <span class="badge badge-primary" v-if="user.rule == 0">User</span>
+                <span class="badge badge-success" v-if="user.rule == 1"> {{ $t('users_table.rules.admin') }} </span>
+                <span class="badge badge-danger" v-if="user.rule == 2"> {{ $t('users_table.rules.company') }} </span>
+                <span class="badge badge-primary" v-if="user.rule == 0"> {{ $t('users_table.rules.user') }} </span>
             </td>
 
 

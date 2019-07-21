@@ -48,7 +48,7 @@
                                                     type="button"
                                                     class="btn btn-outline-secondary"
                                                 >
-                                                    Create
+                                                    {{ $t('global.create') }}
                                                     <i class="fa fa-plus fa-fw"></i>
                                                 </router-link>
                                             </div>

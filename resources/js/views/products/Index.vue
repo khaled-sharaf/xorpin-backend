@@ -82,7 +82,7 @@
                                                     class="btn btn-outline-secondary"
                                                     v-if="this.$route.name == 'products'"
                                                 >
-                                                    Create
+                                                    {{ $t('global.create') }}
                                                     <i class="fa fa-plus fa-fw"></i>
                                                 </router-link>
                                             </div>

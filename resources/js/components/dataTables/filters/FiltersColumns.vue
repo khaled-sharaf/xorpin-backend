@@ -4,11 +4,11 @@
         <!-- dataTables_length -->
         <label class="dataTables_length">
             <select class="custom-select" v-model="tableData.length" @change="$emit('getData')">
-            <option
-                v-for="(records, index) in perPage"
-                :key="index"
-                :value="records"
-            >{{records}}</option>
+                <option
+                    v-for="(records, index) in perPage"
+                    :key="index"
+                    :value="records"
+                >{{records}}</option>
             </select>
         </label>
         <!-- ./dataTables_length -->
@@ -16,21 +16,21 @@
         <!-- dataTables_columns -->
         <label class="dataTables_columns custom-select" v-selectcolumnopen>
             <select
-            class="custom-select view-columns-filter"
-            v-model="tableData.filter.columns"
-            v-selectcolumn="tableData.filter.columns"
-            multiple="multiple"
+                class="custom-select view-columns-filter"
+                v-model="tableData.filter.columns"
+                v-selectcolumn="tableData.filter.columns"
+                multiple="multiple"
             >
-            <option
-                v-for="(column, index) in columns"
-                v-show="column.name != 'show_plus'"
-                :key="index"
-                :value="column.name"
-                v-html="column.label"
-            ></option>
+                <option
+                    v-for="(column, index) in updatedColumns"
+                    v-show="column.name != 'show_plus'"
+                    :key="index"
+                    :value="column.name"
+                    v-html="column.label"
+                ></option>
             </select>
             <span class="icon">
-            <i class="fas fa-eye"></i>
+                <i class="fas fa-eye"></i>
             </span>
         </label>
         <!-- ./dataTables_columns -->
@@ -73,11 +73,34 @@
 <script>
 export default {
     props: [
-    "columns",
-    "viewTableClasses",
-    "tableData",
-    "perPage"
-  ],
+        "columns",
+        "viewTableClasses",
+        "tableData",
+        "perPage"
+    ],
+    data() {
+        return {
+            updatedColumns: []
+        }
+    },
+    methods: {
+        updateColumns() {
+            this.updatedColumns = this.columns
+        }
+    },
+    watch: {
+        "$i18n.locale"(val) {
+            this.updatedColumns = []
+            setTimeout(() => {
+                this.updateColumns()
+            })
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.updateColumns()
+        })
+    },
 }
 </script>
 

@@ -73,7 +73,7 @@
                                                     class="btn btn-outline-secondary"
                                                     v-if="this.$route.name == 'users'"
                                                 >
-                                                    Create
+                                                    {{ $t('global.create') }}
                                                     <i class="fa fa-plus fa-fw"></i>
                                                 </router-link>
                                             </div>
@@ -182,18 +182,17 @@ export default {
         urlDeleteRow: '/user/destroy',
         urlRestoreRow: '/user/restore',
 
-        delete_msg: 'Are you sure you want to delete this user?',
-        delete_success_msg: 'The user has been deleted.',
-        delete_failed_msg: 'The user has not been deleted.',
+        delete_msg: this.$t('users_table.delete_msg'),
+        delete_success_msg: this.$t('users_table.delete_success_msg'),
+        delete_failed_msg: this.$t('users_table.delete_failed_msg'),
 
-        force_delete_msg: 'Are you sure you want to remove this user?',
-        force_delete_success_msg: 'The user has been removed.',
-        force_delete_failed_msg: 'The user has not been removed.',
+        force_delete_msg: this.$t('users_table.force_delete_msg'),
+        force_delete_success_msg: this.$t('users_table.force_delete_success_msg'),
+        force_delete_failed_msg: this.$t('users_table.force_delete_failed_msg'),
 
-        restore_msg: 'Are you sure you want to restore this user?',
-        restore_success_msg: 'The user has been restored.',
-        restore_failed_msg: 'The user has not been restored.',
-
+        restore_msg: this.$t('users_table.restore_msg'),
+        restore_success_msg: this.$t('users_table.restore_success_msg'),
+        restore_failed_msg: this.$t('users_table.restore_failed_msg'),
 
         columns: columns,
         sortOrders: sortOrders,
@@ -257,7 +256,6 @@ export default {
     };
   },
   methods: {
-
     addCompanyIdToRequest() {
         const companyId = this.$route.params.id;
         if (companyId != null) {
@@ -278,6 +276,7 @@ export default {
         next(vm => {
             if (to.name == 'users') {
                 to.meta.title = vm.$t('sidebar.users')
+                vm.setLocaleMessages()
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
                 vm.eventBtnsClick();
@@ -296,6 +295,7 @@ export default {
             this.addProductIdToRequest()
         }
         if (this.$route.name != 'users') {
+            this.setLocaleMessages()
             this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
             this.sortBy(this.sortKey);
             this.eventBtnsClick();

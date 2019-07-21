@@ -17,13 +17,13 @@
                         <div class="inner">
                             <h3>{{ counts.users }}</h3>
 
-                            <p>User Registrations</p>
+                            <p>{{ $t('sidebar.users') }}</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <router-link :to="{name: 'users'}" class="small-box-footer">
-                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -37,13 +37,13 @@
                         <div class="inner">
                             <h3>{{ counts.companies }}</h3>
 
-                            <p>Companies</p>
+                            <p>{{ $t('sidebar.companies') }}</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-building"></i>
                         </div>
                         <router-link :to="{name: 'companies'}" class="small-box-footer">
-                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -57,13 +57,13 @@
                         <div class="inner">
                             <h3>{{ counts.products }}</h3>
 
-                            <p>Products</p>
+                            <p>{{ $t('sidebar.products') }}</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-box-open"></i>
                         </div>
                         <router-link :to="{name: 'products'}" class="small-box-footer">
-                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
                         <div class="inner">
                             <h3>{{ counts.winners }}</h3>
 
-                            <p>Winners</p>
+                            <p>{{ $t('sidebar.winners') }}</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <router-link :to="{name: 'winners'}" class="small-box-footer">
-                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>
@@ -95,13 +95,13 @@
                         <div class="inner">
                             <h3>{{ counts.comments }}</h3>
 
-                            <p>Comments</p>
+                            <p>{{ $t('sidebar.comments') }}</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-comments"></i>
                         </div>
                         <router-link :to="{name: 'comments'}" class="small-box-footer">
-                            More info <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
                         </router-link>
                         </div>
                     </div>

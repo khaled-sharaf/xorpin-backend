@@ -50,7 +50,7 @@
                         <router-link :to="{name: 'company-profile', params: {id: $gate.authCompanyData().id}}" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
-                            {{$t('global.company_profile')}}
+                            {{$t('sidebar.company_profile')}}
                         </p>
                         </router-link>
                     </li>

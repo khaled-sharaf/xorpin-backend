@@ -199,7 +199,7 @@ class UserController extends Controller
         }
 
         $user->update($userData);
-        return response(['message' => 'User has been updated.'], 200);
+        return response(['message' => 'The user has been updated.'], 200);
     }
 
 

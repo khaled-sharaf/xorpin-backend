@@ -8,11 +8,11 @@
 
                 <!-- name -->
                 <div class="form-group">
-                    <label>Name <span class="field-required"></span></label>
+                    <label>{{ $t('users_table.name') }} <span class="field-required"></span></label>
                     <input
                     v-model="form.name"
                     type="text"
-                    placeholder="Name"
+                    :placeholder="$t('users_table.name')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }"
                     >
@@ -21,11 +21,11 @@
 
                 <!-- email -->
                 <div class="form-group">
-                    <label>Email <span class="field-required"></span></label>
+                    <label>{{$t('users_table.email')}} <span class="field-required"></span></label>
                     <input
                     v-model="form.email"
                     type="text"
-                    placeholder="Email"
+                    :placeholder="$t('users_table.email')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('email') }"
                     >
@@ -34,11 +34,11 @@
 
                 <!-- password -->
                 <div class="form-group">
-                    <label>Password <span class="field-required"></span></label>
+                    <label>{{$t('users_table.password') }}<span class="field-required"></span></label>
                     <input
                     v-model="form.password"
                     type="password"
-                    placeholder="Password"
+                    :placeholder="$t('users_table.password')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('password') }"
                     >
@@ -47,11 +47,11 @@
 
                 <!-- password confirm -->
                 <div class="form-group">
-                    <label>Repeat Password <span class="field-required"></span></label>
+                    <label>{{$t('users_table.repeat_password')}} <span class="field-required"></span></label>
                     <input
                     v-model="form.password_confirmation"
                     type="password"
-                    placeholder="Repeat Password"
+                    :placeholder="$t('users_table.repeat_password')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('password_confirmation') }"
                     >
@@ -60,11 +60,11 @@
 
                 <!-- phone -->
                 <div class="form-group">
-                    <label>Mobile</label>
+                    <label> {{$t('users_table.phone')}} </label>
                     <input
                     v-model="form.phone"
                     type="text"
-                    placeholder="Mobile"
+                    :placeholder="$t('users_table.phone')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('phone') }"
                     >
@@ -73,11 +73,11 @@
 
                 <!-- address -->
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>{{$t('users_table.address')}} </label>
                     <input
                     v-model="form.address"
                     type="text"
-                    placeholder="Address"
+                    :placeholder="$t('users_table.address')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('address') }"
                     >
@@ -86,28 +86,27 @@
 
                 <!-- rule -->
                 <div class="form-group" v-if="((typeForm === 'edit' && form.id !== 1) || typeForm === 'create') && $gate.isAdmin()">
-                    <label>Rule <span class="field-required"></span></label>
+                    <label>{{$t('users_table.rule')}} <span class="field-required"></span></label>
                     <select
-                    v-model="form.rule"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('rule') }"
-                    >
-                    <option
-                        v-for="(rule, i) in userRules"
-                        :value="rule.value"
-                        :key="i"
-                    >{{ rule.text }}</option>
+                        v-model="form.rule"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('rule') }"
+                        >
+                        <option value="0">{{$t('users_table.rules.user')}}</option>
+                        <option value="2">{{$t('users_table.rules.company')}}</option>
+                        <option value="1">{{$t('users_table.rules.admin')}}</option>
                     </select>
                     <has-error :form="form" field="rule"></has-error>
                 </div>
 
                 <!-- company -->
                 <div class="form-group" v-if="(selectCompany && ((typeForm === 'edit' && form.id !== 1) || typeForm === 'create')) && $gate.isAdmin()">
-                    <label>Company <span class="field-required"></span></label>
+                    <label>{{$t('users_table.company')}} <span class="field-required"></span></label>
                     <select
-                    v-model="form.company_id"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('company_id') }"
+                        v-model="form.company_id"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('company_id') }"
+                        style="direction: ltr; text-align: left"
                     >
                     <option
                         v-for="company in companies"
@@ -120,23 +119,20 @@
 
                 <!-- active -->
                 <div class="form-group" v-if="((typeForm === 'edit' && form.id !== 1) || typeForm === 'create') && $gate.isAdmin()">
-                    <label>Active <span class="field-required"></span></label>
+                    <label>{{$t('datatable.activation')}} <span class="field-required"></span></label>
                     <select
-                    v-model="form.active"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('active') }"
-                    >
-                    <option
-                        v-for="(type, i) in userActive"
-                        :value="type.value"
-                        :key="i"
-                    >{{ type.text }}</option>
+                        v-model="form.active"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('active') }"
+                        >
+                        <option value="1">{{$t('global.active')}}</option>
+                        <option value="0">{{$t('global.disactive')}}</option>
                     </select>
                     <has-error :form="form" field="active"></has-error>
                 </div>
 
                 <div class="form-group">
-                    <label>User Avatar</label>
+                    <label> {{$t('users_table.photo')}} </label>
                     <div class="custom-file">
                     <input
                         :lang="$i18n.locale"
@@ -147,7 +143,7 @@
                         @change="encodeUserProfileFileAsURL"
                         :class="{ 'is-invalid': form.errors.has('photo') }"
                     >
-                    <label class="custom-file-label" for="user_image">Choose Image</label>
+                    <label class="custom-file-label" for="user_image"> {{$t('global.choose_image')}} </label>
                     <has-error :form="form" field="photo"></has-error>
                     </div>
                     <div class="col-sm-12" style="text-align: center;">
@@ -198,11 +194,19 @@
                 if (file["size"] < 8000000) {
                     reader.readAsDataURL(file);
                 } else {
-                    Swal.fire(
-                        "Oops...",
-                        "You are uploading a large file, (8MB) last.",
-                        "error"
-                    );
+                    if (this.$i18n.locale == 'ar') {
+                        Swal.fire(
+                            "خطأ...",
+                            "الحجم المسموح به للصورة هو 8 ميجا بايت.",
+                            "error"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Oops...",
+                            "You are uploading a large file, (8MB) last.",
+                            "error"
+                        );
+                    }
                     this.form.photo = this.oldUserAvatar;
                 }
             } else {
@@ -242,6 +246,15 @@
                 this.userAvatar = this.$domain + '/' + val;
                 this.showBtnRemoveAvatar = false
             }
+
+
+            // if go to profile only
+            if (this.typeForm == 'edit') {
+                if (this.form.photo != '' && this.form.photo.indexOf('data:image/') !== 0) {
+                    this.userAvatar = this.$domain + '/' + this.form.photo
+                }
+            }
+
         },
         "form.rule"(val) {
             this.selectCompany = val == 2 ? true : false;

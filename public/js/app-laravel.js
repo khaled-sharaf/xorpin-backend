@@ -1834,9 +1834,7 @@ __webpack_require__.r(__webpack_exports__);
       var myMainRtlCss = locale == 'ar' ? '/admin/css/main-rtl.css' : '/admin/css/main.css';
       var styleMyMain = document.getElementById('style-my-main');
       styleMyMain.setAttribute('href', this.$domain + myMainRtlCss);
-      localStorage.setItem('locale', locale); // let dirFileCssAdminlte = locale == 'ar' ? '/adminlte/dist/css/adminlte.rtl.css' : '/adminlte/dist/css/adminlte.css'
-      // let styleAdminlte = document.getElementById('style-adminlte')
-      // styleAdminlte.setAttribute('href', this.$domain + dirFileCssAdminlte)
+      localStorage.setItem('locale', locale);
     }
   },
   mounted: function mounted() {
@@ -2593,7 +2591,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["columns", "viewTableClasses", "tableData", "perPage"]
+  props: ["columns", "viewTableClasses", "tableData", "perPage"],
+  data: function data() {
+    return {
+      updatedColumns: []
+    };
+  },
+  methods: {
+    updateColumns: function updateColumns() {
+      this.updatedColumns = this.columns;
+    }
+  },
+  watch: {
+    "$i18n.locale": function $i18nLocale(val) {
+      var _this = this;
+
+      this.updatedColumns = [];
+      setTimeout(function () {
+        _this.updateColumns();
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      _this2.updateColumns();
+    });
+  }
 });
 
 /***/ }),
@@ -2644,6 +2669,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8930,6 +8961,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormUser */ "./resources/js/views/users/FormUser.vue");
 /* harmony import */ var _components_HeaderPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../components/HeaderPage */ "./resources/js/components/HeaderPage.vue");
+/* harmony import */ var _mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/MixinChangeLocaleMessages */ "./resources/js/mixins/MixinChangeLocaleMessages.js");
 //
 //
 //
@@ -8982,9 +9014,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_2__["default"]],
   name: 'create-user',
   components: {
     HeaderPage: _components_HeaderPage__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -9004,7 +9038,11 @@ __webpack_require__.r(__webpack_exports__);
         company_id: "",
         rule: 0,
         active: 1
-      })
+      }),
+      idPage: 'users',
+      typePage: 'create',
+      success_msg: '',
+      failed_msg: ''
     };
   },
   methods: {
@@ -9017,11 +9055,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.form.reset();
 
           ToastReq.fire({
-            text: response.data.message
+            text: _this.success_msg
           });
         }
       })["catch"](function (response) {
-        Swal.fire("Failed!", "The user has not been created.", "error");
+        Swal.fire(_this.failed_title + "!", _this.failed_msg, "error");
 
         _this.$Progress.fail();
       });
@@ -9047,6 +9085,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormUser */ "./resources/js/views/users/FormUser.vue");
 /* harmony import */ var _components_HeaderPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../components/HeaderPage */ "./resources/js/components/HeaderPage.vue");
+/* harmony import */ var _mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/MixinChangeLocaleMessages */ "./resources/js/mixins/MixinChangeLocaleMessages.js");
 //
 //
 //
@@ -9099,9 +9138,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     HeaderPage: _components_HeaderPage__WEBPACK_IMPORTED_MODULE_1__["default"],
     FormUser: _FormUser__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -9123,7 +9164,11 @@ __webpack_require__.r(__webpack_exports__);
         rule: 0,
         active: 1
       }),
-      userEdit: {}
+      userEdit: {},
+      idPage: 'users',
+      typePage: 'edit',
+      success_msg: '',
+      failed_msg: ''
     };
   },
   methods: {
@@ -9134,11 +9179,11 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post(this.urlUpdateUser).then(function (response) {
         if (response.status === 200) {
           ToastReq.fire({
-            text: response.data.message
+            text: _this.success_msg
           });
         }
       })["catch"](function (response) {
-        Swal.fire("Failed!", "The user has not been created.", "error");
+        Swal.fire(_this.failed_title + "!", _this.failed_msg, "error");
 
         _this.$Progress.fail();
       });
@@ -9169,6 +9214,17 @@ __webpack_require__.r(__webpack_exports__);
           _this2.getUserEdit(_this2.$route);
         }, 1000);
       });
+    }
+  },
+  watch: {
+    "$route.params.id": function $routeParamsId(val) {
+      if (this.$route.params.user) {
+        this.userEdit = this.$route.params.user;
+        this.form.reset();
+        this.form.fill(this.userEdit);
+      } else {
+        this.getUserEdit(this.$route);
+      }
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
@@ -9205,10 +9261,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -9414,7 +9466,12 @@ __webpack_require__.r(__webpack_exports__);
         if (file["size"] < 8000000) {
           reader.readAsDataURL(file);
         } else {
-          Swal.fire("Oops...", "You are uploading a large file, (8MB) last.", "error");
+          if (this.$i18n.locale == 'ar') {
+            Swal.fire("خطأ...", "الحجم المسموح به للصورة هو 8 ميجا بايت.", "error");
+          } else {
+            Swal.fire("Oops...", "You are uploading a large file, (8MB) last.", "error");
+          }
+
           this.form.photo = this.oldUserAvatar;
         }
       } else {
@@ -9457,6 +9514,13 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.userAvatar = this.$domain + '/' + val;
         this.showBtnRemoveAvatar = false;
+      } // if go to profile only
+
+
+      if (this.typeForm == 'edit') {
+        if (this.form.photo != '' && this.form.photo.indexOf('data:image/') !== 0) {
+          this.userAvatar = this.$domain + '/' + this.form.photo;
+        }
       }
     },
     "form.rule": function formRule(val) {
@@ -9706,15 +9770,15 @@ __webpack_require__.r(__webpack_exports__);
       urlGetDataTable: '/users',
       urlDeleteRow: '/user/destroy',
       urlRestoreRow: '/user/restore',
-      delete_msg: 'Are you sure you want to delete this user?',
-      delete_success_msg: 'The user has been deleted.',
-      delete_failed_msg: 'The user has not been deleted.',
-      force_delete_msg: 'Are you sure you want to remove this user?',
-      force_delete_success_msg: 'The user has been removed.',
-      force_delete_failed_msg: 'The user has not been removed.',
-      restore_msg: 'Are you sure you want to restore this user?',
-      restore_success_msg: 'The user has been restored.',
-      restore_failed_msg: 'The user has not been restored.',
+      delete_msg: this.$t('users_table.delete_msg'),
+      delete_success_msg: this.$t('users_table.delete_success_msg'),
+      delete_failed_msg: this.$t('users_table.delete_failed_msg'),
+      force_delete_msg: this.$t('users_table.force_delete_msg'),
+      force_delete_success_msg: this.$t('users_table.force_delete_success_msg'),
+      force_delete_failed_msg: this.$t('users_table.force_delete_failed_msg'),
+      restore_msg: this.$t('users_table.restore_msg'),
+      restore_success_msg: this.$t('users_table.restore_success_msg'),
+      restore_failed_msg: this.$t('users_table.restore_failed_msg'),
       columns: columns,
       sortOrders: sortOrders,
       tableData: {
@@ -9787,6 +9851,7 @@ __webpack_require__.r(__webpack_exports__);
     next(function (vm) {
       if (to.name == 'users') {
         to.meta.title = vm.$t('sidebar.users');
+        vm.setLocaleMessages();
         vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
 
         vm.sortBy(vm.sortKey);
@@ -9811,6 +9876,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     if (this.$route.name != 'users') {
+      this.setLocaleMessages();
       this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
 
       this.sortBy(this.sortKey);
@@ -47118,7 +47184,7 @@ var render = function() {
                             _c("p", [
                               _vm._v(
                                 "\n                        " +
-                                  _vm._s(_vm.$t("global.company_profile")) +
+                                  _vm._s(_vm.$t("sidebar.company_profile")) +
                                   "\n                    "
                               )
                             ])
@@ -48575,7 +48641,7 @@ var render = function() {
               }
             }
           },
-          _vm._l(_vm.columns, function(column, index) {
+          _vm._l(_vm.updatedColumns, function(column, index) {
             return _c("option", {
               directives: [
                 {
@@ -48815,7 +48881,13 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Admin")]
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.$t("users_table.rules_filter.admin")) +
+                  "\n            "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -48830,7 +48902,13 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Company")]
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.$t("users_table.rules_filter.company")) +
+                  "\n            "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -48845,7 +48923,13 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("User")]
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.$t("users_table.rules_filter.user")) +
+                  "\n            "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -49187,7 +49271,7 @@ var render = function() {
                   _c("div", { staticClass: "inner" }, [
                     _c("h3", [_vm._v(_vm._s(_vm.counts.users))]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("User Registrations")])
+                    _c("p", [_vm._v(_vm._s(_vm.$t("sidebar.users")))])
                   ]),
                   _vm._v(" "),
                   _vm._m(0),
@@ -49199,7 +49283,11 @@ var render = function() {
                       attrs: { to: { name: "users" } }
                     },
                     [
-                      _vm._v("\n                        More info "),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.$t("global.more_info")) +
+                          " "
+                      ),
                       _c("i", {
                         staticClass: "fas",
                         class:
@@ -49223,7 +49311,7 @@ var render = function() {
                       _c("div", { staticClass: "inner" }, [
                         _c("h3", [_vm._v(_vm._s(_vm.counts.companies))]),
                         _vm._v(" "),
-                        _c("p", [_vm._v("Companies")])
+                        _c("p", [_vm._v(_vm._s(_vm.$t("sidebar.companies")))])
                       ]),
                       _vm._v(" "),
                       _vm._m(1),
@@ -49235,7 +49323,11 @@ var render = function() {
                           attrs: { to: { name: "companies" } }
                         },
                         [
-                          _vm._v("\n                        More info "),
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.$t("global.more_info")) +
+                              " "
+                          ),
                           _c("i", {
                             staticClass: "fas",
                             class:
@@ -49259,7 +49351,7 @@ var render = function() {
                   _c("div", { staticClass: "inner" }, [
                     _c("h3", [_vm._v(_vm._s(_vm.counts.products))]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("Products")])
+                    _c("p", [_vm._v(_vm._s(_vm.$t("sidebar.products")))])
                   ]),
                   _vm._v(" "),
                   _vm._m(2),
@@ -49271,7 +49363,11 @@ var render = function() {
                       attrs: { to: { name: "products" } }
                     },
                     [
-                      _vm._v("\n                        More info "),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.$t("global.more_info")) +
+                          " "
+                      ),
                       _c("i", {
                         staticClass: "fas",
                         class:
@@ -49294,7 +49390,7 @@ var render = function() {
                   _c("div", { staticClass: "inner" }, [
                     _c("h3", [_vm._v(_vm._s(_vm.counts.winners))]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("Winners")])
+                    _c("p", [_vm._v(_vm._s(_vm.$t("sidebar.winners")))])
                   ]),
                   _vm._v(" "),
                   _vm._m(3),
@@ -49306,7 +49402,11 @@ var render = function() {
                       attrs: { to: { name: "winners" } }
                     },
                     [
-                      _vm._v("\n                        More info "),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.$t("global.more_info")) +
+                          " "
+                      ),
                       _c("i", {
                         staticClass: "fas",
                         class:
@@ -49329,7 +49429,7 @@ var render = function() {
                   _c("div", { staticClass: "inner" }, [
                     _c("h3", [_vm._v(_vm._s(_vm.counts.comments))]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("Comments")])
+                    _c("p", [_vm._v(_vm._s(_vm.$t("sidebar.comments")))])
                   ]),
                   _vm._v(" "),
                   _vm._m(4),
@@ -49341,7 +49441,11 @@ var render = function() {
                       attrs: { to: { name: "comments" } }
                     },
                     [
-                      _vm._v("\n                        More info "),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.$t("global.more_info")) +
+                          " "
+                      ),
                       _c("i", {
                         staticClass: "fas",
                         class:
@@ -50791,8 +50895,7 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass:
-                          "btn btn-outline-secondary maximize-table float-right",
+                        staticClass: "btn btn-outline-secondary maximize-table",
                         on: {
                           click: function($event) {
                             _vm.maximizeTable = !_vm.maximizeTable
@@ -51819,7 +51922,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                Create\n                                                "
+                                        "\n                                                " +
+                                          _vm._s(_vm.$t("global.create")) +
+                                          "\n                                                "
                                       ),
                                       _c("i", {
                                         staticClass: "fa fa-plus fa-fw"
@@ -52984,7 +53089,9 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                                Create\n                                                "
+                                          "\n                                                " +
+                                            _vm._s(_vm.$t("global.create")) +
+                                            "\n                                                "
                                         ),
                                         _c("i", {
                                           staticClass: "fa fa-plus fa-fw"
@@ -54740,7 +54847,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                Create\n                                                "
+                                        "\n                                                " +
+                                          _vm._s(_vm.$t("global.create")) +
+                                          "\n                                                "
                                       ),
                                       _c("i", {
                                         staticClass: "fa fa-plus fa-fw"
@@ -56636,7 +56745,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                                Create\n                                                "
+                                    "\n                                                " +
+                                      _vm._s(_vm.$t("global.create")) +
+                                      "\n                                                "
                                   ),
                                   _c("i", { staticClass: "fa fa-plus fa-fw" })
                                 ]
@@ -56957,7 +57068,11 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("header-page", { attrs: { title: "Create user" } }),
+      _c("header-page", {
+        attrs: {
+          title: _vm.$t("global.create") + " " + _vm.$t("sidebar.new_user")
+        }
+      }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "container-fluid" }, [
@@ -56974,7 +57089,15 @@ var render = function() {
                         staticClass: "btn btn-primary btn-sm",
                         attrs: { to: { name: "users" } }
                       },
-                      [_vm._v("Show all users")]
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.$t("global.show") +
+                              " " +
+                              _vm.$t("sidebar.all_users")
+                          )
+                        )
+                      ]
                     )
                   ],
                   1
@@ -57009,7 +57132,7 @@ var render = function() {
                           staticClass: "btn btn-primary float-right",
                           attrs: { type: "submit", disabled: _vm.form.busy }
                         },
-                        [_vm._v("Create")]
+                        [_vm._v(" " + _vm._s(_vm.$t("global.create")) + " ")]
                       )
                     ])
                   ]
@@ -57048,7 +57171,16 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("header-page", { attrs: { title: "Edit user" } }),
+      _c("header-page", {
+        attrs: {
+          title:
+            _vm.$t("global.edit") +
+            " " +
+            (_vm.$gate.authData().id == _vm.$route.params.id
+              ? _vm.$t("global.the_profile")
+              : _vm.$t("global.user"))
+        }
+      }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "container-fluid" }, [
@@ -57057,7 +57189,9 @@ var render = function() {
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _c("h3", { staticClass: "m-0 mb-2 text-dark" }, [
-                    _vm._v("User: "),
+                    _vm._v(
+                      _vm._s(_vm._f("capitalize")(_vm.$t("global.user"))) + " "
+                    ),
                     _c("span", { staticStyle: { color: "#3498db" } }, [
                       _vm._v(" " + _vm._s(_vm.userEdit.name))
                     ])
@@ -57136,7 +57270,10 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _vm._m(0),
+            _c("label", [
+              _vm._v(_vm._s(_vm.$t("users_table.name")) + " "),
+              _c("span", { staticClass: "field-required" })
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57149,7 +57286,7 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("name") },
-              attrs: { type: "text", placeholder: "Name" },
+              attrs: { type: "text", placeholder: _vm.$t("users_table.name") },
               domProps: { value: _vm.form.name },
               on: {
                 input: function($event) {
@@ -57170,7 +57307,10 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _vm._m(1),
+            _c("label", [
+              _vm._v(_vm._s(_vm.$t("users_table.email")) + " "),
+              _c("span", { staticClass: "field-required" })
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57183,7 +57323,7 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("email") },
-              attrs: { type: "text", placeholder: "Email" },
+              attrs: { type: "text", placeholder: _vm.$t("users_table.email") },
               domProps: { value: _vm.form.email },
               on: {
                 input: function($event) {
@@ -57204,7 +57344,10 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _vm._m(2),
+            _c("label", [
+              _vm._v(_vm._s(_vm.$t("users_table.password"))),
+              _c("span", { staticClass: "field-required" })
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57217,7 +57360,10 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("password") },
-              attrs: { type: "password", placeholder: "Password" },
+              attrs: {
+                type: "password",
+                placeholder: _vm.$t("users_table.password")
+              },
               domProps: { value: _vm.form.password },
               on: {
                 input: function($event) {
@@ -57238,7 +57384,10 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _vm._m(3),
+            _c("label", [
+              _vm._v(_vm._s(_vm.$t("users_table.repeat_password")) + " "),
+              _c("span", { staticClass: "field-required" })
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57253,7 +57402,10 @@ var render = function() {
               class: {
                 "is-invalid": _vm.form.errors.has("password_confirmation")
               },
-              attrs: { type: "password", placeholder: "Repeat Password" },
+              attrs: {
+                type: "password",
+                placeholder: _vm.$t("users_table.repeat_password")
+              },
               domProps: { value: _vm.form.password_confirmation },
               on: {
                 input: function($event) {
@@ -57280,7 +57432,9 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _c("label", [_vm._v("Mobile")]),
+            _c("label", [
+              _vm._v(" " + _vm._s(_vm.$t("users_table.phone")) + " ")
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57293,7 +57447,7 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("phone") },
-              attrs: { type: "text", placeholder: "Mobile" },
+              attrs: { type: "text", placeholder: _vm.$t("users_table.phone") },
               domProps: { value: _vm.form.phone },
               on: {
                 input: function($event) {
@@ -57314,7 +57468,7 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
-            _c("label", [_vm._v("Address")]),
+            _c("label", [_vm._v(_vm._s(_vm.$t("users_table.address")) + " ")]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -57327,7 +57481,10 @@ var render = function() {
               ],
               staticClass: "form-control",
               class: { "is-invalid": _vm.form.errors.has("address") },
-              attrs: { type: "text", placeholder: "Address" },
+              attrs: {
+                type: "text",
+                placeholder: _vm.$t("users_table.address")
+              },
               domProps: { value: _vm.form.address },
               on: {
                 input: function($event) {
@@ -57351,7 +57508,10 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
-                _vm._m(4),
+                _c("label", [
+                  _vm._v(_vm._s(_vm.$t("users_table.rule")) + " "),
+                  _c("span", { staticClass: "field-required" })
+                ]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -57386,14 +57546,19 @@ var render = function() {
                       }
                     }
                   },
-                  _vm._l(_vm.userRules, function(rule, i) {
-                    return _c(
-                      "option",
-                      { key: i, domProps: { value: rule.value } },
-                      [_vm._v(_vm._s(rule.text))]
-                    )
-                  }),
-                  0
+                  [
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v(_vm._s(_vm.$t("users_table.rules.user")))
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v(_vm._s(_vm.$t("users_table.rules.company")))
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v(_vm._s(_vm.$t("users_table.rules.admin")))
+                    ])
+                  ]
                 ),
                 _vm._v(" "),
                 _c("has-error", { attrs: { form: _vm.form, field: "rule" } })
@@ -57410,7 +57575,10 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
-                _vm._m(5),
+                _c("label", [
+                  _vm._v(_vm._s(_vm.$t("users_table.company")) + " "),
+                  _c("span", { staticClass: "field-required" })
+                ]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -57425,6 +57593,7 @@ var render = function() {
                     ],
                     staticClass: "custom-select",
                     class: { "is-invalid": _vm.form.errors.has("company_id") },
+                    staticStyle: { direction: "ltr", "text-align": "left" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -57470,7 +57639,10 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
-                _vm._m(6),
+                _c("label", [
+                  _vm._v(_vm._s(_vm.$t("datatable.activation")) + " "),
+                  _c("span", { staticClass: "field-required" })
+                ]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -57505,14 +57677,15 @@ var render = function() {
                       }
                     }
                   },
-                  _vm._l(_vm.userActive, function(type, i) {
-                    return _c(
-                      "option",
-                      { key: i, domProps: { value: type.value } },
-                      [_vm._v(_vm._s(type.text))]
-                    )
-                  }),
-                  0
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v(_vm._s(_vm.$t("global.active")))
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v(_vm._s(_vm.$t("global.disactive")))
+                    ])
+                  ]
                 ),
                 _vm._v(" "),
                 _c("has-error", { attrs: { form: _vm.form, field: "active" } })
@@ -57522,7 +57695,9 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("User Avatar")]),
+          _c("label", [
+            _vm._v(" " + _vm._s(_vm.$t("users_table.photo")) + " ")
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -57546,7 +57721,7 @@ var render = function() {
                   staticClass: "custom-file-label",
                   attrs: { for: "user_image" }
                 },
-                [_vm._v("Choose Image")]
+                [_vm._v(" " + _vm._s(_vm.$t("global.choose_image")) + " ")]
               ),
               _vm._v(" "),
               _c("has-error", { attrs: { form: _vm.form, field: "photo" } })
@@ -57582,71 +57757,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Name "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Email "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Password "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Repeat Password "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Rule "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Company "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("Active "),
-      _c("span", { staticClass: "field-required" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -57755,7 +57866,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                Create\n                                                "
+                                        "\n                                                " +
+                                          _vm._s(_vm.$t("global.create")) +
+                                          "\n                                                "
                                       ),
                                       _c("i", {
                                         staticClass: "fa fa-plus fa-fw"
@@ -58026,19 +58139,23 @@ var render = function() {
             [
               user.rule == 1
                 ? _c("span", { staticClass: "badge badge-success" }, [
-                    _vm._v("Admin")
+                    _vm._v(
+                      " " + _vm._s(_vm.$t("users_table.rules.admin")) + " "
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
               user.rule == 2
                 ? _c("span", { staticClass: "badge badge-danger" }, [
-                    _vm._v("User company")
+                    _vm._v(
+                      " " + _vm._s(_vm.$t("users_table.rules.company")) + " "
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
               user.rule == 0
                 ? _c("span", { staticClass: "badge badge-primary" }, [
-                    _vm._v("User")
+                    _vm._v(" " + _vm._s(_vm.$t("users_table.rules.user")) + " ")
                   ])
                 : _vm._e()
             ]
@@ -58704,7 +58821,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                Create\n                                                "
+                                        "\n                                                " +
+                                          _vm._s(_vm.$t("global.create")) +
+                                          "\n                                                "
                                       ),
                                       _c("i", {
                                         staticClass: "fa fa-plus fa-fw"
@@ -75172,7 +75291,7 @@ webpackContext.id = "./resources/js/lang sync recursive ^\\.\\/.*\\.json$";
 /*! exports provided: global, sidebar, datatable, users_table, companies_table, products_table, products_types_table, winners_table, comments_table, settings_table, default */
 /***/ (function(module) {
 
-module.exports = {"global":{"home":"Home","dashboard":"Dashboard","logout":"Logout","create":"Create","edit":"Edit","update":"update","save":"Save","delete":"Delete","remove":"Remove","read":"Read","read_more":"Read more","more_info":"More info","show":"Show","view":"View","display":"Display"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Products types","all_products_types":"all products types","new_products_type":"new products type","edit_products_type":"Edit products type","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"إظهار","entries":"سجلات","from":"من","to":"إلى","of":"من","next":"التالى","prev":"السابق","search":"بحث","empty_table":"جدول فارغ","no_data_msg":"لا يوجد بيانات فى  هذا الجدول."},"users_table":{},"companies_table":{},"products_table":{},"products_types_table":{},"winners_table":{},"comments_table":{},"settings_table":{}};
+module.exports = {"global":{"home":"الرئيسية","dashboard":"الرئيسية","user":"مستخدم","company":"شركة","product":"منتج","products_type":"نوع منتجات","type":"نوع","comment":"تعليق","winner":"فائز","setting":"إعداد","logout":"تسجيل الخروج","create":"إنشاء","edit":"تعديل","update":"تحديث","save":"حفظ","read":"اقرأ","read_more":"اقرأ المزيد","more_info":"معرفة المزيد","show":"عرض","view":"عرض","display":"إظهار","from":"من","to":"إلى","delete":"حذف","deleted":"تم الحذف","force_delete":"إزالة نهائيا","remove":"إزالة","removed":"تمت الإزالة","restore":"استرجاع","restored":"تم الإسترجاع","failed":"فشل","cancel":"إلغاء","yes_delete_it":"تأكيد الحذف","yes_remove_it":"تأكيد الإزالة","yes_restore_it":"تأكيد الإسترجاع"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Products types","all_products_types":"all products types","new_products_type":"new products type","edit_products_type":"Edit products type","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"إظهار","entries":"سجلات","from":"من","to":"إلى","of":"من","next":"التالى","prev":"السابق","empty_table":"جدول فارغ","no_data_msg":"لا يوجد بيانات فى  هذا الجدول.","trashed":"Trashed","activation":"Activation","display":"Displayed","rules":"Rules","sold_out":"Sold out","discount":"Discount","products_type":"Products type","created_between":"Created between","search":"بحث"},"users_table":{"id":"المعرف","name":"الإسم","email":"البريد الإلكترونى","phone":"الموبايل","address":"العنوان","photo":"الصورة","rule":"الصلاحيات","active":"التفعيل","created_at":"تاريخ الإنشاء","company":"الشركة","actions":"الإجراءات","rules":{"user":"مستخدم عادى","admin":"مدير","company":"مدير شركة"},"rules_filter":{"user":"مستخدم","admin":"مدير","company":"شركة"},"delete_msg":"هل أنت متأكد من حذف هذا المستخدم ؟","delete_success_msg":"The user has been deleted.","delete_failed_msg":"The user has not been deleted.","force_delete_msg":"Are you sure you want to remove this user?","force_delete_success_msg":"The user has been removed.","force_delete_failed_msg":"The user has not been removed.","restore_msg":"هل أنت متأكد من استرجاع هذا المستخدم ؟","restore_success_msg":"The user has been restored.","restore_failed_msg":"The user has not been restored.","p_create":{"success_msg":"تم إنشاء مستخدم جديد.","failed_msg":"لم يتم إنشاء المستخدم الجديد."},"p_edit":{"success_msg":"تم تحديث المستخدم.","failed_msg":"لم يتم تحديث هذا المستخدم."}},"companies_table":{},"products_table":{},"products_types_table":{},"winners_table":{},"comments_table":{},"settings_table":{}};
 
 /***/ }),
 
@@ -75183,7 +75302,7 @@ module.exports = {"global":{"home":"Home","dashboard":"Dashboard","logout":"Logo
 /*! exports provided: global, sidebar, datatable, users_table, companies_table, products_table, products_types_table, winners_table, comments_table, settings_table, default */
 /***/ (function(module) {
 
-module.exports = {"global":{"home":"Home","dashboard":"Dashboard","logout":"Logout","create":"Create","edit":"Edit","update":"update","save":"Save","delete":"Delete","deleted":"Deleted","force_delete":"Force delete","remove":"Remove","removed":"Removed","restore":"Restore","restored":"Restored","failed":"Failed","yes_delete_it":"Yes, delete it","yes_remove_it":"Yes, remove it","yes_restore_it":"Yes, restore it","read":"Read","read_more":"Read more","more_info":"More info","show":"Show","view":"View","display":"Display","from":"From","to":"To"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Products types","all_products_types":"all products types","new_products_type":"new products type","edit_products_type":"Edit products type","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"Showing","entries":"entries","from":"from","to":"to","of":"of","next":"Next","prev":"Prev","empty_table":"Empty table","no_data_msg":"No data in this table.","trashed":"Trashed","activation":"Activation","display":"Displayed","rules":"Rules","sold_out":"Sold out","discount":"Discount","products_type":"Products type","created_between":"Created between","search":"Search"},"users_table":{},"companies_table":{},"products_table":{},"products_types_table":{},"winners_table":{},"comments_table":{},"settings_table":{}};
+module.exports = {"global":{"home":"Home","dashboard":"Dashboard","user":"user","company":"company","product":"product","products_type":"products type","type":"type","comment":"comment","winner":"winner","setting":"setting","profile":"profile","the_profile":"the profile","logout":"Logout","create":"Create","edit":"Edit","update":"update","save":"Save","read":"Read","read_more":"Read more","more_info":"More info","choose_image":"Choose image","active":"Active","disactive":"Disactive","show":"Show","view":"View","display":"Display","from":"From","to":"To","delete":"Delete","deleted":"Deleted","force_delete":"Force delete","remove":"Remove","removed":"Removed","restore":"Restore","restored":"Restored","failed":"Failed","cancel":"Cancel","yes_delete_it":"Yes, delete it","yes_remove_it":"Yes, remove it","yes_restore_it":"Yes, restore it"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Categories","all_products_types":"all categories","new_products_type":"new category","edit_products_type":"Edit category","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"Showing","entries":"entries","from":"from","to":"to","of":"of","next":"Next","prev":"Prev","empty_table":"Empty table","no_data_msg":"No data in this table.","trashed":"Trashed","activation":"Activation","display":"Displayed","rules":"Rules","sold_out":"Sold out","discount":"Discount","products_type":"Category","created_between":"Created between","search":"Search"},"users_table":{"id":"ID","name":"Name","email":"Email","password":"Password","repeat_password":"Repeat password","phone":"Mobile","address":"Address","photo":"Photo","rule":"Rule","active":"Active","created_at":"Created at","company":"Company","actions":"Actions","rules":{"user":"Normal user","admin":"Admin","company":"Company admin"},"rules_filter":{"user":"User","admin":"Admin","company":"Company"},"delete_msg":"Are you sure you want to delete this user?","delete_success_msg":"The user has been deleted.","delete_failed_msg":"The user has not been deleted.","force_delete_msg":"Are you sure you want to remove this user?","force_delete_success_msg":"The user has been removed.","force_delete_failed_msg":"The user has not been removed.","restore_msg":"Are you sure you want to restore this user?","restore_success_msg":"The user has been restored.","restore_failed_msg":"The user has not been restored.","p_create":{"success_msg":"New user has been created.","failed_msg":"New user has been not created."},"p_edit":{"success_msg":"The user has been updated.","failed_msg":"The user has been not updated."}},"companies_table":{},"products_table":{},"products_types_table":{},"winners_table":{},"comments_table":{},"settings_table":{}};
 
 /***/ }),
 
@@ -75256,6 +75375,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/MixinChangeLocaleMessages.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/mixins/MixinChangeLocaleMessages.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      failed_title: this.$t('global.failed')
+    };
+  },
+  methods: {
+    setLocaleMessages: function setLocaleMessages() {
+      this.failed_title = this.$t('global.failed');
+      this.success_msg = this.$t("".concat(this.idPage, "_table.p_").concat(this.typePage, ".success_msg"));
+      this.failed_msg = this.$t("".concat(this.idPage, "_table.p_").concat(this.typePage, ".failed_msg"));
+    }
+  },
+  watch: {
+    "$i18n.locale": function $i18nLocale(val) {
+      this.setLocaleMessages();
+    }
+  },
+  mounted: function mounted() {
+    this.setLocaleMessages();
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/MixinsDatatable.js":
 /*!************************************************!*\
   !*** ./resources/js/mixins/MixinsDatatable.js ***!
@@ -75298,10 +75451,24 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         prevPageUrl: "",
         from: "",
         to: ""
-      }
+      },
+      delete_title: this.$t('global.delete'),
+      deleted_title: this.$t('global.deleted'),
+      delete_it_title: this.$t('global.yes_delete_it'),
+      force_delete_title: this.$t('global.force_delete'),
+      removed_title: this.$t('global.removed'),
+      remove_it_title: this.$t('global.yes_remove_it'),
+      restore_title: this.$t('global.restore'),
+      restored_title: this.$t('global.restored'),
+      restore_it_title: this.$t('global.yes_restore_it'),
+      failed_title: this.$t('global.failed'),
+      cancel_title: this.$t('global.cancel')
     };
   },
   watch: {
+    "$i18n.locale": function $i18nLocale(val) {
+      this.setLocaleMessages();
+    },
     "tableData.from_date": function tableDataFrom_date(val) {
       this.getData();
     },
@@ -75487,7 +75654,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             for (var colNative in this.columns) {
               if (this.columns[colNative].name == colName) {
                 var colLabel = this.columns[colNative].label;
-                list += "<li> <span class=\"label\">".concat(colLabel, "</span> ").concat($(".table tbody tr[data-id='" + id + "'] td." + this.columnsExcept[columnName]).html(), " </li>");
+                list += "<li> <span class=\"label\"> ".concat(colLabel, "</span> ").concat($(".table tbody tr[data-id='" + id + "'] td." + this.columnsExcept[columnName]).html(), " </li>");
               }
             }
           }
@@ -75536,13 +75703,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var _this2 = this;
 
       Swal.fire({
-        title: this.$t('global.delete'),
+        title: this.delete_title,
         text: this.delete_msg,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
         cancelButtonColor: "#6d6d6d",
-        confirmButtonText: this.$t('global.yes_delete_it') + "!"
+        confirmButtonText: this.delete_it_title + "!",
+        cancelButtonText: this.cancel_title
       }).then(function (result) {
         if (result.value) {
           loadReq(_this2.$Progress);
@@ -75550,12 +75718,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             id: id
           }).then(function (response) {
             if (response.status === 200) {
-              Swal.fire(_this2.$t('global.deleted') + "!", _this2.delete_success_msg, "success");
+              Swal.fire(_this2.deleted_title + "!", _this2.delete_success_msg, "success");
 
               _this2.getData();
             }
           })["catch"](function (error) {
-            Swal.fire(_this2.$t('global.failed') + "!", _this2.delete_failed_msg, "error");
+            Swal.fire(_this2.failed_title + "!", _this2.delete_failed_msg, "error");
 
             _this2.$Progress.fail();
           });
@@ -75566,13 +75734,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var _this3 = this;
 
       Swal.fire({
-        title: this.$t('global.force_delete'),
+        title: this.force_delete_title,
         text: this.force_delete_msg,
         type: "error",
         showCancelButton: true,
         confirmButtonColor: "#e74c3c",
         cancelButtonColor: "#6d6d6d",
-        confirmButtonText: this.$t('global.yes_remove_it') + "!"
+        confirmButtonText: this.remove_it_title + "!",
+        cancelButtonText: this.cancel_title
       }).then(function (result) {
         if (result.value) {
           loadReq(_this3.$Progress);
@@ -75580,12 +75749,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             id: id
           }).then(function (response) {
             if (response.status === 200) {
-              Swal.fire(_this3.$t('global.removed') + "!", _this3.force_delete_success_msg, "success");
+              Swal.fire(_this3.removed_title + "!", _this3.force_delete_success_msg, "success");
 
               _this3.getData();
             }
           })["catch"](function (error) {
-            Swal.fire(_this3.$t('global.failed') + "!", _this3.force_delete_failed_msg, "error");
+            Swal.fire(_this3.failed_title + "!", _this3.force_delete_failed_msg, "error");
 
             _this3.$Progress.fail();
           });
@@ -75596,13 +75765,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var _this4 = this;
 
       Swal.fire({
-        title: this.$t('global.restore'),
+        title: this.restore_title,
         text: this.restore_msg,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#6cb2eb",
         cancelButtonColor: "#6d6d6d",
-        confirmButtonText: this.$t('global.yes_restore_it') + "!"
+        confirmButtonText: this.restore_it_title + "!",
+        cancelButtonText: this.cancel_title
       }).then(function (result) {
         if (result.value) {
           loadReq(_this4.$Progress);
@@ -75610,17 +75780,83 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             id: id
           }).then(function (response) {
             if (response.status === 200) {
-              Swal.fire(_this4.$t('global.restored') + "!", _this4.restore_success_msg, "success");
+              Swal.fire(_this4.restored_title + "!", _this4.restore_success_msg, "success");
 
               _this4.getData();
             }
           })["catch"](function (error) {
-            Swal.fire(_this4.$t('global.failed') + "!", _this4.restore_failed_msg, "error");
+            Swal.fire(_this4.failed_title + "!", _this4.restore_failed_msg, "error");
 
             _this4.$Progress.fail();
           });
         }
       });
+    },
+    setLocaleMessages: function setLocaleMessages() {
+      var _this5 = this;
+
+      /************ Index table **************/
+      // locale message form each table
+      if (this.delete_msg) {
+        this.delete_msg = this.$t(this.idPage + '_table.delete_msg');
+      }
+
+      if (this.delete_success_msg) {
+        this.delete_success_msg = this.$t(this.idPage + '_table.delete_success_msg');
+      }
+
+      if (this.delete_failed_msg) {
+        this.delete_failed_msg = this.$t(this.idPage + '_table.delete_failed_msg');
+      }
+
+      if (this.force_delete_msg) {
+        this.force_delete_msg = this.$t(this.idPage + '_table.force_delete_msg');
+      }
+
+      if (this.force_delete_success_msg) {
+        this.force_delete_success_msg = this.$t(this.idPage + '_table.force_delete_success_msg');
+      }
+
+      if (this.force_delete_failed_msg) {
+        this.force_delete_failed_msg = this.$t(this.idPage + '_table.force_delete_failed_msg');
+      }
+
+      if (this.restore_msg) {
+        this.restore_msg = this.$t(this.idPage + '_table.restore_msg');
+      }
+
+      if (this.restore_success_msg) {
+        this.restore_success_msg = this.$t(this.idPage + '_table.restore_success_msg');
+      }
+
+      if (this.restore_failed_msg) {
+        this.restore_failed_msg = this.$t(this.idPage + '_table.restore_failed_msg');
+      } // global message in all table
+
+
+      this.delete_title = this.$t('global.delete');
+      this.deleted_title = this.$t('global.deleted');
+      this.delete_it_title = this.$t('global.yes_delete_it');
+      this.force_delete_title = this.$t('global.force_delete');
+      this.removed_title = this.$t('global.removed');
+      this.remove_it_title = this.$t('global.yes_remove_it');
+      this.restore_title = this.$t('global.restore');
+      this.restored_title = this.$t('global.restored');
+      this.restore_it_title = this.$t('global.yes_restore_it');
+      this.failed_title = this.$t('global.failed');
+      this.cancel_title = this.$t('global.cancel');
+      /*********************************************************************/
+
+      var newColumnsAfterChangeLang = [];
+      this.columns.forEach(function (item) {
+        if (item.name != 'show_plus' && item.name != 'index') {
+          item.label = _this5.$t('users_table.' + item.name);
+        }
+
+        newColumnsAfterChangeLang.push(item);
+      });
+      this.columns = newColumnsAfterChangeLang;
+      this.updateRowDataWhenGet();
     }
   }
 });

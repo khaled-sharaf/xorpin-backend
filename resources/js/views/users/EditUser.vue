@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit user"></header-page>
+        <header-page :title="$t('global.edit') + ' ' + ($gate.authData().id == $route.params.id ? $t('global.the_profile') : $t('global.user'))"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <h3 class="m-0 mb-2 text-dark">User: <span style="color: #3498db"> {{ userEdit.name }}</span></h3>
+                                <h3 class="m-0 mb-2 text-dark">{{ $t('global.user') | capitalize }} <span style="color: #3498db"> {{ userEdit.name }}</span></h3>
                             </div>
                             <!-- ./card-header -->
 
@@ -53,7 +53,11 @@
 <script>
 import FormUser from './FormUser'
 import HeaderPage from './../../components/HeaderPage'
+
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
         FormUser
@@ -75,7 +79,11 @@ export default {
           rule: 0,
           active: 1,
         }),
-        userEdit: {}
+        userEdit: {},
+        idPage: 'users',
+        typePage: 'edit',
+        success_msg: '',
+        failed_msg: ''
       }
     },
     methods: {
@@ -84,11 +92,11 @@ export default {
             this.form.post(this.urlUpdateUser).then(response => {
                 if (response.status === 200) {
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The user has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },
@@ -110,6 +118,17 @@ export default {
                     this.getUserEdit(this.$route)
                 }, 1000)
             })
+        }
+    },
+    watch: {
+        "$route.params.id"(val) {
+            if (this.$route.params.user) {
+                this.userEdit = this.$route.params.user
+                this.form.reset()
+                this.form.fill(this.userEdit)
+            } else {
+                this.getUserEdit(this.$route)
+            }
         }
     },
     beforeRouteEnter(to, from, next) {

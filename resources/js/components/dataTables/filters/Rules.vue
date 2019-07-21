@@ -8,19 +8,25 @@
                     class="icon admin"
                     :class="tableData.rule == '1' ? 'active' : ''"
                     @click="tableData.rule = '1'; $emit('getData');"
-                >Admin</span>
+                >
+                    {{ $t('users_table.rules_filter.admin') }}
+                </span>
 
                 <span
                     class="icon company"
                     :class="tableData.rule == '2' ? 'active' : ''"
                     @click="tableData.rule = '2'; $emit('getData');"
-                >Company</span>
+                >
+                    {{ $t('users_table.rules_filter.company') }}
+                </span>
 
                 <span
                     class="icon user"
                     :class="tableData.rule == '0' ? 'active' : ''"
                     @click="tableData.rule = '0'; $emit('getData');"
-                >User</span>
+                >
+                    {{ $t('users_table.rules_filter.user') }}
+                </span>
 
                 <span
                     class="icon off"

@@ -35,21 +35,35 @@ body {
 
 // datatables
 
-.dataTables_wrapper .card-header .dataTables_filters .box .filter .body {
-    .icon:first-child {
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 0;
+.dataTables_wrapper {
+    .table .tr-table-data {
+        text-align: right;
     }
-    .icon:last-child {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 0;
+    .card-header .dataTables_filters .box .filter .body {
+        .icon:first-child {
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 0;
+        }
+        .icon:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 0;
+        }
     }
 }
 
 
 
-// adminlte
 
+// adminlte ***************
+
+// dashboard
+.small-box .icon > i {
+    left: 15px;
+    right: auto;
+}
+
+
+// sidebar
 .layout-fixed .main-sidebar {
     right: 0;
     left: auto;
@@ -123,4 +137,15 @@ body {
 
 .brand-image {
     float: right !important;
+}
+
+
+// company profile
+.btn.maximize-table {
+    float: left;
+}
+.box-profile .list-group-item {
+    a {
+        float: left !important;
+    }
 }
