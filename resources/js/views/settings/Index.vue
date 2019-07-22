@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all settings"></header-page>
+        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_settings')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -139,10 +139,6 @@ export default {
       urlGetDataTable: '/settings',
       urlDeleteRow: '/setting/destroy',
 
-      delete_msg: 'Are you sure you want to delete this setting item?',
-      delete_success_msg: 'The setting item has been deleted.',
-      delete_failed_msg: 'The setting item has not been deleted.',
-
       columns: columns,
       sortOrders: sortOrders,
       tableData: {
@@ -189,6 +185,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.settings')
+            vm.setLocaleMessages()
             vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
             vm.sortBy(vm.sortKey);
             vm.eventBtnsClick();

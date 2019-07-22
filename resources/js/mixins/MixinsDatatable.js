@@ -3,8 +3,12 @@ import TableWrapper from "./../components/dataTables/TableWrapper";
 import HeaderPage from './../components/HeaderPage'
 import FiltersColumns from "./../components/dataTables/filters/FiltersColumns";
 import Pagination from "./../components/dataTables/Pagination";
+import mixinDeleteRow from "./mixinDeleteRow"
 
 export default {
+    mixins: [
+        mixinDeleteRow
+    ],
     components: {
         TableWrapper,
         HeaderPage,
@@ -39,21 +43,27 @@ export default {
                 to: ""
             },
 
+            delete_msg: " ",
+            delete_success_msg: " ",
+            delete_failed_msg: " ",
+            force_delete_msg: " ",
+            force_delete_success_msg: " ",
+            force_delete_failed_msg: " ",
+            restore_msg: " ",
+            restore_success_msg: " ",
+            restore_failed_msg: " ",
 
-            delete_title: this.$t('global.delete'),
-            deleted_title: this.$t('global.deleted'),
-            delete_it_title: this.$t('global.yes_delete_it'),
-
-            force_delete_title: this.$t('global.force_delete'),
-            removed_title: this.$t('global.removed'),
-            remove_it_title: this.$t('global.yes_remove_it'),
-
-            restore_title: this.$t('global.restore'),
-            restored_title: this.$t('global.restored'),
-            restore_it_title: this.$t('global.yes_restore_it'),
-
-            failed_title: this.$t('global.failed'),
-            cancel_title: this.$t('global.cancel'),
+            delete_title: '',
+            deleted_title: '',
+            delete_it_title: '',
+            force_delete_title: '',
+            removed_title: '',
+            remove_it_title: '',
+            restore_title: '',
+            restored_title: '',
+            restore_it_title: '',
+            failed_title: '',
+            cancel_title: '',
 
         }
     },
@@ -88,7 +98,7 @@ export default {
                 }
             }
             return arr;
-        }
+        },
     },
     methods: {
         getData(url = this.urlGetDataTable) {
@@ -288,34 +298,6 @@ export default {
                 }
             );
         },
-
-        destroyRow(id) {
-            Swal.fire({
-                title: this.delete_title,
-                text: this.delete_msg,
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#e74c3c",
-                cancelButtonColor: "#6d6d6d",
-                confirmButtonText: this.delete_it_title + "!",
-                cancelButtonText: this.cancel_title
-            }).then(result => {
-                if (result.value) {
-                    loadReq(this.$Progress);
-                    axios.post(this.urlDeleteRow, {id: id}).then(response => {
-                        if (response.status === 200) {
-                            Swal.fire(this.deleted_title + "!", this.delete_success_msg, "success");
-                            this.getData();
-                        }
-                    })
-                    .catch(error => {
-                        Swal.fire(this.failed_title + "!", this.delete_failed_msg, "error");
-                        this.$Progress.fail();
-                    });
-                }
-            });
-        },
-
         forceDeleteRow(id) {
             Swal.fire({
                 title: this.force_delete_title,
@@ -374,33 +356,15 @@ export default {
 
             /************ Index table **************/
             // locale message form each table
-            if (this.delete_msg) {
-                this.delete_msg = this.$t(this.idPage + '_table.delete_msg')
-            }
-            if (this.delete_success_msg) {
-                this.delete_success_msg = this.$t(this.idPage + '_table.delete_success_msg')
-            }
-            if (this.delete_failed_msg) {
-                this.delete_failed_msg = this.$t(this.idPage + '_table.delete_failed_msg')
-            }
-            if (this.force_delete_msg) {
-                this.force_delete_msg = this.$t(this.idPage + '_table.force_delete_msg')
-            }
-            if (this.force_delete_success_msg) {
-                this.force_delete_success_msg = this.$t(this.idPage + '_table.force_delete_success_msg')
-            }
-            if (this.force_delete_failed_msg) {
-                this.force_delete_failed_msg = this.$t(this.idPage + '_table.force_delete_failed_msg')
-            }
-            if (this.restore_msg) {
-                this.restore_msg = this.$t(this.idPage + '_table.restore_msg')
-            }
-            if (this.restore_success_msg) {
-                this.restore_success_msg = this.$t(this.idPage + '_table.restore_success_msg')
-            }
-            if (this.restore_failed_msg) {
-                this.restore_failed_msg = this.$t(this.idPage + '_table.restore_failed_msg')
-            }
+            this.delete_msg =                   this.$t(this.idPage + '_table.delete_msg')
+            this.delete_success_msg =           this.$t(this.idPage + '_table.delete_success_msg')
+            this.delete_failed_msg =            this.$t(this.idPage + '_table.delete_failed_msg')
+            this.force_delete_msg =             this.$t(this.idPage + '_table.force_delete_msg')
+            this.force_delete_success_msg =     this.$t(this.idPage + '_table.force_delete_success_msg')
+            this.force_delete_failed_msg =      this.$t(this.idPage + '_table.force_delete_failed_msg')
+            this.restore_msg =                  this.$t(this.idPage + '_table.restore_msg')
+            this.restore_success_msg =          this.$t(this.idPage + '_table.restore_success_msg')
+            this.restore_failed_msg =           this.$t(this.idPage + '_table.restore_failed_msg')
 
             // global message in all table
 
@@ -424,7 +388,7 @@ export default {
             let newColumnsAfterChangeLang = []
             this.columns.forEach((item) => {
                 if (item.name != 'show_plus' && item.name != 'index') {
-                    item.label = this.$t('users_table.' + item.name)
+                    item.label = this.$t(this.idPage + '_table.' + item.name)
                 }
                 newColumnsAfterChangeLang.push(item)
             })

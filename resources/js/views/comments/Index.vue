@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page v-if="$route.name == 'comments'" title="View all comments"></header-page>
+        <header-page v-if="$route.name == 'comments'" :title="$t('global.show') + ' ' + $t('sidebar.all_comments')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -151,18 +151,6 @@ export default {
       urlGetDataTable: '/comments',
       urlDeleteRow: '/comment/destroy',
 
-      delete_msg: 'Are you sure you want to delete this comment?',
-      delete_success_msg: 'The comment has been deleted.',
-      delete_failed_msg: 'The comment has not been deleted.',
-
-      force_delete_msg: 'Are you sure you want to remove this comment?',
-      force_delete_success_msg: 'The comment has been removed.',
-      force_delete_failed_msg: 'The comment has not been removed.',
-
-      restore_msg: 'Are you sure you want to restore this comment?',
-      restore_success_msg: 'The comment has been restored.',
-      restore_failed_msg: 'The comment has not been restored.',
-
       columns: columns,
       sortOrders: sortOrders,
 
@@ -228,8 +216,9 @@ export default {
   },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            to.meta.title = vm.$t('sidebar.comments')
             if (vm.$route.name == 'comments') {
+                to.meta.title = vm.$t('sidebar.comments')
+                vm.setLocaleMessages()
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
                 vm.eventBtnsClick();
@@ -245,6 +234,7 @@ export default {
             this.addProductIdToRequest()
         }
         if (this.$route.name != 'comments') {
+            this.setLocaleMessages()
             this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
             this.sortBy(this.sortKey);
             this.eventBtnsClick();

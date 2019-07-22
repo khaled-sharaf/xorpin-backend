@@ -36,7 +36,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-primary float-right"
-                                    > {{$t('global.create')}} </button>
+                                    > {{ $t('global.create') }} </button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -79,9 +79,7 @@ export default {
           active: 1,
         }),
         idPage: 'users',
-        typePage: 'create',
-        success_msg: '',
-        failed_msg: ''
+        typePage: 'create'
       }
     },
     methods: {

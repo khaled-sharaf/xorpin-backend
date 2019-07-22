@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Create product"></header-page>
+        <header-page :title="$t('global.create') + ' ' + $t('sidebar.new_product')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary btn-sm" :to="{name: 'products'}">Show all products</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'products'}">{{ $t('global.show') + ' ' + $t('sidebar.all_products') }}</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -36,7 +36,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-primary float-right"
-                                    >Create</button>
+                                    >{{ $t('global.create') }}</button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -53,7 +53,10 @@
 <script>
 import FormProduct from './FormProduct'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     name: 'create-product',
     components: {
         FormProduct,
@@ -80,6 +83,8 @@ export default {
               {name: '', value: '', display: true}
           ]
         }),
+        idPage: 'products',
+        typePage: 'create'
       }
     },
     methods: {
@@ -90,7 +95,7 @@ export default {
                     // reset form
                     this.form.reset();
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                     setTimeout(() => {
                         this.$router.push({name: 'product-profile', params: {id: response.data.data.id, product: response.data.data}})
@@ -100,7 +105,7 @@ export default {
                     }, 2000);
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The product has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

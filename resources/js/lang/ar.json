@@ -11,6 +11,24 @@
         "winner": "فائز",
         "setting": "إعداد",
 
+        "no_products": "لا يوجد منتجات",
+        "no_users": "لا يوجد مستخدمين",
+        "no_comments": "لا يوجد تعليقات",
+        "no_winners": "لا يوجد فائزين",
+        "no_product_details": "لا يوجد تفاصيل للمنتج",
+
+        "profile": "بروفايل",
+        "the_profile": "البروفايل",
+        "user_commented": "تعليق المستخدم",
+        "goto_product_profile": "صفحة المنتج",
+        "goto_company_profile": "صفحة الشركة",
+
+        "company_is_deleted": "الشركة محذوفة",
+        "user_is_deleted": "المستخدم محذوف",
+        "type_is_deleted": "القسم محذوف",
+        "product_is_deleted": "المنتج محذوف",
+
+
         "logout": "تسجيل الخروج",
         "create": "إنشاء",
         "edit": "تعديل",
@@ -19,8 +37,20 @@
         "read": "اقرأ",
         "read_more": "اقرأ المزيد",
         "more_info": "معرفة المزيد",
+        "choose_image": "اختر صورة",
+        "drag_msg": "اسحب الصورة ثم ضعها عنها",
+
+        "active": "مفعل",
+        "disactive": "غير مفعل",
+        "available": "متاح",
+        "unavailable": "غير متاح",
+
+        "hidden": "مخفى",
+        "visible": "ظاهر",
+
         "show": "عرض",
         "view": "عرض",
+        "close": "إغلاق",
         "display": "إظهار",
         "from": "من",
         "to": "إلى",
@@ -40,45 +70,53 @@
         "yes_restore_it": "تأكيد الإسترجاع"
 
     },
+
+
+
+
     "sidebar": {
-        "company_profile": "Company profile",
-        "product_profile": "Product profile",
+        "company_profile": "صفحة الشركة",
+        "product_profile": "صفحة المنتج",
 
-        "users": "Users",
-        "all_users": "all users",
-        "new_user": "new user",
-        "edit_user": "Edit user",
+        "users": "المستخدمين",
+        "all_users": "جميع المستخدمين",
+        "new_user": "مستخدم جديد",
+        "edit_user": "تعديل مستخدم",
 
-        "companies": "Companies",
-        "all_companies": "all companies",
-        "new_company": "new company",
-        "edit_company": "Edit company",
+        "companies": "الشركات",
+        "all_companies": "جميع الشركات",
+        "new_company": "شركة جديدة",
+        "edit_company": "تعديل شركة",
 
-        "products": "Products",
-        "all_products": "all products",
-        "new_product": "new product",
-        "edit_product": "Edit product",
+        "products": "المنتجات",
+        "all_products": "جميع المنتجات",
+        "new_product": "منتج جديد",
+        "edit_product": "تعديل منتج",
 
-        "products_types": "Products types",
-        "all_products_types": "all products types",
-        "new_products_type": "new products type",
-        "edit_products_type": "Edit products type",
+        "products_types": "الأقسام",
+        "all_products_types": "جميع الأقسام",
+        "new_products_type": "قسم جديد",
+        "edit_products_type": "تعديل قسم",
 
-        "winners": "Winners",
-        "all_winners": "all winners",
-        "new_winner": "new winner",
-        "edit_winner": "Edit winner",
+        "winners": "الفائزين",
+        "all_winners": "جميع الفائزين",
+        "new_winner": "فائز جديد",
+        "edit_winner": "تعديل فائز",
 
-        "comments": "Comments",
-        "all_comments": "all comments",
-        "new_comment": "new comment",
-        "edit_comment": "Edit comment",
+        "comments": "التعليقات",
+        "all_comments": "جميع التعليقات",
+        "new_comment": "تعليق جديد",
+        "edit_comment": "تعديل تعليق",
 
-        "settings": "Settings",
-        "all_settings": "all settings",
-        "new_setting": "new setting",
-        "edit_setting": "Edit setting"
+        "settings": "الإعدادات",
+        "all_settings": "جميع الإعدادات",
+        "new_setting": "إعداد جديد",
+        "edit_setting": "تعديل إعداد"
     },
+
+
+
+
     "datatable": {
         "showing": "إظهار",
         "entries": "سجلات",
@@ -90,16 +128,21 @@
         "empty_table": "جدول فارغ",
         "no_data_msg": "لا يوجد بيانات فى  هذا الجدول.",
 
-        "trashed": "Trashed",
-        "activation": "Activation",
-        "display": "Displayed",
-        "rules": "Rules",
-        "sold_out": "Sold out",
-        "discount": "Discount",
-        "products_type": "Products type",
-        "created_between": "Created between",
+        "trashed": "المهمل",
+        "activation": "التفعيل",
+        "display": "الظهور",
+        "rules": "الصلاحيات",
+        "sold_out": "تم بيعه",
+        "discount": "خصم",
+        "products_type": "قسم",
+        "created_between": "تم إنشائه فى تاريخ",
         "search": "بحث"
     },
+
+
+
+
+
     "users_table": {
         "id": "المعرف",
         "name": "الإسم",
@@ -109,8 +152,8 @@
         "photo": "الصورة",
         "rule": "الصلاحيات",
         "active": "التفعيل",
-        "created_at": "تاريخ الإنشاء",
         "company": "الشركة",
+        "created_at": "تاريخ الإنشاء",
         "actions": "الإجراءات",
 
         "rules": {
@@ -125,16 +168,16 @@
         },
 
         "delete_msg": "هل أنت متأكد من حذف هذا المستخدم ؟",
-        "delete_success_msg": "The user has been deleted.",
-        "delete_failed_msg": "The user has not been deleted.",
+        "delete_success_msg": "تم حذف المستخدم.",
+        "delete_failed_msg": "لم يتم حذف المستخدم.",
 
-        "force_delete_msg": "Are you sure you want to remove this user?",
-        "force_delete_success_msg": "The user has been removed.",
-        "force_delete_failed_msg": "The user has not been removed.",
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا المستخدم بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة المستخدم بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة المستخدم.",
 
         "restore_msg": "هل أنت متأكد من استرجاع هذا المستخدم ؟",
-        "restore_success_msg": "The user has been restored.",
-        "restore_failed_msg": "The user has not been restored.",
+        "restore_success_msg": "تم استرجاع المستخدم.",
+        "restore_failed_msg": "لم يتم استرجاع المستخدم.",
 
         "p_create": {
             "success_msg": "تم إنشاء مستخدم جديد.",
@@ -145,22 +188,264 @@
             "failed_msg": "لم يتم تحديث هذا المستخدم."
         }
     },
+
+
+
+
     "companies_table": {
+        "id": "المعرف",
+        "name": "الإسم",
+        "email": "البريد الإلكترونى",
+        "phone": "الموبايل",
+        "logo": "شعار الشركة",
+        "description": "الوصف",
+        "website": "موقع الويب",
+        "address": "العنوان",
+        "longitude": "خط الطول",
+        "latitude": "خط العرض",
+        "face_link": "فيسبوك",
+        "tw_link": "تويتر",
+        "display": "الظهور",
+        "active": "التفعيل",
+        "count_rates": "التقيمات",
+        "user_id": "المستخدم",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
 
+        "products_count": "عدد المنتجات",
+        "users_count": "عدد المستخدمين",
+        "company_info": "معلومات عن الشركة",
+        "location": "الموقع",
+        "location_map": "خريطة الموقع",
+        "show_map": "اعرض الخريطة",
+        "msg_location_map": "ابحث عن مكان الشركة ثم انقل العلامة الحمراء إلى مكان الشركة بدقة.",
+        "error_location": "لم يتم العثور على المكان ، ابحث بكلمات أخرى.",
+        "remove_location": "إزالة الموقع",
+
+        "delete_company": "حذف الشركة",
+        "edit_company": "تعديل الشركة",
+
+        "empty_products_msg": "هذه الشركة ليس لديها منتجات.",
+        "empty_users_msg": "هذه الشركة ليس لديها مستخدمين.",
+
+        "delete_msg": "هل أنت متأكد من حذف هذه الشركة ؟",
+        "delete_success_msg": "تم حذف الشركة.",
+        "delete_failed_msg": "لم يتم حذف الشركة.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذه الشركة بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة الشركة بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة الشركة.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذه الشركة ؟",
+        "restore_success_msg": "تم استرجاع الشركة.",
+        "restore_failed_msg": "لم يتم استرجاع الشركة.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء شركة جديدة.",
+            "failed_msg": "لم يتم إنشاء الشركة الجديدة."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث الشركة.",
+            "failed_msg": "لم يتم تحديث هذه الشركة."
+        }
     },
+
+
+
+
     "products_table": {
+        "id": "المعرف",
+        "name": "الإسم",
+        "photo": "الصورة",
+        "price": "السعر",
+        "description": "الوصف",
+        "manufacture_company": "الشركة المصنعة",
+        "count_rates": "التقيمات",
+        "product_count": "العدد",
+        "execute": "نفاذ الكمية",
+        "display": "الظهور",
+        "type": "القسم",
+        "user": "أضيف بواسطة",
+        "company": "الشركة",
+        "updated_at": "أخر تعديل",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
 
+        "discount": "الخصم",
+        "percent": "النسبة المئوية",
+        "new_price": "السعر الجديد",
+        "photos": "الصور",
+        "value": "القيمة",
+        "plus": "للمزيد",
+
+        "delete_product": "حذف المنتج",
+        "edit_product": "تعديل المنتج",
+
+        "empty_comments_msg": "هذا المنتج ليس به تعليقات.",
+        "empty_winners_msg": "هذا المنتج ليس لديه فائزين.",
+        "empty_details_msg": "هذا المنتج ليس لديه تفاصيل.",
+
+        "product_details": "تفاصيل المنتج",
+
+        "delete_msg": "هل أنت متأكد من حذف هذا المنتج ؟",
+        "delete_success_msg": "تم حذف المنتج.",
+        "delete_failed_msg": "لم يتم حذف المنتج.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا المنتج بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة المنتج بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة المنتج.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا المنتج ؟",
+        "restore_success_msg": "تم استرجاع المنتج.",
+        "restore_failed_msg": "لم يتم استرجاع المنتج.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء منتج جديد.",
+            "failed_msg": "لم يتم إنشاء المنتج الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث المنتج.",
+            "failed_msg": "لم يتم تحديث هذا المنتج."
+        }
     },
+
+
+
+
     "products_types_table": {
+        "id": "المعرف",
+        "name": "اسم القسم",
+        "display": "الظهور",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
 
+        "delete_msg": "هل أنت متأكد من حذف هذا القسم ؟",
+        "delete_success_msg": "تم حذف القسم.",
+        "delete_failed_msg": "لم يتم حذف القسم.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا القسم بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة القسم بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة القسم.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا القسم ؟",
+        "restore_success_msg": "تم استرجاع القسم.",
+        "restore_failed_msg": "لم يتم استرجاع القسم.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء قسم جديد.",
+            "failed_msg": "لم يتم إنشاء القسم الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث القسم.",
+            "failed_msg": "لم يتم تحديث هذا القسم."
+        }
     },
+
+
+
+
     "winners_table": {
+        "id": "المعرف",
+        "user_id": "اسم المستخدم",
+        "product_id": "اسم المنتج",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
 
+        "delete_msg": "هل أنت متأكد من حذف هذا الفائز ؟",
+        "delete_success_msg": "تم حذف الفائز.",
+        "delete_failed_msg": "لم يتم حذف الفائز.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا الفائز بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة الفائز بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة الفائز.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا الفائز ؟",
+        "restore_success_msg": "تم استرجاع الفائز.",
+        "restore_failed_msg": "لم يتم استرجاع الفائز.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء فائز جديد.",
+            "failed_msg": "لم يتم إنشاء الفائز الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث الفائز.",
+            "failed_msg": "لم يتم تحديث هذا الفائز."
+        }
     },
+
+
+
+
     "comments_table": {
+        "id": "المعرف",
+        "text_comment": "التعليق",
+        "positive_product": "إيجابيات المنتج",
+        "negative_product": "سلبيات المنتج",
+        "user_id": "اسم المستخدم",
+        "product_id": "اسم المنتج",
+        "display": "الظهور",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
 
+        "delete_msg": "هل أنت متأكد من حذف هذا التعليق ؟",
+        "delete_success_msg": "تم حذف التعليق.",
+        "delete_failed_msg": "لم يتم حذف التعليق.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا التعليق بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة التعليق بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة التعليق.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا التعليق ؟",
+        "restore_success_msg": "تم استرجاع التعليق.",
+        "restore_failed_msg": "لم يتم استرجاع التعليق.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء تعليق جديد.",
+            "failed_msg": "لم يتم إنشاء التعليق الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث التعليق.",
+            "failed_msg": "لم يتم تحديث هذا التعليق."
+        }
     },
-    "settings_table": {
 
+
+
+
+    "settings_table": {
+        "id": "المعرف",
+        "slug": "الاسم التعبيرى",
+        "name": "اسم الإعداد",
+        "value": "القيمة",
+        "type": "النوع",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
+
+        "setting_types": {
+            "string": "نص قصير",
+            "text": "نص طويل",
+            "image": "صورة"
+        },
+
+        "delete_msg": "هل أنت متأكد من حذف هذا الإعداد ؟",
+        "delete_success_msg": "تم حذف الإعداد.",
+        "delete_failed_msg": "لم يتم حذف الإعداد.",
+
+        "force_delete_msg": "هل أنت متأكد من إزالة هذا الإعداد بشكل نهائى ؟",
+        "force_delete_success_msg": "تم إزالة الإعداد بشكل نهائى.",
+        "force_delete_failed_msg": "لم يتم إزالة الإعداد.",
+
+        "restore_msg": "هل أنت متأكد من استرجاع هذا الإعداد ؟",
+        "restore_success_msg": "تم استرجاع الإعداد.",
+        "restore_failed_msg": "لم يتم استرجاع الإعداد.",
+
+        "p_create": {
+            "success_msg": "تم إنشاء إعداد جديد.",
+            "failed_msg": "لم يتم إنشاء الإعداد الجديد."
+        },
+        "p_edit": {
+            "success_msg": "تم تحديث الإعداد.",
+            "failed_msg": "لم يتم تحديث هذا الإعداد."
+        }
     }
 }

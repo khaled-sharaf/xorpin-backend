@@ -182,9 +182,9 @@ export default {
       { label: "Manufacture company", name: "manufacture_company" },
       { label: "Rates", name: "count_rates" },
       { label: "Counts", name: "product_count" },
-      { label: "Execute", name: "execute" },
+      { label: "Sold out", name: "execute" },
       { label: "Display", name: "display" },
-      { label: "Type", name: "type" },
+      { label: "Category", name: "type" },
       { label: "Craeted by", name: "user" },
       { label: "Created company by", name: "company" },
       { label: "Last modified", name: "updated_at" },
@@ -200,18 +200,6 @@ export default {
       urlDeleteRow: '/product/destroy',
       urlRestoreRow: '/product/restore',
       urlGetProductsTypes: '/pro-types-data',
-
-      delete_msg: 'Are you sure you want to delete this product?',
-      delete_success_msg: 'The product has been deleted.',
-      delete_failed_msg: 'The product has not been deleted.',
-
-      force_delete_msg: 'Are you sure you want to remove this product?',
-      force_delete_success_msg: 'The product has been removed.',
-      force_delete_failed_msg: 'The product has not been removed.',
-
-      restore_msg: 'Are you sure you want to restore this product?',
-      restore_success_msg: 'The product has been restored.',
-      restore_failed_msg: 'The product has not been restored.',
 
       proTypes: [],
       columns: columns,
@@ -304,6 +292,7 @@ export default {
         next(vm => {
             if (vm.$route.name == 'products') {
                 to.meta.title = vm.$t('sidebar.products')
+                vm.setLocaleMessages()
                 vm.getProductsTypes()
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
@@ -320,6 +309,7 @@ export default {
             this.addCompanyIdToRequest() // add company id to table data for get users of company by company id for to use in company profile
         }
         if (this.$route.name != 'products') {
+            this.setLocaleMessages()
             this.getProductsTypes()
             this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
             this.sortBy(this.sortKey);

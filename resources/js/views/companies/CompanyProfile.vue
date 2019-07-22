@@ -13,10 +13,10 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Company profile"></header-page>
+        <header-page :title="$t('sidebar.company_profile')"></header-page>
         <!-- /.content-header -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid company-profile-wrapper">
                 <div class="row mt-3">
                     <div :class="maximizeTable == true ? 'col-sidebar col-12' : 'col-md-12 col-xl-4'">
 
@@ -35,13 +35,13 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Products Count</b> <a class="float-right">{{ companyProfile.products_count == null ? 0 : companyProfile.products_count }}</a>
+                                <b> {{ $t('companies_table.products_count') }} </b> <a class="float-right">{{ companyProfile.products_count == null ? 0 : companyProfile.products_count }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Users Count</b> <a class="float-right">{{ companyProfile.users_count == null ? 0 : companyProfile.users_count }}</a>
+                                <b> {{ $t('companies_table.users_count') }} </b> <a class="float-right">{{ companyProfile.users_count == null ? 0 : companyProfile.users_count }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Rates</b> <a class="float-right"> <rates-stars :rates-count="companyProfile.count_rates"></rates-stars> </a>
+                                <b> {{ $t('companies_table.count_rates') }} </b> <a class="float-right"> <rates-stars :rates-count="companyProfile.count_rates"></rates-stars> </a>
                             </li>
                             </ul>
 
@@ -51,7 +51,7 @@
                                 :href="$domain_admin + '/company/destroy'"
                                 class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
                                 @click.prevent="destroyRow(companyProfile.id)"
-                            >Delete company
+                            > {{ $t('companies_table.delete_company') }}
                                 <i class="fa fa-trash"></i>
                             </a>
 
@@ -60,7 +60,7 @@
                                 :to="{name: 'edit-company', params: {company: companyProfile, id: companyProfile.id}}"
                                 :href="$domain_admin + '/company/' + companyProfile.id + '/edit'"
                                 class="btn btn-success btn-edit-row btn-table-actions btn-sm mt-1"
-                            >Edit company
+                            > {{ $t('companies_table.edit_company') }}
                                 <i class="fa fa-edit"></i>
                             </router-link>
 
@@ -72,12 +72,12 @@
                         <!-- About Me Box -->
                         <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="m-0 card-title">Info company</h3>
+                            <h3 class="m-0 card-title"> {{ $t('companies_table.company_info') }} </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <!-- email -->
-                            <strong>Email</strong>
+                            <strong> {{ $t('companies_table.email') }} </strong>
 
                             <p class="text-muted">
                                 <a :href="'mailto:' + companyProfile.email">{{companyProfile.email}}</a>
@@ -87,7 +87,7 @@
 
 
                             <!-- mobile -->
-                            <strong>Mobile</strong>
+                            <strong> {{ $t('companies_table.phone') }} </strong>
 
                             <p class="text-muted">
                                 {{companyProfile.phone}}
@@ -96,7 +96,7 @@
                             <hr>
 
                             <!-- Address -->
-                            <strong>Address</strong>
+                            <strong> {{ $t('companies_table.address') }} </strong>
 
                             <p class="text-muted">
                                 {{companyProfile.address}}
@@ -105,7 +105,7 @@
                             <hr>
 
                             <!-- Website -->
-                            <strong>Website</strong>
+                            <strong> {{ $t('companies_table.website') }} </strong>
 
                             <p class="text-muted">
                                 <a target="_blank" :href="companyProfile.website">{{companyProfile.website}}</a>
@@ -114,7 +114,7 @@
                             <hr>
 
                             <!-- Location -->
-                            <strong>Location map</strong>
+                            <strong> {{ $t('companies_table.location_map') }} </strong>
 
                             <p class="text-muted">
                                 <button
@@ -124,13 +124,13 @@
                                     :data-long="companyProfile.longitude"
                                     :data-lat="companyProfile.latitude"
                                     :data-location-title="companyProfile.name"
-                                >Show map</button>
+                                > {{ $t('companies_table.show_map') }} </button>
                             </p>
 
                             <hr>
 
                             <!-- face link -->
-                            <strong>Facabook</strong>
+                            <strong> {{ $t('companies_table.face_link') }} </strong>
 
                             <p class="text-muted">
                                 <a target="_blank" :href="companyProfile.face_link">{{companyProfile.face_link}}</a>
@@ -139,7 +139,7 @@
                             <hr>
 
                             <!-- tw link -->
-                            <strong>Twitter</strong>
+                            <strong> {{ $t('companies_table.tw_link') }} </strong>
 
                             <p class="text-muted">
                                 <a target="_blank" :href="companyProfile.tw_link">{{companyProfile.tw_link}}</a>
@@ -148,7 +148,7 @@
                             <hr>
 
                             <!-- Address -->
-                            <strong>Display products</strong>
+                            <strong> {{ $t('datatable.display') }} </strong>
 
                             <p class="text-muted">
                                 {{companyProfile.display == 1 ? 'Visible' : 'Hidden'}}
@@ -159,7 +159,7 @@
                             <!-- active -->
                             <div v-if="$gate.isAdmin()">
 
-                                <strong>Activation</strong>
+                                <strong> {{ $t('datatable.activation') }} </strong>
 
                                 <p class="text-muted">
                                     {{companyProfile.active == 1 ? 'Active' : 'Disactive'}}
@@ -169,7 +169,7 @@
                             </div>
 
                             <!-- create at -->
-                            <strong>Created at</strong>
+                            <strong> {{ $t('companies_table.created_at') }} </strong>
 
                             <p class="text-muted">
                                 <relative-date :date="companyProfile.created_at"></relative-date>
@@ -184,8 +184,8 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item" v-if="$gate.isAdmin()"><a @click="showUserTable = false" class="nav-link active" href="#products" data-toggle="tab">Products</a></li>
-                                <li class="nav-item"><a @click="showUserTable = true" class="nav-link" :class="{active: $gate.isAdminCompany()}" href="#users" data-toggle="tab">Users</a></li>
+                                <li class="nav-item" v-if="$gate.isAdmin()"><a @click="showUserTable = false" class="nav-link active" href="#products" data-toggle="tab"> {{ $t('sidebar.products') }} </a></li>
+                                <li class="nav-item"><a @click="showUserTable = true" class="nav-link" :class="{active: $gate.isAdminCompany()}" href="#users" data-toggle="tab"> {{ $t('sidebar.users') }} </a></li>
 
                             </ul>
                             <button class="btn btn-outline-secondary maximize-table" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
@@ -196,8 +196,8 @@
                                <products v-if="(companyProfile.products_count != null && companyProfile.products_count != 0) && showUserTable === false"></products>
 
                                 <div v-else class="alert alert-info alert-dismissible">
-                                    <h5><i class="icon fas fa-info"></i> No products!</h5>
-                                    This company does'nt have products.
+                                    <h5><i class="icon fas fa-info"></i>  {{ $t('global.no_products') }} !</h5>
+                                     {{ $t('companies_table.empty_products_msg') }}
                                 </div>
                             </div>
                             <!-- /.tab-pane -->
@@ -205,8 +205,8 @@
                                 <users-comp v-if="(companyProfile.users_count != null && companyProfile.users_count != 0) && showUserTable === true"></users-comp>
 
                                 <div v-else class="alert alert-info alert-dismissible">
-                                    <h5><i class="icon fas fa-info"></i> No users!</h5>
-                                    This company does'nt have users.
+                                    <h5><i class="icon fas fa-info"></i>  {{ $t('global.no_users') }} !</h5>
+                                    {{ $t('companies_table.empty_users_msg') }}
                                 </div>
 
                             </div>
@@ -229,11 +229,19 @@
 
 
 <script>
+
 import UsersComp from './../users/Index'
 import products from './../products/Index'
 import ModalLocation from './ModalLocation'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessagesProfiles from "./../../mixins/MixinChangeLocaleMessagesProfiles"
+import mixinDeleteRow from "./../../mixins/mixinDeleteRow"
+
 export default {
+    mixins: [
+        MixinChangeLocaleMessagesProfiles,
+        mixinDeleteRow
+    ],
     components: {
         HeaderPage,
         UsersComp,
@@ -245,6 +253,7 @@ export default {
       return {
           urlCompanyProfile: '/company/profile',
           urlDeleteRow: '/company/destroy',
+          idPage: 'companies',
           maximizeTable: false,
           showUserTable: false,
           companyProfile: {
@@ -286,6 +295,7 @@ export default {
         },
         eventBtnsClick() {
             let self = this;
+            let oldText = $('#locationTitle').text()
         // show location in google map
             $(document).on("click", "#show_map_location", function(e) {
                 e.preventDefault();
@@ -294,34 +304,10 @@ export default {
                     title = $(this).attr('data-location-title');
                 if ( (typeof lat != 'undefined' && lat != '' && lat != null) &&
                     (typeof long != 'undefined' && long != '' && long != null) ) {
-                    $('#locationTitle').html('Location: ' + title);
+                    $('#locationTitle').html(oldText + ' ' + `<span style="color: #3498db">${title}</span>`);
                     $('#myScriptMap').remove();
                     self.showMap(lat, long);
                     $('#modal_location_company').modal('show');
-                }
-            });
-        },
-        destroyRow(id) {
-            Swal.fire({
-                title: "Delete",
-                text: "Are you sure you want to delete this company?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#e74c3c",
-                cancelButtonColor: "#6d6d6d",
-                confirmButtonText: "Yes, delete it!"
-            }).then(result => {
-                if (result.value) {
-                    loadReq(this.$Progress);
-                    axios.post(this.urlDeleteRow, {id: id}).then(response => {
-                        if (response.status === 200) {
-                            Swal.fire("Deleted!", "The company has been deleted.", "success");
-                            this.$router.push({name: 'companies'});
-                        }
-                    }).catch(error => {
-                        Swal.fire("Failed!", "The company has not been deleted.", "error");
-                        this.$Progress.fail();
-                    });
                 }
             });
         },

@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all winners"></header-page>
+        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_winners')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -149,10 +149,6 @@ export default {
       urlGetDataTable: '/winners',
       urlDeleteRow: '/winner/destroy',
 
-      delete_msg: 'Are you sure you want to delete this winner?',
-      delete_success_msg: 'The winner has been deleted.',
-      delete_failed_msg: 'The winner has not been deleted.',
-
       columns: columns,
       sortOrders: sortOrders,
       tableData: {
@@ -214,6 +210,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.winners')
+            vm.setLocaleMessages()
             vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
             vm.sortBy(vm.sortKey);
             vm.eventBtnsClick();

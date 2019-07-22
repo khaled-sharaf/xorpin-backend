@@ -7,11 +7,11 @@
 
                 <!-- name -->
                 <div class="form-group">
-                    <label>Company name <span class="field-required"></span></label>
+                    <label> {{ $t('companies_table.name') }} <span class="field-required"></span></label>
                     <input
                     v-model="form.name"
                     type="text"
-                    placeholder="Company name"
+                    :placeholder="$t('companies_table.name')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }"
                     >
@@ -21,11 +21,11 @@
 
                 <!-- about the company -->
                 <div class="form-group">
-                    <label>About the company <span class="field-required"></span></label>
+                    <label> {{ $t('companies_table.description') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.description"
                         type="text"
-                        placeholder="About the company"
+                        :placeholder="$t('companies_table.description')"
                         class="form-control textarea-form"
                         :class="{ 'is-invalid': form.errors.has('description') }"
                     ></textarea>
@@ -34,11 +34,11 @@
 
                 <!-- email -->
                 <div class="form-group">
-                    <label>Company email</label>
+                    <label> {{ $t('companies_table.email') }} </label>
                     <input
                     v-model="form.email"
                     type="text"
-                    placeholder="Company email"
+                    :placeholder="$t('companies_table.email')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('email') }"
                     >
@@ -47,11 +47,11 @@
 
                 <!-- phone -->
                 <div class="form-group">
-                    <label>Company mobile</label>
+                    <label> {{ $t('companies_table.phone') }} </label>
                     <input
                     v-model="form.phone"
                     type="text"
-                    placeholder="Company mobile"
+                    :placeholder="$t('companies_table.phone')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('phone') }"
                     >
@@ -60,11 +60,11 @@
 
                 <!-- website -->
                 <div class="form-group">
-                    <label>Company website</label>
+                    <label> {{ $t('companies_table.website') }} </label>
                     <input
                     v-model="form.website"
                     type="text"
-                    placeholder="Company website"
+                    :placeholder="$t('companies_table.website')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('website') }"
                     >
@@ -73,11 +73,11 @@
 
                 <!-- address -->
                 <div class="form-group">
-                    <label>Company address</label>
+                    <label> {{ $t('companies_table.address') }} </label>
                     <input
                     v-model="form.address"
                     type="text"
-                    placeholder="Company address"
+                    :placeholder="$t('companies_table.address')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('address') }"
                     >
@@ -86,11 +86,11 @@
 
                 <!-- latitude -->
                 <div class="form-group">
-                    <label>Location (latitude)</label>
+                    <label> {{ $t('companies_table.latitude') }} </label>
                     <!-- v-model="form.latitude" -->
                     <input
                     type="text"
-                    placeholder="latitude"
+                    :placeholder="$t('companies_table.latitude')"
                     id="company_latitude"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('latitude') }"
@@ -101,11 +101,11 @@
 
                 <!-- longitude -->
                 <div class="form-group">
-                    <label>Location (longitude)</label>
+                    <label> {{ $t('companies_table.longitude') }} </label>
                     <!-- v-model="form.longitude" -->
                     <input
                     type="text"
-                    placeholder="longitude"
+                    :placeholder="$t('companies_table.longitude')"
                     id="company_longitude"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('longitude') }"
@@ -113,7 +113,7 @@
                     >
                     <has-error :form="form" field="longitude"></has-error>
                     <div class="">
-                        <button type="button" class="btn btn-danger btn-sm mt-1" id="remove-location-company">Remove location</button>
+                        <button type="button" class="btn btn-danger btn-sm mt-1" id="remove-location-company"> {{ $t('companies_table.remove_location') }} </button>
                     </div>
                 </div>
 
@@ -122,10 +122,10 @@
                 <div class="form-group">
                     <div class="myMap" :data-lat="typeForm == 'create' || form.latitude == null ? '30.0444196' : form.latitude" :data-long="typeForm == 'create' || form.longitude == null ? '31.23571160000006' : form.longitude">
                         <!-- <h5>ابحث عن مكان الشركة ثم حرك العلامة الحمراء إلى مكان الشركة بشكل دقيق</h5> -->
-                        <h5 class="info-map">Look for the place of the company and then move the red mark to the company's place accurately</h5>
+                        <h5 class="info-map"> {{ $t('companies_table.msg_location_map') }}</h5>
                         <div id="floating-panel">
-                            <input class="form-control" id="address" type="text" value="مصر، القاهرة" placeholder="search">
-                            <span class="error-location">Place not found, search in other words</span>
+                            <input class="form-control" id="address" type="text" value="مصر، القاهرة" :placeholder="$t('datatable.search')">
+                            <span class="error-location"> {{ $t('companies_table.error_location') }} </span>
                         </div>
                         <div id="map"></div>
                     </div>
@@ -135,11 +135,11 @@
 
                 <!-- facebook link -->
                 <div class="form-group">
-                    <label>Company facebook</label>
+                    <label> {{ $t('companies_table.face_link') }} </label>
                     <input
                     v-model="form.face_link"
                     type="text"
-                    placeholder="Company facebook"
+                    :placeholder="$t('companies_table.face_link')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('face_link') }"
                     >
@@ -148,11 +148,11 @@
 
                 <!-- twitter link -->
                 <div class="form-group">
-                    <label>Company twitter</label>
+                    <label> {{ $t('companies_table.tw_link') }} </label>
                     <input
                     v-model="form.tw_link"
                     type="text"
-                    placeholder="Company twitter"
+                    :placeholder="$t('companies_table.tw_link')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('tw_link') }"
                     >
@@ -161,42 +161,37 @@
 
                 <!-- dispaly products -->
                 <div class="form-group">
-                    <label>Display products <span class="field-required"></span></label>
+                    <label> {{ $t('datatable.display') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.display"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('display') }"
-                    >
-                    <option
-                        v-for="(display, i) in displayArr"
-                        :value="display.value"
-                        :key="i"
-                    >{{ display.text }}</option>
+                        v-model="form.display"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('display') }"
+                        >
+                        <option value="1"> {{ $t('global.visible') }} </option>
+                        <option value="0"> {{ $t('global.hidden') }} </option>
                     </select>
                     <has-error :form="form" field="display"></has-error>
                 </div>
 
                 <!-- active -->
                 <div class="form-group" v-if="$gate.isAdmin()">
-                    <label>Company active <span class="field-required"></span></label>
+                    <label> {{ $t('datatable.activation') }}  <span class="field-required"></span></label>
                     <select
-                    v-model="form.active"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('active') }"
-                    >
-                    <option
-                        v-for="(type, i) in activeArr"
-                        :value="type.value"
-                        :key="i"
-                    >{{ type.text }}</option>
+                        v-model="form.active"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('active') }"
+                        >
+                        <option value="1">{{$t('global.active')}}</option>
+                        <option value="0">{{$t('global.disactive')}}</option>
                     </select>
                     <has-error :form="form" field="active"></has-error>
                 </div>
 
                 <div class="form-group">
-                    <label>Comapny logo</label>
+                    <label> {{ $t('companies_table.logo') }} </label>
                     <div class="custom-file">
                     <input
+                        :lang="$i18n.locale"
                         type="file"
                         class="custom-file-input"
                         id="user_image"
@@ -204,7 +199,7 @@
                         @change="encodeUserProfileFileAsURL"
                         :class="{ 'is-invalid': form.errors.has('logo') }"
                     >
-                    <label class="custom-file-label" for="user_image">Choose Image</label>
+                    <label class="custom-file-label" for="user_image">{{$t('global.choose_image')}}</label>
                     <has-error :form="form" field="logo"></has-error>
                     </div>
                     <div class="col-sm-12" style="text-align: center;">
@@ -226,14 +221,6 @@
     props: ['form', 'typeForm'],
     data() {
       return {
-        activeArr: [
-          { text: "Active", value: 1 },
-          { text: "Deactive", value: 0 }
-        ],
-        displayArr: [
-          { text: "Visible products", value: 1 },
-          { text: "Hidden products", value: 0 }
-        ],
         companyLogo: "",
         oldCompanyLogo: "images/companies-logo/company-default-avatar.jpg",
         showBtnRemoveAvatar: false
@@ -251,12 +238,20 @@
                 if (file["size"] < 8000000) {
                 reader.readAsDataURL(file);
                 } else {
-                Swal.fire(
-                    "Oops...",
-                    "You are uploading a large file, (8MB) last.",
-                    "error"
-                );
-                this.form.logo = this.oldCompanyLogo;
+                    if (this.$i18n.locale == 'ar') {
+                        Swal.fire(
+                            "خطأ...",
+                            "الحجم المسموح به للصورة هو 8 ميجا بايت.",
+                            "error"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Oops...",
+                            "You are uploading a large file, (8MB) last.",
+                            "error"
+                        );
+                    }
+                    this.form.logo = this.oldCompanyLogo;
                 }
             } else {
                 this.form.logo = this.oldCompanyLogo;

@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit winner"></header-page>
+        <header-page :title="$t('sidebar.edit_winner')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -17,7 +17,12 @@
                             <!-- card-header -->
                             <div class="card-header">
                                 <h3 class="m-0 mb-2 text-dark">
-                                    <h3 class="m-0 mb-2 text-dark">Winner: <span style="color: #3498db"> {{ winnerEdit.user.name }}</span></h3>
+                                    <h3 class="m-0 mb-2 text-dark">
+                                        {{ $t('global.winner') | capitalize }}:
+                                        <span class="badge badge-danger" v-if="winnerEdit.user == null">
+                                            {{ $t('global.user_is_deleted') }} -- id:{{winnerEdit.user_id}}
+                                        </span>
+                                        <span v-else style="color: #3498db"> {{ winnerEdit.user.name }}</span></h3>
                                 </h3>
                             </div>
                             <!-- ./card-header -->
@@ -38,7 +43,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-success float-right"
-                                    >Update</button>
+                                    > {{ $t('global.update') }} </button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -55,7 +60,10 @@
 <script>
 import FormWinner from './FormWinner'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
         FormWinner
@@ -69,7 +77,9 @@ export default {
           user_id: "",
           product_id: "",
         }),
-        winnerEdit: {}
+        winnerEdit: {},
+        idPage: 'users',
+        typePage: 'edit'
       }
     },
     methods: {
@@ -79,11 +89,11 @@ export default {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The winner has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

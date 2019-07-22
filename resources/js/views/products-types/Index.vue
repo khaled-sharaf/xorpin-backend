@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all products types"></header-page>
+        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_products_types')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -167,18 +167,6 @@ export default {
       urlDeleteRow: '/pro-type/destroy',
       urlRestoreRow: '/pro-type/restore',
 
-      delete_msg: 'Are you sure you want to delete this products type?',
-      delete_success_msg: 'The products type has been deleted.',
-      delete_failed_msg: 'The products type has not been deleted.',
-
-      force_delete_msg: 'Are you sure you want to remove this products type?',
-      force_delete_success_msg: 'The products type has been removed.',
-      force_delete_failed_msg: 'The products type has not been removed.',
-
-      restore_msg: 'Are you sure you want to restore this products type?',
-      restore_success_msg: 'The products type has been restored.',
-      restore_failed_msg: 'The products type has not been restored.',
-
       columns: columns,
       sortOrders: sortOrders,
       tableData: {
@@ -240,6 +228,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.products_types')
+            vm.setLocaleMessages()
             vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
             vm.sortBy(vm.sortKey);
             vm.eventBtnsClick();

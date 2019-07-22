@@ -3,7 +3,9 @@
 export default {
     data() {
         return {
-            failed_title: this.$t('global.failed')
+            success_msg: " ",
+            failed_msg: " ",
+            failed_title: " ",
         }
     },
     methods: {

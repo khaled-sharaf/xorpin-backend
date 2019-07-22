@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Cairo:400,600,700&display=swap&subset=arabic');
+
 body {
     direction: rtl !important;
     text-align: right !important;
+    font-family: 'Cairo', sans-serif, 'Arial', 'Verdana' !important;
 }
 .navbar-nav {
     padding-right: 0;
@@ -19,6 +22,12 @@ body {
 .title-page {
     right: 20px;
     left: auto;
+}
+
+.list-group {
+    padding: {
+        right: 0;
+    }
 }
 
 // forms
@@ -147,5 +156,47 @@ body {
 .box-profile .list-group-item {
     a {
         float: left !important;
+    }
+}
+#modal_location_company {
+    .modal-header {
+        button.close {
+            margin: {
+                left: 0 !important;
+                right: 0 !important;
+            }
+        }
+    }
+}
+
+// product profile
+
+.proudct-profile-wrapper, .company-profile-wrapper {
+    .btn-delete-row {
+        margin-right: 0 !important;
+        margin-left: 1rem !important;
+    }
+}
+
+.custom-control.custom-checkbox {
+    right: 5px;
+    padding: {
+        left: 0;
+        right: 1.5rem;
+    }
+    .custom-control-label {
+        &:before, &:after {
+            right: -1.5rem;
+            left: auto;
+        }
+    }
+}
+
+
+.col-details.plus {
+    label {
+        position: relative;
+        right: -17px;
+        left: auto;
     }
 }

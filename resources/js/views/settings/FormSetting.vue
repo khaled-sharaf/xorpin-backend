@@ -7,11 +7,11 @@
 
                 <!-- slug -->
                 <div class="form-group">
-                    <label>Slug <span class="field-required"></span></label>
+                    <label> {{ $t('settings_table.slug') }} <span class="field-required"></span></label>
                     <input
                     v-model="form.slug"
                     type="text"
-                    placeholder="Slug"
+                    :placeholder="$t('settings_table.slug')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('slug') }"
                     >
@@ -21,11 +21,11 @@
 
                 <!-- name -->
                 <div class="form-group">
-                    <label>Name <span class="field-required"></span></label>
+                    <label> {{ $t('settings_table.name') }} <span class="field-required"></span></label>
                     <input
                     v-model="form.name"
                     type="text"
-                    placeholder="example: setting_name"
+                    :placeholder="$t('settings_table.name')"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }"
                     >
@@ -35,17 +35,15 @@
 
                 <!-- type -->
                 <div class="form-group">
-                    <label>Type <span class="field-required"></span></label>
+                    <label> {{ $t('settings_table.type') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.type"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('type') }"
+                        v-model="form.type"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('type') }"
                     >
-                    <option
-                        v-for="(type, i) in types"
-                        :value="type.value"
-                        :key="i"
-                    >{{ type.text }}</option>
+                        <option value="string"> {{ $t('settings_table.setting_types.string') }} </option>
+                        <option value="text"> {{ $t('settings_table.setting_types.text') }} </option>
+                        <option value="image"> {{ $t('settings_table.setting_types.image') }} </option>
                     </select>
                     <has-error :form="form" field="type"></has-error>
                 </div>
@@ -54,12 +52,12 @@
                 <!-- vlaue -->
 
                 <div class="form-group">
-                    <label>Value <span class="field-required"></span></label>
+                    <label> {{ $t('settings_table.value') }} <span class="field-required"></span></label>
                     <div v-if="form.type == 'string'">
                         <input
                             v-model="form.value"
                             type="text"
-                            placeholder="Value"
+                            :placeholder="$t('settings_table.value')"
                             class="form-control"
                             :class="{ 'is-invalid': form.errors.has('value') }"
                         >
@@ -70,7 +68,7 @@
                         <textarea
                             v-model="form.value"
                             type="text"
-                            placeholder="Value"
+                            :placeholder="$t('settings_table.value')"
                             class="form-control textarea-form"
                             :class="{ 'is-invalid': form.errors.has('value') }"
                         ></textarea>
@@ -79,6 +77,7 @@
                     <div v-else-if="form.type == 'image'">
                         <div class="custom-file">
                             <input
+                                :lang="$i18n.locale"
                                 type="file"
                                 class="custom-file-input"
                                 id="setting_image"
@@ -86,7 +85,7 @@
                                 @change="encodeImageSettingAsURL"
                                 :class="{ 'is-invalid': form.errors.has('value') }"
                             >
-                            <label class="custom-file-label" for="setting_image">Choose Image</label>
+                            <label class="custom-file-label" for="setting_image">{{$t('global.choose_image')}}</label>
                             <has-error :form="form" field="value"></has-error>
                         </div>
                         <div class="col-sm-12" style="text-align: center;">
@@ -109,11 +108,6 @@
     props: ['form', 'typeForm'],
     data() {
       return {
-        types: [
-          { text: "String", value: 'string' },
-          { text: "Text", value: 'text' },
-          { text: "Image", value: 'image' },
-        ],
         previewImage: ""
       }
     },
@@ -130,11 +124,19 @@
                 if (file["size"] < 8000000) {
                     reader.readAsDataURL(file);
                 } else {
-                    Swal.fire(
-                        "Oops...",
-                        "You are uploading a large file, (8MB) last.",
-                        "error"
-                    );
+                    if (this.$i18n.locale == 'ar') {
+                        Swal.fire(
+                            "خطأ...",
+                            "الحجم المسموح به للصورة هو 8 ميجا بايت.",
+                            "error"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Oops...",
+                            "You are uploading a large file, (8MB) last.",
+                            "error"
+                        );
+                    }
                 }
             }
             e.target.value = ''

@@ -7,13 +7,13 @@
 
                 <!-- name -->
                 <div class="form-group">
-                    <label>Name <span class="field-required"></span></label>
+                    <label> {{ $t('products_types_table.name') }} <span class="field-required"></span></label>
                     <input
-                    v-model="form.name"
-                    type="text"
-                    placeholder="Products type name"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }"
+                        v-model="form.name"
+                        type="text"
+                        :placeholder="$t('products_types_table.name')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('name') }"
                     >
                     <has-error :form="form" field="name"></has-error>
                 </div>
@@ -22,17 +22,14 @@
 
                 <!-- dispaly products -->
                 <div class="form-group">
-                    <label>Show products of this type<span class="field-required"></span></label>
+                    <label> {{ $t('datatable.display') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.display"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('display') }"
+                        v-model="form.display"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('display') }"
                     >
-                    <option
-                        v-for="(display, i) in displayArr"
-                        :value="display.value"
-                        :key="i"
-                    >{{ display.text }}</option>
+                        <option value="1"> {{ $t('global.visible') }} </option>
+                        <option value="0"> {{ $t('global.hidden') }} </option>
                     </select>
                     <has-error :form="form" field="display"></has-error>
                 </div>

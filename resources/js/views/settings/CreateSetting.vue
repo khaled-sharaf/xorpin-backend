@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Create products type"></header-page>
+        <header-page :title="$t('global.create') + ' ' + $t('sidebar.new_setting')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary btn-sm" :to="{name: 'settings'}">Show all settings</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'settings'}">{{ $t('global.show') + ' ' + $t('sidebar.all_settings') }}</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -36,7 +36,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-primary float-right"
-                                    >Create</button>
+                                    >{{ $t('global.create') }}</button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -53,7 +53,10 @@
 <script>
 import FormSetting from './FormSetting'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     name: 'create-setting',
     components: {
         FormSetting,
@@ -68,6 +71,8 @@ export default {
           value: "",
           type: "string",
         }),
+        idPage: 'settings',
+        typePage: 'create'
       }
     },
     methods: {
@@ -79,11 +84,11 @@ export default {
                     // reset form
                     this.form.reset();
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The setting has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

@@ -36,7 +36,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-success float-right"
-                                    >Update</button>
+                                    > {{ $t('global.update') }} </button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -81,9 +81,7 @@ export default {
         }),
         userEdit: {},
         idPage: 'users',
-        typePage: 'edit',
-        success_msg: '',
-        failed_msg: ''
+        typePage: 'edit'
       }
     },
     methods: {

@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit Comment"></header-page>
+        <header-page :title="$t('sidebar.edit_comment')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -17,7 +17,12 @@
                             <!-- card-header -->
                             <div class="card-header">
                                 <h3 class="m-0 mb-2 text-dark">
-                                    <h3 class="m-0 mb-2 text-dark">User commented: <span style="color: #3498db"> {{ commentEdit.user.name }}</span></h3>
+                                    <h3 class="m-0 mb-2 text-dark">
+                                        {{ $t('global.user_commented') }} :
+                                        <span class="badge badge-danger" v-if="commentEdit.user == null">
+                                            {{ $t('global.user_is_deleted') }} -- id:{{commentEdit.user_id}}
+                                        </span>
+                                        <span v-else style="color: #3498db"> {{ commentEdit.user.name }}</span></h3>
                                 </h3>
                             </div>
                             <!-- ./card-header -->
@@ -38,7 +43,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-success float-right"
-                                    >Update</button>
+                                    >{{ $t('global.update') }}</button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -55,7 +60,11 @@
 <script>
 import FormComment from './FormComment'
 import HeaderPage from './../../components/HeaderPage'
+
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
         FormComment
@@ -73,7 +82,9 @@ export default {
             user_id: "",
             product_id: "",
         }),
-        commentEdit: {}
+        commentEdit: {},
+        idPage: 'comments',
+        typePage: 'edit'
       }
     },
     methods: {
@@ -83,11 +94,11 @@ export default {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The comment has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

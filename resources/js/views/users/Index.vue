@@ -182,18 +182,6 @@ export default {
         urlDeleteRow: '/user/destroy',
         urlRestoreRow: '/user/restore',
 
-        delete_msg: this.$t('users_table.delete_msg'),
-        delete_success_msg: this.$t('users_table.delete_success_msg'),
-        delete_failed_msg: this.$t('users_table.delete_failed_msg'),
-
-        force_delete_msg: this.$t('users_table.force_delete_msg'),
-        force_delete_success_msg: this.$t('users_table.force_delete_success_msg'),
-        force_delete_failed_msg: this.$t('users_table.force_delete_failed_msg'),
-
-        restore_msg: this.$t('users_table.restore_msg'),
-        restore_success_msg: this.$t('users_table.restore_success_msg'),
-        restore_failed_msg: this.$t('users_table.restore_failed_msg'),
-
         columns: columns,
         sortOrders: sortOrders,
 

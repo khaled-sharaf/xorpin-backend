@@ -13,7 +13,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Product profile"></header-page>
+        <header-page :title="$t('sidebar.product_profile')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid proudct-profile-wrapper">
@@ -38,7 +38,7 @@
                                     :href="$domain_admin + '/product/destroy'"
                                     class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
                                     @click.prevent="destroyRow(productProfile.id)"
-                                >Delete product
+                                > {{ $t('products_table.delete_product') }}
                                     <i class="fa fa-trash"></i>
                                 </a>
 
@@ -47,7 +47,7 @@
                                     :to="{name: 'edit-product', params: {product: productProfile, id: productProfile.id}}"
                                     :href="$domain_admin + '/product/' + productProfile.id + '/edit'"
                                     class="btn btn-success btn-edit-row btn-table-actions btn-sm mt-1"
-                                >Edit product
+                                > {{ $t('products_table.edit_product') }}
                                     <i class="fa fa-edit"></i>
                                 </router-link>
 
@@ -57,64 +57,64 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <!-- product rates -->
                                 <li class="list-group-item">
-                                    <b>Rates</b> <a class="float-right"> <rates-stars :rates-count="productProfile.count_rates"></rates-stars> </a>
+                                    <b> {{ $t('products_table.count_rates') }}</b> <a class="float-right"> <rates-stars :rates-count="productProfile.count_rates"></rates-stars> </a>
                                 </li>
 
                                 <!-- product type -->
                                 <li class="list-group-item">
-                                    <b>Type</b> <a class="float-right">{{ productProfile.type.name }}</a>
+                                    <b> {{ $t('products_table.type') }}</b> <a class="float-right">{{ productProfile.type.name }}</a>
                                 </li>
 
                                 <!-- price -->
                                 <li class="list-group-item">
-                                    <b>Price</b> <a class="float-right">{{ productProfile.price }}</a>
+                                    <b> {{ $t('products_table.price') }}</b> <a class="float-right">{{ productProfile.price }}</a>
                                 </li>
 
                                 <!-- discount -->
                                 <li class="list-group-item">
-                                    <b>Discount</b> <a class="float-right">{{ productProfile.discount !== null ? productProfile.discount + (productProfile.percent == 1 ? '%' : '') : '0' }}</a>
+                                    <b> {{ $t('products_table.discount') }}</b> <a class="float-right">{{ productProfile.discount !== null ? productProfile.discount + (productProfile.percent == 1 ? '%' : '') : '0' }}</a>
                                 </li>
 
                                 <!-- new price -->
                                 <li class="list-group-item" v-if="productProfile.new_price !== null">
-                                    <b>New price</b> <a class="float-right">{{ productProfile.new_price }}</a>
+                                    <b> {{ $t('products_table.new_price') }}</b> <a class="float-right">{{ productProfile.new_price }}</a>
                                 </li>
 
                                 <!-- product counts -->
                                 <li class="list-group-item">
-                                    <b>Counts</b> <a class="float-right">{{ productProfile.product_count }}</a>
+                                    <b> {{ $t('products_table.product_count') }}</b> <a class="float-right">{{ productProfile.product_count }}</a>
                                 </li>
 
                                 <!-- manufacture_company -->
                                 <li class="list-group-item">
-                                    <b>Manufacture company</b> <a class="float-right">{{ productProfile.manufacture_company }}</a>
+                                    <b> {{ $t('products_table.manufacture_company') }}</b> <a class="float-right">{{ productProfile.manufacture_company }}</a>
                                 </li>
 
                                 <!-- description -->
                                 <li class="list-group-item">
-                                    <b>Description</b> <a class="float-right">{{ productProfile.description }}</a>
+                                    <b> {{ $t('products_table.description') }}</b> <a class="float-right">{{ productProfile.description }}</a>
                                 </li>
 
                                 <!-- run out -->
                                 <li class="list-group-item">
-                                    <b>Run out</b> <a class="float-right">{{productProfile.execute == 1 ? 'Unavailable' : 'Available' }}</a>
+                                    <b> {{ $t('products_table.execute') }}</b> <a class="float-right">{{productProfile.execute == 1 ? 'Unavailable' : 'Available' }}</a>
                                 </li>
 
                                 <!-- display product -->
                                 <li class="list-group-item">
-                                    <b>Display product</b> <a class="float-right">{{ productProfile.display == 1 ? 'Visible' : 'Hidden' }}</a>
+                                    <b> {{ $t('datatable.display') }}</b> <a class="float-right">{{ productProfile.display == 1 ? 'Visible' : 'Hidden' }}</a>
                                 </li>
 
                                 <!-- Last modified -->
                                 <li class="list-group-item">
-                                    <b>Last modified</b> <a class="float-right">
+                                    <b> {{ $t('products_table.updated_at') }}</b> <a class="float-right">
                                         <relative-date :date="productProfile.updated_at"></relative-date>
                                     </a>
                                 </li>
 
                                 <!-- Created at -->
                                 <li class="list-group-item">
-                                    <b>Created at</b> <a class="float-right">
+                                    <b> {{ $t('products_table.created_at') }}</b> <a class="float-right">
                                         <relative-date :date="productProfile.created_at"></relative-date>
                                     </a>
                                 </li>
@@ -122,7 +122,7 @@
 
                                 <!-- company -->
                                 <li class="list-group-item" v-if="$gate.isAdmin()">
-                                    <b>Company</b> <a class="float-right">
+                                    <b> {{ $t('products_table.company') }}</b> <a class="float-right">
                                         <router-link
                                             v-if="typeof productProfile.company == 'object' && productProfile.company != null && productProfile.company.length > 0"
                                             :href="$domain_admin + '/company/profile/' + productProfile.company_id"
@@ -130,7 +130,7 @@
                                         >
                                             {{ productProfile.company.name }}
                                         </router-link>
-                                        <span class="badge badge-danger" v-else>Company is deleted - id:{{productProfile.company_id}}</span>
+                                        <span class="badge badge-danger" v-else> {{ $t('global.company_is_deleted') }} - id:{{productProfile.company_id}}</span>
                                     </a>
                                 </li>
 
@@ -144,7 +144,7 @@
                         <!-- About Me Box -->
                         <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="m-0 card-title">Product details</h3>
+                            <h3 class="m-0 card-title"> {{ $t('products_table.product_details') }}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -154,9 +154,9 @@
                             <table class="table table-striped table-bordered table-show-details" v-if="productProfile.details.length > 0">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Value</th>
-                                        <th class="th-display">Display</th>
+                                        <th> {{ $t('products_table.name') }}</th>
+                                        <th> {{ $t('products_table.value') }}</th>
+                                        <th class="th-display"> {{ $t('datatable.display') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,8 +176,8 @@
                             </table>
 
                             <div v-else class="alert alert-info alert-dismissible">
-                                <h5><i class="icon fas fa-info"></i> No products details!</h5>
-                                This product does'nt have details.
+                                <h5><i class="icon fas fa-info"></i> {{ $t('global.no_product_details') }} !</h5>
+                                {{ $t('products_table.empty_details_msg') }}
                             </div>
 
 
@@ -191,11 +191,11 @@
                         <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" style="display: inline-flex;">
-                                <li class="nav-item"><a @click="showWinnerTable = false" class="nav-link active" href="#comments" data-toggle="tab">Comments</a></li>
-                                <li class="nav-item"><a @click="showWinnerTable = true" class="nav-link" href="#winners" data-toggle="tab">Winners</a></li>
+                                <li class="nav-item"><a @click="showWinnerTable = false" class="nav-link active" href="#comments" data-toggle="tab">{{ $t('sidebar.comments') }}</a></li>
+                                <li class="nav-item"><a @click="showWinnerTable = true" class="nav-link" href="#winners" data-toggle="tab">{{ $t('sidebar.winners') }}</a></li>
 
                             </ul>
-                            <button class="btn btn-outline-secondary maximize-table float-right" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
+                            <button class="btn btn-outline-secondary maximize-table" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
@@ -203,8 +203,8 @@
                                <comments v-if="(productProfile.comments_count != null && productProfile.comments_count != 0) && showWinnerTable === false"></comments>
 
                                 <div v-else class="alert alert-info alert-dismissible">
-                                    <h5><i class="icon fas fa-info"></i> No comments!</h5>
-                                    This product does'nt have comments.
+                                    <h5><i class="icon fas fa-info"></i> {{ $t('global.no_comments') }} !</h5>
+                                    {{ $t('products_table.empty_comments_msg') }}
                                 </div>
 
                             </div>
@@ -213,8 +213,8 @@
                                 <winners v-if="(productProfile.winners_count != null && productProfile.winners_count != 0) && showWinnerTable === true"></winners>
 
                                 <div v-else class="alert alert-info alert-dismissible">
-                                    <h5><i class="icon fas fa-info"></i> No winners!</h5>
-                                    This product does'nt have winners.
+                                    <h5><i class="icon fas fa-info"></i> {{ $t('global.no_winners') }} !</h5>
+                                    {{ $t('products_table.empty_winners_msg') }}
                                 </div>
 
                             </div>
@@ -238,7 +238,14 @@
 import Winners from './../users/Index'
 import Comments from './../comments/Index'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessagesProfiles from "./../../mixins/MixinChangeLocaleMessagesProfiles"
+import mixinDeleteRow from "./../../mixins/mixinDeleteRow"
+
 export default {
+    mixins: [
+        MixinChangeLocaleMessagesProfiles,
+        mixinDeleteRow
+    ],
     components: {
         HeaderPage,
         Comments,
@@ -249,6 +256,7 @@ export default {
       return {
           urlProductProfile: '/product/profile',
           urlDeleteRow: '/product/destroy',
+          idPage: 'products',
           maximizeTable: false,
           showWinnerTable: false,
           productProfile: {
@@ -275,33 +283,6 @@ export default {
       }
     },
     methods: {
-        eventBtnsClick() {
-            let self = this;
-        },
-        destroyRow(id) {
-            Swal.fire({
-                title: "Delete",
-                text: "Are you sure you want to delete this product?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#e74c3c",
-                cancelButtonColor: "#6d6d6d",
-                confirmButtonText: "Yes, delete it!"
-            }).then(result => {
-                if (result.value) {
-                    loadReq(this.$Progress);
-                    axios.post(this.urlDeleteRow, {id: id}).then(response => {
-                        if (response.status === 200) {
-                            Swal.fire("Deleted!", "The product has been deleted.", "success");
-                            this.$router.push({name: 'products'});
-                        }
-                    }).catch(error => {
-                        Swal.fire("Failed!", "The product has not been deleted.", "error");
-                        this.$Progress.fail();
-                    });
-                }
-            });
-        },
         getProductProfile(route) {
             axios.post(this.urlProductProfile, {id: route.params.id}).then(response => {
                 if (response.status === 200) {
@@ -330,11 +311,6 @@ export default {
             });
         }
     },
-
-    mounted() {
-        this.eventBtnsClick()
-    },
-
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.product_profile')

@@ -11572,7 +11572,7 @@ a.text-dark:focus {
 
 .dataTables_wrapper .table .tr-table-data ul li > span.label {
   display: inline-block;
-  width: 120px;
+  width: 160px;
   margin-right: 5px;
   color: #3498db;
   font-weight: bold;
@@ -12146,6 +12146,11 @@ a.text-dark:focus {
 
 .proudct-profile-wrapper .table-show-details .td-display {
   font-size: 16px;
+}
+
+.col-details.plus label {
+  position: relative;
+  left: -17px;
 }
 
 .btn.maximize-table {

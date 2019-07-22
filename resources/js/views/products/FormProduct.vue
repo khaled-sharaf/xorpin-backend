@@ -7,11 +7,11 @@
 
                 <!-- name -->
                 <div class="form-group">
-                    <label>Product name <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.name') }} <span class="field-required"></span></label>
                     <input
                         v-model="form.name"
                         type="text"
-                        placeholder="Product name"
+                        :placeholder="$t('products_table.name')"
                         class="form-control"
                         :class="{ 'is-invalid': form.errors.has('name') }"
                     >
@@ -21,11 +21,11 @@
 
                 <!-- price -->
                 <div class="form-group">
-                    <label>Price <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.price') }} <span class="field-required"></span></label>
                     <input
                         v-model="form.price"
                         type="number"
-                        placeholder="Price"
+                        :placeholder="$t('products_table.price')"
                         class="form-control"
                         :class="{ 'is-invalid': form.errors.has('price') }"
                     >
@@ -37,11 +37,11 @@
                 <div class="form-group">
                     <div class="form-row align-items-center">
                         <div class="col-md-10">
-                            <label class="label-dir">Discount</label>
+                            <label class="label-dir"> {{ $t('products_table.discount') }} </label>
                             <input
                                 v-model="form.discount"
                                 type="number"
-                                placeholder="Discount"
+                                :placeholder="$t('products_table.discount')"
                                 class="form-control"
                                 :disabled="form.price === null || form.price < 1"
                                 :class="{ 'is-invalid': form.errors.has('discount') }"
@@ -52,7 +52,7 @@
                         <div class="col-md-2">
                             <div class="custom-control custom-checkbox checkbox-percent">
                                 <input type="checkbox" class="custom-control-input" id="percent" v-model="form.percent">
-                                <label class="custom-control-label" for="percent">percent</label>
+                                <label class="custom-control-label" for="percent"> {{ $t('products_table.percent') }} </label>
                             </div>
                         </div>
                     </div>
@@ -72,11 +72,11 @@
 
                 <!-- product count -->
                 <div class="form-group">
-                    <label>Product count <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.product_count') }} <span class="field-required"></span></label>
                     <input
                         v-model="form.product_count"
                         type="number"
-                        placeholder="Product count"
+                        :placeholder="$t('products_table.product_count')"
                         class="form-control"
                         :class="{ 'is-invalid': form.errors.has('product_count') }"
                     >
@@ -86,11 +86,11 @@
 
                 <!-- Manufacture company -->
                 <div class="form-group">
-                    <label>Manufacture company <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.manufacture_company') }} <span class="field-required"></span></label>
                     <input
                         v-model="form.manufacture_company"
                         type="text"
-                        placeholder="Manufacture company"
+                        :placeholder="$t('products_table.manufacture_company')"
                         class="form-control"
                         :class="{ 'is-invalid': form.errors.has('manufacture_company') }"
                     >
@@ -100,11 +100,11 @@
 
                 <!-- description -->
                 <div class="form-group">
-                    <label>Description <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.description') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.description"
                         type="text"
-                        placeholder="Description"
+                        :placeholder="$t('products_table.description')"
                         class="form-control textarea-form"
                         :class="{ 'is-invalid': form.errors.has('description') }"
                     ></textarea>
@@ -114,34 +114,28 @@
 
                 <!-- dispaly products -->
                 <div class="form-group">
-                    <label>Display <span class="field-required"></span></label>
+                    <label> {{ $t('datatable.display') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.display"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('display') }"
+                        v-model="form.display"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('display') }"
                     >
-                    <option
-                        v-for="(display, i) in displayArr"
-                        :value="display.value"
-                        :key="i"
-                    >{{ display.text }}</option>
+                        <option value="1"> {{ $t('global.visible') }} </option>
+                        <option value="0"> {{ $t('global.hidden') }} </option>
                     </select>
                     <has-error :form="form" field="display"></has-error>
                 </div>
 
                 <!-- run out -->
                 <div class="form-group">
-                    <label>Product was run out <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.execute') }} <span class="field-required"></span></label>
                     <select
                         v-model="form.execute"
                         class="custom-select"
                         :class="{ 'is-invalid': form.errors.has('execute') }"
                     >
-                    <option
-                        v-for="(item, i) in executeArr"
-                        :value="item.value"
-                        :key="i"
-                    >{{ item.text }}</option>
+                        <option value="0"> {{ $t('global.available') }} </option>
+                        <option value="1"> {{ $t('global.unavailable') }} </option>
                     </select>
                     <has-error :form="form" field="execute"></has-error>
                 </div>
@@ -149,7 +143,7 @@
 
                 <!-- Product Type -->
                 <div class="form-group">
-                    <label>Product type <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.type') }} <span class="field-required"></span></label>
                     <select
                         v-model="form.type_id"
                         class="custom-select"
@@ -162,7 +156,7 @@
 
                 <!-- company -->
                 <div class="form-group" v-if="$gate.isAdmin()">
-                    <label>Company <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.company') }} <span class="field-required"></span></label>
                     <select
                     v-model="form.company_id"
                     class="custom-select"
@@ -179,7 +173,7 @@
 
                 <!-- photo -->
                 <div class="form-group">
-                    <label>Product default photo <span class="field-required"></span></label>
+                    <label> {{ $t('products_table.photo') }} <span class="field-required"></span></label>
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="wrapper-drop-image" :class="{'contains-image': form.photo != '', 'is-invalid': form.errors.has('photo')}" id="product-default-photo"> <!-- contains-image -->
@@ -195,7 +189,7 @@
                                     <label class="view-overlay" for="product_photo">
                                         <div class="content-overlay">
                                             <i class="icon far fa-image"></i>
-                                            <span class="title">Drag and drop file here</span>
+                                            <span class="title"> {{ $t('global.drag_msg') }} </span>
                                         </div>
                                     </label>
                                 </div>
@@ -215,7 +209,7 @@
 
                 <!-- gallery -->
                 <div class="form-group">
-                    <label>Product Photos</label>
+                    <label> {{ $t('products_table.photos') }} </label>
 
                     <div class="wrapper-drop-image"  :class="{'contains-image': form.gallery !== null && form.gallery.length > 0}" id="product-multi-photo"> <!-- contains-image -->
                         <div class="overlay-drop-image" for="product_photos">
@@ -230,7 +224,7 @@
                             <label class="view-overlay" for="product_photos">
                                 <div class="content-overlay">
                                     <i class="icon far fa-image"></i>
-                                    <span class="title">Drag and drop file here</span>
+                                    <span class="title"> {{ $t('global.drag_msg') }} </span>
                                 </div>
                             </label>
                         </div>
@@ -249,21 +243,21 @@
 
                 <!-- Details -->
                 <div class="form-group">
-                    <label>Details</label>
+                    <label> {{ $t('products_table.product_details') }} </label>
                     <div class="wrapper-details-product">
                         <div class="d-sm-none d-md-block">
                             <div class="row row-table-label">
                                 <div class="col-md-4 col-details">
-                                    <label>Details name</label>
+                                    <label> {{ $t('products_table.name') }} </label>
                                 </div>
                                 <div class="col-md-4 col-details">
-                                    <label>Details value</label>
+                                    <label> {{ $t('products_table.value') }} </label>
                                 </div>
                                 <div class="col-md-2 col-details">
-                                    <label>Display</label>
+                                    <label> {{ $t('datatable.display') }} </label>
                                 </div>
-                                <div class="col-md-2 col-details">
-                                    <label>Plus</label>
+                                <div class="col-md-2 col-details plus">
+                                    <label> {{ $t('products_table.plus') }} </label>
                                 </div>
                             </div>
                         </div>
@@ -274,15 +268,15 @@
                                 <input
                                     type="text"
                                     v-model="form.details[index].name"
-                                    placeholder="Name"
+                                    :placeholder="$t('products_table.name')"
                                     class="form-control"
                                 >
                             </div>
                             <div class="col-sm-12 col-md-4 col-details">
                                 <input
                                     type="text"
-                                    placeholder="Value"
                                     v-model="form.details[index].value"
+                                    :placeholder="$t('products_table.value')"
                                     class="form-control"
                                 >
                             </div>
@@ -320,14 +314,6 @@
     props: ['form', 'typeForm'],
     data() {
       return {
-        executeArr: [
-          { text: "Available", value: 0 },
-          { text: "Unavailable", value: 1 }
-        ],
-        displayArr: [
-          { text: "Visible product", value: 1 },
-          { text: "Hidden product", value: 0 }
-        ],
         urlGetProductsTypes: '/pro-types-data',
         proTypes: [],
         urlGetAllCompanies: '/companies-id',
@@ -355,28 +341,52 @@
                         };
                         if (file) {
                             if (file["size"] > 8000000) {
-                                Swal.fire(
-                                    "Oops...",
-                                    "You are uploading a large file, (8MB) last.",
-                                    "error"
-                                );
+                                if (this.$i18n.locale == 'ar') {
+                                    Swal.fire(
+                                        "خطأ...",
+                                        "الحجم المسموح به للصورة هو 8 ميجا بايت.",
+                                        "error"
+                                    );
+                                } else {
+                                    Swal.fire(
+                                        "Oops...",
+                                        "You are uploading a large file, (8MB) last.",
+                                        "error"
+                                    );
+                                }
                             } else if (file['type'] != 'image/jpeg' && file['type'] != 'image/png' && file['type'] != 'image/gif') {
-                                Swal.fire(
-                                    "Oops...",
-                                    "You must be image have extension between [jpg, png, gif].",
-                                    "error"
-                                );
+                                if (this.$i18n.locale == 'ar') {
+                                    Swal.fire(
+                                        "خطأ...",
+                                        "يجب أن تكون الصورة لها امتداد من هذه الإمتدادات [jpg, png, gif].",
+                                        "error"
+                                    );
+                                } else {
+                                    Swal.fire(
+                                        "Oops...",
+                                        "You must be image have extension between [jpg, png, gif].",
+                                        "error"
+                                    );
+                                }
                             } else {
                                 reader.readAsDataURL(file);
                             }
                         }
                     }
                 } else {
-                    Swal.fire(
-                        "Oops...",
-                        "You must upload (6) images or less.",
-                        "error"
-                    );
+                    if (this.$i18n.locale == 'ar') {
+                        Swal.fire(
+                            "خطأ...",
+                            "يجب عليك تحميل 6 صور أو أقل.",
+                            "error"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Oops...",
+                            "You must upload 6 images or less.",
+                            "error"
+                        );
+                    }
                 }
 
             } else {
@@ -387,17 +397,33 @@
                 };
                 if (file) {
                     if (file["size"] > 8000000) {
-                        Swal.fire(
-                            "Oops...",
-                            "You are uploading a large file, (8MB) last.",
-                            "error"
-                        );
+                        if (this.$i18n.locale == 'ar') {
+                            Swal.fire(
+                                "خطأ...",
+                                "الحجم المسموح به للصورة هو 8 ميجا بايت.",
+                                "error"
+                            );
+                        } else {
+                            Swal.fire(
+                                "Oops...",
+                                "You are uploading a large file, (8MB) last.",
+                                "error"
+                            );
+                        }
                     } else if (file['type'] != 'image/jpeg' && file['type'] != 'image/png' && file['type'] != 'image/gif') {
-                        Swal.fire(
-                            "Oops...",
-                            "You must be image have extension between [jpg, png, gif].",
-                            "error"
-                        );
+                        if (this.$i18n.locale == 'ar') {
+                            Swal.fire(
+                                "خطأ...",
+                                "يجب أن تكون الصورة لها امتداد من هذه الإمتدادات [jpg, png, gif].",
+                                "error"
+                            );
+                        } else {
+                            Swal.fire(
+                                "Oops...",
+                                "You must be image have extension between [jpg, png, gif].",
+                                "error"
+                            );
+                        }
                     } else {
                         reader.readAsDataURL(file);
                     }

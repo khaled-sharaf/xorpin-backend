@@ -88,7 +88,7 @@
 
             <td v-show="tableData.filter.columns.indexOf('type') != -1" class="type">
                 <span class="badge badge-danger" v-if="product.type == null">
-                    Type is deleted -- id:{{product.type_id}}
+                    {{ $t('global.type_is_deleted') }} -- id:{{product.type_id}}
                 </span>
                 <span v-else>
                     {{ product.type.name }}
@@ -99,7 +99,7 @@
             <td v-show="tableData.filter.columns.indexOf('user') != -1" class="user"
             >
                 <span class="badge badge-danger" v-if="product.user == null">
-                    User is deleted -- id:{{product.user_id}}
+                    {{ $t('global.user_is_deleted') }} -- id:{{product.user_id}}
                 </span>
                 <router-link
                     v-else
@@ -128,7 +128,7 @@
                 >
                     {{product.company.name}}
                 </router-link>
-                <span v-else class="badge badge-danger">Company is deleted -- id:{{product.company_id}}</span>
+                <span v-else class="badge badge-danger">{{ $t('global.company_is_deleted') }} -- id:{{product.company_id}}</span>
             </td>
 
 

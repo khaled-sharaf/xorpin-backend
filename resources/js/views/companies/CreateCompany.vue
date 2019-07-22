@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Create company"></header-page>
+        <header-page :title=" $t('global.create') + ' ' + $t('sidebar.new_company') "></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -16,7 +16,7 @@
                         <div class="card">
                             <!-- card-header -->
                             <div class="card-header">
-                                <router-link class="btn btn-primary btn-sm" :to="{name: 'companies'}">Show all companies</router-link>
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'companies'}">{{ $t('global.show') + ' ' + $t('sidebar.all_companies') }}</router-link>
                             </div>
                             <!-- ./card-header -->
 
@@ -36,7 +36,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-primary float-right"
-                                    >Create</button>
+                                    >{{ $t('global.create') }}</button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -53,7 +53,10 @@
 <script>
 import FormCompany from './FormCompany'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     name: 'create-company',
     components: {
         FormCompany,
@@ -77,6 +80,8 @@ export default {
           display: 1,
           active: 1,
         }),
+        idPage: 'companies',
+        typePage: 'create'
       }
     },
     methods: {
@@ -90,7 +95,7 @@ export default {
                     this.form.reset();
                     $('#remove-location-company').click()
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                     setTimeout(() => {
                         this.$router.push({name: 'company-profile', params: {id: response.data.data.id, company: response.data.data}})
@@ -100,7 +105,7 @@ export default {
                     }, 2000);
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The company has not been created.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit product"></header-page>
+        <header-page :title="$t('sidebar.edit_product')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -24,7 +24,7 @@
                                         class="btn btn-primary btn-sm"
                                         :class="{ disabled: form.busy }"
                                     >
-                                        Go to profile
+                                        {{ $t('global.goto_product_profile') }}
                                     </router-link>
                                 </h3>
                             </div>
@@ -46,7 +46,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-success float-right"
-                                    >Update</button>
+                                    > {{ $t('global.update') }} </button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -63,7 +63,10 @@
 <script>
 import FormProduct from './FormProduct'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
         FormProduct
@@ -93,7 +96,9 @@ export default {
           ],
           deletedDetails: [],
         }),
-        productEdit: {}
+        productEdit: {},
+        idPage: 'users',
+        typePage: 'edit'
       }
     },
     methods: {
@@ -121,11 +126,11 @@ export default {
                     this.form.reset()
                     this.form.fill(this.productEdit)
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The product has not been updated.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

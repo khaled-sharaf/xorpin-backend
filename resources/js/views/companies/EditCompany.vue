@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="Edit company"></header-page>
+        <header-page :title="$t('sidebar.edit_company')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -24,7 +24,7 @@
                                         class="btn btn-primary btn-sm"
                                         :class="{ disabled: form.busy }"
                                     >
-                                        Go to profile
+                                        {{ $t('global.goto_company_profile') }}
                                     </router-link>
                                 </h3>
                             </div>
@@ -46,7 +46,7 @@
                                         type="submit"
                                         :disabled="form.busy"
                                         class="btn btn-success float-right"
-                                    >Update</button>
+                                    > {{ $t('global.update') }} </button>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -63,7 +63,10 @@
 <script>
 import FormCompany from './FormCompany'
 import HeaderPage from './../../components/HeaderPage'
+import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
+
 export default {
+    mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
         FormCompany
@@ -88,7 +91,9 @@ export default {
           display: 1,
           active: 1,
         }),
-        companyEdit: {}
+        companyEdit: {},
+        idPage: 'users',
+        typePage: 'edit'
       }
     },
     methods: {
@@ -100,11 +105,11 @@ export default {
                 if (response.status === 200) {
                     this.companyEdit = response.data.data;
                     ToastReq.fire({
-                        text: response.data.message
+                        text: this.success_msg
                     });
                 }
             }).catch(response => {
-                Swal.fire("Failed!", "The company has not been updated.", "error");
+                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });
         },

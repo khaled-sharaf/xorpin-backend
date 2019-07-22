@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page title="View all companies"></header-page>
+        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_companies')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -190,18 +190,6 @@ export default {
       urlDeleteRow: '/company/destroy',
       urlRestoreRow: '/company/restore',
 
-      delete_msg: 'Are you sure you want to delete this company?',
-      delete_success_msg: 'The company has been deleted.',
-      delete_failed_msg: 'The company has not been deleted.',
-
-      force_delete_msg: 'Are you sure you want to remove this company?',
-      force_delete_success_msg: 'The company has been removed.',
-      force_delete_failed_msg: 'The company has not been removed.',
-
-      restore_msg: 'Are you sure you want to restore this company?',
-      restore_success_msg: 'The company has been restored.',
-      restore_failed_msg: 'The company has not been restored.',
-
       columns: columns,
       sortOrders: sortOrders,
 
@@ -298,6 +286,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.companies')
+            vm.setLocaleMessages()
             vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
             vm.sortBy(vm.sortKey);
             vm.eventBtnsClick();

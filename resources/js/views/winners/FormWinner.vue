@@ -7,34 +7,34 @@
 
                 <!-- users -->
                 <div class="form-group">
-                    <label>User <span class="field-required"></span></label>
+                    <label> {{ $t('winners_table.user_id') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.user_id"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('user_id') }"
+                        v-model="form.user_id"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('user_id') }"
                     >
-                    <option
-                        v-for="user in users"
-                        :value="user.id"
-                        :key="user.id"
-                    >{{ user.id }} ------ {{ user.name }}</option>
+                        <option
+                            v-for="user in users"
+                            :value="user.id"
+                            :key="user.id"
+                        >{{ user.id }} ------ {{ user.name }}</option>
                     </select>
                     <has-error :form="form" field="user_id"></has-error>
                 </div>
 
                 <!-- products -->
                 <div class="form-group">
-                    <label>Product <span class="field-required"></span></label>
+                    <label> {{ $t('winners_table.product_id') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.product_id"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('product_id') }"
+                        v-model="form.product_id"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('product_id') }"
                     >
-                    <option
-                        v-for="product in products"
-                        :value="product.id"
-                        :key="product.id"
-                    >{{ product.id }} ------ {{ product.name }}</option>
+                        <option
+                            v-for="product in products"
+                            :value="product.id"
+                            :key="product.id"
+                        >{{ product.id }} ------ {{ product.name }}</option>
                     </select>
                     <has-error :form="form" field="product_id"></has-error>
                 </div>

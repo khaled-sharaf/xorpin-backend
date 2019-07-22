@@ -30,7 +30,7 @@
 
             <td v-show="tableData.filter.columns.indexOf('user_id') != -1" class="user_id">
                 <span class="badge badge-danger" v-if="winner.user == null">
-                    User is deleted -- id:{{winner.user_id}}
+                    {{ $t('global.user_is_deleted') }} -- id:{{winner.user_id}}
                 </span>
                 <router-link
                     v-else
@@ -47,7 +47,7 @@
 
             <td v-show="tableData.filter.columns.indexOf('product_id') != -1" class="product_id">
                 <span class="badge badge-danger" v-if="winner.product == null">
-                    Product is deleted -- id:{{winner.product_id}}
+                    {{ $t('global.product_is_deleted') }} -- id:{{winner.product_id}}
                 </span>
                 <router-link
                     v-else

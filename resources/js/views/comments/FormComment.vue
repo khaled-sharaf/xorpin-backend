@@ -7,11 +7,11 @@
 
                 <!-- text comment -->
                 <div class="form-group">
-                    <label>Comment content <span class="field-required"></span></label>
+                    <label> {{ $t('comments_table.text_comment') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.text_comment"
                         type="text"
-                        placeholder="Comment"
+                        :placeholder="$t('comments_table.text_comment')"
                         class="form-control textarea-form"
                         :class="{ 'is-invalid': form.errors.has('text_comment') }"
                     ></textarea>
@@ -20,11 +20,11 @@
 
                 <!-- positive_product -->
                 <div class="form-group">
-                    <label>Positive product <span class="field-required"></span></label>
+                    <label> {{ $t('comments_table.positive_product') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.positive_product"
                         type="text"
-                        placeholder="Positive product"
+                        :placeholder="$t('comments_table.positive_product')"
                         class="form-control textarea-form"
                         :class="{ 'is-invalid': form.errors.has('positive_product') }"
                     ></textarea>
@@ -34,11 +34,11 @@
 
                 <!-- negative_product -->
                 <div class="form-group">
-                    <label>Negative product <span class="field-required"></span></label>
+                    <label> {{ $t('comments_table.negative_product') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.negative_product"
                         type="text"
-                        placeholder="Negative product"
+                        :placeholder="$t('comments_table.negative_product')"
                         class="form-control textarea-form"
                         :class="{ 'is-invalid': form.errors.has('negative_product') }"
                     ></textarea>
@@ -48,41 +48,38 @@
 
                 <!-- dispaly comment -->
                 <div class="form-group">
-                    <label>Display comment <span class="field-required"></span></label>
+                    <label> {{ $t('datatable.display') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.display"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('display') }"
+                        v-model="form.display"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('display') }"
                     >
-                    <option
-                        v-for="(display, i) in displayArr"
-                        :value="display.value"
-                        :key="i"
-                    >{{ display.text }}</option>
+                        <option value="1"> {{ $t('global.visible') }} </option>
+                        <option value="0"> {{ $t('global.hidden') }} </option>
                     </select>
                     <has-error :form="form" field="display"></has-error>
                 </div>
 
                 <!-- users -->
                 <div class="form-group">
-                    <label>User <span class="field-required"></span></label>
+                    <label> {{ $t('comments_table.user_id') }} <span class="field-required"></span></label>
                     <select
-                    v-model="form.user_id"
-                    class="custom-select"
-                    :class="{ 'is-invalid': form.errors.has('user_id') }"
+                        v-model="form.user_id"
+                        class="custom-select"
+                        :class="{ 'is-invalid': form.errors.has('user_id') }"
                     >
-                    <option
-                        v-for="user in users"
-                        :value="user.id"
-                        :key="user.id"
-                    >{{ user.id }} ------ {{ user.name }}</option>
+                        <option
+                            v-for="user in users"
+                            :value="user.id"
+                            :key="user.id"
+                        >{{ user.id }} ------ {{ user.name }}</option>
                     </select>
                     <has-error :form="form" field="user_id"></has-error>
                 </div>
 
                 <!-- products -->
                 <div class="form-group">
-                    <label>Product <span class="field-required"></span></label>
+                    <label> {{ $t('comments_table.product_id') }} <span class="field-required"></span></label>
                     <select
                     v-model="form.product_id"
                     class="custom-select"
@@ -111,11 +108,7 @@
         urlGetAllUsers: '/users-id',
         urlGetAllProducts: '/products-id',
         users: [],
-        products: [],
-        displayArr: [
-          { text: "Visible comment", value: 1 },
-          { text: "Hidden comment", value: 0 }
-        ],
+        products: []
       }
     },
     methods: {
