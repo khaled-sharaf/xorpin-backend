@@ -71,6 +71,7 @@ export default {
             let styleMyMain = document.getElementById('style-my-main')
             styleMyMain.setAttribute('href', this.$domain + myMainRtlCss)
             localStorage.setItem('locale', locale)
+            axios.defaults.headers.common['locale'] = locale
         }
     },
     mounted() {
