@@ -1,7 +1,5 @@
 <?php
-
 // here all routes control panel
-
 Route::get('{path?}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');
 
 Route::post('/get-row-counts-in-form-models', 'HomeController@getCounts');
@@ -19,6 +17,7 @@ Route::group(['middleware' => ['isSuperAdmin']], function () {
     Route::post('/user/restore', 'UserController@restoreUser');
     Route::post('/users-id', 'UserController@users_id');
 });
+
 
 
 

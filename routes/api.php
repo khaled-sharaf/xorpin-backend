@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    // Route::get('/products_home', 'ProductController@homePage');
 });
+
+
+// home page
+Route::get('/products_home', 'ProductController@homePage');
+Route::get('/carousel', 'SettingController@carousel');
+
+
+
+// product profile
+Route::get('/product_profile/{id}', 'ProductController@product_profile')->where('id', "[0-9]+");

@@ -52,6 +52,17 @@ class Product extends Model
     }
 
 
+    public function scopeActiveAndDisplay($query)
+    {
+        return $query->where('display', 1)
+            ->whereHas('company', function ($q) {
+                $q->where('display', 1);
+            })
+            ->whereHas('type', function ($q) {
+                $q->where('display', 1);
+            });
+    }
+
     protected static function boot()
     {
         parent::boot();

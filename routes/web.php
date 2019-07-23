@@ -1,16 +1,18 @@
 <?php
 
+Route::group(['prefix' => 'admin'], function () {
+    Auth::routes();
+});
+
 // change language form this link -- method (get)
 // Route::get('lang/{lang}', 'LangController@lang')->name('lang');
 /**********************************************************************************/
 
-use App\Product as pro;
-use App\User;
-use App\Company;
-use App\ProductType;
-use App\Winner;
-
-Auth::routes();
+// use App\Product as pro;
+// use App\User;
+// use App\Company;
+// use App\ProductType;
+// use App\Winner;
 
 Route::get('/home', 'HomeController@index')->name('home');
 

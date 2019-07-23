@@ -15,7 +15,7 @@ class Setting extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    static public function getSettingKeys() {
+    public static function getSettingKeys() {
         $result = [];
 
         $settings = self::get();

@@ -47275,7 +47275,7 @@ var render = function() {
                 attrs: {
                   onclick:
                     "event.preventDefault(); document.getElementById('logout-form').submit();",
-                  href: _vm.$domain + "/logout"
+                  href: _vm.$domain_admin + "/logout"
                 }
               },
               [
@@ -47294,7 +47294,7 @@ var render = function() {
                 staticStyle: { display: "none" },
                 attrs: {
                   id: "logout-form",
-                  action: _vm.$domain + "/logout",
+                  action: _vm.$domain_admin + "/logout",
                   method: "POST"
                 }
               },

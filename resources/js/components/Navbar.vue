@@ -39,12 +39,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  :href="$domain + '/logout'">
+                    <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" :href="$domain_admin + '/logout'">
                         {{ $t('global.logout') }}
                         <i class="fas fa-power-off"></i>
                     </a>
 
-                    <form id="logout-form" :action="$domain + '/logout'" method="POST" style="display: none;">
+                    <form id="logout-form" :action="$domain_admin + '/logout'" method="POST" style="display: none;">
                         <input type="hidden" name="_token" :value="csrf_token">
                     </form>
                 </li>
