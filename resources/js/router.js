@@ -49,6 +49,7 @@ import EditComment from './views/comments/EditComment'
 import Settings from './views/settings/Index'
 import CreateSetting from './views/settings/CreateSetting'
 import EditSetting from './views/settings/EditSetting'
+import Carousel from './views/settings/Carousel'
 
 
 Vue.use(Router)
@@ -249,6 +250,12 @@ const vueRouter = new Router({
                     path: 'setting/:id/edit',
                     name: 'edit-setting',
                     component: EditSetting,
+                    props: true
+                },
+                {
+                    path: 'setting/carousel',
+                    name: 'setting-carousel',
+                    component: Carousel,
                     props: true
                 },
 

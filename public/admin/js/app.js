@@ -2138,6 +2138,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sidebar',
   data: function data() {
@@ -4504,7 +4510,7 @@ __webpack_require__.r(__webpack_exports__);
         active: 1
       }),
       companyEdit: {},
-      idPage: 'users',
+      idPage: 'companies',
       typePage: 'edit'
     };
   },
@@ -5697,7 +5703,7 @@ __webpack_require__.r(__webpack_exports__);
         display: 1
       }),
       proTypeEdit: {},
-      idPage: 'users',
+      idPage: 'products_types',
       typePage: 'edit'
     };
   },
@@ -6017,7 +6023,7 @@ __webpack_require__.r(__webpack_exports__);
       sortOrders[column.name] = -1;
     });
     return {
-      idPage: 'products-types',
+      idPage: 'products_types',
       urlGetDataTable: '/pro-types',
       urlDeleteRow: '/pro-type/destroy',
       urlRestoreRow: '/pro-type/restore',
@@ -6478,7 +6484,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         deletedDetails: []
       }),
       productEdit: {},
-      idPage: 'users',
+      idPage: 'products',
       typePage: 'edit'
     };
   },
@@ -6525,7 +6531,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             text: _this.success_msg
           });
         }
-      })["catch"](function (response) {
+      })["catch"](function (errors) {
         Swal.fire(_this.failed_title + "!", _this.failed_msg, "error");
 
         _this.$Progress.fail();
@@ -6947,7 +6953,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['form', 'typeForm'],
   data: function data() {
@@ -6957,7 +6962,6 @@ __webpack_require__.r(__webpack_exports__);
       urlGetAllCompanies: '/companies-id',
       companies: [],
       productPhoto: "",
-      oldProductPhoto: "images/image-icon.png",
       droppedFiles: false
     };
   },
@@ -6992,7 +6996,7 @@ __webpack_require__.r(__webpack_exports__);
                 if (_this.$i18n.locale == 'ar') {
                   Swal.fire("خطأ...", "الحجم المسموح به للصورة هو 8 ميجا بايت.", "error");
                 } else {
-                  Swal.fire("Oops...", "You are uploading a large file, (8MB) last.", "error");
+                  Swal.fire("Oops...", "You are uploading a large file 8MB last.", "error");
                 }
               } else if (file['type'] != 'image/jpeg' && file['type'] != 'image/png' && file['type'] != 'image/gif') {
                 if (_this.$i18n.locale == 'ar') {
@@ -7029,7 +7033,7 @@ __webpack_require__.r(__webpack_exports__);
             if (this.$i18n.locale == 'ar') {
               Swal.fire("خطأ...", "الحجم المسموح به للصورة هو 8 ميجا بايت.", "error");
             } else {
-              Swal.fire("Oops...", "You are uploading a large file, (8MB) last.", "error");
+              Swal.fire("Oops...", "You are uploading a large file 8MB last.", "error");
             }
           } else if (file['type'] != 'image/jpeg' && file['type'] != 'image/png' && file['type'] != 'image/gif') {
             if (this.$i18n.locale == 'ar') {
@@ -7042,37 +7046,6 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
-    },
-    getProductsTypes: function getProductsTypes() {
-      var _this2 = this;
-
-      axios.post(this.urlGetProductsTypes).then(function (response) {
-        if (response.status === 200) {
-          _this2.proTypes = response.data.types;
-        }
-      })["catch"](function (errors) {
-        if (errors.response.status === 405) {
-          setTimeout(function () {
-            _this2.getProductsTypes();
-          }, 1000);
-        }
-      });
-    },
-    getCompanies: function getCompanies() {
-      var _this3 = this;
-
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.urlGetAllCompanies;
-      axios.post(url).then(function (response) {
-        var data = response.data;
-
-        if (response.status === 200) {
-          _this3.companies = data;
-        }
-      })["catch"](function (errors) {
-        setTimeout(function () {
-          _this3.getCompanies(_this3.urlGetAllCompanies);
-        }, 1000);
-      });
     },
     showFiles: function showFiles(files, input) {
       if (typeof input === 'string') {
@@ -7142,6 +7115,37 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.form.details.splice(index, 1);
+    },
+    getProductsTypes: function getProductsTypes() {
+      var _this2 = this;
+
+      axios.post(this.urlGetProductsTypes).then(function (response) {
+        if (response.status === 200) {
+          _this2.proTypes = response.data.types;
+        }
+      })["catch"](function (errors) {
+        if (errors.response.status === 405) {
+          setTimeout(function () {
+            _this2.getProductsTypes();
+          }, 1000);
+        }
+      });
+    },
+    getCompanies: function getCompanies() {
+      var _this3 = this;
+
+      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.urlGetAllCompanies;
+      axios.post(url).then(function (response) {
+        var data = response.data;
+
+        if (response.status === 200) {
+          _this3.companies = data;
+        }
+      })["catch"](function (errors) {
+        setTimeout(function () {
+          _this3.getCompanies(_this3.urlGetAllCompanies);
+        }, 1000);
+      });
     }
   },
   computed: {
@@ -8156,6 +8160,319 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_HeaderPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../components/HeaderPage */ "./resources/js/components/HeaderPage.vue");
+/* harmony import */ var _mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/MixinChangeLocaleMessages */ "./resources/js/mixins/MixinChangeLocaleMessages.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_MixinChangeLocaleMessages__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  components: {
+    HeaderPage: _components_HeaderPage__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      urlEditCarousel: '/setting/edit/carousel',
+      urlUpdateCarousel: '/setting/update/carousel',
+      form: new Form({
+        id: 0,
+        value: [],
+        deleted_carousel_images: []
+      }),
+      droppedFiles: false,
+      idPage: 'settings',
+      typePage: 'edit_carousel'
+    };
+  },
+  methods: {
+    getIndex: function getIndex(array, key, value) {
+      return array.findIndex(function (i) {
+        return i[key] == value;
+      });
+    },
+    encodeFileAsURL: function encodeFileAsURL(files) {
+      var _this = this;
+
+      var self = this;
+
+      if (files.length) {
+        // multi images
+        if (self.form.value.length < 10 && self.form.value.length + files.length < 11) {
+          var _loop = function _loop(i) {
+            var file = files[i];
+            var imageId = Math.floor(Math.random() * 100000);
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+              self.form.value.push({
+                id: imageId,
+                url: reader.result
+              });
+            };
+
+            if (file) {
+              if (file["size"] > 8000000) {
+                if (_this.$i18n.locale == 'ar') {
+                  Swal.fire("خطأ...", "الحجم المسموح به للصورة هو 8 ميجا بايت.", "error");
+                } else {
+                  Swal.fire("Oops...", "You are uploading a large file 8MB last.", "error");
+                }
+              } else if (file['type'] != 'image/jpeg' && file['type'] != 'image/png' && file['type'] != 'image/gif') {
+                if (_this.$i18n.locale == 'ar') {
+                  Swal.fire("خطأ...", "يجب أن تكون الصورة لها امتداد من هذه الإمتدادات [jpg, png, gif].", "error");
+                } else {
+                  Swal.fire("Oops...", "You must be image have extension between [jpg, png, gif].", "error");
+                }
+              } else {
+                reader.readAsDataURL(file);
+              }
+            }
+          };
+
+          for (var i = 0; i < files.length; i++) {
+            _loop(i);
+          }
+        } else {
+          if (this.$i18n.locale == 'ar') {
+            Swal.fire("خطأ...", "يجب عليك تحميل 10 صور أو أقل.", "error");
+          } else {
+            Swal.fire("Oops...", "You must upload 10 images or less.", "error");
+          }
+        }
+      }
+    },
+    showFiles: function showFiles(files, input) {
+      if (typeof input === 'string') {
+        input = $('#' + input);
+      }
+
+      var lengthFiles = files.length;
+
+      if (input.attr('multiple')) {
+        if (lengthFiles > 0) {
+          this.encodeFileAsURL(files);
+        }
+      }
+    },
+    removePhoto: function removePhoto(id) {
+      var index = this.getIndex(this.form.value, 'id', id);
+      this.form.deleted_carousel_images.push(this.form.value[index]);
+      this.form.value.splice(index, 1);
+    },
+    handelDropImages: function handelDropImages() {
+      var self = this; // view-images
+
+      $('.wrapper-drop-image').on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }).on('dragover dragenter', function (e) {
+        $(this).addClass('is-dragover');
+      }).on('dragleave dragend drop', function () {
+        $(this).removeClass('is-dragover');
+      }).on('drop', function (e) {
+        this.droppedFiles = e.originalEvent.dataTransfer.files;
+        var lengthFiles = e.originalEvent.dataTransfer.files.length;
+        var input = $(this).find('.custom-file-drop');
+        self.showFiles(this.droppedFiles, input);
+      });
+    },
+    addDomainToPhoto: function addDomainToPhoto(url) {
+      // return url
+      var resultUrl = '';
+
+      if (url.indexOf("data:image/") === 0) {
+        resultUrl = url;
+      } else {
+        resultUrl = this.$domain + '/' + url;
+      }
+
+      return resultUrl;
+    },
+    fillData: function fillData(data) {
+      var carousel = data;
+
+      if (carousel.value !== null && carousel.value != '') {
+        var carousel_images = carousel.value.split(',');
+        var carousel_images_arr = [];
+        carousel_images.forEach(function (image) {
+          carousel_images_arr.push({
+            id: Math.floor(Math.random() * 10000),
+            url: image
+          });
+        });
+        carousel.value = carousel_images_arr;
+      } else {
+        carousel.value = [];
+      }
+
+      carousel.deleted_carousel_images = [];
+      this.form.reset();
+      this.form.fill(carousel);
+    },
+    updateCarousel: function updateCarousel() {
+      var _this2 = this;
+
+      loadReq(this.$Progress);
+      this.form.post(this.urlUpdateCarousel).then(function (response) {
+        if (response.status === 200) {
+          _this2.fillData(response.data.data);
+
+          ToastReq.fire({
+            text: _this2.success_msg
+          });
+        }
+      })["catch"](function (errors) {
+        Swal.fire(_this2.failed_title + "!", _this2.failed_msg, "error");
+
+        _this2.$Progress.fail();
+      });
+    },
+    getCarouselEdit: function getCarouselEdit() {
+      var _this3 = this;
+
+      axios.post(this.urlEditCarousel).then(function (response) {
+        if (response.status === 200) {
+          var carousel = response.data.carousel;
+
+          if (carousel != null) {
+            _this3.fillData(carousel);
+          } else {
+            _this3.$router.push({
+              name: 'settings'
+            });
+          }
+        }
+      })["catch"](function (errors) {
+        if (errors.response && errors.response.status != 404 && errors.response.status != 500) {
+          setTimeout(function () {
+            _this3.getCarouselEdit();
+          }, 1000);
+        }
+      });
+    }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    next(function (vm) {
+      to.meta.title = vm.$t('settings_table.carousel');
+      vm.handelDropImages();
+      vm.getCarouselEdit();
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/CreateSetting.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/settings/CreateSetting.vue?vue&type=script&lang=js& ***!
@@ -8361,7 +8678,7 @@ __webpack_require__.r(__webpack_exports__);
         type: "string"
       }),
       settingEdit: {},
-      idPage: 'users',
+      idPage: 'settings',
       typePage: 'edit'
     };
   },
@@ -8372,7 +8689,6 @@ __webpack_require__.r(__webpack_exports__);
       loadReq(this.$Progress);
       this.form.post(this.urlUpdateSetting).then(function (response) {
         if (response.status === 200) {
-          _this.companyEdit = response.data.data;
           ToastReq.fire({
             text: _this.success_msg
           });
@@ -10209,7 +10525,7 @@ __webpack_require__.r(__webpack_exports__);
         product_id: ""
       }),
       winnerEdit: {},
-      idPage: 'users',
+      idPage: 'winners',
       typePage: 'edit'
     };
   },
@@ -15242,6 +15558,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".col-table-maximize {\n  -webkit-box-ordinal-group: 2;\n          order: 1;\n  margin-bottom: 50px;\n}\n.col-sidebar {\n  -webkit-box-ordinal-group: 3;\n          order: 2;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".wrapper-drop-image[data-v-01ed3606], .wrapper-drop-image .view-overlay[data-v-01ed3606], .wrapper-drop-image .overlay-drop-image[data-v-01ed3606], .wrapper-drop-image .overlay-drop-image .view-overlay[data-v-01ed3606] {\n  min-height: 400px;\n}\n.wrapper-drop-image .view-images .image[data-v-01ed3606], .wrapper-drop-image .view-images .image .img[data-v-01ed3606] {\n  height: 210px;\n}\n.wrapper-drop-image.contains-image .view-overlay[data-v-01ed3606] {\n  min-height: 150px;\n}", ""]);
 
 // exports
 
@@ -63781,6 +64116,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -71116,6 +71481,36 @@ var render = function() {
                             )
                           ],
                           1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: { name: "setting-carousel" } }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-images nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(
+                                        _vm.$t("settings_table.carousel")
+                                      ) +
+                                      " "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         )
                       ])
                     ])
@@ -76521,7 +76916,7 @@ var render = function() {
         _c("div", { staticClass: "container-fluid" }, [
           _c(
             "div",
-            { staticClass: "dataTable", attrs: { id: "products-types" } },
+            { staticClass: "dataTable", attrs: { id: "products_types" } },
             [
               _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col-12" }, [
@@ -77963,11 +78358,8 @@ var render = function() {
                     return _vm.showFiles($event.target.files, $event.target.id)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("has-error", { attrs: { form: _vm.form, field: "photo" } })
-            ],
-            1
+              })
+            ]
           )
         ]),
         _vm._v(" "),
@@ -79762,6 +80154,216 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("header-page", {
+        attrs: { title: _vm.$t("settings_table.carousel") }
+      }),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row mt-3" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("h3", { staticClass: "m-0 mb-2 text-dark" }, [
+                    _c("h3", { staticClass: "m-0 mb-2 text-dark" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("capitalize")(_vm.$t("global.setting"))) +
+                          ": "
+                      ),
+                      _c("span", { staticStyle: { color: "#3498db" } }, [
+                        _vm._v(
+                          " " + _vm._s(_vm.$t("settings_table.carousel")) + " "
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.updateCarousel()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "wrapper-drop-image",
+                            class: {
+                              "contains-image":
+                                _vm.form.value !== null &&
+                                _vm.form.value.length > 0,
+                              "is-invalid": _vm.form.errors.has("value")
+                            },
+                            attrs: { id: "carousel_images_wrapper" }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "overlay-drop-image",
+                                attrs: { for: "carousel_images" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "view-images" },
+                                  _vm._l(_vm.form.value, function(image) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: image.id,
+                                        staticClass: "image elevation-5"
+                                      },
+                                      [
+                                        _c("div", { staticClass: "img" }, [
+                                          _c("img", {
+                                            attrs: {
+                                              src: _vm.addDomainToPhoto(
+                                                image.url
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "remove-image",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.removePhoto(
+                                                    image.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-times"
+                                              })
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "view-overlay",
+                                    attrs: { for: "carousel_images" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "content-overlay" },
+                                      [
+                                        _c("i", {
+                                          staticClass: "icon far fa-image"
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "title" }, [
+                                          _vm._v(
+                                            " " +
+                                              _vm._s(
+                                                _vm.$t("global.drag_msg")
+                                              ) +
+                                              " "
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "custom-file-drop custom-file-input",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("value")
+                              },
+                              attrs: {
+                                type: "file",
+                                id: "carousel_images",
+                                accept: "image/*",
+                                multiple: ""
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.showFiles(
+                                    $event.target.files,
+                                    $event.target.id
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "value" }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success float-right",
+                          attrs: { type: "submit", disabled: _vm.form.busy }
+                        },
+                        [_vm._v(" " + _vm._s(_vm.$t("global.update")) + " ")]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -99247,7 +99849,7 @@ webpackContext.id = "./resources/js/lang sync recursive ^\\.\\/.*\\.json$";
 /*! exports provided: global, sidebar, datatable, users_table, companies_table, products_table, products_types_table, winners_table, comments_table, settings_table, default */
 /***/ (function(module) {
 
-module.exports = {"global":{"home":"الرئيسية","dashboard":"الرئيسية","user":"مستخدم","company":"شركة","product":"منتج","products_type":"نوع منتجات","type":"نوع","comment":"تعليق","winner":"فائز","setting":"إعداد","no_products":"لا يوجد منتجات","no_users":"لا يوجد مستخدمين","no_comments":"لا يوجد تعليقات","no_winners":"لا يوجد فائزين","no_product_details":"لا يوجد تفاصيل للمنتج","profile":"بروفايل","the_profile":"البروفايل","user_commented":"تعليق المستخدم","goto_product_profile":"صفحة المنتج","goto_company_profile":"صفحة الشركة","company_is_deleted":"الشركة محذوفة","user_is_deleted":"المستخدم محذوف","type_is_deleted":"القسم محذوف","product_is_deleted":"المنتج محذوف","logout":"تسجيل الخروج","create":"إنشاء","edit":"تعديل","update":"تحديث","save":"حفظ","read":"اقرأ","read_more":"اقرأ المزيد","more_info":"معرفة المزيد","choose_image":"اختر صورة","drag_msg":"اسحب الصورة ثم ضعها عنها","active":"مفعل","disactive":"غير مفعل","available":"متاح","unavailable":"غير متاح","hidden":"مخفى","visible":"ظاهر","show":"عرض","view":"عرض","close":"إغلاق","display":"إظهار","from":"من","to":"إلى","delete":"حذف","deleted":"تم الحذف","force_delete":"إزالة نهائيا","remove":"إزالة","removed":"تمت الإزالة","restore":"استرجاع","restored":"تم الإسترجاع","failed":"فشل","cancel":"إلغاء","yes_delete_it":"تأكيد الحذف","yes_remove_it":"تأكيد الإزالة","yes_restore_it":"تأكيد الإسترجاع"},"sidebar":{"company_profile":"صفحة الشركة","product_profile":"صفحة المنتج","users":"المستخدمين","all_users":"جميع المستخدمين","new_user":"مستخدم جديد","edit_user":"تعديل مستخدم","companies":"الشركات","all_companies":"جميع الشركات","new_company":"شركة جديدة","edit_company":"تعديل شركة","products":"المنتجات","all_products":"جميع المنتجات","new_product":"منتج جديد","edit_product":"تعديل منتج","products_types":"الأقسام","all_products_types":"جميع الأقسام","new_products_type":"قسم جديد","edit_products_type":"تعديل قسم","winners":"الفائزين","all_winners":"جميع الفائزين","new_winner":"فائز جديد","edit_winner":"تعديل فائز","comments":"التعليقات","all_comments":"جميع التعليقات","new_comment":"تعليق جديد","edit_comment":"تعديل تعليق","settings":"الإعدادات","all_settings":"جميع الإعدادات","new_setting":"إعداد جديد","edit_setting":"تعديل إعداد"},"datatable":{"showing":"إظهار","entries":"سجلات","from":"من","to":"إلى","of":"من","next":"التالى","prev":"السابق","empty_table":"جدول فارغ","no_data_msg":"لا يوجد بيانات فى  هذا الجدول.","trashed":"المهمل","activation":"التفعيل","display":"الظهور","rules":"الصلاحيات","sold_out":"تم بيعه","discount":"خصم","products_type":"قسم","created_between":"تم إنشائه فى تاريخ","search":"بحث"},"users_table":{"id":"المعرف","name":"الإسم","email":"البريد الإلكترونى","phone":"الموبايل","address":"العنوان","photo":"الصورة","rule":"الصلاحيات","active":"التفعيل","company":"الشركة","created_at":"تاريخ الإنشاء","actions":"الإجراءات","rules":{"user":"مستخدم عادى","admin":"مدير","company":"مدير شركة"},"rules_filter":{"user":"مستخدم","admin":"مدير","company":"شركة"},"delete_msg":"هل أنت متأكد من حذف هذا المستخدم ؟","delete_success_msg":"تم حذف المستخدم.","delete_failed_msg":"لم يتم حذف المستخدم.","force_delete_msg":"هل أنت متأكد من إزالة هذا المستخدم بشكل نهائى ؟","force_delete_success_msg":"تم إزالة المستخدم بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة المستخدم.","restore_msg":"هل أنت متأكد من استرجاع هذا المستخدم ؟","restore_success_msg":"تم استرجاع المستخدم.","restore_failed_msg":"لم يتم استرجاع المستخدم.","p_create":{"success_msg":"تم إنشاء مستخدم جديد.","failed_msg":"لم يتم إنشاء المستخدم الجديد."},"p_edit":{"success_msg":"تم تحديث المستخدم.","failed_msg":"لم يتم تحديث هذا المستخدم."}},"companies_table":{"id":"المعرف","name":"الإسم","email":"البريد الإلكترونى","phone":"الموبايل","logo":"شعار الشركة","description":"الوصف","website":"موقع الويب","address":"العنوان","longitude":"خط الطول","latitude":"خط العرض","face_link":"فيسبوك","tw_link":"تويتر","display":"الظهور","active":"التفعيل","count_rates":"التقيمات","user_id":"المستخدم","created_at":"تاريخ الإنشاء","actions":"الإجراءات","products_count":"عدد المنتجات","users_count":"عدد المستخدمين","company_info":"معلومات عن الشركة","location":"الموقع","location_map":"خريطة الموقع","show_map":"اعرض الخريطة","msg_location_map":"ابحث عن مكان الشركة ثم انقل العلامة الحمراء إلى مكان الشركة بدقة.","error_location":"لم يتم العثور على المكان ، ابحث بكلمات أخرى.","remove_location":"إزالة الموقع","delete_company":"حذف الشركة","edit_company":"تعديل الشركة","empty_products_msg":"هذه الشركة ليس لديها منتجات.","empty_users_msg":"هذه الشركة ليس لديها مستخدمين.","delete_msg":"هل أنت متأكد من حذف هذه الشركة ؟","delete_success_msg":"تم حذف الشركة.","delete_failed_msg":"لم يتم حذف الشركة.","force_delete_msg":"هل أنت متأكد من إزالة هذه الشركة بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الشركة بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الشركة.","restore_msg":"هل أنت متأكد من استرجاع هذه الشركة ؟","restore_success_msg":"تم استرجاع الشركة.","restore_failed_msg":"لم يتم استرجاع الشركة.","p_create":{"success_msg":"تم إنشاء شركة جديدة.","failed_msg":"لم يتم إنشاء الشركة الجديدة."},"p_edit":{"success_msg":"تم تحديث الشركة.","failed_msg":"لم يتم تحديث هذه الشركة."}},"products_table":{"id":"المعرف","name":"الإسم","photo":"الصورة","price":"السعر","description":"الوصف","manufacture_company":"الشركة المصنعة","count_rates":"التقيمات","product_count":"العدد","execute":"نفاذ الكمية","display":"الظهور","type":"القسم","user":"أضيف بواسطة","company":"الشركة","updated_at":"أخر تعديل","created_at":"تاريخ الإنشاء","actions":"الإجراءات","discount":"الخصم","percent":"النسبة المئوية","new_price":"السعر الجديد","photos":"الصور","value":"القيمة","plus":"للمزيد","delete_product":"حذف المنتج","edit_product":"تعديل المنتج","empty_comments_msg":"هذا المنتج ليس به تعليقات.","empty_winners_msg":"هذا المنتج ليس لديه فائزين.","empty_details_msg":"هذا المنتج ليس لديه تفاصيل.","product_details":"تفاصيل المنتج","delete_msg":"هل أنت متأكد من حذف هذا المنتج ؟","delete_success_msg":"تم حذف المنتج.","delete_failed_msg":"لم يتم حذف المنتج.","force_delete_msg":"هل أنت متأكد من إزالة هذا المنتج بشكل نهائى ؟","force_delete_success_msg":"تم إزالة المنتج بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة المنتج.","restore_msg":"هل أنت متأكد من استرجاع هذا المنتج ؟","restore_success_msg":"تم استرجاع المنتج.","restore_failed_msg":"لم يتم استرجاع المنتج.","p_create":{"success_msg":"تم إنشاء منتج جديد.","failed_msg":"لم يتم إنشاء المنتج الجديد."},"p_edit":{"success_msg":"تم تحديث المنتج.","failed_msg":"لم يتم تحديث هذا المنتج."}},"products_types_table":{"id":"المعرف","name":"اسم القسم","display":"الظهور","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا القسم ؟","delete_success_msg":"تم حذف القسم.","delete_failed_msg":"لم يتم حذف القسم.","force_delete_msg":"هل أنت متأكد من إزالة هذا القسم بشكل نهائى ؟","force_delete_success_msg":"تم إزالة القسم بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة القسم.","restore_msg":"هل أنت متأكد من استرجاع هذا القسم ؟","restore_success_msg":"تم استرجاع القسم.","restore_failed_msg":"لم يتم استرجاع القسم.","p_create":{"success_msg":"تم إنشاء قسم جديد.","failed_msg":"لم يتم إنشاء القسم الجديد."},"p_edit":{"success_msg":"تم تحديث القسم.","failed_msg":"لم يتم تحديث هذا القسم."}},"winners_table":{"id":"المعرف","user_id":"اسم المستخدم","product_id":"اسم المنتج","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا الفائز ؟","delete_success_msg":"تم حذف الفائز.","delete_failed_msg":"لم يتم حذف الفائز.","force_delete_msg":"هل أنت متأكد من إزالة هذا الفائز بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الفائز بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الفائز.","restore_msg":"هل أنت متأكد من استرجاع هذا الفائز ؟","restore_success_msg":"تم استرجاع الفائز.","restore_failed_msg":"لم يتم استرجاع الفائز.","p_create":{"success_msg":"تم إنشاء فائز جديد.","failed_msg":"لم يتم إنشاء الفائز الجديد."},"p_edit":{"success_msg":"تم تحديث الفائز.","failed_msg":"لم يتم تحديث هذا الفائز."}},"comments_table":{"id":"المعرف","text_comment":"التعليق","positive_product":"إيجابيات المنتج","negative_product":"سلبيات المنتج","user_id":"اسم المستخدم","product_id":"اسم المنتج","display":"الظهور","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا التعليق ؟","delete_success_msg":"تم حذف التعليق.","delete_failed_msg":"لم يتم حذف التعليق.","force_delete_msg":"هل أنت متأكد من إزالة هذا التعليق بشكل نهائى ؟","force_delete_success_msg":"تم إزالة التعليق بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة التعليق.","restore_msg":"هل أنت متأكد من استرجاع هذا التعليق ؟","restore_success_msg":"تم استرجاع التعليق.","restore_failed_msg":"لم يتم استرجاع التعليق.","p_create":{"success_msg":"تم إنشاء تعليق جديد.","failed_msg":"لم يتم إنشاء التعليق الجديد."},"p_edit":{"success_msg":"تم تحديث التعليق.","failed_msg":"لم يتم تحديث هذا التعليق."}},"settings_table":{"id":"المعرف","slug":"الاسم التعبيرى","name":"اسم الإعداد","value":"القيمة","type":"النوع","created_at":"تاريخ الإنشاء","actions":"الإجراءات","setting_types":{"string":"نص قصير","text":"نص طويل","image":"صورة"},"delete_msg":"هل أنت متأكد من حذف هذا الإعداد ؟","delete_success_msg":"تم حذف الإعداد.","delete_failed_msg":"لم يتم حذف الإعداد.","force_delete_msg":"هل أنت متأكد من إزالة هذا الإعداد بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الإعداد بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الإعداد.","restore_msg":"هل أنت متأكد من استرجاع هذا الإعداد ؟","restore_success_msg":"تم استرجاع الإعداد.","restore_failed_msg":"لم يتم استرجاع الإعداد.","p_create":{"success_msg":"تم إنشاء إعداد جديد.","failed_msg":"لم يتم إنشاء الإعداد الجديد."},"p_edit":{"success_msg":"تم تحديث الإعداد.","failed_msg":"لم يتم تحديث هذا الإعداد."}}};
+module.exports = {"global":{"home":"الرئيسية","dashboard":"الرئيسية","user":"مستخدم","company":"شركة","product":"منتج","products_type":"قسم","type":"نوع","comment":"تعليق","winner":"فائز","setting":"إعداد","no_products":"لا يوجد منتجات","no_users":"لا يوجد مستخدمين","no_comments":"لا يوجد تعليقات","no_winners":"لا يوجد فائزين","no_product_details":"لا يوجد تفاصيل للمنتج","profile":"بروفايل","the_profile":"البروفايل","user_commented":"تعليق المستخدم","goto_product_profile":"صفحة المنتج","goto_company_profile":"صفحة الشركة","company_is_deleted":"الشركة محذوفة","user_is_deleted":"المستخدم محذوف","type_is_deleted":"القسم محذوف","product_is_deleted":"المنتج محذوف","logout":"تسجيل الخروج","create":"إنشاء","edit":"تعديل","update":"تحديث","save":"حفظ","read":"اقرأ","read_more":"اقرأ المزيد","more_info":"معرفة المزيد","choose_image":"اختر صورة","drag_msg":"اسحب الصورة ثم ضعها هنا","active":"مفعل","disactive":"غير مفعل","available":"متاح","unavailable":"غير متاح","hidden":"مخفى","visible":"ظاهر","show":"عرض","view":"عرض","close":"إغلاق","display":"إظهار","from":"من","to":"إلى","delete":"حذف","deleted":"تم الحذف","force_delete":"إزالة نهائيا","remove":"إزالة","removed":"تمت الإزالة","restore":"استرجاع","restored":"تم الإسترجاع","failed":"فشل","cancel":"إلغاء","yes_delete_it":"تأكيد الحذف","yes_remove_it":"تأكيد الإزالة","yes_restore_it":"تأكيد الإسترجاع"},"sidebar":{"company_profile":"صفحة الشركة","product_profile":"صفحة المنتج","users":"المستخدمين","all_users":"جميع المستخدمين","new_user":"مستخدم جديد","edit_user":"تعديل مستخدم","companies":"الشركات","all_companies":"جميع الشركات","new_company":"شركة جديدة","edit_company":"تعديل شركة","products":"المنتجات","all_products":"جميع المنتجات","new_product":"منتج جديد","edit_product":"تعديل منتج","products_types":"الأقسام","all_products_types":"جميع الأقسام","new_products_type":"قسم جديد","edit_products_type":"تعديل قسم","winners":"الفائزين","all_winners":"جميع الفائزين","new_winner":"فائز جديد","edit_winner":"تعديل فائز","comments":"التعليقات","all_comments":"جميع التعليقات","new_comment":"تعليق جديد","edit_comment":"تعديل تعليق","settings":"الإعدادات","all_settings":"جميع الإعدادات","new_setting":"إعداد جديد","edit_setting":"تعديل إعداد"},"datatable":{"showing":"إظهار","entries":"سجلات","from":"من","to":"إلى","of":"من","next":"التالى","prev":"السابق","empty_table":"جدول فارغ","no_data_msg":"لا يوجد بيانات فى  هذا الجدول.","trashed":"المهمل","activation":"التفعيل","display":"الظهور","rules":"الصلاحيات","sold_out":"تم بيعه","discount":"خصم","products_type":"قسم","created_between":"تم إنشائه فى تاريخ","search":"بحث"},"users_table":{"id":"المعرف","name":"الإسم","email":"البريد الإلكترونى","phone":"الموبايل","address":"العنوان","photo":"الصورة","rule":"الصلاحيات","active":"التفعيل","company":"الشركة","created_at":"تاريخ الإنشاء","actions":"الإجراءات","rules":{"user":"مستخدم عادى","admin":"مدير","company":"مدير شركة"},"rules_filter":{"user":"مستخدم","admin":"مدير","company":"شركة"},"delete_msg":"هل أنت متأكد من حذف هذا المستخدم ؟","delete_success_msg":"تم حذف المستخدم.","delete_failed_msg":"لم يتم حذف المستخدم.","force_delete_msg":"هل أنت متأكد من إزالة هذا المستخدم بشكل نهائى ؟","force_delete_success_msg":"تم إزالة المستخدم بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة المستخدم.","restore_msg":"هل أنت متأكد من استرجاع هذا المستخدم ؟","restore_success_msg":"تم استرجاع المستخدم.","restore_failed_msg":"لم يتم استرجاع المستخدم.","p_create":{"success_msg":"تم إنشاء مستخدم جديد.","failed_msg":"لم يتم إنشاء المستخدم الجديد."},"p_edit":{"success_msg":"تم تحديث المستخدم.","failed_msg":"لم يتم تحديث هذا المستخدم."}},"companies_table":{"id":"المعرف","name":"الإسم","email":"البريد الإلكترونى","phone":"الموبايل","logo":"شعار الشركة","description":"الوصف","website":"موقع الويب","address":"العنوان","longitude":"خط الطول","latitude":"خط العرض","face_link":"فيسبوك","tw_link":"تويتر","display":"الظهور","active":"التفعيل","count_rates":"التقيمات","user_id":"المستخدم","created_at":"تاريخ الإنشاء","actions":"الإجراءات","products_count":"عدد المنتجات","users_count":"عدد المستخدمين","company_info":"معلومات عن الشركة","location":"الموقع","location_map":"خريطة الموقع","show_map":"اعرض الخريطة","msg_location_map":"ابحث عن مكان الشركة ثم انقل العلامة الحمراء إلى مكان الشركة بدقة.","error_location":"لم يتم العثور على المكان ، ابحث بكلمات أخرى.","remove_location":"إزالة الموقع","delete_company":"حذف الشركة","edit_company":"تعديل الشركة","empty_products_msg":"هذه الشركة ليس لديها منتجات.","empty_users_msg":"هذه الشركة ليس لديها مستخدمين.","delete_msg":"هل أنت متأكد من حذف هذه الشركة ؟","delete_success_msg":"تم حذف الشركة.","delete_failed_msg":"لم يتم حذف الشركة.","force_delete_msg":"هل أنت متأكد من إزالة هذه الشركة بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الشركة بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الشركة.","restore_msg":"هل أنت متأكد من استرجاع هذه الشركة ؟","restore_success_msg":"تم استرجاع الشركة.","restore_failed_msg":"لم يتم استرجاع الشركة.","p_create":{"success_msg":"تم إنشاء شركة جديدة.","failed_msg":"لم يتم إنشاء الشركة الجديدة."},"p_edit":{"success_msg":"تم تحديث الشركة.","failed_msg":"لم يتم تحديث هذه الشركة."}},"products_table":{"id":"المعرف","name":"الإسم","photo":"الصورة","price":"السعر","description":"الوصف","manufacture_company":"الشركة المصنعة","count_rates":"التقيمات","product_count":"العدد","execute":"نفاذ الكمية","display":"الظهور","type":"القسم","user":"أضيف بواسطة","company":"الشركة","updated_at":"أخر تعديل","created_at":"تاريخ الإنشاء","actions":"الإجراءات","discount":"الخصم","percent":"النسبة المئوية","new_price":"السعر الجديد","photos":"الصور","value":"القيمة","plus":"للمزيد","delete_product":"حذف المنتج","edit_product":"تعديل المنتج","empty_comments_msg":"هذا المنتج ليس به تعليقات.","empty_winners_msg":"هذا المنتج ليس لديه فائزين.","empty_details_msg":"هذا المنتج ليس لديه تفاصيل.","product_details":"تفاصيل المنتج","delete_msg":"هل أنت متأكد من حذف هذا المنتج ؟","delete_success_msg":"تم حذف المنتج.","delete_failed_msg":"لم يتم حذف المنتج.","force_delete_msg":"هل أنت متأكد من إزالة هذا المنتج بشكل نهائى ؟","force_delete_success_msg":"تم إزالة المنتج بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة المنتج.","restore_msg":"هل أنت متأكد من استرجاع هذا المنتج ؟","restore_success_msg":"تم استرجاع المنتج.","restore_failed_msg":"لم يتم استرجاع المنتج.","p_create":{"success_msg":"تم إنشاء منتج جديد.","failed_msg":"لم يتم إنشاء المنتج الجديد."},"p_edit":{"success_msg":"تم تحديث المنتج.","failed_msg":"لم يتم تحديث هذا المنتج."}},"products_types_table":{"id":"المعرف","name":"اسم القسم","display":"الظهور","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا القسم ؟","delete_success_msg":"تم حذف القسم.","delete_failed_msg":"لم يتم حذف القسم.","force_delete_msg":"هل أنت متأكد من إزالة هذا القسم بشكل نهائى ؟","force_delete_success_msg":"تم إزالة القسم بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة القسم.","restore_msg":"هل أنت متأكد من استرجاع هذا القسم ؟","restore_success_msg":"تم استرجاع القسم.","restore_failed_msg":"لم يتم استرجاع القسم.","p_create":{"success_msg":"تم إنشاء قسم جديد.","failed_msg":"لم يتم إنشاء القسم الجديد."},"p_edit":{"success_msg":"تم تحديث القسم.","failed_msg":"لم يتم تحديث هذا القسم."}},"winners_table":{"id":"المعرف","user_id":"اسم المستخدم","product_id":"اسم المنتج","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا الفائز ؟","delete_success_msg":"تم حذف الفائز.","delete_failed_msg":"لم يتم حذف الفائز.","force_delete_msg":"هل أنت متأكد من إزالة هذا الفائز بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الفائز بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الفائز.","restore_msg":"هل أنت متأكد من استرجاع هذا الفائز ؟","restore_success_msg":"تم استرجاع الفائز.","restore_failed_msg":"لم يتم استرجاع الفائز.","p_create":{"success_msg":"تم إنشاء فائز جديد.","failed_msg":"لم يتم إنشاء الفائز الجديد."},"p_edit":{"success_msg":"تم تحديث الفائز.","failed_msg":"لم يتم تحديث هذا الفائز."}},"comments_table":{"id":"المعرف","text_comment":"التعليق","positive_product":"إيجابيات المنتج","negative_product":"سلبيات المنتج","user_id":"اسم المستخدم","product_id":"اسم المنتج","display":"الظهور","created_at":"تاريخ الإنشاء","actions":"الإجراءات","delete_msg":"هل أنت متأكد من حذف هذا التعليق ؟","delete_success_msg":"تم حذف التعليق.","delete_failed_msg":"لم يتم حذف التعليق.","force_delete_msg":"هل أنت متأكد من إزالة هذا التعليق بشكل نهائى ؟","force_delete_success_msg":"تم إزالة التعليق بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة التعليق.","restore_msg":"هل أنت متأكد من استرجاع هذا التعليق ؟","restore_success_msg":"تم استرجاع التعليق.","restore_failed_msg":"لم يتم استرجاع التعليق.","p_create":{"success_msg":"تم إنشاء تعليق جديد.","failed_msg":"لم يتم إنشاء التعليق الجديد."},"p_edit":{"success_msg":"تم تحديث التعليق.","failed_msg":"لم يتم تحديث هذا التعليق."}},"settings_table":{"id":"المعرف","slug":"الاسم التعبيرى","name":"اسم الإعداد","value":"القيمة","type":"النوع","created_at":"تاريخ الإنشاء","actions":"الإجراءات","carousel":"صور الصفحة الرئيسية","setting_types":{"string":"نص قصير","text":"نص طويل","image":"صورة"},"delete_msg":"هل أنت متأكد من حذف هذا الإعداد ؟","delete_success_msg":"تم حذف الإعداد.","delete_failed_msg":"لم يتم حذف الإعداد.","force_delete_msg":"هل أنت متأكد من إزالة هذا الإعداد بشكل نهائى ؟","force_delete_success_msg":"تم إزالة الإعداد بشكل نهائى.","force_delete_failed_msg":"لم يتم إزالة الإعداد.","restore_msg":"هل أنت متأكد من استرجاع هذا الإعداد ؟","restore_success_msg":"تم استرجاع الإعداد.","restore_failed_msg":"لم يتم استرجاع الإعداد.","p_create":{"success_msg":"تم إنشاء إعداد جديد.","failed_msg":"لم يتم إنشاء الإعداد الجديد."},"p_edit":{"success_msg":"تم تحديث الإعداد.","failed_msg":"لم يتم تحديث هذا الإعداد."},"p_edit_carousel":{"success_msg":"تم تحديث صور الصفحة الرئيسية.","failed_msg":"لم يتم تحديث صور الصفحة الرئيسية."}}};
 
 /***/ }),
 
@@ -99258,7 +99860,7 @@ module.exports = {"global":{"home":"الرئيسية","dashboard":"الرئيس�
 /*! exports provided: global, sidebar, datatable, users_table, companies_table, products_table, products_types_table, winners_table, comments_table, settings_table, default */
 /***/ (function(module) {
 
-module.exports = {"global":{"home":"Home","dashboard":"Dashboard","user":"user","company":"company","product":"product","products_type":"category","type":"type","comment":"comment","winner":"winner","setting":"setting","no_products":"No products","no_users":"No users","no_comments":"No comments","no_winners":"No winners","no_product_details":"No product details","profile":"profile","the_profile":"the profile","user_commented":"User commented","goto_product_profile":"Go to product profile","goto_company_profile":"Go to company profile","company_is_deleted":"Company is deleted","user_is_deleted":"User is deleted","type_is_deleted":"Category is deleted","product_is_deleted":"Product is deleted","logout":"Logout","create":"Create","edit":"Edit","update":"update","save":"Save","read":"Read","read_more":"Read more","more_info":"More info","choose_image":"Choose image","drag_msg":"Drag and drop file here","active":"Active","disactive":"Disactive","available":"Available","unavailable":"Unavailable","hidden":"Hidden","visible":"Visible","show":"Show","view":"View","close":"Close","display":"Display","from":"From","to":"To","delete":"Delete","deleted":"Deleted","force_delete":"Force delete","remove":"Remove","removed":"Removed","restore":"Restore","restored":"Restored","failed":"Failed","cancel":"Cancel","yes_delete_it":"Yes, delete it","yes_remove_it":"Yes, remove it","yes_restore_it":"Yes, restore it"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Categories","all_products_types":"all categories","new_products_type":"new category","edit_products_type":"Edit category","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"Showing","entries":"entries","from":"from","to":"to","of":"of","next":"Next","prev":"Prev","empty_table":"Empty table","no_data_msg":"No data in this table.","trashed":"Trashed","activation":"Activation","display":"Displayed","rules":"Rules","sold_out":"Sold out","discount":"Discount","products_type":"Category","created_between":"Created between","search":"Search"},"users_table":{"id":"ID","name":"Name","email":"Email","password":"Password","repeat_password":"Repeat password","phone":"Mobile","address":"Address","photo":"Photo","rule":"Rule","active":"Active","company":"Company","created_at":"Created at","actions":"Actions","rules":{"user":"Normal user","admin":"Admin","company":"Company admin"},"rules_filter":{"user":"User","admin":"Admin","company":"Company"},"delete_msg":"Are you sure you want to delete this user?","delete_success_msg":"The user has been deleted.","delete_failed_msg":"The user has not been deleted.","force_delete_msg":"Are you sure you want to remove this user?","force_delete_success_msg":"The user has been removed.","force_delete_failed_msg":"The user has not been removed.","restore_msg":"Are you sure you want to restore this user?","restore_success_msg":"The user has been restored.","restore_failed_msg":"The user has not been restored.","p_create":{"success_msg":"New user has been created.","failed_msg":"New user has been not created."},"p_edit":{"success_msg":"The user has been updated.","failed_msg":"The user has been not updated."}},"companies_table":{"id":"ID","name":"Name","logo":"Logo","description":"Description","email":"Email","phone":"Mobile","website":"Website","address":"Address","longitude":"Longitude","latitude":"Latitude","face_link":"Facebook","tw_link":"Twitter","display":"Display","active":"Active","count_rates":"Rates","user_id":"User","created_at":"Created at","actions":"Actions","products_count":"Products count","users_count":"Users count","company_info":"Company informations","location":"Location","location_map":"Location map","show_map":"Show map","msg_location_map":"Look for the place of the company and then move the red mark to the company's place accurately.","error_location":"Place not found, search in other words.","remove_location":"Remove location","delete_company":"Delete company","edit_company":"Edit company","empty_products_msg":"This company does'nt have products.","empty_users_msg":"This company does'nt have users.","delete_msg":"Are you sure you want to delete this company?","delete_success_msg":"The company has been deleted.","delete_failed_msg":"The company has not been deleted.","force_delete_msg":"Are you sure you want to remove this company?","force_delete_success_msg":"The company has been removed.","force_delete_failed_msg":"The company has not been removed.","restore_msg":"Are you sure you want to restore this company?","restore_success_msg":"The company has been restored.","restore_failed_msg":"The company has not been restored.","p_create":{"success_msg":"New company has been created.","failed_msg":"New company has been not created."},"p_edit":{"success_msg":"The company has been updated.","failed_msg":"The company has been not updated."}},"products_table":{"id":"ID","name":"Name","photo":"Image","price":"Price","description":"Description","manufacture_company":"Manufacture company","count_rates":"Rates","product_count":"Counts","execute":"Sold Out","display":"Display","type":"Category","user":"Craeted by","company":"Company","updated_at":"Last modified","created_at":"Created at","actions":"Actions","discount":"Discount","percent":"Percent","new_price":"New price","photos":"Images","value":"Value","plus":"Plus","delete_product":"Delete product","edit_product":"Edit product","empty_comments_msg":"This product does'nt have comments.","empty_winners_msg":"This product does'nt have winners.","empty_details_msg":"This product does'nt have details.","product_details":"Product details","delete_msg":"Are you sure you want to delete this product?","delete_success_msg":"The product has been deleted.","delete_failed_msg":"The product has not been deleted.","force_delete_msg":"Are you sure you want to remove this product?","force_delete_success_msg":"The product has been removed.","force_delete_failed_msg":"The product has not been removed.","restore_msg":"Are you sure you want to restore this product?","restore_success_msg":"The product has been restored.","restore_failed_msg":"The product has not been restored.","p_create":{"success_msg":"New product has been created.","failed_msg":"New product has been not created."},"p_edit":{"success_msg":"The product has been updated.","failed_msg":"The product has been not updated."}},"products_types_table":{"id":"ID","name":"Category name","display":"Display","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this category?","delete_success_msg":"The category has been deleted.","delete_failed_msg":"The category has not been deleted.","force_delete_msg":"Are you sure you want to remove this category?","force_delete_success_msg":"The category has been removed.","force_delete_failed_msg":"The category has not been removed.","restore_msg":"Are you sure you want to restore this category?","restore_success_msg":"The category has been restored.","restore_failed_msg":"The category has not been restored.","p_create":{"success_msg":"New category has been created.","failed_msg":"New category has been not created."},"p_edit":{"success_msg":"The category has been updated.","failed_msg":"The category has been not updated."}},"winners_table":{"id":"ID","user_id":"Username","product_id":"Product name","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this winner?","delete_success_msg":"The winner has been deleted.","delete_failed_msg":"The winner has not been deleted.","force_delete_msg":"Are you sure you want to remove this winner?","force_delete_success_msg":"The winner has been removed.","force_delete_failed_msg":"The winner has not been removed.","restore_msg":"Are you sure you want to restore this winner?","restore_success_msg":"The winner has been restored.","restore_failed_msg":"The winner has not been restored.","p_create":{"success_msg":"New winner has been created.","failed_msg":"New winner has been not created."},"p_edit":{"success_msg":"The winner has been updated.","failed_msg":"The winner has been not updated."}},"comments_table":{"id":"ID","text_comment":"Comment","positive_product":"Positive product","negative_product":"Negative product","user_id":"Username","product_id":"Product name","display":"Display","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this comment?","delete_success_msg":"The comment has been deleted.","delete_failed_msg":"The comment has not been deleted.","force_delete_msg":"Are you sure you want to remove this comment?","force_delete_success_msg":"The comment has been removed.","force_delete_failed_msg":"The comment has not been removed.","restore_msg":"Are you sure you want to restore this comment?","restore_success_msg":"The comment has been restored.","restore_failed_msg":"The comment has not been restored.","p_create":{"success_msg":"New comment has been created.","failed_msg":"New comment has been not created."},"p_edit":{"success_msg":"The comment has been updated.","failed_msg":"The comment has been not updated."}},"settings_table":{"id":"ID","slug":"Slug","name":"Setting name","value":"Value","type":"Type","created_at":"Created at","actions":"Actions","setting_types":{"string":"String","text":"Text","image":"Image"},"delete_msg":"Are you sure you want to delete this setting?","delete_success_msg":"The setting has been deleted.","delete_failed_msg":"The setting has not been deleted.","force_delete_msg":"Are you sure you want to remove this setting?","force_delete_success_msg":"The setting has been removed.","force_delete_failed_msg":"The setting has not been removed.","restore_msg":"Are you sure you want to restore this setting?","restore_success_msg":"The setting has been restored.","restore_failed_msg":"The setting has not been restored.","p_create":{"success_msg":"New setting has been created.","failed_msg":"New setting has been not created."},"p_edit":{"success_msg":"The setting has been updated.","failed_msg":"The setting has been not updated."}}};
+module.exports = {"global":{"home":"Home","dashboard":"Dashboard","user":"user","company":"company","product":"product","products_type":"category","type":"type","comment":"comment","winner":"winner","setting":"setting","no_products":"No products","no_users":"No users","no_comments":"No comments","no_winners":"No winners","no_product_details":"No product details","profile":"profile","the_profile":"the profile","user_commented":"User commented","goto_product_profile":"Go to product profile","goto_company_profile":"Go to company profile","company_is_deleted":"Company is deleted","user_is_deleted":"User is deleted","type_is_deleted":"Category is deleted","product_is_deleted":"Product is deleted","logout":"Logout","create":"Create","edit":"Edit","update":"update","save":"Save","read":"Read","read_more":"Read more","more_info":"More info","choose_image":"Choose image","drag_msg":"Drag and drop file here","active":"Active","disactive":"Disactive","available":"Available","unavailable":"Unavailable","hidden":"Hidden","visible":"Visible","show":"Show","view":"View","close":"Close","display":"Display","from":"From","to":"To","delete":"Delete","deleted":"Deleted","force_delete":"Force delete","remove":"Remove","removed":"Removed","restore":"Restore","restored":"Restored","failed":"Failed","cancel":"Cancel","yes_delete_it":"Yes, delete it","yes_remove_it":"Yes, remove it","yes_restore_it":"Yes, restore it"},"sidebar":{"company_profile":"Company profile","product_profile":"Product profile","users":"Users","all_users":"all users","new_user":"new user","edit_user":"Edit user","companies":"Companies","all_companies":"all companies","new_company":"new company","edit_company":"Edit company","products":"Products","all_products":"all products","new_product":"new product","edit_product":"Edit product","products_types":"Categories","all_products_types":"all categories","new_products_type":"new category","edit_products_type":"Edit category","winners":"Winners","all_winners":"all winners","new_winner":"new winner","edit_winner":"Edit winner","comments":"Comments","all_comments":"all comments","new_comment":"new comment","edit_comment":"Edit comment","settings":"Settings","all_settings":"all settings","new_setting":"new setting","edit_setting":"Edit setting"},"datatable":{"showing":"Showing","entries":"entries","from":"from","to":"to","of":"of","next":"Next","prev":"Prev","empty_table":"Empty table","no_data_msg":"No data in this table.","trashed":"Trashed","activation":"Activation","display":"Displayed","rules":"Rules","sold_out":"Sold out","discount":"Discount","products_type":"Category","created_between":"Created between","search":"Search"},"users_table":{"id":"ID","name":"Name","email":"Email","password":"Password","repeat_password":"Repeat password","phone":"Mobile","address":"Address","photo":"Photo","rule":"Rule","active":"Active","company":"Company","created_at":"Created at","actions":"Actions","rules":{"user":"Normal user","admin":"Admin","company":"Company admin"},"rules_filter":{"user":"User","admin":"Admin","company":"Company"},"delete_msg":"Are you sure you want to delete this user?","delete_success_msg":"The user has been deleted.","delete_failed_msg":"The user has not been deleted.","force_delete_msg":"Are you sure you want to remove this user?","force_delete_success_msg":"The user has been removed.","force_delete_failed_msg":"The user has not been removed.","restore_msg":"Are you sure you want to restore this user?","restore_success_msg":"The user has been restored.","restore_failed_msg":"The user has not been restored.","p_create":{"success_msg":"New user has been created.","failed_msg":"New user has been not created."},"p_edit":{"success_msg":"The user has been updated.","failed_msg":"The user has been not updated."}},"companies_table":{"id":"ID","name":"Name","logo":"Logo","description":"Description","email":"Email","phone":"Mobile","website":"Website","address":"Address","longitude":"Longitude","latitude":"Latitude","face_link":"Facebook","tw_link":"Twitter","display":"Display","active":"Active","count_rates":"Rates","user_id":"User","created_at":"Created at","actions":"Actions","products_count":"Products count","users_count":"Users count","company_info":"Company informations","location":"Location","location_map":"Location map","show_map":"Show map","msg_location_map":"Look for the place of the company and then move the red mark to the company's place accurately.","error_location":"Place not found, search in other words.","remove_location":"Remove location","delete_company":"Delete company","edit_company":"Edit company","empty_products_msg":"This company does'nt have products.","empty_users_msg":"This company does'nt have users.","delete_msg":"Are you sure you want to delete this company?","delete_success_msg":"The company has been deleted.","delete_failed_msg":"The company has not been deleted.","force_delete_msg":"Are you sure you want to remove this company?","force_delete_success_msg":"The company has been removed.","force_delete_failed_msg":"The company has not been removed.","restore_msg":"Are you sure you want to restore this company?","restore_success_msg":"The company has been restored.","restore_failed_msg":"The company has not been restored.","p_create":{"success_msg":"New company has been created.","failed_msg":"New company has been not created."},"p_edit":{"success_msg":"The company has been updated.","failed_msg":"The company has been not updated."}},"products_table":{"id":"ID","name":"Name","photo":"Image","price":"Price","description":"Description","manufacture_company":"Manufacture company","count_rates":"Rates","product_count":"Counts","execute":"Sold Out","display":"Display","type":"Category","user":"Craeted by","company":"Company","updated_at":"Last modified","created_at":"Created at","actions":"Actions","discount":"Discount","percent":"Percent","new_price":"New price","photos":"Images","value":"Value","plus":"Plus","delete_product":"Delete product","edit_product":"Edit product","empty_comments_msg":"This product does'nt have comments.","empty_winners_msg":"This product does'nt have winners.","empty_details_msg":"This product does'nt have details.","product_details":"Product details","delete_msg":"Are you sure you want to delete this product?","delete_success_msg":"The product has been deleted.","delete_failed_msg":"The product has not been deleted.","force_delete_msg":"Are you sure you want to remove this product?","force_delete_success_msg":"The product has been removed.","force_delete_failed_msg":"The product has not been removed.","restore_msg":"Are you sure you want to restore this product?","restore_success_msg":"The product has been restored.","restore_failed_msg":"The product has not been restored.","p_create":{"success_msg":"New product has been created.","failed_msg":"New product has been not created."},"p_edit":{"success_msg":"The product has been updated.","failed_msg":"The product has been not updated."}},"products_types_table":{"id":"ID","name":"Category name","display":"Display","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this category?","delete_success_msg":"The category has been deleted.","delete_failed_msg":"The category has not been deleted.","force_delete_msg":"Are you sure you want to remove this category?","force_delete_success_msg":"The category has been removed.","force_delete_failed_msg":"The category has not been removed.","restore_msg":"Are you sure you want to restore this category?","restore_success_msg":"The category has been restored.","restore_failed_msg":"The category has not been restored.","p_create":{"success_msg":"New category has been created.","failed_msg":"New category has been not created."},"p_edit":{"success_msg":"The category has been updated.","failed_msg":"The category has been not updated."}},"winners_table":{"id":"ID","user_id":"Username","product_id":"Product name","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this winner?","delete_success_msg":"The winner has been deleted.","delete_failed_msg":"The winner has not been deleted.","force_delete_msg":"Are you sure you want to remove this winner?","force_delete_success_msg":"The winner has been removed.","force_delete_failed_msg":"The winner has not been removed.","restore_msg":"Are you sure you want to restore this winner?","restore_success_msg":"The winner has been restored.","restore_failed_msg":"The winner has not been restored.","p_create":{"success_msg":"New winner has been created.","failed_msg":"New winner has been not created."},"p_edit":{"success_msg":"The winner has been updated.","failed_msg":"The winner has been not updated."}},"comments_table":{"id":"ID","text_comment":"Comment","positive_product":"Positive product","negative_product":"Negative product","user_id":"Username","product_id":"Product name","display":"Display","created_at":"Created at","actions":"Actions","delete_msg":"Are you sure you want to delete this comment?","delete_success_msg":"The comment has been deleted.","delete_failed_msg":"The comment has not been deleted.","force_delete_msg":"Are you sure you want to remove this comment?","force_delete_success_msg":"The comment has been removed.","force_delete_failed_msg":"The comment has not been removed.","restore_msg":"Are you sure you want to restore this comment?","restore_success_msg":"The comment has been restored.","restore_failed_msg":"The comment has not been restored.","p_create":{"success_msg":"New comment has been created.","failed_msg":"New comment has been not created."},"p_edit":{"success_msg":"The comment has been updated.","failed_msg":"The comment has been not updated."}},"settings_table":{"id":"ID","slug":"Slug","name":"Setting name","value":"Value","type":"Type","created_at":"Created at","actions":"Actions","carousel":"Carousel","setting_types":{"string":"String","text":"Text","image":"Image"},"delete_msg":"Are you sure you want to delete this setting?","delete_success_msg":"The setting has been deleted.","delete_failed_msg":"The setting has not been deleted.","force_delete_msg":"Are you sure you want to remove this setting?","force_delete_success_msg":"The setting has been removed.","force_delete_failed_msg":"The setting has not been removed.","restore_msg":"Are you sure you want to restore this setting?","restore_success_msg":"The setting has been restored.","restore_failed_msg":"The setting has not been restored.","p_create":{"success_msg":"New setting has been created.","failed_msg":"New setting has been not created."},"p_edit":{"success_msg":"The setting has been updated.","failed_msg":"The setting has been not updated."},"p_edit_carousel":{"success_msg":"The carousel has been updated.","failed_msg":"The carousel has been not updated."}}};
 
 /***/ }),
 
@@ -102807,6 +103409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_settings_Index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./views/settings/Index */ "./resources/js/views/settings/Index.vue");
 /* harmony import */ var _views_settings_CreateSetting__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./views/settings/CreateSetting */ "./resources/js/views/settings/CreateSetting.vue");
 /* harmony import */ var _views_settings_EditSetting__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./views/settings/EditSetting */ "./resources/js/views/settings/EditSetting.vue");
+/* harmony import */ var _views_settings_Carousel__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./views/settings/Carousel */ "./resources/js/views/settings/Carousel.vue");
 
 
 
@@ -102839,6 +103442,7 @@ var gate = new _Gate__WEBPACK_IMPORTED_MODULE_2__["default"](); // default layou
 
 
  // settings components
+
 
 
 
@@ -102996,6 +103600,11 @@ var vueRouter = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: 'setting/:id/edit',
       name: 'edit-setting',
       component: _views_settings_EditSetting__WEBPACK_IMPORTED_MODULE_26__["default"],
+      props: true
+    }, {
+      path: 'setting/carousel',
+      name: 'setting-carousel',
+      component: _views_settings_Carousel__WEBPACK_IMPORTED_MODULE_27__["default"],
       props: true
     }]
   }, {
@@ -104666,6 +105275,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableContent_vue_vue_type_template_id_daaee572___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableContent_vue_vue_type_template_id_daaee572___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/settings/Carousel.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/views/settings/Carousel.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Carousel.vue?vue&type=template&id=01ed3606&scoped=true& */ "./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true&");
+/* harmony import */ var _Carousel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Carousel.vue?vue&type=script&lang=js& */ "./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& */ "./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Carousel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "01ed3606",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/settings/Carousel.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Carousel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=style&index=0&id=01ed3606&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_style_index_0_id_01ed3606_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Carousel.vue?vue&type=template&id=01ed3606&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/settings/Carousel.vue?vue&type=template&id=01ed3606&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Carousel_vue_vue_type_template_id_01ed3606_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -92,7 +92,7 @@ export default {
           active: 1,
         }),
         companyEdit: {},
-        idPage: 'users',
+        idPage: 'companies',
         typePage: 'edit'
       }
     },

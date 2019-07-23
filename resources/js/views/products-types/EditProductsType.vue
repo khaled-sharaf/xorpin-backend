@@ -73,7 +73,7 @@ export default {
           display: 1,
         }),
         proTypeEdit: {},
-        idPage: 'users',
+        idPage: 'products_types',
         typePage: 'edit'
       }
     },

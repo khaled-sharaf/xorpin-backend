@@ -78,7 +78,7 @@ export default {
           product_id: "",
         }),
         winnerEdit: {},
-        idPage: 'users',
+        idPage: 'winners',
         typePage: 'edit'
       }
     },

@@ -237,7 +237,6 @@
                             :class="{ 'is-invalid': form.errors.has('photo') }"
                             multiple
                         >
-                        <has-error :form="form" field="photo"></has-error>
                     </div>
                 </div>
 
@@ -319,7 +318,6 @@
         urlGetAllCompanies: '/companies-id',
         companies: [],
         productPhoto: "",
-        oldProductPhoto: "images/image-icon.png",
         droppedFiles: false
       }
     },
@@ -350,7 +348,7 @@
                                 } else {
                                     Swal.fire(
                                         "Oops...",
-                                        "You are uploading a large file, (8MB) last.",
+                                        "You are uploading a large file 8MB last.",
                                         "error"
                                     );
                                 }
@@ -406,7 +404,7 @@
                         } else {
                             Swal.fire(
                                 "Oops...",
-                                "You are uploading a large file, (8MB) last.",
+                                "You are uploading a large file 8MB last.",
                                 "error"
                             );
                         }
@@ -430,6 +428,67 @@
                 }
             }
         },
+        showFiles(files, input) {
+            if (typeof input === 'string') {
+                input = $('#' + input)
+            }
+            let lengthFiles = files.length;
+            if (input.attr('multiple')) {
+                if (lengthFiles > 0) {
+                    this.encodeFileAsURL(files)
+                }
+            } else {
+                if (lengthFiles > 0) {
+                    this.encodeFileAsURL(files[0])
+                }
+            }
+        },
+        removePhoto(id) {
+            let index = this.getIndex(this.form.gallery, 'id', id)
+            if (this.typeForm == 'edit') {
+                this.form.deletedGallery.push(this.form.gallery[index])
+            }
+            this.form.gallery.splice(index, 1)
+        },
+        handelDropImages() {
+            const self = this;
+            // view-images
+            $('.wrapper-drop-image').on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }).on('dragover dragenter', function(e) {
+                $(this).addClass('is-dragover');
+            })
+            .on('dragleave dragend drop', function() {
+                $(this).removeClass('is-dragover');
+            })
+            .on('drop', function(e) {
+                this.droppedFiles = e.originalEvent.dataTransfer.files;
+                let lengthFiles = e.originalEvent.dataTransfer.files.length;
+                let input = $(this).find('.custom-file-drop');
+                self.showFiles(this.droppedFiles, input)
+            });
+        },
+        addDomainToPhoto(url) { // return url
+            let resultUrl = '';
+            if (url.indexOf("data:image/") === 0) {
+                resultUrl = url;
+            } else {
+                resultUrl = this.$domain + '/' + url;
+            }
+            return resultUrl;
+        },
+
+        addRowDetails() {
+            this.form.details.push({name: '', value: '', display: true})
+        },
+        removeRowDetails(index) {
+            if (this.typeForm == 'edit') {
+                this.form.deletedDetails.push(this.form.details[index])
+            }
+            this.form.details.splice(index, 1)
+        },
+
         getProductsTypes() {
           axios.post(this.urlGetProductsTypes).then(response => {
               if (response.status === 200) {
@@ -443,79 +502,20 @@
                     }, 1000)
                 }
             })
-      },
-      getCompanies(url = this.urlGetAllCompanies) {
-        axios.post(url).then(response => {
-            let data = response.data;
-            if (response.status === 200) {
-                this.companies = data;
-            }
-        })
-        .catch(errors => {
-            setTimeout(() => {
-                this.getCompanies(this.urlGetAllCompanies)
-            }, 1000)
-        });
-      },
-      showFiles(files, input) {
-          if (typeof input === 'string') {
-              input = $('#' + input)
-          }
-          let lengthFiles = files.length;
-          if (input.attr('multiple')) {
-            if (lengthFiles > 0) {
-                this.encodeFileAsURL(files)
-            }
-          } else {
-            if (lengthFiles > 0) {
-                this.encodeFileAsURL(files[0])
-            }
-          }
-      },
-      removePhoto(id) {
-        let index = this.getIndex(this.form.gallery, 'id', id)
-        if (this.typeForm == 'edit') {
-            this.form.deletedGallery.push(this.form.gallery[index])
-        }
-        this.form.gallery.splice(index, 1)
-      },
-      handelDropImages() {
-          const self = this;
-        // view-images
-        $('.wrapper-drop-image').on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }).on('dragover dragenter', function(e) {
-            $(this).addClass('is-dragover');
-        })
-        .on('dragleave dragend drop', function() {
-            $(this).removeClass('is-dragover');
-        })
-        .on('drop', function(e) {
-            this.droppedFiles = e.originalEvent.dataTransfer.files;
-            let lengthFiles = e.originalEvent.dataTransfer.files.length;
-            let input = $(this).find('.custom-file-drop');
-            self.showFiles(this.droppedFiles, input)
-        });
-      },
-      addDomainToPhoto(url) { // return url
-        let resultUrl = '';
-        if (url.indexOf("data:image/") === 0) {
-            resultUrl = url;
-        } else {
-            resultUrl = this.$domain + '/' + url;
-        }
-        return resultUrl;
-      },
-      addRowDetails() {
-          this.form.details.push({name: '', value: '', display: true})
-      },
-      removeRowDetails(index) {
-          if (this.typeForm == 'edit') {
-              this.form.deletedDetails.push(this.form.details[index])
-          }
-          this.form.details.splice(index, 1)
-      },
+        },
+        getCompanies(url = this.urlGetAllCompanies) {
+            axios.post(url).then(response => {
+                let data = response.data;
+                if (response.status === 200) {
+                    this.companies = data;
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCompanies(this.urlGetAllCompanies)
+                }, 1000)
+            });
+        },
     },
     computed: {
         calcNewPrice() {

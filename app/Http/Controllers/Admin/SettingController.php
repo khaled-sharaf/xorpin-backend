@@ -19,6 +19,9 @@ class SettingController extends Controller
         $searchValue = $request->input('search');
         $query = Setting::select('*')->orderBy($columns[$column], $dir);
 
+        // except carousel
+        $query->where('name', '!=', 'carousel');
+
         if ($searchValue) {
             $query->where(function($query) use ($searchValue) {
                 $query->where('name', 'like', '%' . $searchValue . '%')
@@ -105,5 +108,84 @@ class SettingController extends Controller
         }
         $setting->delete();
         return response(['status' => true], 200);
+    }
+
+
+
+    public function editCarousel(Request $request) {
+        $carousel = Setting::where('name', 'carousel')->first();
+        return response(['carousel' => $carousel], 200);
+    }
+
+
+
+
+    public function updateCarousel(Request $request) {
+        $id = $request->id;
+        $this->validate(request(), [
+            'value' => 'required|array'
+        ], [], [
+            'value' =>  app()->getLocale() == 'ar' ? 'صور الصفحة الرئيسية' : 'carousel'
+        ]);
+        $data = $request->except(['deleted_carousel_images']);
+
+        $directory = 'images/carousel';
+
+        if (!is_dir(public_path($directory))) {
+            \File::makeDirectory($directory);
+        }
+
+        // handel carousel
+        // delete images in array [carousel deleted by user]
+         $deleted_carousel_images = collect($request->deleted_carousel_images)->filter(function ($value) use ($directory) {
+             return strpos($value['url'], $directory) === 0;
+         });
+         if ($deleted_carousel_images->count() > 0) {
+            foreach ($deleted_carousel_images as $image) {
+                if (file_exists(public_path($image['url']))) {
+                    unlink(public_path($image['url']));
+                }
+            }
+         }
+
+        /*================================================*/
+        // save new and old images
+         $carousel = collect($request->value);
+         $galllery_new = $carousel->filter(function ($value) use ($directory) {
+            return strpos($value['url'], $directory) === false;
+         });
+         $galllery_old = $carousel->filter(function ($value) use ($directory) {
+            return strpos($value['url'], $directory) === 0;
+         });
+        /*================================================*/
+        $carousel_saved = [];
+        // save new image if exists new image
+        if ($galllery_new->count() > 0) {
+            foreach ($galllery_new as $image) {
+                $get_ext = explode(';', explode('/', $image['url'])[1])[0];
+                $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
+                $imageNewName =  uniqid('carousel-image-') . '.' . $ext;
+                $imagePath = $directory . '/' . $imageNewName;
+                if (is_dir(public_path($directory))) {
+                    Image::make($image['url'])->save(public_path($imagePath));
+                    $carousel_saved[] = $imagePath;
+                }
+            }
+        }
+        /*================================================*/
+        if ($galllery_old->count() > 0) {
+            foreach ($galllery_old as $value) {
+                $carousel_saved[] = $value['url'];
+            }
+        }
+        if (count($carousel_saved) > 0) {
+            $data['value'] = implode(',', $carousel_saved);
+        } else {
+            $data['value'] = null;
+        }
+        /****************************************************************************/
+        $carouselModel = Setting::find($request->id);
+        $carouselModel->update($data);
+        return response(['data' => $data], 200);
     }
 }

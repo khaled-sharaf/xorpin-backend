@@ -10,7 +10,7 @@
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
-                <div class="dataTable" id="products-types">
+                <div class="dataTable" id="products_types">
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="dataTables_wrapper">
@@ -162,7 +162,7 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      idPage: 'products-types',
+      idPage: 'products_types',
       urlGetDataTable: '/pro-types',
       urlDeleteRow: '/pro-type/destroy',
       urlRestoreRow: '/pro-type/restore',

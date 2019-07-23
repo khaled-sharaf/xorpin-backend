@@ -58,6 +58,15 @@ body {
             border-bottom-right-radius: 0;
         }
     }
+    .table .tr-table-data ul li .wrapper-price .show-price.old-price {
+        margin-right: 0;
+        margin-left: 20px;
+    }
+    .table .tr-table-data ul li .wrapper-price .discount {
+        right: auto;
+        left: 0;
+        transform: rotate(-42deg) translate(0%, -73%);
+    }
 }
 
 
@@ -149,7 +158,7 @@ body {
 }
 
 
-// company profile
+// companyies
 .btn.maximize-table {
     float: left;
 }
@@ -169,7 +178,7 @@ body {
     }
 }
 
-// product profile
+// products
 
 .proudct-profile-wrapper, .company-profile-wrapper {
     .btn-delete-row {
@@ -191,7 +200,6 @@ body {
         }
     }
 }
-
 
 .col-details.plus {
     label {

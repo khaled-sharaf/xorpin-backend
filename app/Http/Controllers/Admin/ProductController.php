@@ -153,7 +153,7 @@ class ProductController extends Controller
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
             $imageNewName =  uniqid('product-default-image-') . '.' . $ext;
             $imagePath = $directory . '/' . $imageNewName;
-            if (!is_dir($directory)) {
+            if (!is_dir(public_path($directory))) {
                 \File::makeDirectory(public_path($directory));
             }
             Image::make($data['photo'])->save(public_path($imagePath));
@@ -169,7 +169,7 @@ class ProductController extends Controller
                 $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
                 $imageNewName =  uniqid('product-image-') . '.' . $ext;
                 $imagePath = $directory . '/' . $imageNewName;
-                if (is_dir($directory)) {
+                if (is_dir(public_path($directory))) {
                     Image::make($image['url'])->save(public_path($imagePath));
                     $galleryDB[] = $imagePath;
                 }
@@ -329,7 +329,7 @@ class ProductController extends Controller
                 $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
                 $imageNewName =  uniqid('product-image-') . '.' . $ext;
                 $imagePath = $directory . '/' . $imageNewName;
-                if (is_dir($directory)) {
+                if (is_dir(public_path($directory))) {
                     Image::make($image['url'])->save(public_path($imagePath));
                     $gallery_saved[] = $imagePath;
                 }

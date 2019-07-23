@@ -92,4 +92,7 @@ Route::group(['middleware' => ['isSuperAdmin']], function () {
     Route::post('/setting/update', 'SettingController@update');
     Route::post('/setting/edit', 'SettingController@edit');
     Route::post('/setting/destroy', 'SettingController@destroy');
+
+    Route::post('/setting/edit/carousel', 'SettingController@editCarousel');
+    Route::post('/setting/update/carousel', 'SettingController@updateCarousel');
 });

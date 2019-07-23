@@ -11843,166 +11843,6 @@ a.text-dark:focus {
   background-color: #16a085;
 }
 
-.form-product .wrapper-drop-image {
-  min-height: 250px;
-  border: 4px dashed #999;
-  margin: 10px 0 20px 0;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  position: relative;
-  background-color: #EEE;
-}
-
-.form-product .wrapper-drop-image .help-block.invalid-feedback {
-  position: relative;
-  top: 32px;
-  font-size: 13px;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image {
-  z-index: 10;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  -webkit-transform-origin: center center;
-          transform-origin: center center;
-  width: 100%;
-  min-height: 250px;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-overlay {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-          align-items: center;
-  width: 100%;
-  min-height: 250px;
-  cursor: pointer;
-  margin: 0;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay {
-  color: #999;
-  text-align: center;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay .icon {
-  font-size: 100px;
-  display: block;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay .title {
-  display: block;
-  font-size: 22px;
-  margin: 10px 0;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images {
-  background-color: #EEE;
-  padding: 15px;
-  display: none;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images .image {
-  height: 130px;
-  margin: 5px;
-  border-radius: 4px;
-  border: 1px solid #EEE;
-  background-color: #FFF;
-  display: inline-block;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images .image .img {
-  height: 130px;
-  position: relative;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images .image .img:hover .remove-image {
-  -webkit-transform: scale(1);
-          transform: scale(1);
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images .image .img img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 4px 4px 0 0;
-}
-
-.form-product .wrapper-drop-image .overlay-drop-image .view-images .image .img .remove-image {
-  position: absolute;
-  top: -10px;
-  right: -7px;
-  width: 22px;
-  height: 22px;
-  text-align: center;
-  line-height: 22px;
-  border-radius: 50%;
-  background-color: #FFF;
-  border: 1px solid #999;
-  color: #a51e1e;
-  font-size: 15px;
-  cursor: pointer;
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
-.form-product .wrapper-drop-image .custom-file-drop {
-  z-index: -1;
-  position: absolute;
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.form-product .wrapper-drop-image.is-dragover {
-  background-color: #DDD;
-  border-color: #3498db;
-}
-
-.form-product .wrapper-drop-image.is-dragover .overlay-drop-image {
-  -webkit-transform: scale(0.85);
-          transform: scale(0.85);
-}
-
-.form-product .wrapper-drop-image.is-dragover .overlay-drop-image .content-overlay {
-  color: #777;
-}
-
-.form-product .wrapper-drop-image.is-invalid {
-  border-color: #e3342f;
-}
-
-.form-product .wrapper-drop-image.contains-image {
-  border-color: #999;
-}
-
-.form-product .wrapper-drop-image.contains-image .view-overlay {
-  min-height: 100px;
-  border-top: 2px dashed #999;
-}
-
-.form-product .wrapper-drop-image.contains-image .view-overlay .content-overlay .icon {
-  font-size: 50px;
-  display: block;
-}
-
-.form-product .wrapper-drop-image.contains-image .view-overlay .content-overlay .title {
-  display: block;
-  font-size: 18px;
-  margin: 5px 0;
-}
-
-.form-product .wrapper-drop-image.contains-image .view-images {
-  display: block;
-}
-
 .form-product .wrapper-details-product .row-table-label .col-details {
   text-align: center;
 }
@@ -12064,6 +11904,172 @@ a.text-dark:focus {
   height: 100%;
   max-width: 100%;
   border-radius: 4px;
+}
+
+.wrapper-drop-image {
+  min-height: 250px;
+  border: 4px dashed #999;
+  margin: 10px 0 20px 0;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  position: relative;
+  background-color: #EEE;
+}
+
+.wrapper-drop-image .help-block.invalid-feedback {
+  position: relative;
+  top: 32px;
+  font-size: 13px;
+}
+
+.wrapper-drop-image .overlay-drop-image {
+  z-index: 10;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  width: 100%;
+  min-height: 250px;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-overlay {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  width: 100%;
+  min-height: 250px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay {
+  color: #999;
+  text-align: center;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay .icon {
+  font-size: 100px;
+  display: block;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-overlay .content-overlay .title {
+  display: block;
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images {
+  background-color: #EEE;
+  padding: 15px;
+  display: none;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images .image {
+  height: 130px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #FFF;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images .image .img {
+  height: 130px;
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images .image .img:hover .remove-image {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images .image .img img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+}
+
+.wrapper-drop-image .overlay-drop-image .view-images .image .img .remove-image {
+  position: absolute;
+  top: -10px;
+  right: -7px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  line-height: 22px;
+  border-radius: 50%;
+  background-color: #FFF;
+  border: 1px solid #999;
+  color: #a51e1e;
+  font-size: 15px;
+  cursor: pointer;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.wrapper-drop-image .custom-file-drop {
+  z-index: -1;
+  position: absolute;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.wrapper-drop-image.is-dragover {
+  background-color: #DDD;
+  border-color: #3498db;
+}
+
+.wrapper-drop-image.is-dragover .overlay-drop-image {
+  -webkit-transform: scale(0.85);
+          transform: scale(0.85);
+}
+
+.wrapper-drop-image.is-dragover .overlay-drop-image .content-overlay {
+  color: #777;
+}
+
+.wrapper-drop-image.is-invalid {
+  border-color: #e3342f;
+}
+
+.wrapper-drop-image.contains-image {
+  border-color: #999;
+}
+
+.wrapper-drop-image.contains-image .view-overlay {
+  min-height: 100px;
+  border-top: 2px dashed #999;
+}
+
+.wrapper-drop-image.contains-image .view-overlay .content-overlay .icon {
+  font-size: 50px;
+  display: block;
+}
+
+.wrapper-drop-image.contains-image .view-overlay .content-overlay .title {
+  display: block;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.wrapper-drop-image.contains-image .view-images {
+  display: block;
 }
 
 #sidebar-overlay {

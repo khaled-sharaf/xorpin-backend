@@ -53,6 +53,18 @@ body {
   border-bottom-right-radius: 0;
 }
 
+.dataTables_wrapper .table .tr-table-data ul li .wrapper-price .show-price.old-price {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+.dataTables_wrapper .table .tr-table-data ul li .wrapper-price .discount {
+  right: auto;
+  left: 0;
+  -webkit-transform: rotate(-42deg) translate(0%, -73%);
+          transform: rotate(-42deg) translate(0%, -73%);
+}
+
 .small-box .icon > i {
   left: 15px;
   right: auto;

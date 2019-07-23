@@ -229,6 +229,12 @@
                                     <p> {{ $t('global.create') + ' ' + $t('sidebar.new_setting') }} </p>
                                 </router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link :to="{name: 'setting-carousel'}" class="nav-link">
+                                    <i class="fas fa-images nav-icon"></i>
+                                    <p> {{ $t('settings_table.carousel') }} </p>
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
 

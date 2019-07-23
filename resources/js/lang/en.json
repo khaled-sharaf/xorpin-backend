@@ -422,6 +422,8 @@
         "created_at": "Created at",
         "actions": "Actions",
 
+        "carousel": "Carousel",
+
         "setting_types": {
             "string": "String",
             "text": "Text",
@@ -447,6 +449,10 @@
         "p_edit": {
             "success_msg": "The setting has been updated.",
             "failed_msg": "The setting has been not updated."
+        },
+        "p_edit_carousel": {
+            "success_msg": "The carousel has been updated.",
+            "failed_msg": "The carousel has been not updated."
         }
     }
 }

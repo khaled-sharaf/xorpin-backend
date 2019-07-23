@@ -5,7 +5,7 @@
         "user": "مستخدم",
         "company": "شركة",
         "product": "منتج",
-        "products_type": "نوع منتجات",
+        "products_type": "قسم",
         "type": "نوع",
         "comment": "تعليق",
         "winner": "فائز",
@@ -38,7 +38,7 @@
         "read_more": "اقرأ المزيد",
         "more_info": "معرفة المزيد",
         "choose_image": "اختر صورة",
-        "drag_msg": "اسحب الصورة ثم ضعها عنها",
+        "drag_msg": "اسحب الصورة ثم ضعها هنا",
 
         "active": "مفعل",
         "disactive": "غير مفعل",
@@ -421,6 +421,8 @@
         "created_at": "تاريخ الإنشاء",
         "actions": "الإجراءات",
 
+        "carousel": "صور الصفحة الرئيسية",
+
         "setting_types": {
             "string": "نص قصير",
             "text": "نص طويل",
@@ -446,6 +448,10 @@
         "p_edit": {
             "success_msg": "تم تحديث الإعداد.",
             "failed_msg": "لم يتم تحديث هذا الإعداد."
+        },
+        "p_edit_carousel": {
+            "success_msg": "تم تحديث صور الصفحة الرئيسية.",
+            "failed_msg": "لم يتم تحديث صور الصفحة الرئيسية."
         }
     }
 }

@@ -97,7 +97,7 @@ export default {
           deletedDetails: [],
         }),
         productEdit: {},
-        idPage: 'users',
+        idPage: 'products',
         typePage: 'edit'
       }
     },
@@ -129,7 +129,7 @@ export default {
                         text: this.success_msg
                     });
                 }
-            }).catch(response => {
+            }).catch(errors => {
                 Swal.fire(this.failed_title + "!", this.failed_msg, "error");
                 this.$Progress.fail();
             });

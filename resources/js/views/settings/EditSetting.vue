@@ -75,7 +75,7 @@ export default {
           type: "string"
         }),
         settingEdit: {},
-        idPage: 'users',
+        idPage: 'settings',
         typePage: 'edit'
       }
     },
@@ -84,7 +84,6 @@ export default {
             loadReq(this.$Progress);
             this.form.post(this.urlUpdateSetting).then(response => {
                 if (response.status === 200) {
-                    this.companyEdit = response.data.data;
                     ToastReq.fire({
                         text: this.success_msg
                     });
