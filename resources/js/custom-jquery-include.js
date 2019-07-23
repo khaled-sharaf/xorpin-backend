@@ -44,9 +44,21 @@ $(function () {
 
 
     // add class open menu to menu when after reload page if has item contains class active
-    let linkActive = $('#nav-sidebar-global .nav-item a.nav-link.active'),
-        parentTagMenu = linkActive.parents('.nav-item.has-treeview');
-    parentTagMenu.addClass('menu-open');
+    function addClassActiveToParentInSidebar(linkActive) {
+        let parentTagMenu = linkActive.parents('.nav-item.has-treeview');
+        parentTagMenu.addClass('menu-open');
+        parentTagMenu.children('a.nav-link').addClass('active');
+    }
+    let linkActive = $('#nav-sidebar-global .nav-item a.nav-link.active');
+    addClassActiveToParentInSidebar(linkActive);
+
+    $('#nav-sidebar-global .nav-item a.nav-link').not('[href="#"]').on('click', function () {
+        let link = $(this);
+        let parentTagMenu = link.parents('.nav-item');
+        parentTagMenu.children('a.nav-link').addClass('active');
+        parentTagMenu.siblings('.nav-item.has-treeview').children('a.nav-link').removeClass('active');
+    });
+
 
 
 });
