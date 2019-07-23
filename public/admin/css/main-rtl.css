@@ -83,8 +83,8 @@ body {
 
 .main-sidebar,
 .main-sidebar:before {
-  -webkit-transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+  -webkit-transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
+  transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 @media (min-width: 992px) {

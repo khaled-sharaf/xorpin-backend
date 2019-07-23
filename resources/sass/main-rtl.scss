@@ -91,7 +91,7 @@ body {
     margin-left: auto;
 }
 .main-sidebar, .main-sidebar:before {
-    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
@@ -152,11 +152,6 @@ body {
         transform: rotate(90deg);
     }
 }
-
-.brand-image {
-    // float: right !important;
-}
-
 
 // companyies
 .btn.maximize-table {
