@@ -15,6 +15,17 @@
 
 .main-sidebar {
     font-size: 13px;
+    .brand-link {
+        text-align: center;
+        background-color: #EEE !important;
+        .brand-image {
+            float: none;
+            margin: {
+                left: auto;
+                right: auto;
+            }
+        }
+    }
     #nav-sidebar-global {
         &.nav-sidebar {
             > .nav-item {

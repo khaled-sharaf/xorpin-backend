@@ -170,10 +170,6 @@ body {
           transform: rotate(90deg);
 }
 
-.brand-image {
-  float: right !important;
-}
-
 .btn.maximize-table {
   float: left;
 }

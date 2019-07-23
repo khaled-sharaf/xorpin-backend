@@ -2110,7 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sidebar',
   data: function data() {
@@ -5816,6 +5815,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dataTables_filters_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../components/dataTables/filters/Search */ "./resources/js/components/dataTables/filters/Search.vue");
 /* harmony import */ var _TableContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableContent */ "./resources/js/views/products-types/TableContent.vue");
 /* harmony import */ var _mixins_MixinsDatatable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/MixinsDatatable */ "./resources/js/mixins/MixinsDatatable.js");
+//
+//
 //
 //
 //
@@ -9806,6 +9807,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dataTables_filters_Search__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../components/dataTables/filters/Search */ "./resources/js/components/dataTables/filters/Search.vue");
 /* harmony import */ var _TableContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TableContent */ "./resources/js/views/users/TableContent.vue");
 /* harmony import */ var _mixins_MixinsDatatable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../mixins/MixinsDatatable */ "./resources/js/mixins/MixinsDatatable.js");
+//
+//
 //
 //
 //
@@ -47177,7 +47180,7 @@ var render = function() {
         staticClass: "main-header navbar navbar-expand navbar-dark",
         class: {
           "navbar-info": _vm.$gate.isAdmin(),
-          "navbar-success": _vm.$gate.isAdminCompany()
+          "navbar-primary": _vm.$gate.isAdminCompany()
         }
       },
       [
@@ -47353,7 +47356,7 @@ var render = function() {
         staticClass: "main-sidebar elevation-4",
         class: {
           "sidebar-dark-info": _vm.$gate.isAdmin(),
-          "sidebar-dark-success": _vm.$gate.isAdminCompany()
+          "sidebar-dark-primary": _vm.$gate.isAdminCompany()
         }
       },
       [
@@ -47362,17 +47365,12 @@ var render = function() {
           { staticClass: "brand-link", attrs: { to: { name: "home" } } },
           [
             _c("img", {
-              staticClass: "brand-image img-circle elevation-3",
-              staticStyle: { opacity: ".8" },
+              staticClass: "brand-image",
               attrs: {
                 src: _vm.$domain + "/" + _vm.$settings.logo,
-                alt: "AdminLTE Logo"
+                alt: _vm.$settings.site_name + " logo"
               }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "brand-text font-weight-light" }, [
-              _vm._v(_vm._s(_vm.$settings.site_name))
-            ])
+            })
           ]
         ),
         _vm._v(" "),
@@ -47499,9 +47497,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("p", [
                             _vm._v(
-                              "\n                        " +
+                              "\n                            " +
                                 _vm._s(_vm.$t("sidebar.users")) +
-                                "\n                        "
+                                "\n                            "
                             ),
                             _c("i", {
                               staticClass: "fas right",
@@ -51192,8 +51190,8 @@ var render = function() {
                         "\n                            " +
                           _vm._s(
                             _vm.companyProfile.display == 1
-                              ? "Visible"
-                              : "Hidden"
+                              ? _vm.$t("global.visible")
+                              : _vm.$t("global.hidden")
                           ) +
                           "\n                        "
                       )
@@ -51214,8 +51212,8 @@ var render = function() {
                               "\n                                " +
                                 _vm._s(
                                   _vm.companyProfile.active == 1
-                                    ? "Active"
-                                    : "Disactive"
+                                    ? _vm.$t("global.active")
+                                    : _vm.$t("global.disactive")
                                 ) +
                                 "\n                            "
                             )
@@ -53526,15 +53524,19 @@ var render = function() {
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            _c("display", {
-                              attrs: { tableData: _vm.tableData },
-                              on: { getData: _vm.getData }
-                            }),
+                            _vm.$gate.isAdmin()
+                              ? _c("display", {
+                                  attrs: { tableData: _vm.tableData },
+                                  on: { getData: _vm.getData }
+                                })
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c("created-between", {
-                              attrs: { tableData: _vm.tableData },
-                              on: { getData: _vm.getData }
-                            })
+                            _vm.$gate.isAdmin()
+                              ? _c("created-between", {
+                                  attrs: { tableData: _vm.tableData },
+                                  on: { getData: _vm.getData }
+                                })
+                              : _vm._e()
                           ],
                           1
                         ),
@@ -55675,8 +55677,8 @@ var render = function() {
                             _vm._v(
                               _vm._s(
                                 _vm.productProfile.execute == 1
-                                  ? "Unavailable"
-                                  : "Available"
+                                  ? _vm.$t("global.unavailable")
+                                  : _vm.$t("global.available")
                               )
                             )
                           ])
@@ -55691,8 +55693,8 @@ var render = function() {
                             _vm._v(
                               _vm._s(
                                 _vm.productProfile.display == 1
-                                  ? "Visible"
-                                  : "Hidden"
+                                  ? _vm.$t("global.visible")
+                                  : _vm.$t("global.hidden")
                               )
                             )
                           ])
@@ -58611,10 +58613,12 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("activation", {
-                            attrs: { tableData: _vm.tableData },
-                            on: { getData: _vm.getData }
-                          }),
+                          _vm.$gate.isAdmin()
+                            ? _c("activation", {
+                                attrs: { tableData: _vm.tableData },
+                                on: { getData: _vm.getData }
+                              })
+                            : _vm._e(),
                           _vm._v(" "),
                           this.$route.name == "users"
                             ? _c("rules", {
@@ -58623,10 +58627,12 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("created-between", {
-                            attrs: { tableData: _vm.tableData },
-                            on: { getData: _vm.getData }
-                          })
+                          _vm.$gate.isAdmin()
+                            ? _c("created-between", {
+                                attrs: { tableData: _vm.tableData },
+                                on: { getData: _vm.getData }
+                              })
+                            : _vm._e()
                         ],
                         1
                       ),
@@ -76067,9 +76073,20 @@ $(function () {
   /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
   // add class open menu to menu when after reload page if has item contains class active
 
-  var linkActive = $('#nav-sidebar-global .nav-item a.nav-link.active'),
-      parentTagMenu = linkActive.parents('.nav-item.has-treeview');
-  parentTagMenu.addClass('menu-open');
+  function addClassActiveToParentInSidebar(linkActive) {
+    var parentTagMenu = linkActive.parents('.nav-item.has-treeview');
+    parentTagMenu.addClass('menu-open');
+    parentTagMenu.children('a.nav-link').addClass('active');
+  }
+
+  var linkActive = $('#nav-sidebar-global .nav-item a.nav-link.active');
+  addClassActiveToParentInSidebar(linkActive);
+  $('#nav-sidebar-global .nav-item a.nav-link').not('[href="#"]').on('click', function () {
+    var link = $(this);
+    var parentTagMenu = link.parents('.nav-item');
+    parentTagMenu.children('a.nav-link').addClass('active');
+    parentTagMenu.siblings('.nav-item.has-treeview').children('a.nav-link').removeClass('active');
+  });
 });
 
 /***/ }),

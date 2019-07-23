@@ -29,11 +29,13 @@
                                             ></trashed>
 
                                             <display
+                                                v-if="$gate.isAdmin()"
                                                 @getData="getData"
                                                 :tableData="tableData"
                                             ></display>
 
                                             <created-between
+                                                v-if="$gate.isAdmin()"
                                                 @getData="getData"
                                                 :tableData="tableData"
                                             ></created-between>

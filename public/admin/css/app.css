@@ -12090,6 +12090,17 @@ a.text-dark:focus {
   font-size: 13px;
 }
 
+.main-sidebar .brand-link {
+  text-align: center;
+  background-color: #EEE !important;
+}
+
+.main-sidebar .brand-link .brand-image {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .main-sidebar #nav-sidebar-global.nav-sidebar > .nav-item {
   margin-bottom: 5px;
 }

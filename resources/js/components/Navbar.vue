@@ -4,7 +4,7 @@
 
 <template>
     <div class="navbar-layout">
-        <nav class="main-header navbar navbar-expand navbar-dark" :class="{'navbar-info': $gate.isAdmin(), 'navbar-success': $gate.isAdminCompany()}">
+        <nav class="main-header navbar navbar-expand navbar-dark" :class="{'navbar-info': $gate.isAdmin(), 'navbar-primary': $gate.isAdminCompany()}">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">

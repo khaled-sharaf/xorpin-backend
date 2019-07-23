@@ -29,6 +29,7 @@
                                             ></trashed>
 
                                             <activation
+                                                v-if="$gate.isAdmin()"
                                                 @getData="getData"
                                                 :tableData="tableData"
                                             ></activation>
@@ -40,6 +41,7 @@
                                             ></rules>
 
                                             <created-between
+                                                v-if="$gate.isAdmin()"
                                                 @getData="getData"
                                                 :tableData="tableData"
                                             ></created-between>

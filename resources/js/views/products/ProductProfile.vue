@@ -97,12 +97,12 @@
 
                                 <!-- run out -->
                                 <li class="list-group-item">
-                                    <b> {{ $t('products_table.execute') }}</b> <a class="float-right">{{productProfile.execute == 1 ? 'Unavailable' : 'Available' }}</a>
+                                    <b> {{ $t('products_table.execute') }}</b> <a class="float-right">{{productProfile.execute == 1 ? $t('global.unavailable') : $t('global.available') }}</a>
                                 </li>
 
                                 <!-- display product -->
                                 <li class="list-group-item">
-                                    <b> {{ $t('datatable.display') }}</b> <a class="float-right">{{ productProfile.display == 1 ? 'Visible' : 'Hidden' }}</a>
+                                    <b> {{ $t('datatable.display') }}</b> <a class="float-right">{{ productProfile.display == 1 ? $t('global.visible') : $t('global.hidden') }}</a>
                                 </li>
 
                                 <!-- Last modified -->

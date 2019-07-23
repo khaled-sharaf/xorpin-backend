@@ -4,12 +4,11 @@
 
 <template>
     <div class="sidebar-layout">
-        <aside class="main-sidebar elevation-4" :class="{'sidebar-dark-info': $gate.isAdmin(), 'sidebar-dark-success': $gate.isAdminCompany()}">
+        <aside class="main-sidebar elevation-4" :class="{'sidebar-dark-info': $gate.isAdmin(), 'sidebar-dark-primary': $gate.isAdminCompany()}">
             <!-- Brand Logo -->
             <router-link :to="{name: 'home'}" class="brand-link">
-                <img :src="$domain + '/' + $settings.logo" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">{{ $settings.site_name }}</span>
+                <img :src="$domain + '/' + $settings.logo" :alt="$settings.site_name + ' logo'" class="brand-image">
+                <!-- <span class="brand-text font-weight-light">{{ $settings.site_name }}</span> -->
             </router-link>
 
             <!-- Sidebar -->
@@ -59,12 +58,12 @@
                     <!-- =============================== Users ================================== -->
                     <li class="nav-item has-treeview" v-if="$gate.isAdmin()">
                         <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            {{ $t('sidebar.users') }}
-                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
-                            <!-- <span class="badge badge-info right">130</span> -->
-                        </p>
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                {{ $t('sidebar.users') }}
+                                <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
+                                <!-- <span class="badge badge-info right">130</span> -->
+                            </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">

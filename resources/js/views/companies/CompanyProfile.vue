@@ -151,7 +151,7 @@
                             <strong> {{ $t('datatable.display') }} </strong>
 
                             <p class="text-muted">
-                                {{companyProfile.display == 1 ? 'Visible' : 'Hidden'}}
+                                {{companyProfile.display == 1 ? $t('global.visible') : $t('global.hidden')}}
                             </p>
 
                             <hr>
@@ -162,7 +162,7 @@
                                 <strong> {{ $t('datatable.activation') }} </strong>
 
                                 <p class="text-muted">
-                                    {{companyProfile.active == 1 ? 'Active' : 'Disactive'}}
+                                    {{companyProfile.active == 1 ? $t('global.active') : $t('global.disactive')}}
                                 </p>
 
                                 <hr>
