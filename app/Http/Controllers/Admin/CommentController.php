@@ -55,14 +55,14 @@ class CommentController extends Controller
         }
 
         $comments = $query->paginate($length);
-        return response(['data' => $comments, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $comments, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
     public function edit(Request $request)
     {
         $comment = Comment::with(['user', 'product'])->find($request->id);
-        return response(['comment' => $comment], 200);
+        return response(['comment' => $comment]);
     }
 
 
@@ -79,7 +79,7 @@ class CommentController extends Controller
             'product_id' => 'required'
         ]);
         $comment->update($request->all());
-        return response(['message' => 'Comment has been updated.'], 200);
+        return response(['message' => 'Comment has been updated.']);
     }
 
 
@@ -88,6 +88,6 @@ class CommentController extends Controller
         $id = $request->id;
         $comment = Comment::find($id);
         $comment->delete();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 }

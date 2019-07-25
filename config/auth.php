@@ -42,8 +42,10 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
+            'expire_access_token' => 10, // 10 day
+            'expire_refresh_token' => 30 // 30 day
         ],
     ],
 

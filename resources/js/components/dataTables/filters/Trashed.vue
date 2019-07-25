@@ -9,7 +9,7 @@
                     :class="tableData.trashed == '1' ? 'active' : ''"
                     @click="tableData.trashed = '1'; $emit('getData');"
                 >
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-heart"></i>
                 </span>
                 <span
                     class="icon icon-danger"

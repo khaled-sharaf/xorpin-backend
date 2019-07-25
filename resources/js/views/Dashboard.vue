@@ -107,6 +107,9 @@
                     </div>
                     <!-- ./col -->
 
+
+                    <!-- <h1 @click="loginTest()">Login</h1> -->
+
                 </div>
                 <!-- /.row -->
 
@@ -146,6 +149,24 @@
                         this.getCountsAllModels()
                     }, 1000)
                 });
+            },
+            loginTest() {
+                const postData = {
+                    grant_type: 'password',
+                    client_id: '2',
+                    client_secret: 'oU1c3pC4YEqhnsfdvEHQcXYFZgVcHtM1PIMxGk4k',
+                    username: 'admin@admin.com',
+                    password: 622136,
+                    socpe: ''
+                }
+
+                axios.post(this.$domain + '/oauth/token', postData)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(errors => {
+                    console.log(errors.response)
+                })
             }
         },
         mounted() {

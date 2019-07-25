@@ -35,6 +35,12 @@ class Company extends Model
     }
 
 
+    public function scopeDisplay($query)
+    {
+        return $query->where('display', 1);
+    }
+
+
     protected static function boot()
     {
         parent::boot();

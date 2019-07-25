@@ -98,11 +98,8 @@
 
             <td v-show="tableData.filter.columns.indexOf('user') != -1" class="user"
             >
-                <span class="badge badge-danger" v-if="product.user == null">
-                    {{ $t('global.user_is_deleted') }} -- id:{{product.user_id}}
-                </span>
                 <router-link
-                    v-else
+                    v-if="product.user !== null"
                     class="link-router-in-table"
                     :href="$domain_admin + '/user/' + product.user_id + '/edit'"
                     :to="{name: 'edit-user', params: {user: product.user, id: product.user_id}}"
@@ -113,6 +110,9 @@
                     {{product.user.name}}
                 </router-link>
 
+                <span class="badge badge-danger" v-else>
+                    {{ $t('global.user_is_deleted') }} -- id:{{product.user_id}}
+                </span>
             </td>
 
 
@@ -128,7 +128,10 @@
                 >
                     {{product.company.name}}
                 </router-link>
-                <span v-else class="badge badge-danger">{{ $t('global.company_is_deleted') }} -- id:{{product.company_id}}</span>
+                <span v-else class="badge badge-danger">
+                    {{ $t('global.company_is_deleted') }}
+                     -- id:{{product.company_id}}
+                </span>
             </td>
 
 

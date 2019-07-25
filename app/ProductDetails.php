@@ -16,4 +16,9 @@ class ProductDetails extends Model
     {
         return $this->belongsTo('App\Product', 'product_id');
     }
+
+    public function scopeDisplay($query)
+    {
+        return $query->where('display', 1);
+    }
 }

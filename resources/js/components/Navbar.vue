@@ -11,10 +11,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <router-link :to="{name: 'home'}" class="nav-link">{{ $t('global.home') }}</router-link>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <router-link :to="{name: 'create-product'}" class="nav-link">{{ $t('global.create') + ' ' + $t('sidebar.new_product') }}</router-link>
+                    <router-link :to="{name: 'home'}" class="nav-link link-home">{{ $t('global.home') }}</router-link>
                 </li>
             </ul>
 

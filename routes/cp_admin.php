@@ -1,6 +1,6 @@
 <?php
 // here all routes control panel
-Route::get('{path?}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');
+Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 
 Route::post('/get-row-counts-in-form-models', 'HomeController@getCounts');
 

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="shortcut icon" href="{{ url('/') }}/images/logo.ico" type="image/x-icon">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   {{-- <title></title> --}}

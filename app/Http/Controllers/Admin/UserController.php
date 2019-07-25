@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Image;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function users_id()
     {
         $users = User::orderBy('id', 'desc')->get();
-        return response($users, 200);
+        return response($users);
     }
 
     public function index(Request $request)
@@ -86,7 +87,7 @@ class UserController extends Controller
             }
         }
         $users = $query->paginate($length);
-        return response(['data' => $users, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $users, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -118,7 +119,7 @@ class UserController extends Controller
         if (strpos($userData['photo'], 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $userData['photo'])[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = time() . '-' . strtolower($userData['name']) . '-avatar.' . $ext;
+            $imageNewName = time() . '-' . Str::kebab(strtolower($userData['name'])) . '-avatar.' . $ext;
             $imagePath = 'images/user-avatar/' . $imageNewName;
             Image::make($userData['photo'])
             ->resize(150, 150)
@@ -126,7 +127,7 @@ class UserController extends Controller
             $userData['photo'] = $imagePath;
         }
         User::create($userData);
-        return response(['message' => 'User has been created.'], 200);
+        return response(['message' => 'User has been created.']);
     }
 
 
@@ -137,7 +138,7 @@ class UserController extends Controller
         } else {
             $user = User::find($request->id);
         }
-        return response(['user' => $user], 200);
+        return response(['user' => $user]);
     }
 
 
@@ -175,7 +176,7 @@ class UserController extends Controller
         if (strpos($userData['photo'], 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $userData['photo'])[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = time() . '-' . strtolower($userData['name']) . '-avatar.' . $ext;
+            $imageNewName = time() . '-' . Str::kebab(strtolower($userData['name'])) . '-avatar.' . $ext;
             $imagePath = 'images/user-avatar/' . $imageNewName;
 
             // delete old image if exists
@@ -199,7 +200,7 @@ class UserController extends Controller
         }
 
         $user->update($userData);
-        return response(['message' => 'The user has been updated.'], 200);
+        return response(['message' => 'The user has been updated.']);
     }
 
 
@@ -222,7 +223,7 @@ class UserController extends Controller
             } else {
                 $user->delete();
             }
-            return response(['status' => true], 200);
+            return response(['status' => true]);
         } else {
             return response(['error' => 'This user can\'t delete it.'], 403);
         }
@@ -234,7 +235,7 @@ class UserController extends Controller
         $id = $request->id;
         $user_deleted = User::onlyTrashed()->where('id', $id)->first();
         $user_deleted->restore();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 }

@@ -59,9 +59,8 @@ var pathRoute = ''
 if (process.env.NODE_ENV === 'production') {
     pathRoute = '/' + window.cp_prefix
 } else {
-    pathRoute = '/Belal/xorpin-backend/public/admin'
+    pathRoute = '/Belal/xorpin-backend/public/' + window.cp_prefix
 }
-
 const vueRouter = new Router({
     mode: 'history',
     base: pathRoute,

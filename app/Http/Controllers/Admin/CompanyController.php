@@ -6,6 +6,7 @@ use App\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Image;
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -15,7 +16,7 @@ class CompanyController extends Controller
     public function companies_id()
     {
         $companies = Company::orderBy('id', 'desc')->get();
-        return response($companies, 200);
+        return response($companies);
     }
 
 
@@ -79,7 +80,7 @@ class CompanyController extends Controller
         }
 
         $companies = $query->paginate($length);
-        return response(['data' => $companies, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $companies, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -109,7 +110,7 @@ class CompanyController extends Controller
         if (strpos($data['logo'], 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $data['logo'])[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = time() . '-' . strtolower($data['name']) . '-company-logo.' . $ext;
+            $imageNewName = time() . '-' . Str::kebab(strtolower($data['name'])) . '-company-logo.' . $ext;
             $imagePath = 'images/companies-logo/' . $imageNewName;
             Image::make($data['logo'])
             ->resize(150, 150)
@@ -119,13 +120,13 @@ class CompanyController extends Controller
         $data['user_id'] = auth()->id();
         $data['count_rates'] = 0;
         $createdCompany = Company::create($data);
-        return response(['message' => 'Company has been created.', 'data' => $createdCompany], 200);
+        return response(['message' => 'Company has been created.', 'data' => $createdCompany]);
     }
 
     public function show(Request $request)
     {
         $company = Company::find($request->id);
-        return response(['company' => $company], 200);
+        return response(['company' => $company]);
     }
 
 
@@ -154,7 +155,7 @@ class CompanyController extends Controller
         if (strpos($data['logo'], 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $data['logo'])[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = time() . '-' . strtolower($data['name']) . '-company-logo.' . $ext;
+            $imageNewName = time() . '-' . Str::kebab(strtolower($data['name'])) . '-company-logo.' . $ext;
             $imagePath = 'images/companies-logo/' . $imageNewName;
 
             // delete old image if exists
@@ -176,7 +177,7 @@ class CompanyController extends Controller
         }
         $company->update($data);
         $updatedCompany = Company::withCount(['users', 'products'])->where('id', $request->id)->first();
-        return response(['message' => $data['name'] . ' Company has been updated.', 'data' => $updatedCompany], 200);
+        return response(['message' => $data['name'] . ' Company has been updated.', 'data' => $updatedCompany]);
     }
 
     public function destroy(Request $request)
@@ -194,7 +195,7 @@ class CompanyController extends Controller
         } else {
             $company->delete();
         }
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 
@@ -203,6 +204,6 @@ class CompanyController extends Controller
         $id = $request->id;
         $company_deleted = Company::onlyTrashed()->where('id', $id)->first();
         $company_deleted->restore();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 }

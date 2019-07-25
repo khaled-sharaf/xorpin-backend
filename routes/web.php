@@ -1,8 +1,9 @@
 <?php
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => env('CP_PREFIX')], function () {
     Auth::routes();
 });
+
 
 // change language form this link -- method (get)
 // Route::get('lang/{lang}', 'LangController@lang')->name('lang');

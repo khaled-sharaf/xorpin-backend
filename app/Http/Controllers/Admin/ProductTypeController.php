@@ -53,7 +53,7 @@ class ProductTypeController extends Controller
             }
         }
         $types = $query->paginate($length);
-        return response(['data' => $types, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $types, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -66,14 +66,14 @@ class ProductTypeController extends Controller
         ]);
         $request->merge(['user_id' => auth()->id()]);
         Type::create($request->all());
-        return response(['message' => 'Products type has been created.'], 200);
+        return response(['message' => 'Products type has been created.']);
     }
 
 
     public function edit(Request $request)
     {
         $type = Type::find($request->id);
-        return response(['proType' => $type], 200);
+        return response(['proType' => $type]);
     }
 
 
@@ -87,7 +87,7 @@ class ProductTypeController extends Controller
             'display' => 'in:0,1'
         ]);
         $type->update($request->all());
-        return response(['message' => 'Products type has been updated.'], 200);
+        return response(['message' => 'Products type has been updated.']);
     }
 
 
@@ -103,7 +103,7 @@ class ProductTypeController extends Controller
         } else {
             $type->delete();
         }
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 
@@ -112,12 +112,12 @@ class ProductTypeController extends Controller
         $id = $request->id;
         $type_deleted = Type::onlyTrashed()->where('id', $id)->first();
         $type_deleted->restore();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 
     public function allTypesUseInSelectBox() {
         $types = Type::orderBy('id', 'desc')->get();
-        return response(['types' => $types], 200);
+        return response(['types' => $types]);
     }
 }

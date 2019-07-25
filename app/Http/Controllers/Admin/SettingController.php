@@ -6,6 +6,7 @@ use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Image;
+use Illuminate\Support\Str;
 
 class SettingController extends Controller
 {
@@ -29,7 +30,7 @@ class SettingController extends Controller
             });
         }
         $settings = $query->paginate($length);
-        return response(['data' => $settings, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $settings, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -47,20 +48,20 @@ class SettingController extends Controller
         if (strpos($request->value, 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $request->value)[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = uniqid('setting-image-') . '-' . strtolower($request->name) . '.' . $ext;
+            $imageNewName = uniqid('setting-image-') . '-' . Str::kebab(strtolower($request->name)) . '.' . $ext;
             $imagePath = 'images/settings/' . $imageNewName;
             Image::make($request->value)->save(public_path($imagePath));
             $request->merge(['value' => $imagePath]);
         }
         Setting::create($request->all());
-        return response(['message' => 'Setting has been created.'], 200);
+        return response(['message' => 'Setting has been created.']);
     }
 
 
     public function edit(Request $request)
     {
         $setting = Setting::find($request->id);
-        return response(['setting' => $setting], 200);
+        return response(['setting' => $setting]);
     }
 
 
@@ -86,14 +87,14 @@ class SettingController extends Controller
         if (strpos($request->value, 'data:image/') === 0) {
             $get_ext = explode(';', explode('/', $request->value)[1])[0];
             $ext = $get_ext == 'jpeg' ? 'jpg' : $get_ext;
-            $imageNewName = uniqid('setting-image-') . '-' . strtolower($request->name) . '.' . $ext;
+            $imageNewName = uniqid('setting-image-') . '-' . Str::kebab(strtolower($request->name)) . '.' . $ext;
             $imagePath = 'images/settings/' . $imageNewName;
             Image::make($request->value)->save(public_path($imagePath));
             $request->merge(['value' => $imagePath]);
         }
 
         $setting->update($request->all());
-        return response(['message' => 'Setting has been updated.'], 200);
+        return response(['message' => 'Setting has been updated.']);
     }
 
 
@@ -107,14 +108,14 @@ class SettingController extends Controller
             }
         }
         $setting->delete();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 
 
     public function editCarousel(Request $request) {
         $carousel = Setting::where('name', 'carousel')->first();
-        return response(['carousel' => $carousel], 200);
+        return response(['carousel' => $carousel]);
     }
 
 
@@ -186,6 +187,6 @@ class SettingController extends Controller
         /****************************************************************************/
         $carouselModel = Setting::find($request->id);
         $carouselModel->update($data);
-        return response(['data' => $data], 200);
+        return response(['data' => $data]);
     }
 }

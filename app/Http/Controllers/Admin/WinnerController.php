@@ -44,7 +44,7 @@ class WinnerController extends Controller
         }
 
         $winners = $query->paginate($length);
-        return response(['data' => $winners, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $winners, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -56,14 +56,14 @@ class WinnerController extends Controller
             'product_id' => 'required'
         ]);
         Winner::create($request->all());
-        return response(['message' => 'Winner has been created.'], 200);
+        return response(['message' => 'Winner has been created.']);
     }
 
 
     public function edit(Request $request)
     {
         $winner = Winner::find($request->id);
-        return response(['winner' => $winner], 200);
+        return response(['winner' => $winner]);
     }
 
 
@@ -77,7 +77,7 @@ class WinnerController extends Controller
             'product_id' => 'required'
         ]);
         $winner->update($request->all());
-        return response(['message' => 'Winner has been updated.'], 200);
+        return response(['message' => 'Winner has been updated.']);
     }
 
 
@@ -86,6 +86,6 @@ class WinnerController extends Controller
         $id = $request->id;
         $winner = Winner::find($id);
         $winner->delete();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 }

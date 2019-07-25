@@ -25,10 +25,6 @@ import router from './router'
 
 /**************************************************************************************/
 
-// adminlte v3
-
-
-
 // select 2
 import './plugins/select2/select2.min.css'
 import './plugins/select2/select2.min.js'
@@ -37,19 +33,6 @@ import './plugins/progressBar.js'
 import './components.js'
 import './filters.js'
 import './directives.js'
-
-/**************************************************************************************/
-
-
-// axios -- for request ajax
-import axios from 'axios'
-window.axios = axios
-axios.defaults.baseURL = window.url + '/' + window.cp_prefix
-
-/**************************************************************************************/
-
-import moment from "moment";
-Vue.prototype.moment = moment;
 
 /**************************************************************************************/
 

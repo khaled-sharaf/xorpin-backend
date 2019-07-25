@@ -10,6 +10,6 @@ class CountUserOfCompany implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->withCount(['users', 'products']);
+        $builder->withCount(['users', 'products', 'rates as rate_user_count']);
     }
 }

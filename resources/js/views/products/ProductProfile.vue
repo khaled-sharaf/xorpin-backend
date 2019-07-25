@@ -124,7 +124,7 @@
                                 <li class="list-group-item" v-if="$gate.isAdmin()">
                                     <b> {{ $t('products_table.company') }}</b> <a class="float-right">
                                         <router-link
-                                            v-if="typeof productProfile.company == 'object' && productProfile.company != null && productProfile.company.length > 0"
+                                            v-if="productProfile.company !== null"
                                             :href="$domain_admin + '/company/profile/' + productProfile.company_id"
                                             :to="{name: 'company-profile', params: {id: productProfile.company_id, company: productProfile.company}}"
                                         >

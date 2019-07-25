@@ -11,6 +11,6 @@ class RelationProducts implements Scope
     public function apply(Builder $builder, Model $model)
     {
         $builder->with(['details', 'user', 'company', 'type'])
-                ->withCount(['winners', 'comments']);
+                ->withCount(['winners', 'comments', 'rates as rate_user_count']);
     }
 }

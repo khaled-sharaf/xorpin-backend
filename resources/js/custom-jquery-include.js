@@ -58,6 +58,9 @@ $(function () {
         parentTagMenu.children('a.nav-link').addClass('active');
         parentTagMenu.siblings('.nav-item.has-treeview').children('a.nav-link').removeClass('active');
     });
+    $('.navbar-nav .link-home').on('click', function () {
+        $('#nav-sidebar-global .nav-item a.nav-link').parents('.nav-item.has-treeview').children('a.nav-link').removeClass('active');
+    });
 
 
 

@@ -2,6 +2,29 @@
 
 
 /***********************************************************************************/
+// get every rate
+if (!function_exists('every_rate')) {
+    function every_rate($rates) {
+        $rates = collect($rates);
+        $rate_1 = $rates->filter(function ($rate) { return $rate->rate == 1; });
+        $rate_2 = $rates->filter(function ($rate) { return $rate->rate == 2; });
+        $rate_3 = $rates->filter(function ($rate) { return $rate->rate == 3; });
+        $rate_4 = $rates->filter(function ($rate) { return $rate->rate == 4; });
+        $rate_5 = $rates->filter(function ($rate) { return $rate->rate == 5; });
+
+        $result = [
+            "1" => $rate_1->count(),
+            "2" => $rate_2->count(),
+            "3" => $rate_3->count(),
+            "4" => $rate_4->count(),
+            "5" => $rate_5->count()
+        ];
+        return $result;
+    }
+}
+
+/***********************************************************************************/
+/***********************************************************************************/
 // add Prefix in url admin [control panel]
 if (!function_exists('aurl')) {
     function aurl($url = null) {

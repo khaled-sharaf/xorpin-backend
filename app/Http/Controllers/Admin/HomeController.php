@@ -36,7 +36,7 @@ class HomeController extends Controller
             })->count() : Comment::count()
 
         ];
-        return response(['counts' => $counts], 200);
+        return response(['counts' => $counts]);
     }
 
 }

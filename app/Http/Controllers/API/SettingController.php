@@ -12,7 +12,13 @@ class SettingController extends Controller
         $carousel_db_string = Setting::where('name', 'carousel')->first();
         if ($carousel_db_string != null) {
             $carousel = explode(',', $carousel_db_string->value);
-            return response($carousel, 200);
+            $carousel_result = [];
+            $i = 1;
+            foreach ($carousel as $image) {
+                $carousel_result[$i] = $image;
+                $i++;
+            }
+            return response($carousel_result);
         } else {
             return null;
         }

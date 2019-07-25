@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function products_id()
     {
         $products = Product::orderBy('id', 'desc')->get();
-        return response($products, 200);
+        return response($products);
     }
 
     public function index(Request $request)
@@ -93,7 +93,7 @@ class ProductController extends Controller
         }
 
         $products = $query->paginate($length);
-        return response(['data' => $products, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir], 200);
+        return response(['data' => $products, 'draw' => $request->input('draw'), 'column' => $columns[$column], 'dir' => $dir]);
     }
 
 
@@ -175,6 +175,8 @@ class ProductController extends Controller
                 }
             }
             $data['gallery'] = implode(',', $galleryDB);
+        } else {
+            $data['gallery'] = null;
         }
         /****************************************************************************/
 
@@ -186,7 +188,7 @@ class ProductController extends Controller
             $product->details()->createMany($details);
         }
         $createdProduct = Product::find($product->id);
-        return response(['message' => 'Product has been created.', 'data' => $createdProduct], 200);
+        return response(['message' => 'Product has been created.', 'data' => $createdProduct]);
     }
 
     public function show(Request $request)
@@ -196,7 +198,7 @@ class ProductController extends Controller
         } else {
             $product = Product::find($request->id);
         }
-        return response(['product' => $product], 200);
+        return response(['product' => $product]);
     }
 
 
@@ -350,7 +352,7 @@ class ProductController extends Controller
 
         $product->update($data);
         $updatedProduct = Product::find($id);
-        return response(['message' => $data['name'] . ' Product has been updated.', 'data' => $updatedProduct], 200);
+        return response(['message' => $data['name'] . ' Product has been updated.', 'data' => $updatedProduct]);
     }
 
     public function destroy(Request $request)
@@ -366,7 +368,7 @@ class ProductController extends Controller
         } else {
             $product->delete();
         }
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 
 
@@ -375,6 +377,6 @@ class ProductController extends Controller
         $id = $request->id;
         $product_deleted = Product::onlyTrashed()->where('id', $id)->first();
         $product_deleted->restore();
-        return response(['status' => true], 200);
+        return response(['status' => true]);
     }
 }

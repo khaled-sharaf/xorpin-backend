@@ -21,4 +21,9 @@ class ProductType extends Model
     {
         return $this->hasMany('App\Product', 'type_id');
     }
+
+    public function scopeDisplay($query)
+    {
+        return $query->where('display', 1);
+    }
 }
