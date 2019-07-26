@@ -53,6 +53,14 @@ export default {
             restore_success_msg: " ",
             restore_failed_msg: " ",
 
+            sell_product_msg: " ",
+            sell_product_success_msg: " ",
+            sell_product_failed_msg: " ",
+
+            sell_product_title: '',
+            sold_product_title: '',
+            add_salse_product_title: '',
+
             delete_title: '',
             deleted_title: '',
             delete_it_title: '',
@@ -121,7 +129,9 @@ export default {
             })
             .catch(errors => {
                 setTimeout(() => {
-                    this.getData()
+                    if (errors.response && errors.response.status && errors.response.status != 404) {
+                        this.getData()
+                    }
                 }, 1000)
                 this.$Progress.fail()
             });
@@ -313,12 +323,17 @@ export default {
                     loadReq(this.$Progress);
                     axios.post(this.urlDeleteRow, {id: id}).then(response => {
                         if (response.status === 200) {
-                            Swal.fire(this.removed_title + "!", this.force_delete_success_msg, "success");
+                            ToastReq.fire({
+                                text: this.force_delete_success_msg
+                            });
                             this.getData();
                         }
                     })
                     .catch(error => {
-                        Swal.fire(this.failed_title + "!", this.force_delete_failed_msg, "error");
+                        ToastFailed.fire({
+                            title: this.failed_title + "!",
+                            text: this.force_delete_failed_msg,
+                        })
                         this.$Progress.fail();
                     });
                 }
@@ -339,12 +354,17 @@ export default {
                     loadReq(this.$Progress);
                     axios.post(this.urlRestoreRow, {id: id}).then(response => {
                         if (response.status === 200) {
-                            Swal.fire(this.restored_title + "!", this.restore_success_msg, "success");
+                            ToastReq.fire({
+                                text: this.restore_success_msg
+                            });
                             this.getData();
                         }
                     })
                     .catch(error => {
-                        Swal.fire(this.failed_title + "!", this.restore_failed_msg, "error");
+                        ToastFailed.fire({
+                            title: this.failed_title + "!",
+                            text: this.restore_failed_msg,
+                        })
                         this.$Progress.fail();
                     });
                 }
@@ -366,7 +386,18 @@ export default {
             this.restore_success_msg =          this.$t(this.idPage + '_table.restore_success_msg')
             this.restore_failed_msg =           this.$t(this.idPage + '_table.restore_failed_msg')
 
+            if (this.idPage == 'products') {
+                this.sell_product_msg =                   this.$t(this.idPage + '_table.sell_product_msg')
+                this.sell_product_success_msg =           this.$t(this.idPage + '_table.sell_product_success_msg')
+                this.sell_product_failed_msg =            this.$t(this.idPage + '_table.sell_product_failed_msg')
+
+                this.sell_product_title =           this.$t(this.idPage + '_table.sell_product_title')
+                this.sold_product_title =           this.$t(this.idPage + '_table.sold_product_title')
+                this.add_salse_product_title =        this.$t(this.idPage + '_table.add_salse_product_title')
+            }
+
             // global message in all table
+
 
             this.delete_title =         this.$t('global.delete')
             this.deleted_title =        this.$t('global.deleted')

@@ -265,6 +265,7 @@
         "manufacture_company": "الشركة المصنعة",
         "count_rates": "التقيمات",
         "product_count": "العدد",
+        "count_selling": "عدد عمليات البيع",
         "execute": "نفاذ الكمية",
         "display": "الظهور",
         "type": "القسم",
@@ -289,6 +290,17 @@
         "empty_details_msg": "هذا المنتج ليس لديه تفاصيل.",
 
         "product_details": "تفاصيل المنتج",
+
+        "sell_product_title": "بيع منتج",
+        "sell_product_msg": "عدد المبيعات القديم هو: .",
+
+        "sold_product_title": "تم البيع",
+        "sell_product_success_msg": "تمت زيادة عدد المبيعات بنجاح.",
+
+        "sell_product_failed_msg": "لم يتم زيادة عدد المبيعات.",
+        "add_salse_product_title": "إضافة",
+        "msg_empty_count_selling": "يجب ان يكون عدد المبيعات 1 او اكثر.",
+        "increase_sales": "زيادة المبيعات",
 
         "delete_msg": "هل أنت متأكد من حذف هذا المنتج ؟",
         "delete_success_msg": "تم حذف المنتج.",

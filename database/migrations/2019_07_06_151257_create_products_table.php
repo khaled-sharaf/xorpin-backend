@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->mediumText('description');
             $table->string('manufacture_company');
             $table->integer('product_count');
+            $table->integer('count_selling')->default(0);
             $table->boolean('execute')->default(0);
             $table->boolean('display')->default(1);
             $table->tinyInteger('count_rates')->default(0);

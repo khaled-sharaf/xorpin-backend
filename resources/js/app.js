@@ -57,7 +57,13 @@ const ToastReq = Swal.mixin({
     timer: 1500,
     type: "success",
 });
+const ToastFailed = Swal.mixin({
+    showConfirmButton: false,
+    type: 'error',
+    // timer: 1500,
+});
 window.ToastReq = ToastReq;
+window.ToastFailed = ToastFailed;
 
 /**************************************************************************************/
 import DatePicker from 'vue2-datepicker';

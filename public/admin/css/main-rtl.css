@@ -184,9 +184,11 @@ body {
 }
 
 .proudct-profile-wrapper .btn-delete-row,
-.company-profile-wrapper .btn-delete-row {
+.proudct-profile-wrapper .btn-sell-product,
+.company-profile-wrapper .btn-delete-row,
+.company-profile-wrapper .btn-sell-product {
   margin-right: 0 !important;
-  margin-left: 1rem !important;
+  margin-left: 0.5rem !important;
 }
 
 .custom-control.custom-checkbox {

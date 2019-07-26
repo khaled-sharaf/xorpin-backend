@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $columns = ['index', 'id', 'name', 'photo', 'price', 'description', 'manufacture_company', 'count_rates', 'product_count', 'execute', 'display', 'type_id', 'user_id', 'company_id', 'updated_at', 'created_at'];
+        $columns = ['index', 'id', 'name', 'photo', 'price', 'description', 'manufacture_company', 'count_rates', 'product_count', 'count_selling', 'execute', 'display', 'type_id', 'user_id', 'company_id', 'updated_at', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); // Index
         $dir = $request->input('dir');
@@ -378,5 +378,20 @@ class ProductController extends Controller
         $product_deleted = Product::onlyTrashed()->where('id', $id)->first();
         $product_deleted->restore();
         return response(['status' => true]);
+    }
+
+
+    public function sell(Request $request)
+    {
+        $count = $request->count;
+        $id = $request->id;
+        if ($count != null && is_numeric($count)) {
+            $product = Product::find($id);
+            $product->count_selling = $product->count_selling + $count;
+            $product->save();
+            return response(['status' => true, 'product' => $product]);
+        } else {
+            return response('count is null or not integer', 422);
+        }
     }
 }

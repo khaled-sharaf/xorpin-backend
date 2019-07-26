@@ -264,7 +264,10 @@ export default {
                 }
             })
             .catch(errors => {
-                Swal.fire(this.failed_title + "!", this.failed_msg, "error");
+                ToastFailed.fire({
+                    title: this.failed_title + "!",
+                    text: this.failed_msg,
+                })
                 this.$Progress.fail();
             });
         },

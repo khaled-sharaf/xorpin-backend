@@ -49,12 +49,14 @@
             </td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('description') != -1" class="description"
-            >{{product.description}}</td>
+            <td v-show="tableData.filter.columns.indexOf('description') != -1" class="description">
+                {{product.description}}
+            </td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('manufacture_company') != -1" class="manufacture_company"
-            >{{product.manufacture_company}}</td>
+            <td v-show="tableData.filter.columns.indexOf('manufacture_company') != -1" class="manufacture_company">
+                {{product.manufacture_company}}
+            </td>
 
 
             <td v-show="tableData.filter.columns.indexOf('count_rates') != -1" class="count_rates">
@@ -62,8 +64,14 @@
             </td>
 
 
-            <td v-show="tableData.filter.columns.indexOf('product_count') != -1" class="product_count"
-            >{{product.product_count}}</td>
+            <td v-show="tableData.filter.columns.indexOf('product_count') != -1" class="product_count">
+                {{product.product_count}}
+            </td>
+
+
+            <td v-show="tableData.filter.columns.indexOf('count_selling') != -1" class="count_selling">
+                {{product.count_selling}}
+            </td>
 
 
             <td v-show="tableData.filter.columns.indexOf('execute') != -1" class="execute">
@@ -160,6 +168,18 @@
                 >
                     <i class="fas fa-eye"></i>
                 </router-link>
+
+                <!-- btn delete row -->
+                <a
+                    v-show="product.deleted_at == null"
+                    :href="$domain_admin + '/product/sell'"
+                    class="btn btn-secondary btn-sell-product btn-table-actions btn-sm"
+                    @click.prevent="$emit('sellProduct', product)"
+                >
+                    <i class="fa fa-cart-plus"></i>
+                </a>
+                <!-- ./ btn delete row -->
+
 
                 <!-- btn edit row -->
                 <router-link

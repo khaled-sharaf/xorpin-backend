@@ -11,6 +11,15 @@ export default {
             delete_it_title: " ",
             failed_title: " ",
             cancel_title: " ",
+
+
+            sell_product_msg: " ",
+            sell_product_success_msg: " ",
+            sell_product_failed_msg: " ",
+
+            sell_product_title: '',
+            sold_product_title: '',
+            add_salse_product_title: '',
         }
     },
     methods: {
@@ -25,6 +34,17 @@ export default {
 
             this.failed_title =         this.$t('global.failed')
             this.cancel_title =         this.$t('global.cancel')
+
+
+            if (this.idPage == 'products') {
+                this.sell_product_msg =                   this.$t(this.idPage + '_table.sell_product_msg')
+                this.sell_product_success_msg =           this.$t(this.idPage + '_table.sell_product_success_msg')
+                this.sell_product_failed_msg =            this.$t(this.idPage + '_table.sell_product_failed_msg')
+
+                this.sell_product_title =           this.$t(this.idPage + '_table.sell_product_title')
+                this.sold_product_title =           this.$t(this.idPage + '_table.sold_product_title')
+                this.add_salse_product_title =        this.$t(this.idPage + '_table.add_salse_product_title')
+            }
         }
     },
     watch: {

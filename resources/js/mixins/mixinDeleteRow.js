@@ -15,12 +15,17 @@ export default {
                     loadReq(this.$Progress);
                     axios.post(this.urlDeleteRow, {id: id}).then(response => {
                         if (response.status === 200) {
-                            Swal.fire(this.deleted_title + "!", this.delete_success_msg, "success");
+                            ToastReq.fire({
+                                text: this.delete_success_msg
+                            });
                             this.getData();
                         }
                     })
                     .catch(error => {
-                        Swal.fire(this.failed_title + "!", this.delete_failed_msg, "error");
+                        ToastFailed.fire({
+                            title: this.failed_title + "!",
+                            text: this.delete_failed_msg,
+                        })
                         this.$Progress.fail();
                     });
                 }

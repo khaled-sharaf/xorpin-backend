@@ -15,7 +15,7 @@ class SettingController extends Controller
             $carousel_result = [];
             $i = 1;
             foreach ($carousel as $image) {
-                $carousel_result[$i] = $image;
+                $carousel_result[] = ['id' => $i, 'image' => $image];
                 $i++;
             }
             return response($carousel_result);

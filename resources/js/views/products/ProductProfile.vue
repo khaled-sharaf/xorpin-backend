@@ -32,14 +32,24 @@
 
                             <h3 class="profile-username">{{ productProfile.name }}</h3>
                             <hr>
-                            <!-- delete product -->
                             <div class="actions-product-profile">
+                                <!-- delete product -->
                                 <a
                                     :href="$domain_admin + '/product/destroy'"
-                                    class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-3 mt-1"
+                                    class="btn btn-danger btn-delete-row btn-table-actions btn-sm mr-1 mt-1"
                                     @click.prevent="destroyRow(productProfile.id)"
                                 > {{ $t('products_table.delete_product') }}
                                     <i class="fa fa-trash"></i>
+                                </a>
+
+
+                                <!-- sell product -->
+                                <a
+                                    :href="$domain_admin + '/product/sell'"
+                                    class="btn btn-secondary btn-sell-product btn-table-actions btn-sm mr-1 mt-1"
+                                    @click.prevent="sellProduct(productProfile)"
+                                > {{ $t('products_table.increase_sales') }}
+                                    <i class="fa fa-cart-plus"></i>
                                 </a>
 
                                 <!-- edit product -->
@@ -83,6 +93,11 @@
                                 <!-- product counts -->
                                 <li class="list-group-item">
                                     <b> {{ $t('products_table.product_count') }}</b> <a class="float-right">{{ productProfile.product_count }}</a>
+                                </li>
+
+                                <!-- count selling -->
+                                <li class="list-group-item">
+                                    <b> {{ $t('products_table.count_selling') }}</b> <a class="float-right">{{ productProfile.count_selling }}</a>
                                 </li>
 
                                 <!-- manufacture_company -->
@@ -240,11 +255,13 @@ import Comments from './../comments/Index'
 import HeaderPage from './../../components/HeaderPage'
 import MixinChangeLocaleMessagesProfiles from "./../../mixins/MixinChangeLocaleMessagesProfiles"
 import mixinDeleteRow from "./../../mixins/mixinDeleteRow"
+import MixinsSellProduct from "./../../mixins/MixinsSellProduct"
 
 export default {
     mixins: [
         MixinChangeLocaleMessagesProfiles,
-        mixinDeleteRow
+        mixinDeleteRow,
+        MixinsSellProduct
     ],
     components: {
         HeaderPage,
@@ -256,7 +273,9 @@ export default {
       return {
           urlProductProfile: '/product/profile',
           urlDeleteRow: '/product/destroy',
+          urlSellProduct: '/product/sell',
           idPage: 'products',
+          typePage: 'profile',
           maximizeTable: false,
           showWinnerTable: false,
           productProfile: {

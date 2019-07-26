@@ -43,6 +43,8 @@ Route::post('/product/update', 'ProductController@update');
 Route::post('/product/profile', 'ProductController@show');
 Route::post('/product/destroy', 'ProductController@destroy');
 Route::post('/product/restore', 'ProductController@restoreProduct');
+Route::post('/product/sell', 'ProductController@sell');
+
 Route::post('/products-id', 'ProductController@products_id');
 
 

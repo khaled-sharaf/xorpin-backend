@@ -111,6 +111,7 @@
                                                         :dataTable="dataTable"
                                                         :tableData="tableData"
                                                         @destroyRow="destroyRow"
+                                                        @sellProduct="sellProduct"
                                                         @restoreRow="restoreRow"
                                                         @forceDeleteRow="forceDeleteRow"
                                                     ></table-content>
@@ -155,9 +156,10 @@ import Search from "./../../components/dataTables/filters/Search";
 import TableContent from "./TableContent";
 
 import MixinsDatatable from "./../../mixins/MixinsDatatable"
+import MixinsSellProduct from "./../../mixins/MixinsSellProduct"
 
 export default {
-    mixins: [MixinsDatatable],
+    mixins: [MixinsDatatable, MixinsSellProduct],
         components: {
         Trashed,
         SoldOut,
@@ -182,6 +184,7 @@ export default {
       { label: "Manufacture company", name: "manufacture_company" },
       { label: "Rates", name: "count_rates" },
       { label: "Counts", name: "product_count" },
+      { label: "Count of selling", name: "count_selling" },
       { label: "Sold out", name: "execute" },
       { label: "Display", name: "display" },
       { label: "Category", name: "type" },
@@ -199,6 +202,7 @@ export default {
       urlGetDataTable: '/products',
       urlDeleteRow: '/product/destroy',
       urlRestoreRow: '/product/restore',
+      urlSellProduct: '/product/sell',
       urlGetProductsTypes: '/pro-types-data',
 
       proTypes: [],
@@ -228,6 +232,7 @@ export default {
             'manufacture_company',
             'count_rates',
             'product_count',
+            'count_selling',
             'execute',
             'display',
             'type',
@@ -246,7 +251,7 @@ export default {
       viewColumnsResponsive: {
         default: {
         //   show: "all",// or ['id', 'index']
-          show: ['name', 'type', 'photo', 'price', 'product_count', 'count_rates', 'display', 'actions']
+          show: ['name', 'type', 'photo', 'price', 'product_count', 'count_selling', 'count_rates', 'display', 'actions']
         },
         1200: {
           show: ['name', 'photo', 'price', 'product_count', 'display', 'actions']

@@ -16,7 +16,7 @@ class CompanyController extends Controller
         $partners_images = [];
 
         foreach ($logos as $logo) {
-            $partners_images[$logo->id] = $logo->logo;
+            $partners_images[] = ['id' => $logo->id, 'image' => $logo->logo];
         }
 
         return response($partners_images);
