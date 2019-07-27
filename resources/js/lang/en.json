@@ -290,16 +290,22 @@
 
         "product_details": "Product details",
 
-        "sell_product_title": "Sell product",
+        "sell_product_title": "Sell or restore the product",
         "sell_product_msg": "Count of selling old is: .",
 
         "sold_product_title": "Sold",
-        "sell_product_success_msg": "Sales number increased successfully.",
+        "sell_product_success_msg": "Sales count changed successfully.",
 
-        "sell_product_failed_msg": "The number of sales has not been increased.",
+        "sell_product_failed_msg": "The number of sales has not been changed.",
         "add_salse_product_title": "Add",
         "msg_empty_count_selling": "Sales must be 1 or more",
-        "increase_sales": "Increase sales",
+        "msg_error_product_count_less_than_count_sales": "The number of sales must be less than or equal to the number of current products in case the product is affected by the increase or decrease.",
+        "msg_error_current_count_sales_less_than_count_sales_input": "The number of sales entered must be less than or equal to the current number of sales.",
+        "increase_sales": "Change sales count",
+        "title_label_affected_products_count_in_selling": "The  current products counts was affected by the increase and decrease.",
+        "add_sales": "Sell",
+        "restore_sales": "Restore",
+        "placeholder_input_sales_count": "Sales count",
 
         "delete_msg": "Are you sure you want to delete this product?",
         "delete_success_msg": "The product has been deleted.",

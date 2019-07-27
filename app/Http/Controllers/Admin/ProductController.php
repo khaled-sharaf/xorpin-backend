@@ -383,15 +383,28 @@ class ProductController extends Controller
 
     public function sell(Request $request)
     {
-        $count = $request->count;
         $id = $request->id;
-        if ($count != null && is_numeric($count)) {
+        $sales_count = $request->sales_count;
+        $add_sales = $request->add_sales;
+        $increase_decrease_current_products = $request->increase_decrease_current_products;
+
+        if ($sales_count != null && is_numeric($sales_count)) {
             $product = Product::find($id);
-            $product->count_selling = $product->count_selling + $count;
+            if ($add_sales === true) {
+                $product->count_selling = $product->count_selling + $sales_count;
+                if ($increase_decrease_current_products === true) {
+                    $product->product_count = $product->product_count - $sales_count;
+                }
+            } else {
+                $product->count_selling = $product->count_selling - $sales_count;
+                if ($increase_decrease_current_products === true) {
+                    $product->product_count = $product->product_count + $sales_count;
+                }
+            }
             $product->save();
             return response(['status' => true, 'product' => $product]);
         } else {
-            return response('count is null or not integer', 422);
+            return response('Sales count is null or not integer', 422);
         }
     }
 }

@@ -265,7 +265,7 @@
         "manufacture_company": "الشركة المصنعة",
         "count_rates": "التقيمات",
         "product_count": "العدد",
-        "count_selling": "عدد عمليات البيع",
+        "count_selling": "عدد المبيعات",
         "execute": "نفاذ الكمية",
         "display": "الظهور",
         "type": "القسم",
@@ -291,16 +291,22 @@
 
         "product_details": "تفاصيل المنتج",
 
-        "sell_product_title": "بيع منتج",
+        "sell_product_title": "بيع أو استرجاع المنتج",
         "sell_product_msg": "عدد المبيعات القديم هو: .",
 
         "sold_product_title": "تم البيع",
-        "sell_product_success_msg": "تمت زيادة عدد المبيعات بنجاح.",
+        "sell_product_success_msg": "تمت تغيير عدد المبيعات بنجاح.",
 
-        "sell_product_failed_msg": "لم يتم زيادة عدد المبيعات.",
+        "sell_product_failed_msg": "لم يتم تغيير عدد المبيعات.",
         "add_salse_product_title": "إضافة",
         "msg_empty_count_selling": "يجب ان يكون عدد المبيعات 1 او اكثر.",
-        "increase_sales": "زيادة المبيعات",
+        "msg_error_product_count_less_than_count_sales": "يجب ان يكون عدد المبيعات اصغر من او يساوى عدد المنتجات الحالية فى حالة تفعيل خاصية تأثر المنتجات بالزيادة أو النقصان.",
+        "msg_error_current_count_sales_less_than_count_sales_input": "يجب ان يكون عدد المبيعات المدخلة اصغر من او يساوى عدد المبيعات الحالية.",
+        "increase_sales": "تغيير عدد المبيعات",
+        "title_label_affected_products_count_in_selling": "تأثر عدد المنتجات الحالية بالزيادة والنقصان.",
+        "add_sales": "بيع",
+        "restore_sales": "استرجاع",
+        "placeholder_input_sales_count": "عدد المبيعات",
 
         "delete_msg": "هل أنت متأكد من حذف هذا المنتج ؟",
         "delete_success_msg": "تم حذف المنتج.",

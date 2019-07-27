@@ -119,3 +119,13 @@
     cursor: auto;
 }
 
+.form-add-sales-in-sweetalert {
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 20px 90px;
+    font-size: 13px;
+    > .form-group:first-child {
+        margin-bottom: 2rem;
+    }
+}
+

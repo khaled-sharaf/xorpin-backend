@@ -20,6 +20,14 @@ export default {
             sell_product_title: '',
             sold_product_title: '',
             add_salse_product_title: '',
+
+            msg_empty_count_selling: '',
+            msg_error_product_count_less_than_count_sales: '',
+            msg_error_current_count_sales_less_than_count_sales_input: '',
+            placeholder_input_sales_count: '',
+            title_label_affected_products_count_in_selling: '',
+            add_sales: '',
+            restore_sales: '',
         }
     },
     methods: {
@@ -44,6 +52,14 @@ export default {
                 this.sell_product_title =           this.$t(this.idPage + '_table.sell_product_title')
                 this.sold_product_title =           this.$t(this.idPage + '_table.sold_product_title')
                 this.add_salse_product_title =        this.$t(this.idPage + '_table.add_salse_product_title')
+
+                this.msg_empty_count_selling =                          this.$t(this.idPage + '_table.msg_empty_count_selling')
+                this.msg_error_product_count_less_than_count_sales =                this.$t(this.idPage + '_table.msg_error_product_count_less_than_count_sales')
+                this.msg_error_current_count_sales_less_than_count_sales_input =    this.$t(this.idPage + '_table.msg_error_current_count_sales_less_than_count_sales_input')
+                this.placeholder_input_sales_count =                    this.$t(this.idPage + '_table.placeholder_input_sales_count')
+                this.title_label_affected_products_count_in_selling =   this.$t(this.idPage + '_table.title_label_affected_products_count_in_selling')
+                this.add_sales =                                        this.$t(this.idPage + '_table.add_sales')
+                this.restore_sales =                                    this.$t(this.idPage + '_table.restore_sales')
             }
         }
     },
