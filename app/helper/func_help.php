@@ -13,17 +13,56 @@ if (!function_exists('every_rate')) {
         $rate_5 = $rates->filter(function ($rate) { return $rate->rate == 5; });
 
         $result = [
-            "1" => $rate_1->count(),
-            "2" => $rate_2->count(),
-            "3" => $rate_3->count(),
-            "4" => $rate_4->count(),
-            "5" => $rate_5->count()
+            ['level_rate' => '1', 'rate' => $rate_1->count()],
+            ['level_rate' => '2', 'rate' => $rate_2->count()],
+            ['level_rate' => '3', 'rate' => $rate_3->count()],
+            ['level_rate' => '4', 'rate' => $rate_4->count()],
+            ['level_rate' => '5', 'rate' => $rate_5->count()]
         ];
         return $result;
     }
 }
 
 /***********************************************************************************/
+// add Prefix in url admin [control panel]
+if (!function_exists('convert_gallery_to_array')) {
+    function convert_gallery_to_array($products) {
+        if ($products[0] != null) {
+            foreach ($products as $product) {
+                $gallery = $product->gallery;
+                $gallery_arr = [];
+                if ($gallery != null) {
+                    $gallery = explode(',', $gallery);
+                    $i = 1;
+                    foreach ($gallery as $image) {
+                        $gallery_arr[] = ['id' => $i, 'image' => $image];
+                        $i++;
+                    }
+                } else {
+                    $gallery = $gallery_arr;
+                }
+                $product->gallery = $gallery_arr;
+            }
+        } else {
+            $gallery = $products->gallery;
+            $gallery_arr = [];
+            if ($gallery != null) {
+                $gallery = explode(',', $gallery);
+                $i = 1;
+                foreach ($gallery as $image) {
+                    $gallery_arr[] = ['id' => $i, 'image' => $image];
+                    $i++;
+                }
+            } else {
+                $gallery = $gallery_arr;
+            }
+            $products->gallery = $gallery_arr;
+        }
+        return $products;
+    }
+}
+
+
 /***********************************************************************************/
 // add Prefix in url admin [control panel]
 if (!function_exists('aurl')) {

@@ -21,8 +21,14 @@ class ProductController extends Controller
                                 ->where('type_id', $category->id)
                                 ->orderBy('id', 'desc')
                                 ->take(8)->get();
+            $products_result_no_empty_category = collect($products_result)->filter(function ($value) {
+                return $value->count() > 0;
+            });
         }
-        return response($products_result);
+        foreach ($products_result_no_empty_category as $products) {
+            $products = convert_gallery_to_array($products);
+        }
+        return response($products_result_no_empty_category);
     }
 
     public function products_category(Request $request) {
@@ -38,7 +44,7 @@ class ProductController extends Controller
                             })
                             ->orderBy('id', 'desc')
                             ->paginate($length);
-
+        $products = convert_gallery_to_array($products);
         return response($products);
     }
 
@@ -54,11 +60,9 @@ class ProductController extends Controller
                             ->where('company_id', $company_id)
                             ->orderBy('id', 'desc')
                             ->paginate($length);
-
+        $products = convert_gallery_to_array($products);
         return response($products);
     }
-
-
 
 
 
@@ -66,6 +70,7 @@ class ProductController extends Controller
         if ($id !== null)
         {
             $product = Product::with(['comments', 'rates'])->activeAndDisplay()->find($id);
+            $product = convert_gallery_to_array($product);
             $data = $product->toArray();
             $data['rates'] = every_rate($product->rates); // helper function
             return response($data);
