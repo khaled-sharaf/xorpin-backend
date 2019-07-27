@@ -13,22 +13,26 @@ class ProductController extends Controller
 
     public function homePage() {
         $products_result = [];
+        $products_and_category = [];
         $categories = Category::get();
         foreach ($categories as $category) {
-            $products_result[$category->name] = Product::withoutGlobalScope(RelationProducts::class)
-                                ->activeAndDisplay()
-                                ->withCount('rates as rate_user_count')
-                                ->where('type_id', $category->id)
-                                ->orderBy('id', 'desc')
-                                ->take(8)->get();
-            $products_result_no_empty_category = collect($products_result)->filter(function ($value) {
-                return $value->count() > 0;
-            });
+            $products_and_category[] = [
+                                    'category' => $category,
+                                    'products' => Product::withoutGlobalScope(RelationProducts::class)
+                                                        ->activeAndDisplay()
+                                                        ->withCount('rates as rate_user_count')
+                                                        ->where('type_id', $category->id)
+                                                        ->orderBy('id', 'desc')
+                                                        ->take(8)->get()
+                                ];
         }
-        foreach ($products_result_no_empty_category as $products) {
-            $products = convert_gallery_to_array($products);
+        foreach ($products_and_category as $item) {
+            if ($item['products']->count() > 0) {
+                $item['products'] = convert_gallery_to_array($item['products']);
+                $products_result[] = $item;
+            }
         }
-        return response($products_result_no_empty_category);
+        return response($products_result);
     }
 
     public function products_category(Request $request) {
@@ -70,10 +74,14 @@ class ProductController extends Controller
         if ($id !== null)
         {
             $product = Product::with(['comments', 'rates'])->activeAndDisplay()->find($id);
-            $product = convert_gallery_to_array($product);
-            $data = $product->toArray();
-            $data['rates'] = every_rate($product->rates); // helper function
-            return response($data);
+            if ($product != null) {
+                $product = convert_gallery_to_array($product);
+                $data = $product->toArray();
+                $data['rates'] = every_rate($product->rates); // helper function
+                return response($data);
+            } else {
+                return response(['product' => null]);
+            }
         }
     }
 }
