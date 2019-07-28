@@ -10,6 +10,8 @@ use App\Company;
 use App\Product;
 use App\Winner;
 use App\Comment;
+use App\City;
+use App\Governorate;
 
 class HomeController extends Controller
 {
@@ -37,6 +39,20 @@ class HomeController extends Controller
 
         ];
         return response(['counts' => $counts]);
+    }
+
+
+    public function cities()
+    {
+        $all_governorates = Governorate::orderby('governorate_name', 'asc')->get();
+        $cities = [];
+        foreach ($all_governorates as $gov) {
+            $cities[] = [
+                            'governorate' => $gov,
+                            'cities' => City::where('gov_id', $gov->id)->orderby('city_name', 'asc')->get()
+                        ];
+        }
+        return $cities;
     }
 
 }

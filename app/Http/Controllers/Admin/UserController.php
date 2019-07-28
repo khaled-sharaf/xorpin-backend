@@ -99,7 +99,7 @@ class UserController extends Controller
             'password' => 'required|string|between:4,16|confirmed',
             'email' => 'required|email|max:180|unique:users',
             'phone' => 'nullable|unique:users|regex:' . $this->patternPhone,
-            'address' => 'nullable|string|between:2,180',
+            'address' => 'required',
             'rule' => 'required|in:0,1,2',
             'active' => 'required|in:0,1',
             'photo' => 'nullable|string'
@@ -152,7 +152,7 @@ class UserController extends Controller
             'password' => 'nullable|string|between:4,16|confirmed',
             'email' => 'required|email|max:180|unique:users,email,'. $id,
             'phone' => 'nullable|regex:' . $this->patternPhone . '|unique:users,phone,'. $id,
-            'address' => 'nullable|string|between:2,180',
+            'address' => 'required',
             'rule' => 'in:0,1,2',
             'active' => 'in:0,1',
             'photo' => 'nullable|string'

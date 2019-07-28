@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 
 
+// global
+Route::get('/cities', 'HomeController@cities'); // return all governorates and cities
+
+
+
 // home page
 Route::get('/products_home', 'ProductController@homePage'); // 8 latest product from all categories
 Route::get('/carousel', 'SettingController@carousel'); // all images of carousel

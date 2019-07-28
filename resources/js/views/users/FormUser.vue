@@ -74,13 +74,22 @@
                 <!-- address -->
                 <div class="form-group">
                     <label>{{$t('users_table.address')}} </label>
-                    <input
-                    v-model="form.address"
-                    type="text"
-                    :placeholder="$t('users_table.address')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('address') }"
+                    <select
+                        style="transform: scale(0); height: 0;"
+                        class="custom-select"
+                        v-select2address="form.address"
+                        :class="{ 'is-invalid': form.errors.has('address') }"
                     >
+                        <optgroup v-for="gov in cities" :key="gov.governorate.id" :label="gov.governorate.governorate_name">
+                            <option
+                                v-for="city in gov.cities" :key="city.id"
+                                :value="city.id"
+                                v-text="city.city_name"
+                                :selected="typeForm == 'edit' && city.id == form.address"
+                            >
+                            ></option>
+                        </optgroup>
+                    </select>
                     <has-error :form="form" field="address"></has-error>
                 </div>
 
@@ -176,7 +185,9 @@
         ],
         selectCompany: false,
         companies: [],
+        cities: [],
         urlGetAllCompanies: '/companies-id',
+        urlGetCities: '/cities',
         userAvatar: "",
         oldUserAvatar: "images/user-avatar/default-avatar.png",
         showBtnRemoveAvatar: false
@@ -218,8 +229,8 @@
             this.form.photo = this.oldUserAvatar
             this.userAvatar = this.$domain + '/' + this.oldUserAvatar
         },
-        getCompanies(url = this.urlGetAllCompanies) {
-            axios.post(url).then(response => {
+        getCompanies() {
+            axios.post(this.urlGetAllCompanies).then(response => {
                 let data = response.data;
                 if (response.status === 200) {
                     this.companies = data;
@@ -227,7 +238,20 @@
             })
             .catch(errors => {
                 setTimeout(() => {
-                    this.getCompanies(this.urlGetAllCompanies)
+                    this.getCompanies()
+                }, 1000)
+            });
+        },
+        getCities() {
+            axios.post(this.urlGetCities).then(response => {
+                let data = response.data;
+                if (response.status === 200) {
+                    this.cities = data;
+                }
+            })
+            .catch(errors => {
+                setTimeout(() => {
+                    this.getCities()
                 }, 1000)
             });
         },
@@ -263,6 +287,7 @@
     mounted() {
         if (this.$gate.isAdmin()) {
             this.getCompanies();
+            this.getCities();
         }
         if (this.typeForm == 'create') {
             this.form.photo = this.oldUserAvatar;

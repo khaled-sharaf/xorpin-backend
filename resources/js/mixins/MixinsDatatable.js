@@ -242,7 +242,7 @@ export default {
                     for (let colRemove in obj[currentScreen][typeArr]) {
                         this.tableData.filter.columns = allColumns;
                         let index = this.tableData.filter.columns.indexOf(
-                        obj[currentScreen][typeArr][colRemove]
+                            obj[currentScreen][typeArr][colRemove]
                         );
                         if (index != -1) {
                         this.tableData.filter.columns.splice(index, 1);

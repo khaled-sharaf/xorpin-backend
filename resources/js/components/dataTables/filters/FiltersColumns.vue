@@ -38,10 +38,10 @@
         <!-- dataTables_viewtable -->
         <label class="dataTables_viewtable custom-select" v-selectcolumnopen>
             <select
-            class="custom-select view-table-filter"
-            v-model="tableData.filter.viewTable"
-            v-selectviewtableclass="tableData.filter.viewTable"
-            multiple="multiple"
+                class="custom-select view-table-filter"
+                v-model="tableData.filter.viewTable"
+                v-selectviewtableclass="tableData.filter.viewTable"
+                multiple="multiple"
             >
             <option
                 v-for="(viewclass, index) in viewTableClasses"

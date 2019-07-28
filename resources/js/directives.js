@@ -50,3 +50,24 @@ Vue.directive('selectcolumnopen', {
         });
     }
 })
+
+
+Vue.directive('select2address', {
+    inserted(el, binding, vnode) {
+        $(el).select2({
+            closeOnSelect: true,
+            dropdownAutoWidth: true,
+            dir: 'rtl'
+        })
+        .on("select2:select", () => {
+            vnode.context.form.address = $(el).val();
+        })
+        // .on("select2:unselect", () => {
+        //     vnode.context.tableData.filter.viewTable = $(el).val();
+        // })
+        .bind(this);
+    },
+    update(el) {
+        $(el).trigger("change");
+    }
+})

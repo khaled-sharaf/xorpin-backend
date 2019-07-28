@@ -44,6 +44,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Company', 'company_id');
     }
 
+    public function city() {
+        return $this->belongsTo('App\City', 'address');
+    }
+
 
     protected static function boot()
     {

@@ -9798,6 +9798,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['form', 'typeForm'],
   data: function data() {
@@ -9821,7 +9830,9 @@ __webpack_require__.r(__webpack_exports__);
       }],
       selectCompany: false,
       companies: [],
+      cities: [],
       urlGetAllCompanies: '/companies-id',
+      urlGetCities: '/cities',
       userAvatar: "",
       oldUserAvatar: "images/user-avatar/default-avatar.png",
       showBtnRemoveAvatar: false
@@ -9862,8 +9873,7 @@ __webpack_require__.r(__webpack_exports__);
     getCompanies: function getCompanies() {
       var _this = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.urlGetAllCompanies;
-      axios.post(url).then(function (response) {
+      axios.post(this.urlGetAllCompanies).then(function (response) {
         var data = response.data;
 
         if (response.status === 200) {
@@ -9871,7 +9881,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (errors) {
         setTimeout(function () {
-          _this.getCompanies(_this.urlGetAllCompanies);
+          _this.getCompanies();
+        }, 1000);
+      });
+    },
+    getCities: function getCities() {
+      var _this2 = this;
+
+      axios.post(this.urlGetCities).then(function (response) {
+        var data = response.data;
+
+        if (response.status === 200) {
+          _this2.cities = data;
+        }
+      })["catch"](function (errors) {
+        setTimeout(function () {
+          _this2.getCities();
         }, 1000);
       });
     }
@@ -9903,18 +9928,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     if (this.$gate.isAdmin()) {
       this.getCompanies();
+      this.getCities();
     }
 
     if (this.typeForm == 'create') {
       this.form.photo = this.oldUserAvatar;
     } else {
       var getPhoto = setInterval(function () {
-        if (_this2.form.photo != '') {
-          _this2.userAvatar = _this2.$domain + '/' + _this2.form.photo;
+        if (_this3.form.photo != '') {
+          _this3.userAvatar = _this3.$domain + '/' + _this3.form.photo;
           clearInterval(getPhoto);
         }
       }, 500);
@@ -64757,31 +64783,49 @@ var render = function() {
           [
             _c("label", [_vm._v(_vm._s(_vm.$t("users_table.address")) + " ")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.address,
-                  expression: "form.address"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.form.errors.has("address") },
-              attrs: {
-                type: "text",
-                placeholder: _vm.$t("users_table.address")
-              },
-              domProps: { value: _vm.form.address },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "select2address",
+                    rawName: "v-select2address",
+                    value: _vm.form.address,
+                    expression: "form.address"
                   }
-                  _vm.$set(_vm.form, "address", $event.target.value)
-                }
-              }
-            }),
+                ],
+                staticClass: "custom-select",
+                class: { "is-invalid": _vm.form.errors.has("address") },
+                staticStyle: { transform: "scale(0)", height: "0" }
+              },
+              _vm._l(_vm.cities, function(gov) {
+                return _c(
+                  "optgroup",
+                  {
+                    key: gov.governorate.id,
+                    attrs: { label: gov.governorate.governorate_name }
+                  },
+                  _vm._l(gov.cities, function(city) {
+                    return _c(
+                      "option",
+                      {
+                        key: city.id,
+                        domProps: {
+                          value: city.id,
+                          selected:
+                            _vm.typeForm == "edit" &&
+                            city.id == _vm.form.address,
+                          textContent: _vm._s(city.city_name)
+                        }
+                      },
+                      [_vm._v("\n                        >")]
+                    )
+                  }),
+                  0
+                )
+              }),
+              0
+            ),
             _vm._v(" "),
             _c("has-error", { attrs: { form: _vm.form, field: "address" } })
           ],
@@ -65390,7 +65434,17 @@ var render = function() {
               ],
               staticClass: "address"
             },
-            [_vm._v(_vm._s(user.address))]
+            [
+              _vm._v(
+                _vm._s(
+                  user.address != 0
+                    ? user.city.city_name +
+                        "، " +
+                        user.city.governorate.governorate_name
+                    : ""
+                )
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -82868,6 +82922,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('selectcolumnopen', {
     $(el).click(function () {
       $(el).find("> select").select2("open");
     });
+  }
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('select2address', {
+  inserted: function inserted(el, binding, vnode) {
+    $(el).select2({
+      closeOnSelect: true,
+      dropdownAutoWidth: true,
+      dir: 'rtl'
+    }).on("select2:select", function () {
+      vnode.context.form.address = $(el).val();
+    }) // .on("select2:unselect", () => {
+    //     vnode.context.tableData.filter.viewTable = $(el).val();
+    // })
+    .bind(this);
+  },
+  update: function update(el) {
+    $(el).trigger("change");
   }
 });
 
