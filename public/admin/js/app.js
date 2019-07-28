@@ -9606,7 +9606,7 @@ __webpack_require__.r(__webpack_exports__);
     next(function (vm) {
       to.meta.title = vm.$t('sidebar.edit_user');
 
-      if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authData().id) {
+      if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$auth.id) {
         setTimeout(function () {
           next({
             name: 'home'
@@ -64489,7 +64489,7 @@ var render = function() {
           title:
             _vm.$t("global.edit") +
             " " +
-            (_vm.$gate.authData().id == _vm.$route.params.id
+            (_vm.$auth.id == _vm.$route.params.id
               ? _vm.$t("global.the_profile")
               : _vm.$t("global.user"))
         }
@@ -65619,8 +65619,7 @@ var render = function() {
               staticClass: "actions"
             },
             [
-              (_vm.$gate.isAdminCompany() &&
-                _vm.$gate.authData().id == user.id) ||
+              (_vm.$gate.isAdminCompany() && _vm.$auth.id == user.id) ||
               _vm.$gate.isAdmin()
                 ? _c(
                     "router-link",

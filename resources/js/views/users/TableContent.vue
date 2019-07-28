@@ -90,7 +90,7 @@
                 <!-- btn edit row -->
                 <router-link
                     v-show="user.deleted_at == null"
-                    v-if="($gate.isAdminCompany() && $gate.authData().id == user.id) || $gate.isAdmin()"
+                    v-if="($gate.isAdminCompany() && $auth.id == user.id) || $gate.isAdmin()"
                     :to="{name: 'edit-user', params: {user: user, id: user.id}}"
                     :href="$domain_admin + '/user/' + user.id + '/edit'"
                     class="btn btn-success btn-edit-row btn-table-actions btn-sm link-router-in-table"

@@ -21,6 +21,7 @@ class ProductController extends Controller
                                     'products' => Product::withoutGlobalScope(RelationProducts::class)
                                                         ->activeAndDisplay()
                                                         ->withCount('rates as rate_user_count')
+                                                        ->with('company')
                                                         ->where('type_id', $category->id)
                                                         ->orderBy('id', 'desc')
                                                         ->take(8)->get()
@@ -35,19 +36,20 @@ class ProductController extends Controller
         return response($products_result);
     }
 
-    public function products_category(Request $request) {
-        $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
-        $category = $request->category;
+    public function products_category(Request $request, $category) {
+        // $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
         $searchColumn = is_numeric($category) ? 'id' : 'name';
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->activeAndDisplay()
                             ->withCount('rates as rate_user_count')
+                            ->with('company')
                             ->whereHas('type', function ($query) use ($searchColumn, $category) {
                                 $query->where($searchColumn, $category);
                             })
                             ->orderBy('id', 'desc')
-                            ->paginate($length);
+                            ->get();
+                            // ->paginate($length);
         $products = convert_gallery_to_array($products);
         return response($products);
     }
@@ -60,6 +62,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->withCount('rates as rate_user_count')
+                            ->with('company')
                             ->activeAndDisplay()
                             ->where('company_id', $company_id)
                             ->orderBy('id', 'desc')

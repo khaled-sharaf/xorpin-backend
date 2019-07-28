@@ -4,6 +4,8 @@ Route::group(['prefix' => env('CP_PREFIX')], function () {
     Auth::routes();
 });
 
+Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
 // change language form this link -- method (get)
 // Route::get('lang/{lang}', 'LangController@lang')->name('lang');

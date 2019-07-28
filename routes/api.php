@@ -15,7 +15,7 @@ Route::get('/winners', 'WinnerController@all_winners'); // all winners
 Route::get('/partners', 'CompanyController@partners'); // all logos of companies
 
 // products
-Route::get('/products_category', 'ProductController@products_category'); // all products from every category
+Route::get('/products_category/{category}', 'ProductController@products_category'); // all products from every category
 // /products_category  -- send in request this key >>>>>   "category" => id or name category
 // and number page  >>>>   ?page=2   | Required
 // and perPage (length in one page)  >>>>   &length=12  | optional  >>>>  default = 12

@@ -6,7 +6,7 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page :title="$t('global.edit') + ' ' + ($gate.authData().id == $route.params.id ? $t('global.the_profile') : $t('global.user'))"></header-page>
+        <header-page :title="$t('global.edit') + ' ' + ($auth.id == $route.params.id ? $t('global.the_profile') : $t('global.user'))"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
@@ -135,7 +135,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
             to.meta.title = vm.$t('sidebar.edit_user')
-            if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$gate.authData().id) {
+            if (to.params.id && vm.$gate.isAdminCompany() && to.params.id != vm.$auth.id) {
                 setTimeout(() => {
                     next({name: 'home'})
                 }, 100)

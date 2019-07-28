@@ -24,6 +24,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function socialProviders() {
+        return $this->hasMany('App\SocialProvider', 'user_id');
+    }
+
+
     public function productsWinner() {
         return $this->hasMany('App\Winner', 'user_id');
     }
