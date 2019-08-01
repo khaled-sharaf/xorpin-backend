@@ -82,10 +82,6 @@
                         </form>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
                     @endauth
                 </div>
             @endif
@@ -96,5 +92,10 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            let query = location.search.indexOf('?') === 0 ? location.search.slice(1) : location.search
+            console.log(query.split('&'))
+        </script>
     </body>
 </html>

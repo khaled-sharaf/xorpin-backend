@@ -41,11 +41,11 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('address') != -1" class="address"
-            >{{user.address != 0 ? user.city.city_name + '، ' + user.city.governorate.governorate_name : ''}}</td>
+            >{{user.city !== null ? user.city.city_name + '، ' + user.city.governorate.governorate_name : ''}}</td>
 
 
             <td v-show="tableData.filter.columns.indexOf('photo') != -1" class="photo">
-                <img class="avatar-table" :src="$domain + '/' + user.photo">
+                <img class="avatar-table" :src="user.photo.indexOf('http') === 0 ? user.photo : $domain + '/' + user.photo">
             </td>
 
 

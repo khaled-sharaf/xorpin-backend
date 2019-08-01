@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Company;
 use App\Product;
+use App\ProductType as Type;
 use App\Winner;
 use App\Comment;
 use App\City;
@@ -26,6 +27,8 @@ class HomeController extends Controller
             'users' => auth()->user()->rule == 2 ? User::where('company_id', auth()->user()->company_id)->count() : User::count(),
 
             'companies' => Company::count(),
+
+            'categories' => Type::count(),
 
             'products' => auth()->user()->rule == 2 ? Product::where('company_id', auth()->user()->company_id)->count() : Product::count(),
 

@@ -9,7 +9,7 @@ Route::get('/cities', 'HomeController@cities'); // return all governorates and c
 
 
 // home page
-Route::get('/products_home', 'ProductController@homePage'); // 8 latest product from all categories
+Route::get('/products_home', 'ProductController@homePage'); // latest 8 product from all categories
 Route::get('/carousel', 'SettingController@carousel'); // all images of carousel
 Route::get('/winners', 'WinnerController@all_winners'); // all winners
 Route::get('/partners', 'CompanyController@partners'); // all logos of companies
@@ -32,8 +32,17 @@ Route::get('/categories', 'ProductTypeController@all_categories'); // all catego
 
 
 
+
+// // route login social media
+// Route::namespace('Auth')->group(function () {
+//     Route::get('login/facebook', 'LoginController@redirectToProvider');
+//     Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
+// });
+
+
 Route::post('/logout', 'UserController@logout');
 
+// apis require auth
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', 'UserController@get_user_auth');
 

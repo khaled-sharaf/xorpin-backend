@@ -1,11 +1,18 @@
 <?php
 
 Route::group(['prefix' => env('CP_PREFIX')], function () {
-    Auth::routes();
+    Auth::routes(['register' => false]);
 });
 
-Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
-Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+// route login social media
+Route::namespace('Auth')->group(function () {
+    Route::get('auth/{provider}', 'LoginController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'LoginController@handleProviderCallback');
+});
+
+
+
+
 
 // change language form this link -- method (get)
 // Route::get('lang/{lang}', 'LangController@lang')->name('lang');
@@ -20,7 +27,14 @@ Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallbac
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/get_token_socialite', function () {
+    if (!session()->has('status_active')) {
+        return redirect('/');
+    }
+});
+
 Route::get('/', function () {
+    return view('welcome');
 
     // $pro = Pro::find(3)->comments()->with('user')->get();
     // $pro = Pro::find(3)->with('rates')->get();
@@ -36,5 +50,4 @@ Route::get('/', function () {
     //         ->save('C:\xampp\htdocs\Belal\xorpin-backend\public\images\camera1.png');
 
 
-    return view('welcome');
 });

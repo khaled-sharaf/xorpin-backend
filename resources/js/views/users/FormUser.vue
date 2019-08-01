@@ -194,6 +194,9 @@
       }
     },
     methods: {
+        imageHasHttp(imageUrl) {
+            return imageUrl.indexOf('http') === 0 ? imageUrl : this.$domain + '/' + imageUrl;
+        },
         encodeUserProfileFileAsURL(e) {
             let self = this;
             let file = e.target.files[0];
@@ -227,7 +230,7 @@
         },
         removeAvatar() {
             this.form.photo = this.oldUserAvatar
-            this.userAvatar = this.$domain + '/' + this.oldUserAvatar
+            this.userAvatar = this.imageHasHttp(this.oldUserAvatar)
         },
         getCompanies() {
             axios.post(this.urlGetAllCompanies).then(response => {
@@ -264,10 +267,10 @@
             } else if (val != this.oldUserAvatar && this.typeForm == 'edit') {
                 this.showBtnRemoveAvatar = true
             } else if (val == '' || val == null) {
-                this.userAvatar = this.$domain + '/' + this.oldUserAvatar;
+                this.userAvatar = this.imageHasHttp(this.oldUserAvatar);
                 this.showBtnRemoveAvatar = false
             } else {
-                this.userAvatar = this.$domain + '/' + val;
+                this.userAvatar = this.imageHasHttp(val);
                 this.showBtnRemoveAvatar = false
             }
 
@@ -275,7 +278,7 @@
             // if go to profile only
             if (this.typeForm == 'edit') {
                 if (this.form.photo != '' && this.form.photo.indexOf('data:image/') !== 0) {
-                    this.userAvatar = this.$domain + '/' + this.form.photo
+                    this.userAvatar = this.imageHasHttp(this.form.photo)
                 }
             }
 
@@ -294,7 +297,7 @@
         } else {
             let getPhoto = setInterval(() => {
                 if (this.form.photo != '') {
-                    this.userAvatar = this.$domain + '/' + this.form.photo
+                    this.userAvatar = this.imageHasHttp(this.form.photo)
                     clearInterval(getPhoto)
                 }
             }, 500)

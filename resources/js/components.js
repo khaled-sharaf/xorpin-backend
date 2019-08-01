@@ -4,19 +4,22 @@ Vue.prototype.moment = moment
 
 Vue.component("relative-date", {
     props: ["date"],
-    template: "<span :style='styling' @dblclick='toggleDate'>{{ timestamp }} </span>",
+    template: "<span :style='styling' @dblclick='toggleDate' :data-old-format='date' :data-new-format='timestamp'>{{ timestamp }} </span>",
     created() {
         let self = this;
         setInterval(() => {
             self.$data.dateNow = Date.now();
-        }, 1000 * 15);
+        }, 1000 * 10);
     },
     data() {
         return {
             dateNow: Date.now(),
             styling: {
                 cursor: 'pointer',
-                userSelect: 'none'
+                userSelect: 'none',
+                textAlign: 'left',
+                direction: 'ltr',
+                display: 'inline-block'
             },
             showRelativeDate: true
         };

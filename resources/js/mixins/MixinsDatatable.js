@@ -260,17 +260,17 @@ export default {
             id = parseInt(id);
             for (let col in this.dataTable) {
                 if (this.dataTable[col].id == id) {
-                list = "<ul>";
-                for (let columnName in this.columnsExcept) {
-                    let colName = this.columnsExcept[columnName];
-                    for (let colNative in this.columns) {
-                    if (this.columns[colNative].name == colName) {
-                        let colLabel = this.columns[colNative].label;
-                        list += `<li> <span class="label"> ${colLabel}</span> ${$( ".table tbody tr[data-id='" + id + "'] td." + this.columnsExcept[columnName]).html()} </li>`;
+                    list = "<ul>";
+                    for (let columnName in this.columnsExcept) {
+                        let colName = this.columnsExcept[columnName];
+                        for (let colNative in this.columns) {
+                            if (this.columns[colNative].name == colName) {
+                                let colLabel = this.columns[colNative].label;
+                                list += `<li> <span class="label"> ${colLabel}</span> ${$( ".table tbody tr[data-id='" + id + "'] td." + this.columnsExcept[columnName]).html()} </li>`;
+                            }
+                        }
                     }
-                    }
-                }
-                list += "</ul>";
+                    list += "</ul>";
                 }
             }
             return list;
@@ -291,6 +291,12 @@ export default {
                 });
                 $(".tr-table-data").hide();
                 $(`#${self.idPage}.dataTable .btn-show-more-row`).removeClass("active").find("i").removeClass("fa-minus").addClass("fa-plus");
+
+
+                $(`#${self.idPage}.dataTable .tr-table-data span[data-old-format]`).each(function () {
+                    $(this).text($(this).attr('data-old-format'));
+                });
+
             }, 200);
         },
         eventBtnsClick() {

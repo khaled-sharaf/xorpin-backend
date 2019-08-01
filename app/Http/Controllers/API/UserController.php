@@ -15,7 +15,7 @@ class UserController extends Controller
 
 
     public function logout(Request $request) {
-        $token = auth('api')->user()->token();
+        $token = $request->user()->token();
         $token_id = $token->id;
         if ($token->delete()) {
             DB::table('oauth_refresh_tokens')->where('access_token_id', $token_id)->delete();

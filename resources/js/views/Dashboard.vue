@@ -53,6 +53,26 @@
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
+                        <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ counts.categories }}</h3>
+
+                            <p>{{ $t('sidebar.products_types') }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <router-link :to="{name: 'pro-types'}" class="small-box-footer">
+                            {{ $t('global.more_info') }} <i class="fas" :class="$i18n.locale == 'ar' ? 'fa-arrow-circle-left' : 'fa-arrow-circle-right'"></i>
+                        </router-link>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
                         <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ counts.products }}</h3>
@@ -130,11 +150,12 @@
                 counts: {
                     users: 0,
                     companies: 0,
+                    categories: 0,
                     products: 0,
                     winners: 0,
                     comments: 0,
                 },
-                urlGetCounts: '/get-row-counts-in-form-models'
+                urlGetCounts: '/get-tables-count'
             }
         },
         methods: {

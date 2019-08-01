@@ -6,6 +6,7 @@ const gate = new Gate()
 // default layout and dashboard
 import DefaultLayout from './layouts/DefaultLayout'
 import Dashboard from './views/Dashboard'
+import DashboardTest from './views/DashboardTest'
 
 
 // users components

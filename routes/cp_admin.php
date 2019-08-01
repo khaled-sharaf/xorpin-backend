@@ -2,7 +2,7 @@
 // here all routes control panel
 Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 
-Route::post('/get-row-counts-in-form-models', 'HomeController@getCounts');
+Route::post('/get-tables-count', 'HomeController@getCounts');
 
 Route::post('/cities', 'HomeController@cities'); // return all governorates and cities
 

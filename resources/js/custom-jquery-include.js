@@ -42,6 +42,19 @@ $(function () {
 
     /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 
+    // show old data in date more in any table
+    let showOldDate = false;
+    $(document).on('dblclick', '.tr-table-data span[data-old-format]', function () {
+        let oldFormate = $(this).attr('data-old-format'),
+            newFormate = $(this).attr('data-new-format');
+        showOldDate = !showOldDate;
+        showOldDate ? $(this).text(oldFormate) : $(this).text(newFormate);
+    });
+
+
+
+    /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
+
 
     // add class open menu to menu when after reload page if has item contains class active
     function addClassActiveToParentInSidebar(linkActive) {
@@ -62,6 +75,7 @@ $(function () {
         $('#nav-sidebar-global .nav-item a.nav-link').parents('.nav-item.has-treeview').children('a.nav-link').removeClass('active');
     });
 
+    /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 
 
 });

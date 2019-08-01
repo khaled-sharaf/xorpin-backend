@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->unsignedInteger('address')->nullable();
+            $table->unsignedInteger('address')->nullable()->default(0);
             $table->string('photo')->nullable();
             $table->boolean('active')->default(1); // 1 = access login, 0 = not access login
             $table->boolean('rule')->default(0); // 0 normal user, 1 administrator, 2 company users
