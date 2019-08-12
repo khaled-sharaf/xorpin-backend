@@ -3770,13 +3770,9 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       label: "Comment",
       name: "text_comment"
-    }, {
-      label: "Positive product",
-      name: "positive_product"
-    }, {
-      label: "Negative product",
-      name: "negative_product"
-    }, {
+    }, //   { label: "Positive product", name: "positive_product" },
+    //   { label: "Negative product", name: "negative_product" },
+    {
       label: "Username",
       name: "user_id"
     }, {
@@ -3811,7 +3807,9 @@ __webpack_require__.r(__webpack_exports__);
         from_date: "",
         to_date: "",
         filter: {
-          columns: ["index", "id", "text_comment", "positive_product", "negative_product", "display", "user_id", "product_id", "created_at", "actions"],
+          columns: ["index", "id", "text_comment", // "positive_product",
+          // "negative_product",
+          "display", "user_id", "product_id", "created_at", "actions"],
           columnsExcept: ['show_plus', 'index'],
           viewTable: ["bordered", 'hover']
         },
@@ -56667,94 +56665,6 @@ var render = function() {
           { staticClass: "form-group" },
           [
             _c("label", [
-              _vm._v(
-                " " + _vm._s(_vm.$t("comments_table.positive_product")) + " "
-              ),
-              _c("span", { staticClass: "field-required" })
-            ]),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.positive_product,
-                  expression: "form.positive_product"
-                }
-              ],
-              staticClass: "form-control textarea-form",
-              class: { "is-invalid": _vm.form.errors.has("positive_product") },
-              attrs: {
-                type: "text",
-                placeholder: _vm.$t("comments_table.positive_product")
-              },
-              domProps: { value: _vm.form.positive_product },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "positive_product", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("has-error", {
-              attrs: { form: _vm.form, field: "positive_product" }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group" },
-          [
-            _c("label", [
-              _vm._v(
-                " " + _vm._s(_vm.$t("comments_table.negative_product")) + " "
-              ),
-              _c("span", { staticClass: "field-required" })
-            ]),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.negative_product,
-                  expression: "form.negative_product"
-                }
-              ],
-              staticClass: "form-control textarea-form",
-              class: { "is-invalid": _vm.form.errors.has("negative_product") },
-              attrs: {
-                type: "text",
-                placeholder: _vm.$t("comments_table.negative_product")
-              },
-              domProps: { value: _vm.form.negative_product },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "negative_product", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("has-error", {
-              attrs: { form: _vm.form, field: "negative_product" }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group" },
-          [
-            _c("label", [
               _vm._v(" " + _vm._s(_vm.$t("datatable.display")) + " "),
               _c("span", { staticClass: "field-required" })
             ]),
@@ -56802,120 +56712,6 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("has-error", { attrs: { form: _vm.form, field: "display" } })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group" },
-          [
-            _c("label", [
-              _vm._v(" " + _vm._s(_vm.$t("comments_table.user_id")) + " "),
-              _c("span", { staticClass: "field-required" })
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.user_id,
-                    expression: "form.user_id"
-                  }
-                ],
-                staticClass: "custom-select",
-                class: { "is-invalid": _vm.form.errors.has("user_id") },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "user_id",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              _vm._l(_vm.users, function(user) {
-                return _c(
-                  "option",
-                  { key: user.id, domProps: { value: user.id } },
-                  [_vm._v(_vm._s(user.id) + " ------ " + _vm._s(user.name))]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("has-error", { attrs: { form: _vm.form, field: "user_id" } })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group" },
-          [
-            _c("label", [
-              _vm._v(" " + _vm._s(_vm.$t("comments_table.product_id")) + " "),
-              _c("span", { staticClass: "field-required" })
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.product_id,
-                    expression: "form.product_id"
-                  }
-                ],
-                staticClass: "custom-select",
-                class: { "is-invalid": _vm.form.errors.has("product_id") },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.form,
-                      "product_id",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              _vm._l(_vm.products, function(product) {
-                return _c(
-                  "option",
-                  { key: product.id, domProps: { value: product.id } },
-                  [
-                    _vm._v(
-                      _vm._s(product.id) + " ------ " + _vm._s(product.name)
-                    )
-                  ]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("has-error", { attrs: { form: _vm.form, field: "product_id" } })
           ],
           1
         )
@@ -57170,56 +56966,6 @@ var render = function() {
             [
               _vm._v(
                 "\n            " + _vm._s(comment.text_comment) + "\n        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.tableData.filter.columns.indexOf("positive_product") !=
-                    -1,
-                  expression:
-                    "tableData.filter.columns.indexOf('positive_product') != -1"
-                }
-              ],
-              staticClass: "positive_product"
-            },
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(comment.positive_product) +
-                  "\n        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.tableData.filter.columns.indexOf("negative_product") !=
-                    -1,
-                  expression:
-                    "tableData.filter.columns.indexOf('negative_product') != -1"
-                }
-              ],
-              staticClass: "negative_product"
-            },
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(comment.negative_product) +
-                  "\n        "
               )
             ]
           ),

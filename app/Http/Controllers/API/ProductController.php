@@ -36,14 +36,51 @@ class ProductController extends Controller
         return response($products_result);
     }
 
+    public function search(Request $request) {
+        $category_id = $request->category_id;
+        $search_text = $request->search_text;
+        $products = Product::withoutGlobalScope(RelationProducts::class)
+                            ->activeAndDisplay()
+                            ->withCount('rates as rate_user_count')
+                            ->with('company')
+                            ->where('type_id', $category_id)
+                            ->where(function ($q) use ($search_text) {
+                                $search_text_array_words = explode(' ', trim($search_text));
+                                foreach ($search_text_array_words as $word) {
+                                    if (trim($word) != '') {
+                                        $q->orWhere('name', 'like', '%' . $word . '%')
+                                        ->orWhere('description', 'like', '%' . $word . '%')
+                                        ->orWhere('manufacture_company', 'like', '%' . $word . '%');
+                                    }
+                                }
+                            })
+                            ->orderBy('name', 'asc')
+                            ->get();
+        if ($products->count() > 0) {
+            $products = convert_gallery_to_array($products);
+        }
+        return response($products);
+    }
+
+
     public function products_category(Request $request, $id) {
         // $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
+        $price = $request->price;
+        $manufacture_company = $request->manufacture_company;
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->activeAndDisplay()
                             ->withCount('rates as rate_user_count')
                             ->with('company')
                             ->where('type_id', $id)
+                            ->where(function ($q) use($price, $manufacture_company) {
+                                if ($price != null) {
+                                    $q->where('price', '<=', $price);
+                                }
+                                if ($manufacture_company != null) {
+                                    $q->where('manufacture_company', 'like', '%' . $manufacture_company . '%');
+                                }
+                            })
                             ->orderBy('id', 'desc')
                             ->get();
                             // ->paginate($length);
@@ -57,12 +94,22 @@ class ProductController extends Controller
 
     public function products_company(Request $request, $id) {
         // $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
+        $price = $request->price;
+        $manufacture_company = $request->manufacture_company;
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->withCount('rates as rate_user_count')
                             ->with('company')
                             ->activeAndDisplay()
                             ->where('company_id', $id)
+                            ->where(function ($q) use($price, $manufacture_company) {
+                                if ($price != null) {
+                                    $q->where('price', '<=', $price);
+                                }
+                                if ($manufacture_company != null) {
+                                    $q->where('manufacture_company', 'like', '%' . $manufacture_company . '%');
+                                }
+                            })
                             ->orderBy('id', 'desc')
                             ->get();
                             // ->paginate($length);

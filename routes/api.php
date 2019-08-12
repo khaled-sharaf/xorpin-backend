@@ -9,6 +9,9 @@ Route::get('/cities', 'HomeController@cities'); // return all governorates and c
 
 
 // home page
+
+Route::get('/search', 'ProductController@search'); // global search
+
 Route::get('/products_home', 'ProductController@homePage'); // latest 8 product from all categories
 Route::get('/carousel', 'SettingController@carousel'); // all images of carousel
 Route::get('/winners', 'WinnerController@all_winners'); // all winners

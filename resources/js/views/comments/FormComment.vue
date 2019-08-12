@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- positive_product -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label> {{ $t('comments_table.positive_product') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.positive_product"
@@ -29,11 +29,11 @@
                         :class="{ 'is-invalid': form.errors.has('positive_product') }"
                     ></textarea>
                     <has-error :form="form" field="positive_product"></has-error>
-                </div>
+                </div> -->
 
 
                 <!-- negative_product -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label> {{ $t('comments_table.negative_product') }} <span class="field-required"></span></label>
                     <textarea
                         v-model="form.negative_product"
@@ -43,7 +43,7 @@
                         :class="{ 'is-invalid': form.errors.has('negative_product') }"
                     ></textarea>
                     <has-error :form="form" field="negative_product"></has-error>
-                </div>
+                </div> -->
 
 
                 <!-- dispaly comment -->
@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- users -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label> {{ $t('comments_table.user_id') }} <span class="field-required"></span></label>
                     <select
                         v-model="form.user_id"
@@ -75,10 +75,10 @@
                         >{{ user.id }} ------ {{ user.name }}</option>
                     </select>
                     <has-error :form="form" field="user_id"></has-error>
-                </div>
+                </div> -->
 
                 <!-- products -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label> {{ $t('comments_table.product_id') }} <span class="field-required"></span></label>
                     <select
                     v-model="form.product_id"
@@ -92,7 +92,7 @@
                     >{{ product.id }} ------ {{ product.name }}</option>
                     </select>
                     <has-error :form="form" field="product_id"></has-error>
-                </div>
+                </div> -->
 
             </div><!-- ./col-md -->
         </div><!-- ./row -->

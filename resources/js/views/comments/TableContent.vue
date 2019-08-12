@@ -34,13 +34,13 @@
                 {{comment.text_comment}}
             </td>
 
-            <td v-show="tableData.filter.columns.indexOf('positive_product') != -1" class="positive_product">
+            <!-- <td v-show="tableData.filter.columns.indexOf('positive_product') != -1" class="positive_product">
                 {{comment.positive_product}}
             </td>
 
             <td v-show="tableData.filter.columns.indexOf('negative_product') != -1" class="negative_product">
                 {{comment.negative_product}}
-            </td>
+            </td> -->
 
             <td v-show="tableData.filter.columns.indexOf('user_id') != -1" class="user_id">
                 <span class="badge badge-danger" v-if="comment.user == null">

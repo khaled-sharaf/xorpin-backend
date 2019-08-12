@@ -10,7 +10,8 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        $columns = ['index', 'id', 'text_comment', 'positive_product', 'negative_product', 'display', 'user_id', 'product_id', 'created_at'];
+        // $columns = ['index', 'id', 'text_comment', 'positive_product', 'negative_product', 'display', 'user_id', 'product_id', 'created_at'];
+        $columns = ['index', 'id', 'text_comment', 'display', 'user_id', 'product_id', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); // Index
         $dir = $request->input('dir');
@@ -73,10 +74,11 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         $this->validate(request(), [
             'text_comment' => 'required|string',
-            'positive_product' => 'required|string',
-            'negative_product' => 'required|string',
-            'user_id' => 'required',
-            'product_id' => 'required'
+            'display' => 'required'
+            // 'positive_product' => 'required|string',
+            // 'negative_product' => 'required|string',
+            // 'user_id' => 'required',
+            // 'product_id' => 'required'
         ]);
         $comment->update($request->all());
         return response(['message' => 'Comment has been updated.']);
