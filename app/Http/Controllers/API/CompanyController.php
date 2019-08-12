@@ -38,4 +38,36 @@ class CompanyController extends Controller
             return response($company);
         }
     }
+
+
+    public function add_rate(Request $request) {
+        $rate = $request->rate;
+        $company_id = $request->company_id;
+        $user_id = $request->user()->id;
+        $status = true;
+        try {
+            $product = Company::find($company_id);
+            $rate_user_exists = $product->rates()->where('user_id', $user_id)->first();
+
+            if ($rate_user_exists !== null) {
+                // update old rate
+                $rate_user_exists->rate = $rate;
+                $rate_user_exists->save();
+            } else {
+                // add new rate
+                $product->rates()->create([
+                    'rate' => $rate,
+                    'company_id' => $company_id,
+                    'user_id' => $user_id
+                ]);
+            }
+            // add rating to product in column count rates
+            $rating = $product->rates->sum('rate');
+            $product->count_rates = $rating;
+            $product->save();
+        } catch (Exception $e) {
+            $status = false;
+        }
+        return response(['status' => $status]);
+    }
 }

@@ -3153,9 +3153,9 @@ __webpack_require__.r(__webpack_exports__);
     loginTest: function loginTest() {
       var postData = {
         grant_type: 'password',
-        client_id: '2',
+        client_id: '1',
         client_secret: 'oU1c3pC4YEqhnsfdvEHQcXYFZgVcHtM1PIMxGk4k',
-        username: 'admin@admin.com',
+        username: 'user@user.com',
         password: 622136,
         socpe: ''
       };
@@ -5466,6 +5466,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -8133,6 +8134,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -56365,7 +56367,19 @@ var render = function() {
                 ],
                 1
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.loginTest()
+                  }
+                }
+              },
+              [_vm._v("Login")]
+            )
           ])
         ])
       ])
@@ -59474,7 +59488,28 @@ var render = function() {
             [
               _c("rates-stars", {
                 attrs: { "rates-count": company.count_rates }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticStyle: {
+                    display: "inline-block",
+                    position: "relative",
+                    top: "-12px"
+                  }
+                },
+                [_vm._v("( " + _vm._s(company.rate_user_count) + " )")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  staticStyle: { "font-size": "11px" }
+                },
+                [_vm._v(_vm._s(company.count_rates))]
+              )
             ],
             1
           ),
@@ -62994,7 +63029,28 @@ var render = function() {
             [
               _c("rates-stars", {
                 attrs: { "rates-count": product.count_rates }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticStyle: {
+                    display: "inline-block",
+                    position: "relative",
+                    top: "-12px"
+                  }
+                },
+                [_vm._v("( " + _vm._s(product.rate_user_count) + " )")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  staticStyle: { "font-size": "11px" }
+                },
+                [_vm._v(_vm._s(product.count_rates))]
+              )
             ],
             1
           ),

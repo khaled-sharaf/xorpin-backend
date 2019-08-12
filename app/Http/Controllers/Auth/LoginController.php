@@ -95,12 +95,14 @@ class LoginController extends Controller
 
         return redirect('/get_token_socialite' . $this->issueToken($user_result))->with('status_active', true);
     }
+
     private function issueToken($user) {
         $oldToken = DB::table('oauth_access_tokens')->where('user_id', $user->id)->where('name', 'social');
         if ($oldToken->count() > 0) {
             $oldToken->delete();
         }
         $token = $user->createToken('social');
+        // dd($user);
         $accessToken = $token->accessToken;
         return '?access_token=' . $accessToken;
     }

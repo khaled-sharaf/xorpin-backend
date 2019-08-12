@@ -36,38 +36,39 @@ class ProductController extends Controller
         return response($products_result);
     }
 
-    public function products_category(Request $request, $category) {
+    public function products_category(Request $request, $id) {
         // $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
-        $searchColumn = is_numeric($category) ? 'id' : 'name';
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->activeAndDisplay()
                             ->withCount('rates as rate_user_count')
                             ->with('company')
-                            ->whereHas('type', function ($query) use ($searchColumn, $category) {
-                                $query->where($searchColumn, $category);
-                            })
+                            ->where('type_id', $id)
                             ->orderBy('id', 'desc')
                             ->get();
                             // ->paginate($length);
-        $products = convert_gallery_to_array($products);
+        if ($products->count() > 0) {
+            $products = convert_gallery_to_array($products);
+        }
         return response($products);
     }
 
 
 
-    public function products_company(Request $request) {
-        $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
-        $company_id = $request->id;
+    public function products_company(Request $request, $id) {
+        // $length = $request->length == null || $request->length < 0 ? 12 : $request->length;
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->withCount('rates as rate_user_count')
                             ->with('company')
                             ->activeAndDisplay()
-                            ->where('company_id', $company_id)
+                            ->where('company_id', $id)
                             ->orderBy('id', 'desc')
-                            ->paginate($length);
-        $products = convert_gallery_to_array($products);
+                            ->get();
+                            // ->paginate($length);
+        if ($products->count() > 0) {
+            $products = convert_gallery_to_array($products);
+        }
         return response($products);
     }
 
@@ -87,9 +88,35 @@ class ProductController extends Controller
             }
         }
     }
+
+    public function add_rate(Request $request) {
+        $rate = $request->rate;
+        $product_id = $request->product_id;
+        $user_id = $request->user()->id;
+        $status = true;
+        try {
+            $product = Product::find($product_id);
+            $rate_user_exists = $product->rates()->where('user_id', $user_id)->first();
+
+            if ($rate_user_exists !== null) {
+                // update old rate
+                $rate_user_exists->rate = $rate;
+                $rate_user_exists->save();
+            } else {
+                // add new rate
+                $product->rates()->create([
+                    'rate' => $rate,
+                    'product_id' => $product_id,
+                    'user_id' => $user_id
+                ]);
+            }
+            // add rating to product in column count rates
+            $rating = $product->rates->sum('rate');
+            $product->count_rates = $rating;
+            $product->save();
+        } catch (Exception $e) {
+            $status = false;
+        }
+        return response(['status' => $status]);
+    }
 }
-// $test = $rate_1->count()
-//     + ($rate_2->count() * 2)
-//     + ($rate_3->count() * 3)
-//     + ($rate_4->count() * 4)
-//     + ($rate_5->count() * 5);

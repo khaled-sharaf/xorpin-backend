@@ -15,8 +15,8 @@ Route::get('/winners', 'WinnerController@all_winners'); // all winners
 Route::get('/partners', 'CompanyController@partners'); // all logos of companies
 
 // products
-Route::get('/products_category/{category}', 'ProductController@products_category'); // all products from every category
-// /products_category  -- send in request this key >>>>>   "category" => id or name category
+Route::get('/products_category/{id}', 'ProductController@products_category'); // all products from every category
+// /products_category  -- send in request this key >>>>>   "category" => id category
 // and number page  >>>>   ?page=2   | Required
 // and perPage (length in one page)  >>>>   &length=12  | optional  >>>>  default = 12
 
@@ -49,11 +49,11 @@ Route::middleware('auth:api')->group(function () {
     // comments
     Route::post('/comment/store', 'CommentController@store'); // add new comment
     Route::post('/comment/update/{id}', 'CommentController@update'); // update comment
-    Route::post('/comment/destroy/{id}', 'CommentController@update'); // destroy comment
+    Route::post('/comment/destroy/{id}', 'CommentController@destroy'); // destroy comment
 
     // rates
-    Route::post('/company/rate/{rate}', 'CompanyController@store')->where('rate', '[12345]'); // company rate
-    Route::post('/product/rate/{rate}', 'ProductController@store')->where('rate', '[12345]'); // product rate
+    Route::post('/product/rate', 'ProductController@add_rate'); // product rate
+    Route::post('/company/rate', 'CompanyController@add_rate'); // company rate
 });
 
 

@@ -128,7 +128,7 @@
                     <!-- ./col -->
 
 
-                    <!-- <h1 @click="loginTest()">Login</h1> -->
+                    <h1 @click="loginTest()">Login</h1>
 
                 </div>
                 <!-- /.row -->
@@ -174,9 +174,9 @@
             loginTest() {
                 const postData = {
                     grant_type: 'password',
-                    client_id: '2',
+                    client_id: '1',
                     client_secret: 'oU1c3pC4YEqhnsfdvEHQcXYFZgVcHtM1PIMxGk4k',
-                    username: 'admin@admin.com',
+                    username: 'user@user.com',
                     password: 622136,
                     socpe: ''
                 }

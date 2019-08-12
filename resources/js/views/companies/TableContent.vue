@@ -60,7 +60,8 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('count_rates') != -1" class="count_rates">
-                <rates-stars :rates-count="company.count_rates"></rates-stars>
+                <rates-stars :rates-count="company.count_rates"></rates-stars> <span style="display: inline-block; position: relative; top: -12px;">( {{ company.rate_user_count }} )</span>
+                <div class="text-center" style="font-size: 11px;">{{ company.count_rates }}</div>
             </td>
 
 

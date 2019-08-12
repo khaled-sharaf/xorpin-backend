@@ -18,8 +18,12 @@ class UserController extends Controller
         $token = $request->user()->token();
         $token_id = $token->id;
         if ($token->delete()) {
-            DB::table('oauth_refresh_tokens')->where('access_token_id', $token_id)->delete();
+            $refresh_token = DB::table('oauth_refresh_tokens')->where('access_token_id', $token_id);
+            if ($refresh_token->count() > 0) {
+                $refresh_token->delete();
+            }
             return response(['logout' => true]);
         }
+        return response(['logout' => false]);
     }
 }
