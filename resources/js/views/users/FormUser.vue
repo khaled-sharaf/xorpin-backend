@@ -10,11 +10,11 @@
                 <div class="form-group">
                     <label>{{ $t('users_table.name') }} <span class="field-required"></span></label>
                     <input
-                    v-model="form.name"
-                    type="text"
-                    :placeholder="$t('users_table.name')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }"
+                        v-model="form.name"
+                        type="text"
+                        :placeholder="$t('users_table.name')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('name') }"
                     >
                     <has-error :form="form" field="name"></has-error>
                 </div>
@@ -23,11 +23,11 @@
                 <div class="form-group">
                     <label>{{$t('users_table.email')}} <span class="field-required"></span></label>
                     <input
-                    v-model="form.email"
-                    type="text"
-                    :placeholder="$t('users_table.email')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('email') }"
+                        v-model="form.email"
+                        type="text"
+                        :placeholder="$t('users_table.email')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('email') }"
                     >
                     <has-error :form="form" field="email"></has-error>
                 </div>
@@ -36,11 +36,11 @@
                 <div class="form-group">
                     <label>{{$t('users_table.password') }}<span class="field-required"></span></label>
                     <input
-                    v-model="form.password"
-                    type="password"
-                    :placeholder="$t('users_table.password')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('password') }"
+                        v-model="form.password"
+                        type="password"
+                        :placeholder="$t('users_table.password')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('password') }"
                     >
                     <has-error :form="form" field="password"></has-error>
                 </div>
@@ -49,11 +49,11 @@
                 <div class="form-group">
                     <label>{{$t('users_table.repeat_password')}} <span class="field-required"></span></label>
                     <input
-                    v-model="form.password_confirmation"
-                    type="password"
-                    :placeholder="$t('users_table.repeat_password')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('password_confirmation') }"
+                        v-model="form.password_confirmation"
+                        type="password"
+                        :placeholder="$t('users_table.repeat_password')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('password_confirmation') }"
                     >
                     <has-error :form="form" field="password_confirmation"></has-error>
                 </div>
@@ -62,11 +62,11 @@
                 <div class="form-group">
                     <label> {{$t('users_table.phone')}} </label>
                     <input
-                    v-model="form.phone"
-                    type="text"
-                    :placeholder="$t('users_table.phone')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('phone') }"
+                        v-model="form.phone"
+                        type="text"
+                        :placeholder="$t('users_table.phone')"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('phone') }"
                     >
                     <has-error :form="form" field="phone"></has-error>
                 </div>

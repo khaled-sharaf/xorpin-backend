@@ -34,16 +34,9 @@ Route::get('/company_profile/{id}', 'CompanyController@company_profile'); // com
 Route::get('/categories', 'ProductTypeController@all_categories'); // all categories
 
 
-
-
-// // route login social media
-// Route::namespace('Auth')->group(function () {
-//     Route::get('login/facebook', 'LoginController@redirectToProvider');
-//     Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
-// });
-
-
 Route::post('/logout', 'UserController@logout');
+Route::post('/register', 'UserController@register');
+Route::post('/user_profile/update/{id}', 'UserController@update');
 
 // apis require auth
 Route::middleware('auth:api')->group(function () {
