@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 // Route::get('/cities', 'HomeController@cities'); // return all governorates and cities
 Route::post('/logout', 'UserController@logout');
 Route::post('/register', 'UserController@register');
-Route::post('/forgot-password', 'UserController@forgotPassword'); // send email
-Route::post('/reset-password', 'UserController@resetPassword'); // send token and new password
+Route::post('/forgot_password', 'UserController@forgotPassword'); // send email
+Route::post('/reset_password', 'UserController@resetPassword'); // send token and new password
 
 
 // user
