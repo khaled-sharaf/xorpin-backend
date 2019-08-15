@@ -48,7 +48,7 @@ class UserController extends Controller
             'name' => 'required|string|between:2,180',
             'email' => 'required|email|max:180|unique:users',
             'password' => 'required|confirmed|string|min:8',
-            'address' => 'required',
+            'address' => 'required|integer|between:1,27',
             'phone' => 'nullable|unique:users|regex:' . $this->patternPhone
         ]);
         $data = $request->except(['password_confirmation']);
@@ -71,7 +71,7 @@ class UserController extends Controller
             'name' => 'required|string|between:2,180',
             'email' => 'required|email|max:180|unique:users,email,'. $id,
             'password' => 'required|confirmed|string|min:8',
-            'address' => 'required',
+            'address' => 'required|integer|between:1,27',
             'phone' => 'nullable|regex:' . $this->patternPhone . '|unique:users,phone,'. $id,
             'photo' => 'nullable|string'
         ]);

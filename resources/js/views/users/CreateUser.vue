@@ -72,7 +72,7 @@ export default {
           password: "",
           password_confirmation: "",
           phone: "",
-          address: "",
+          address: 1,
           photo: "",
           company_id: "",
           rule: 0,

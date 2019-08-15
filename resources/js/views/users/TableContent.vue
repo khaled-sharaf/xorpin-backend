@@ -41,7 +41,7 @@
 
 
             <td v-show="tableData.filter.columns.indexOf('address') != -1" class="address"
-            >{{user.city !== null ? user.city.city_name + '، ' + user.city.governorate.governorate_name : ''}}</td>
+            >{{user.governorate !== null ? user.governorate.governorate_name : ''}}</td>
 
 
             <td v-show="tableData.filter.columns.indexOf('photo') != -1" class="photo">

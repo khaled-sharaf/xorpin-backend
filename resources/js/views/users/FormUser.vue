@@ -80,15 +80,15 @@
                         v-select2address="form.address"
                         :class="{ 'is-invalid': form.errors.has('address') }"
                     >
-                        <optgroup v-for="gov in cities" :key="gov.governorate.id" :label="gov.governorate.governorate_name">
+                        <!-- <optgroup v-for="gov in cities" :key="gov.governorate.id" :label="gov.governorate.governorate_name"> -->
                             <option
-                                v-for="city in gov.cities" :key="city.id"
-                                :value="city.id"
-                                v-text="city.city_name"
-                                :selected="typeForm == 'edit' && city.id == form.address"
+                                v-for="governorate in governorates" :key="governorate.id"
+                                :value="governorate.id"
+                                v-text="governorate.governorate_name"
+                                :selected="typeForm == 'edit' && governorate.id == form.address"
                             >
                             ></option>
-                        </optgroup>
+                        <!-- </optgroup> -->
                     </select>
                     <has-error :form="form" field="address"></has-error>
                 </div>
@@ -185,9 +185,11 @@
         ],
         selectCompany: false,
         companies: [],
-        cities: [],
+        // cities: [],
+        governorates: [],
         urlGetAllCompanies: '/companies-id',
-        urlGetCities: '/cities',
+        // urlGetCities: '/cities',
+        urlGetGovernorates: '/governorates',
         userAvatar: "",
         oldUserAvatar: "images/user-avatar/default-avatar.png",
         showBtnRemoveAvatar: false
@@ -245,16 +247,16 @@
                 }, 1000)
             });
         },
-        getCities() {
-            axios.post(this.urlGetCities).then(response => {
+        getGovernorates() {
+            axios.post(this.urlGetGovernorates).then(response => {
                 let data = response.data;
                 if (response.status === 200) {
-                    this.cities = data;
+                    this.governorates = data;
                 }
             })
             .catch(errors => {
                 setTimeout(() => {
-                    this.getCities()
+                    this.getGovernorates()
                 }, 1000)
             });
         },
@@ -290,7 +292,8 @@
     mounted() {
         if (this.$gate.isAdmin()) {
             this.getCompanies();
-            this.getCities();
+            this.getGovernorates();
+            // this.getCities();
         }
         if (this.typeForm == 'create') {
             this.form.photo = this.oldUserAvatar;

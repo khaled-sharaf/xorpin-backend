@@ -9506,7 +9506,7 @@ __webpack_require__.r(__webpack_exports__);
         password: "",
         password_confirmation: "",
         phone: "",
-        address: "",
+        address: 1,
         photo: "",
         company_id: "",
         rule: 0,
@@ -9930,9 +9930,11 @@ __webpack_require__.r(__webpack_exports__);
       }],
       selectCompany: false,
       companies: [],
-      cities: [],
+      // cities: [],
+      governorates: [],
       urlGetAllCompanies: '/companies-id',
-      urlGetCities: '/cities',
+      // urlGetCities: '/cities',
+      urlGetGovernorates: '/governorates',
       userAvatar: "",
       oldUserAvatar: "images/user-avatar/default-avatar.png",
       showBtnRemoveAvatar: false
@@ -9988,18 +9990,18 @@ __webpack_require__.r(__webpack_exports__);
         }, 1000);
       });
     },
-    getCities: function getCities() {
+    getGovernorates: function getGovernorates() {
       var _this2 = this;
 
-      axios.post(this.urlGetCities).then(function (response) {
+      axios.post(this.urlGetGovernorates).then(function (response) {
         var data = response.data;
 
         if (response.status === 200) {
-          _this2.cities = data;
+          _this2.governorates = data;
         }
       })["catch"](function (errors) {
         setTimeout(function () {
-          _this2.getCities();
+          _this2.getGovernorates();
         }, 1000);
       });
     }
@@ -10035,7 +10037,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.$gate.isAdmin()) {
       this.getCompanies();
-      this.getCities();
+      this.getGovernorates(); // this.getCities();
     }
 
     if (this.typeForm == 'create') {
@@ -41422,30 +41424,20 @@ var render = function() {
                 class: { "is-invalid": _vm.form.errors.has("address") },
                 staticStyle: { transform: "scale(0)", height: "0" }
               },
-              _vm._l(_vm.cities, function(gov) {
+              _vm._l(_vm.governorates, function(governorate) {
                 return _c(
-                  "optgroup",
+                  "option",
                   {
-                    key: gov.governorate.id,
-                    attrs: { label: gov.governorate.governorate_name }
+                    key: governorate.id,
+                    domProps: {
+                      value: governorate.id,
+                      selected:
+                        _vm.typeForm == "edit" &&
+                        governorate.id == _vm.form.address,
+                      textContent: _vm._s(governorate.governorate_name)
+                    }
                   },
-                  _vm._l(gov.cities, function(city) {
-                    return _c(
-                      "option",
-                      {
-                        key: city.id,
-                        domProps: {
-                          value: city.id,
-                          selected:
-                            _vm.typeForm == "edit" &&
-                            city.id == _vm.form.address,
-                          textContent: _vm._s(city.city_name)
-                        }
-                      },
-                      [_vm._v("\n                        >")]
-                    )
-                  }),
-                  0
+                  [_vm._v("\n                        >")]
                 )
               }),
               0
@@ -42061,10 +42053,8 @@ var render = function() {
             [
               _vm._v(
                 _vm._s(
-                  user.city !== null
-                    ? user.city.city_name +
-                        "، " +
-                        user.city.governorate.governorate_name
+                  user.governorate !== null
+                    ? user.governorate.governorate_name
                     : ""
                 )
               )

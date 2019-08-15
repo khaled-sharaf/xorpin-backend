@@ -10,6 +10,6 @@ class RelationUsers implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->with(['company', 'city']);
+        $builder->with(['company', 'governorate']);
     }
 }

@@ -4,7 +4,8 @@ Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 
 Route::post('/get-tables-count', 'HomeController@getCounts');
 
-Route::post('/cities', 'HomeController@cities'); // return all governorates and cities
+// Route::post('/cities', 'HomeController@cities'); // return all governorates and cities
+Route::post('/governorates', 'HomeController@governorates'); // return all governorates and cities
 
 
 //////////////////////// users routes //////////////////////////////

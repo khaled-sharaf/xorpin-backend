@@ -58,4 +58,11 @@ class HomeController extends Controller
         return $cities;
     }
 
+
+    public function governorates()
+    {
+        $all_governorates = Governorate::get();
+        return $all_governorates;
+    }
+
 }
