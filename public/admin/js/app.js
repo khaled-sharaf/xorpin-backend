@@ -56365,19 +56365,7 @@ var render = function() {
                 ],
                 1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "h1",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.loginTest()
-                  }
-                }
-              },
-              [_vm._v("Login")]
-            )
+            ])
           ])
         ])
       ])

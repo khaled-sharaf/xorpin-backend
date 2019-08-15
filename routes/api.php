@@ -4,8 +4,15 @@ use Illuminate\Http\Request;
 
 
 // global
-Route::get('/cities', 'HomeController@cities'); // return all governorates and cities
+// Route::get('/cities', 'HomeController@cities'); // return all governorates and cities
+Route::post('/logout', 'UserController@logout');
+Route::post('/register', 'UserController@register');
+Route::post('/forgot-password', 'UserController@forgotPassword'); // send email
+Route::post('/reset-password', 'UserController@resetPassword'); // send token and new password
 
+
+// user
+Route::post('/user_profile/update/{id}', 'UserController@update');
 
 
 // home page
@@ -33,10 +40,6 @@ Route::get('/company_profile/{id}', 'CompanyController@company_profile'); // com
 // categories
 Route::get('/categories', 'ProductTypeController@all_categories'); // all categories
 
-
-Route::post('/logout', 'UserController@logout');
-Route::post('/register', 'UserController@register');
-Route::post('/user_profile/update/{id}', 'UserController@update');
 
 // apis require auth
 Route::middleware('auth:api')->group(function () {

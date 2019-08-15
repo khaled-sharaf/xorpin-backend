@@ -128,7 +128,7 @@
                     <!-- ./col -->
 
 
-                    <h1 @click="loginTest()">Login</h1>
+                    <!-- <h1 @click="loginTest()">Login</h1> -->
 
                 </div>
                 <!-- /.row -->

@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Image;
+
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Mail\ResetPassword;
+
 
 class UserController extends Controller
 {
@@ -31,9 +35,9 @@ class UserController extends Controller
             if ($refresh_token->count() > 0) {
                 $refresh_token->delete();
             }
-            return response(['logout' => true]);
+            return response(['status' => true]);
         }
-        return response(['logout' => false]);
+        return response(['status' => false]);
     }
 
 
@@ -53,7 +57,7 @@ class UserController extends Controller
         $data['photo'] = $this->defaultAvatar;
 
         User::create($data);
-        return response(['message' => 'User has been created.']);
+        return response(['status' => true, 'message' => 'تم إنشاء عضوية جديدة.']);
     }
 
 
@@ -109,8 +113,73 @@ class UserController extends Controller
         }
 
         $user->update($data);
-        return response(['message' => 'The user has been updated.']);
+        return response(['status' => true, 'message' => 'تم تعديل بيانات المستخدم بنجاح.']);
     }
 
+
+
+    public function forgotPassword(Request $request)
+    {
+        $email = $request->email;
+        $status = false;
+        $message = '';
+        // check mail
+        $check_mail = User::where('email', $email)->first();
+        if ($check_mail === null) {
+            $message = 'البريد الإلكترونى غير موجود.';
+        } else {
+            $token = str_random(64);
+            $url = $request->url . '?token=' . $token;
+            $email = $request->email;
+
+            // send token to mail
+            $mailSend = \Mail::to($email)->send(new ResetPassword(['url' => url('/reset-password' . $url)]));
+
+            // save token in database
+            DB::table('password_resets')->where('email', $email)->delete();
+
+            $saved = DB::table('password_resets')->insert([
+                'email' => $email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+
+            if ($saved) {
+                $status = true;
+                $message = 'تم إرسال رسالة استرجاع كلمة السر إلى بريدك الإلكترونى.';
+            } else {
+                $message = 'لم يتم إرسال الرسالة.';
+            }
+
+        }
+        return response(['status' => $status, 'message' => $message]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $token = $request->token;
+        $status = false;
+        $message = '';
+        $check_token = DB::table('password_resets')->where('token', $token)->first();
+        if ($check_token === null) {
+            $message = 'Token not exists.';
+        } else {
+            if ($check_token->created_at > Carbon::now()->subHours(2)) {
+                $request->validate([
+                    'password' => 'required|confirmed|string|min:8',
+                ]);
+                $user = User::where('email', $check_token->email)->update([
+                    'password' => bcrypt($request->password)
+                ]);
+                DB::table('password_resets')->where('token', $token)->delete();
+
+                $status = true;
+                $message = 'تم تغيير كلمة السر بنجاح.';
+            } else {
+                $message = 'انتهى وقت تغيير كلمة السر، من فضلك أرسل رسالة أخرى لاسترجاع كلمة السر.';
+            }
+        }
+        return response(['status' => $status, 'message' => $message]);
+    }
 
 }
