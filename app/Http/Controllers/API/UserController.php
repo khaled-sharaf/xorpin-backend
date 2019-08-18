@@ -11,6 +11,7 @@ use Image;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Mail\ResetPassword;
+use App\Mail\VerifyEmail;
 
 
 class UserController extends Controller
@@ -57,7 +58,25 @@ class UserController extends Controller
         $data['photo'] = $this->defaultAvatar;
 
         User::create($data);
-        return response(['status' => true, 'message' => 'تم إنشاء عضوية جديدة.']);
+
+        // send mail verify email
+        $email = $request->email;
+        $token = str_random(64);
+        $url = $request->url . '?token=' . $token;
+        $email = $request->email;
+
+        // send token to mail
+        $mailSend = \Mail::to($email)->send(new VerifyEmail(['url' => url('/verify-email' . $url)]));
+
+        // save token in database
+        DB::table('password_resets')->where('email', $email)->delete();
+
+        $saved = DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+        return response(['status' => true, 'message' => 'تم إنشاء عضوية جديدة، برجاء تفعيل البريد الإلكترونى.']);
     }
 
 
@@ -126,14 +145,15 @@ class UserController extends Controller
         // check mail
         $check_mail = User::where('email', $email)->first();
         if ($check_mail === null) {
-            $message = 'البريد الإلكترونى غير موجود.';
+            $message = 'البريد الإلكترونى غير صحيح.';
         } else {
             $token = str_random(64);
             $url = $request->url . '?token=' . $token;
             $email = $request->email;
 
             // send token to mail
-            $mailSend = \Mail::to($email)->send(new ResetPassword(['url' => url('/reset-password' . $url)]));
+            // $mailSend = \Mail::to($email)->send(new ResetPassword(['url' => url('/reset-password' . $url)]));
+            $mailSend = \Mail::to($email)->send(new ResetPassword(['url' => 'http://localhost:3000/reset-password' . $url]));
 
             // save token in database
             DB::table('password_resets')->where('email', $email)->delete();
@@ -162,13 +182,13 @@ class UserController extends Controller
         $message = '';
         $check_token = DB::table('password_resets')->where('token', $token)->first();
         if ($check_token === null) {
-            $message = 'Token not exists.';
+            $message = 'رمز التفعيل غير صحيح.';
         } else {
             if ($check_token->created_at > Carbon::now()->subHours(2)) {
                 $request->validate([
                     'password' => 'required|confirmed|string|min:8',
                 ]);
-                $user = User::where('email', $check_token->email)->update([
+                User::where('email', $check_token->email)->update([
                     'password' => bcrypt($request->password)
                 ]);
                 DB::table('password_resets')->where('token', $token)->delete();
@@ -176,10 +196,78 @@ class UserController extends Controller
                 $status = true;
                 $message = 'تم تغيير كلمة السر بنجاح.';
             } else {
-                $message = 'انتهى وقت تغيير كلمة السر، من فضلك أرسل رسالة أخرى لاسترجاع كلمة السر.';
+                $message = 'انتهى وقت صلاحية رمز التفعيل الخاص باسترجاع كلمة السر، من فضلك أرسل رسالة أخرى لاسترجاع كلمة السر.';
             }
         }
         return response(['status' => $status, 'message' => $message]);
+    }
+
+
+    public function verifyEmail(Request $request)
+    {
+        $email = $request->email;
+        $status = false;
+        $message = '';
+        // check mail
+        $check_mail = User::where('email', $email)->first();
+        if ($check_mail === null) {
+            $message = 'البريد الإلكترونى غير صحيح.';
+        } else {
+            $token = str_random(64);
+            $url = $request->url . '?token=' . $token;
+            $email = $request->email;
+
+            // send token to mail
+            $mailSend = \Mail::to($email)->send(new VerifyEmail(['url' => url('/verify-email' . $url)]));
+
+            // save token in database
+            DB::table('password_resets')->where('email', $email)->delete();
+
+            $saved = DB::table('password_resets')->insert([
+                'email' => $email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+
+            if ($saved) {
+                $status = true;
+                $message = 'تم إرسال رسالة التحقق من بريدك الإلكترونى.';
+            } else {
+                $message = 'لم يتم إرسال الرسالة.';
+            }
+
+        }
+        return response(['status' => $status, 'message' => $message]);
+    }
+
+
+    public function activeEmail(Request $request)
+    {
+        $token = $request->token;
+        $status = false;
+        $message = '';
+        $check_token = DB::table('password_resets')->where('token', $token)->first();
+        if ($check_token === null) {
+            $message = 'رمز التفعيل غير صحيح.';
+        } else {
+            if ($check_token->created_at > Carbon::now()->subHours(2)) {
+                User::where('email', $check_token->email)->update([
+                    'email_verified_at' => Carbon::now()
+                ]);
+                DB::table('password_resets')->where('token', $token)->delete();
+
+                $status = true;
+                $message = 'تم تفعيل بريدك الإلكترونى بنجاح.';
+            } else {
+                $message = 'انتهى وقت صلاحية رمز التفعيل الخاص بالتحقق من البريد الإلكترونى، من فضلك أرسل رسالة أخرى للتحقق من البريد الإلكترونى.';
+            }
+        }
+        if ($status) {
+            return redirect('/');
+        }
+        //  else {
+        //     return response(['message' => $message]);
+        // }
     }
 
 }

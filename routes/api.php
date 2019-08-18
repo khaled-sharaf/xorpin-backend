@@ -9,6 +9,8 @@ Route::post('/logout', 'UserController@logout');
 Route::post('/register', 'UserController@register');
 Route::post('/forgot_password', 'UserController@forgotPassword'); // send email
 Route::post('/reset_password', 'UserController@resetPassword'); // send token and new password
+Route::post('/verify_email', 'UserController@verifyEmail'); // send email
+// Route::post('/active_email', 'UserController@activeEmail'); // send token
 
 
 // user

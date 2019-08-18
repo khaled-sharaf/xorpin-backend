@@ -1,13 +1,13 @@
 @component('mail::message')
-{{-- # Reset password --}}
-# استرجاع كلمة السر
+{{-- # Verify email --}}
 
-{{-- This message from {{ config('app.name') }} to change your password. --}}
-هذه الرسالة من  {{ config('app.name') }} لاسترجاع كلمة السر الخاصة بك.
+# التحقق من البريد الإلكترونى
+
+هذه الرسالة من  {{ config('app.name') }} للتحقق من بريدك الإلكترونى أنه بريد صحيح لديك بالفعل.
 
 @component('mail::button', ['url' => $data['url']])
 {{-- Click here to create a new password --}}
-اضغط هنا لإسترجاع كلمة السر
+اضغط هنا لتفعيل بريدك الإلكترونى
 @endcomponent
 
 <br>

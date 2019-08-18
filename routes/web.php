@@ -33,6 +33,8 @@ Route::get('/get_token_socialite', function () {
     }
 });
 
+Route::get('/verify-email', 'API\UserController@activeEmail');
+
 Route::get('/', function () {
     return view('welcome');
 

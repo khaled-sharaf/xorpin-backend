@@ -291,8 +291,10 @@
     },
     mounted() {
         if (this.$gate.isAdmin()) {
-            this.getCompanies();
-            this.getGovernorates();
+            this.$nextTick( () => {
+                this.getGovernorates();
+                this.getCompanies();
+            })
             // this.getCities();
         }
         if (this.typeForm == 'create') {
