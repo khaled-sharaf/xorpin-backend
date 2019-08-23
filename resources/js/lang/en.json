@@ -210,6 +210,7 @@
         "display": "Display",
         "active": "Active",
         "count_rates": "Rates",
+        "visits": "Visits",
         "user_id": "User",
         "created_at": "Created at",
         "actions": "Actions",

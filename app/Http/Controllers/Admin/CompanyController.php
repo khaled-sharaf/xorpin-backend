@@ -22,7 +22,7 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
-        $columns = ['index', 'id', 'name', 'email', 'phone', 'address', 'website', 'description', 'logo', 'count_rates', 'location', 'face_link', 'tw_link', 'display', 'active', 'created_at'];
+        $columns = ['index', 'id', 'name', 'email', 'phone', 'address', 'website', 'description', 'logo', 'count_rates', 'visits', 'location', 'face_link', 'tw_link', 'display', 'active', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); // Index
         $dir = $request->input('dir');

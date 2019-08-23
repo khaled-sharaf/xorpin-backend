@@ -173,6 +173,7 @@ export default {
       { label: "Description", name: "description" },
       { label: "Logo", name: "logo" },
       { label: "Rates", name: "count_rates" },
+      { label: "Visits", name: "visits" },
       { label: "Location", name: "location" },
       { label: "Facebook", name: "face_link" },
       { label: "Twitter", name: "tw_link" },
@@ -215,6 +216,7 @@ export default {
             "description",
             "logo",
             "count_rates",
+            "visits",
             "location",
             "face_link",
             "tw_link",
@@ -232,7 +234,7 @@ export default {
       viewColumnsResponsive: {
         default: {
         //   show: "all",// or ['id', 'index']
-          show: ['name', 'phone', 'address', 'logo', 'count_rates', '', 'actions']
+          show: ['name', 'phone', 'address', 'logo', 'count_rates', 'actions']
         },
         1200: {
           show: ['name', 'phone', 'logo', 'count_rates', 'actions']

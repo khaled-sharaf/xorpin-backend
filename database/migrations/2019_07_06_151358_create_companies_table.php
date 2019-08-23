@@ -28,6 +28,7 @@ class CreateCompaniesTable extends Migration
             $table->string('tw_link')->nullable();
             $table->boolean('display')->default(1);
             $table->boolean('active')->default(1);
+            $table->integer('visits')->default(0);
             $table->tinyInteger('count_rates')->default(0);
             $table->unsignedInteger('user_id');
             $table->softDeletes();

@@ -38,6 +38,8 @@ Route::get('/products_company/{id}', 'ProductController@products_company'); // p
 // companies
 Route::get('/companies', 'CompanyController@all_companies'); // all companies
 Route::get('/company_profile/{id}', 'CompanyController@company_profile'); // company profile
+Route::post('/company/{id}/visits/set', 'CompanyController@set_visit'); // set visit to company
+Route::get('/company/{id}/visits/get', 'CompanyController@get_visits'); // get visits number of this company
 
 // categories
 Route::get('/categories', 'ProductTypeController@all_categories'); // all categories

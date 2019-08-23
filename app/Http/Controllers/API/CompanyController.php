@@ -70,4 +70,34 @@ class CompanyController extends Controller
         }
         return response(['status' => $status]);
     }
+
+
+
+    public function set_visit($id)
+    {
+        $company = Company::find($id);
+        $status = false;
+        $message = 'company is null.';
+        if ($company !== null) {
+            $company->visits = $company->visits + 1;
+            $company->save();
+            $status = true;
+            $message = 'updated visits of company.';
+        }
+        return response(['status' => $status, 'message' => $message]);
+    }
+
+
+
+    public function get_visits($id)
+    {
+        $company = Company::find($id);
+        $visits = null;
+        if ($company !== null) {
+            $visits = $company->visits;
+        }
+        return response(['visits' => $visits]);
+    }
+
+
 }
