@@ -244,7 +244,7 @@
                 <div class="form-group">
                     <label> {{ $t('products_table.product_details') }} </label>
                     <div class="wrapper-details-product">
-                        <div class="d-sm-none d-md-block">
+                        <div class="d-none d-sm-none d-md-block">
                             <div class="row row-table-label">
                                 <div class="col-md-4 col-details">
                                     <label> {{ $t('products_table.name') }} </label>
@@ -283,7 +283,7 @@
                                 <div class="action">
                                     <div class="custom-control custom-checkbox checkbox-display-details">
                                         <input type="checkbox" class="custom-control-input" :id="'display' + index" v-model="form.details[index].display">
-                                        <label class="custom-control-label" :for="'display' + index"></label>
+                                        <label class="custom-control-label" :for="'display' + index"> <span class="d-block d-sm-block d-md-none"> {{ $t('datatable.display') }} </span> </label>
                                     </div>
                                 </div>
                             </div>
