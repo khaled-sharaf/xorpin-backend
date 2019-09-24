@@ -99,7 +99,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->withCount('rates as rate_user_count')
-                            ->with('company')
+                            ->with(['company', 'type'])
                             ->activeAndDisplay()
                             ->where('company_id', $id)
                             ->where(function ($q) use($price, $manufacture_company) {

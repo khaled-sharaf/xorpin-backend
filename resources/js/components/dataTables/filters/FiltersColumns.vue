@@ -23,7 +23,6 @@
             >
                 <option
                     v-for="(column, index) in updatedColumns"
-                    v-show="column.name != 'show_plus'"
                     :key="index"
                     :value="column.name"
                     v-html="column.label"
@@ -85,7 +84,9 @@ export default {
     },
     methods: {
         updateColumns() {
-            this.updatedColumns = this.columns
+            this.updatedColumns = this.columns.filter(column => {
+                return column.name != 'show_plus'
+            })
         }
     },
     watch: {

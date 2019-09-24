@@ -176,7 +176,7 @@ export default {
             "created_at",
             "actions"
           ],
-          columnsExcept: ['show_plus', 'index'],
+          columnsExcept: ['show_plus', 'index', 'user_id'],
           viewTable: ["bordered", 'hover']
         },
         dir: ""

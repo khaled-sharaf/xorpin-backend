@@ -6,6 +6,7 @@ use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Image;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class SettingController extends Controller
@@ -72,9 +73,19 @@ class SettingController extends Controller
         $setting = Setting::find($id);
         $this->validate(request(), [
             'slug' => 'required|string|max:191',
-            'name' => 'required|string|alpha_dash|max:191|unique:settings,name,'. $id,
             'value' => 'required|string',
-            'type' => 'required|in:image,string,text'
+            'name' => [
+                'required',
+                Rule::exists('settings')->where(function ($query) use ($id) {
+                    $query->where('id', $id);
+                })
+            ],
+            'type' => [
+                'required',
+                Rule::exists('settings')->where(function ($query) use ($id) {
+                    $query->where('id', $id);
+                })
+            ]
         ]);
 
         // delete old image if exists

@@ -71,7 +71,7 @@ if (!function_exists('aurl')) {
         if ($url !== null) {
             return url($name . '/' . $url);
         }
-        return '';
+        return url($name);
     }
 }
 /***********************************************************************************/

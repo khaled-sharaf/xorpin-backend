@@ -122,17 +122,23 @@ export default {
             this.successResponse = false
             this.tableData.draw++;
             axios.post(url, this.tableData).then(response => {
-                let data = response.data,
-                    self = this;
-                if (this.tableData.draw == data.draw) {
-                    if (response.status === 200) {
-                        this.dataTable = data.data.data;
-                        this.successResponse = true
-                        this.configPagination(data.data);
-                        setTimeout(function() {
-                            self.updateRowDataWhenGet();
-                        }, 200);
+                let data = response.data
+                if (typeof data === 'object') {
+                    if (this.tableData.draw == data.draw) {
+                        if (response.status === 200) {
+                            this.dataTable = data.data.data;
+                            this.successResponse = true
+                            this.configPagination(data.data);
+                            setTimeout(() => {
+                                this.updateRowDataWhenGet();
+                            }, 200);
+                        }
                     }
+                } else {
+                    setTimeout(() => {
+                        this.getData()
+                    }, 500)
+                    this.$Progress.fail()
                 }
             })
             .catch(errors => {
@@ -140,7 +146,7 @@ export default {
                     if (errors.response && errors.response.status && errors.response.status != 404) {
                         this.getData()
                     }
-                }, 1000)
+                }, 500)
                 this.$Progress.fail()
             });
         },

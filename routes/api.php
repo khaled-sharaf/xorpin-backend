@@ -22,9 +22,16 @@ Route::post('/user_profile/update/{id}', 'UserController@update');
 Route::get('/search', 'ProductController@search'); // global search
 
 Route::get('/products_home', 'ProductController@homePage'); // latest 8 product from all categories
-Route::get('/carousel', 'SettingController@carousel'); // all images of carousel
 Route::get('/winners', 'WinnerController@all_winners'); // all winners
 Route::get('/partners', 'CompanyController@partners'); // all logos of companies
+Route::get('/carousel', 'SettingController@carousel'); // all images of carousel
+
+// settings
+Route::get('/settings/{key?}', 'SettingController@getSettings');
+
+// contact us
+Route::post('/contact-us', 'ContactUsController@store');
+
 
 // products
 Route::get('/products_category/{id}', 'ProductController@products_category'); // all products from every category

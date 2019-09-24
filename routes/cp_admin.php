@@ -98,4 +98,8 @@ Route::group(['middleware' => ['isSuperAdmin']], function () {
 
     Route::post('/setting/edit/carousel', 'SettingController@editCarousel');
     Route::post('/setting/update/carousel', 'SettingController@updateCarousel');
+
+    // contact us
+    Route::post('/contact-us', 'ContactUsController@index');
+    Route::post('/contact-us/destroy', 'ContactUsController@destroy');
 });

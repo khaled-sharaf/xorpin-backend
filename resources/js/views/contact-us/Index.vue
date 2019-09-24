@@ -6,11 +6,11 @@
 <template>
     <div>
         <!-- Content Header (Page header) -->
-        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_winners')"></header-page>
+        <header-page :title="$t('global.show') + ' ' + $t('sidebar.all_contact_us')"></header-page>
         <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
-                <div class="dataTable" id="winners">
+                <div class="dataTable" id="contact_us">
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="dataTables_wrapper">
@@ -49,16 +49,7 @@
 
                                             <!-- dataTables_buttons -->
                                             <div class="dataTables_buttons">
-                                                <router-link
-                                                    v-if="$gate.isAdmin()"
-                                                    :to="{name: 'create-winner'}"
-                                                    tag="button"
-                                                    type="button"
-                                                    class="btn btn-outline-secondary"
-                                                >
-                                                    {{ $t('global.create') }}
-                                                    <i class="fa fa-plus fa-fw"></i>
-                                                </router-link>
+
                                             </div>
                                             <!-- ./dataTables_buttons -->
 
@@ -116,17 +107,17 @@
 
 
 <script>
-import CreatedBetween from "./../../components/dataTables/filters/CreatedBetween";
 import Search from "./../../components/dataTables/filters/Search";
 import TableContent from "./TableContent";
+import CreatedBetween from "./../../components/dataTables/filters/CreatedBetween";
 
 import MixinsDatatable from "./../../mixins/MixinsDatatable"
 
 export default {
     mixins: [MixinsDatatable],
     components: {
-        CreatedBetween,
         Search,
+        CreatedBetween,
         TableContent
     },
   data() {
@@ -134,10 +125,10 @@ export default {
     let sortOrders = {};
     let columns = [
       { label: "<i class='fa fa-plus'></i>", name: "show_plus" },
-      { label: "#", name: "index" },
       { label: "ID", name: "id" },
-      { label: "Username", name: "user_id" },
-      { label: "Product name", name: "product_id" },
+      { label: "Name", name: "name" },
+      { label: "Email", name: "email" },
+      { label: "Message", name: "message" },
       { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
     ];
@@ -145,10 +136,9 @@ export default {
       sortOrders[column.name] = -1;
     });
     return {
-      idPage: 'winners',
-      urlGetDataTable: '/winners',
-      urlDeleteRow: '/winner/destroy',
-
+      idPage: 'contact_us',
+      urlGetDataTable: '/contact-us',
+      urlDeleteRow: '/contact-us/destroy',
       columns: columns,
       sortOrders: sortOrders,
       tableData: {
@@ -156,20 +146,19 @@ export default {
         length: 10,
         search: "",
         column: 0,
-        display: "",
-        trashed: 1,
         from_date: "",
         to_date: "",
         filter: {
           columns: [
             "index",
             "id",
-            "user_id",
-            "product_id",
+            "name",
+            "email",
+            "message",
             "created_at",
             "actions"
           ],
-          columnsExcept: ['show_plus', 'index', 'user_id', 'product_id'],
+          columnsExcept: ['show_plus', 'index', 'message', 'actions'],
           viewTable: ["bordered", 'hover']
         },
         dir: ""
@@ -182,34 +171,24 @@ export default {
         // 1200: {
         //   show: ['name', 'phone', 'logo', 'count_rates', 'actions']
         // },
-        // 1000: {
-        //   show: ['name', 'logo', 'count_rates', 'actions']
-        // },
+        1000: {
+          show: ['name', 'email', 'message', 'actions']
+        },
         800: {
-          show: ['user_id', 'product_id', 'actions']
+          show: ['name', 'email', 'message']
         },
         600: {
-          show: ["user_id", "product_id"]
+          show: ['name', 'email']
         },
         400: {
-          show: ["user_id"]
+          show: ['name']
         }
-      },
-      pagination: {
-        lastPage: "",
-        currentPage: "",
-        total: "",
-        lastPageUrl: "",
-        nextPageUrl: "",
-        prevPageUrl: "",
-        from: "",
-        to: ""
       }
     };
   },
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            to.meta.title = vm.$t('sidebar.winners')
+            to.meta.title = vm.$t('sidebar.contact_us')
             vm.setLocaleMessages()
             vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
             vm.sortBy(vm.sortKey);
@@ -222,3 +201,6 @@ export default {
     },
 };
 </script>
+<style scoped lang="scss">
+
+</style>

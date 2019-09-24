@@ -9,11 +9,11 @@
                 <div class="form-group">
                     <label> {{ $t('settings_table.slug') }} <span class="field-required"></span></label>
                     <input
-                    v-model="form.slug"
-                    type="text"
-                    :placeholder="$t('settings_table.slug')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('slug') }"
+                        v-model="form.slug"
+                        type="text"
+                        class="form-control"
+                        :placeholder="$t('settings_table.slug')"
+                        :class="{ 'is-invalid': form.errors.has('slug') }"
                     >
                     <has-error :form="form" field="slug"></has-error>
                 </div>
@@ -23,11 +23,12 @@
                 <div class="form-group">
                     <label> {{ $t('settings_table.name') }} <span class="field-required"></span></label>
                     <input
-                    v-model="form.name"
-                    type="text"
-                    :placeholder="$t('settings_table.name')"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }"
+                        v-model="form.name"
+                        type="text"
+                        class="form-control"
+                        :placeholder="$t('settings_table.name')"
+                        :disabled="typeForm === 'edit'"
+                        :class="{ 'is-invalid': form.errors.has('name') }"
                     >
                     <has-error :form="form" field="name"></has-error>
                 </div>
@@ -39,6 +40,7 @@
                     <select
                         v-model="form.type"
                         class="custom-select"
+                        :disabled="typeForm === 'edit'"
                         :class="{ 'is-invalid': form.errors.has('type') }"
                     >
                         <option value="string"> {{ $t('settings_table.setting_types.string') }} </option>
@@ -57,8 +59,8 @@
                         <input
                             v-model="form.value"
                             type="text"
-                            :placeholder="$t('settings_table.value')"
                             class="form-control"
+                            :placeholder="$t('settings_table.value')"
                             :class="{ 'is-invalid': form.errors.has('value') }"
                         >
                         <has-error :form="form" field="value"></has-error>
@@ -68,8 +70,8 @@
                         <textarea
                             v-model="form.value"
                             type="text"
-                            :placeholder="$t('settings_table.value')"
                             class="form-control textarea-form"
+                            :placeholder="$t('settings_table.value')"
                             :class="{ 'is-invalid': form.errors.has('value') }"
                         ></textarea>
                         <has-error :form="form" field="value"></has-error>

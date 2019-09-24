@@ -148,13 +148,15 @@ export default {
         column: 0,
         filter: {
           columns: [
+            "index",
             "id",
-            "user_id",
-            "product_id",
+            "slug",
+            "name",
+            "value",
             "created_at",
             "actions"
           ],
-          columnsExcept: ['show_plus', 'index', 'created_at'],
+          columnsExcept: ['show_plus', 'index', 'user_id', 'value', 'actions'],
           viewTable: ["bordered", 'hover']
         },
         dir: ""

@@ -32,11 +32,7 @@
 
                                 <!-- card-footer -->
                                 <div class="card-footer">
-                                    <button
-                                        type="submit"
-                                        :disabled="form.busy"
-                                        class="btn btn-primary float-right"
-                                    >{{ $t('global.create') }}</button>
+                                    <btn-create :form="form"></btn-create>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -52,6 +48,7 @@
 
 <script>
 import FormProduct from './FormProduct'
+import BtnCreate from './../../components/form/BtnCreate'
 import HeaderPage from './../../components/HeaderPage'
 import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
 
@@ -60,7 +57,8 @@ export default {
     name: 'create-product',
     components: {
         FormProduct,
-        HeaderPage
+        HeaderPage,
+        BtnCreate
     },
     data() {
       return {

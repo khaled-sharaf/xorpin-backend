@@ -39,11 +39,7 @@
 
                                 <!-- card-footer -->
                                 <div class="card-footer">
-                                    <button
-                                        type="submit"
-                                        :disabled="form.busy"
-                                        class="btn btn-success float-right"
-                                    >{{ $t('global.update') }}</button>
+                                    <btn-update :form="form"></btn-update>
                                 </div> <!-- ./card-footer -->
 
                             </form><!-- form -->
@@ -59,6 +55,7 @@
 
 <script>
 import FormComment from './FormComment'
+import BtnUpdate from './../../components/form/BtnUpdate'
 import HeaderPage from './../../components/HeaderPage'
 
 import MixinChangeLocaleMessages from "./../../mixins/MixinChangeLocaleMessages"
@@ -67,7 +64,8 @@ export default {
     mixins: [MixinChangeLocaleMessages],
     components: {
         HeaderPage,
-        FormComment
+        FormComment,
+        BtnUpdate
     },
     data() {
       return {

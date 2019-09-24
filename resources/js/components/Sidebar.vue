@@ -206,6 +206,28 @@
                     </li>
 
 
+
+                    <!-- =============================== contact us ================================== -->
+                    <li class="nav-item has-treeview" v-if="$gate.isAdmin()">
+                        <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>
+                            {{ $t('sidebar.contact_us') }}
+                            <i class="fas right" :class="$i18n.locale == 'ar' ? 'fa-angle-right' : 'fa-angle-left'"></i>
+                        </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link :to="{name: 'contact-us'}" class="nav-link">
+                                    <i class="far fa-eye nav-icon"></i>
+                                    <p> {{ $t('global.show') + ' ' + $t('sidebar.all_contact_us') }} </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                     <!-- =============================== settings ================================== -->
                     <li class="nav-item has-treeview" v-if="$gate.isAdmin()">
                         <a href="#" class="nav-link">

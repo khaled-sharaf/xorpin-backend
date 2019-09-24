@@ -16,6 +16,7 @@
         "no_comments": "لا يوجد تعليقات",
         "no_winners": "لا يوجد فائزين",
         "no_product_details": "لا يوجد تفاصيل للمنتج",
+        "no_location": "لا توجد خريطة",
 
         "profile": "بروفايل",
         "the_profile": "البروفايل",
@@ -112,7 +113,10 @@
         "settings": "الإعدادات",
         "all_settings": "جميع الإعدادات",
         "new_setting": "إعداد جديد",
-        "edit_setting": "تعديل إعداد"
+        "edit_setting": "تعديل إعداد",
+
+        "contact_us": "اتصل بنا",
+        "all_contact_us": "جميع الرسائل"
     },
 
 
@@ -475,5 +479,20 @@
             "success_msg": "تم تحديث صور الصفحة الرئيسية.",
             "failed_msg": "لم يتم تحديث صور الصفحة الرئيسية."
         }
+    },
+
+
+
+    "contact_us_table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "email": "البريد الإلكترونى",
+        "message": "الرسالة",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
+
+        "delete_msg": "هل أنت متأكد من حذف هذه الرسالة ؟",
+        "delete_success_msg": "تم حذف الرسالة.",
+        "delete_failed_msg": "لم يتم حذف الرسالة."
     }
 }

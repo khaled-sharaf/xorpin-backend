@@ -210,7 +210,7 @@
                                 <li class="nav-item"><a @click="showWinnerTable = true" class="nav-link" href="#winners" data-toggle="tab">{{ $t('sidebar.winners') }}</a></li>
 
                             </ul>
-                            <button class="btn btn-outline-secondary maximize-table" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
+                            <button class="btn btn-outline-secondary maximize-table d-none d-xl-block" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">

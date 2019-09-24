@@ -18,7 +18,14 @@ export default {
                             ToastReq.fire({
                                 text: this.delete_success_msg
                             });
-                            this.getData();
+                            const routeName = this.$route.name.split('-')
+                            if (routeName.length > 1 && routeName[1] === 'profile') {
+                                setTimeout(() => {
+                                    this.$router.push({name: this.idPage})
+                                }, 1500)
+                            } else {
+                                this.getData();
+                            }
                         }
                     })
                     .catch(error => {

@@ -46,6 +46,9 @@ import Comments from './views/comments/Index'
 import EditComment from './views/comments/EditComment'
 
 
+// contact us components
+import ContactUs from './views/contact-us/Index'
+
 // settings components
 import Settings from './views/settings/Index'
 import CreateSetting from './views/settings/CreateSetting'
@@ -230,6 +233,16 @@ const vueRouter = new Router({
                     name: 'edit-comment',
                     component: EditComment,
                     props: true
+                },
+
+
+
+
+                ////////////////// ContactUs routes ///////////////////
+                {
+                    path: 'contact-us',
+                    name: 'contact-us',
+                    component: ContactUs
                 },
 
 

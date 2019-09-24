@@ -77,7 +77,7 @@
                     :data-lat="company.latitude"
                     :data-location-title="company.name"
                 >Show map</button>
-                <span v-else>No location</span>
+                <span v-else>{{ $t('global.no_location') }}</span>
             </td>
 
 

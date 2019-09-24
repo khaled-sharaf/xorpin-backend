@@ -297,10 +297,10 @@ export default {
         next(vm => {
             if (vm.$route.name == 'products') {
                 to.meta.title = vm.$t('sidebar.products')
-                vm.setLocaleMessages()
-                vm.getProductsTypes()
                 vm.sortOrders[vm.sortKey] = 1; // 1 = desc , -1 = asc
                 vm.sortBy(vm.sortKey);
+                vm.setLocaleMessages()
+                vm.getProductsTypes()
                 vm.eventBtnsClick();
                 vm.viewFilterColumns();
                 window.onresize = () => {
@@ -314,10 +314,10 @@ export default {
             this.addCompanyIdToRequest() // add company id to table data for get users of company by company id for to use in company profile
         }
         if (this.$route.name != 'products') {
-            this.setLocaleMessages()
-            this.getProductsTypes()
             this.sortOrders[this.sortKey] = 1; // 1 = desc , -1 = asc
             this.sortBy(this.sortKey);
+            this.setLocaleMessages()
+            this.getProductsTypes()
             this.eventBtnsClick();
             this.viewFilterColumns();
             window.onresize = () => {

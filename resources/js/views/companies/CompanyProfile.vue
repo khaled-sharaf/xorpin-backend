@@ -125,6 +125,7 @@
                                     :data-lat="companyProfile.latitude"
                                     :data-location-title="companyProfile.name"
                                 > {{ $t('companies_table.show_map') }} </button>
+                                <span v-else>{{ $t('global.no_location') }}</span>
                             </p>
 
                             <hr>
@@ -188,7 +189,7 @@
                                 <li class="nav-item"><a @click="showUserTable = true" class="nav-link" :class="{active: $gate.isAdminCompany()}" href="#users" data-toggle="tab"> {{ $t('sidebar.users') }} </a></li>
 
                             </ul>
-                            <button class="btn btn-outline-secondary maximize-table" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
+                            <button class="btn btn-outline-secondary maximize-table d-none d-xl-block" @click="maximizeTable = !maximizeTable"><i class="fas" :class="maximizeTable == true ? 'fa-compress-arrows-alt' : 'fa-compress'"></i></button>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
