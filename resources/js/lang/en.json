@@ -486,6 +486,7 @@
         "id": "ID",
         "name": "Name",
         "email": "Email",
+        "phone": "Phone",
         "message": "Message",
         "created_at": "Created at",
         "actions": "Actions",

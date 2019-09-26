@@ -13,6 +13,11 @@
 <br>
 <br>
 
+<b>Phone:</b>
+{{ $data['phone'] }}
+<br>
+<br>
+
 <b>Message:</b>
 {{ $data['message'] }}
 <br>

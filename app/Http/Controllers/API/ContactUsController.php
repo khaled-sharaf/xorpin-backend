@@ -11,12 +11,14 @@ use App\Mail\ContactUs as ContactUsMail;
 class ContactUsController extends Controller
 {
 
+    private $patternPhone = "/^\+?\d{10,14}$/";
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|between:2,180',
             'email' => 'required|email',
+            'phone' => 'nullable|regex:' . $this->patternPhone,
             'message' => 'required|string|max:5000'
         ]);
         ContactUs::create($request->all());

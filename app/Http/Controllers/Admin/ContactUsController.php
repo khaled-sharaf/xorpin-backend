@@ -10,7 +10,7 @@ class ContactUsController extends Controller
 {
     public function index(Request $request)
     {
-        $columns = ['id', 'name', 'email', 'message', 'created_at'];
+        $columns = ['id', 'name', 'email', 'phone', 'message', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); // Index
         $dir = $request->input('dir');
@@ -29,7 +29,8 @@ class ContactUsController extends Controller
         if ($searchValue) {
             $query->where(function($query) use ($searchValue) {
                 $query->where('name', 'like', '%' . $searchValue . '%')
-                ->orWhere('email', 'like', '%' . $searchValue . '%');
+                ->orWhere('email', 'like', '%' . $searchValue . '%')
+                ->orWhere('phone', 'like', '%' . $searchValue . '%');
             });
         }
         $settings = $query->paginate($length);

@@ -21,7 +21,7 @@ class ProductController extends Controller
                                     'products' => Product::withoutGlobalScope(RelationProducts::class)
                                                         ->activeAndDisplay()
                                                         ->withCount('rates as rate_user_count')
-                                                        ->with('company')
+                                                        ->with(['company', 'type'])
                                                         ->where('type_id', $category->id)
                                                         ->orderBy('id', 'desc')
                                                         ->take(8)->get()
@@ -42,7 +42,7 @@ class ProductController extends Controller
         $products = Product::withoutGlobalScope(RelationProducts::class)
                             ->activeAndDisplay()
                             ->withCount('rates as rate_user_count')
-                            ->with('company')
+                            ->with(['company', 'type'])
                             ->where('type_id', $category_id)
                             ->where(function ($q) use ($search_text) {
                                 $search_text_array_words = explode(' ', trim($search_text));
@@ -124,7 +124,7 @@ class ProductController extends Controller
     public function product_profile($id) {
         if ($id !== null)
         {
-            $product = Product::with(['comments', 'rates'])->activeAndDisplay()->find($id);
+            $product = Product::with(['comments', 'type', 'rates'])->activeAndDisplay()->find($id);
             if ($product != null) {
                 $product = convert_gallery_to_array($product);
                 $data = $product->toArray();

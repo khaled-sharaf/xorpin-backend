@@ -31,6 +31,10 @@
             <td v-show="tableData.filter.columns.indexOf('email') != -1" class="email">
                 {{contact.email}}
             </td>
+            
+            <td v-show="tableData.filter.columns.indexOf('phone') != -1" class="phone">
+                {{contact.phone}}
+            </td>
 
             <td v-show="tableData.filter.columns.indexOf('message') != -1" class="message">
                 {{contact.message}}

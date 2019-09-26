@@ -128,6 +128,7 @@ export default {
       { label: "ID", name: "id" },
       { label: "Name", name: "name" },
       { label: "Email", name: "email" },
+      { label: "Phone", name: "phone" },
       { label: "Message", name: "message" },
       { label: "Created at", name: "created_at" },
       { label: "Actions", name: "actions" }
@@ -154,6 +155,7 @@ export default {
             "id",
             "name",
             "email",
+            "phone",
             "message",
             "created_at",
             "actions"
@@ -166,11 +168,8 @@ export default {
       // viewFilterColumns
       viewColumnsResponsive: {
         default: {
-          show: "all",// or ['id', 'index']
+          show: "all"
         },
-        // 1200: {
-        //   show: ['name', 'phone', 'logo', 'count_rates', 'actions']
-        // },
         1000: {
           show: ['name', 'email', 'message', 'actions']
         },
